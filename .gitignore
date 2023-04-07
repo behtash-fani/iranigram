@@ -15,5 +15,3 @@ pip-lock.txt
 
 data/
 .idea/
-nginx/
-config/settings.py
