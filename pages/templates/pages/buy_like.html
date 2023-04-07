@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{{ block.super }} {% trans 'Buy Instagram Like' %} | {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row mb-5 mt-4">
+        <div class="col-md-4 text-center">
+            <img src="{% static 'image/likes.png' %}" class="img-fluid text-center" alt="">
+        </div>
+        <div class="col-md-8 mt-4">
+            <span><img src="{% static 'image/Group 33586.png' %}"></span>
+            <span class="fs-1 fw-bold kalameh-font" style="font-size:50px !important;">
+                خرید لایک اینستاگرام ارزان
+                <img src="{% static 'image/image 270.png' %}" class="img-fluid float-end" alt="">
+            </span>
+            <p class="col lh-lg fs-5 mt-4 text-warning">خرید لایک اینستاگرام ایرانی ارزان آنی و واقعی</p>
+            <p class="col lh-lg fs-5 mt-1">دیگر بر هیچکس پنهان نیست ارزش بازاریابی شبکه های اجتماعی و در صدر آن ها اینستاگرام که بیشترین مخاطب فارسی زبان را دارد و میلیون ها پست در آن لایک میگیرند روزانه. مطمئناً داشتن صفحه باکیفیت و مطالب با لایک اینستاگرام بالا برای شما اعتبار و فروش بیشتر یا حداقل جذب بیشتر به همراه خواهد داشت، بدیهی است که هر شخصی یک پیج محبوب را به پیج های در سطح پایین تر ترجیح داده و خرید لایک اینستاگرام می تواند تغییرات مهمی در روند کار شما ایجاد کند پس همراه ایرانی گرام باشید جهت مشاهده پکیج های ما در ادامه مطلب.</p>
+            <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-3">
+                شروع خرید لایک واقعی اینستاگرام
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-12">
+            <img src="{% static 'image/like_icon.png' %}" class="mb-3"><br>
+            <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
+            <p class="kalameh-font mt-2" style="font-size:40px !important">خرید لایک با کیفیت اینستاگرام</p>
+            <div class='row'>
+                <div class="col-md-6 col-12">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-transparent border-0 py-2">
+                            <img src="{% static 'icons/card-receive.svg' %}" alt="">
+                            ضمانت بازگشت وجه
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 py-2">
+                            <img src="{% static 'icons/Heart.svg' %}" alt="">
+                            بدون نیاز به لایک کردن دیگران
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 py-2">
+                            <img src="{% static 'icons/unlock.svg' %}" alt="">
+                            بدون نیاز به پسورد پیج
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-12">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-transparent border-0 py-2">
+                            <img src="{% static 'icons/timer-start.svg' %}" alt="">
+                            شروع آنی پس از ثبت سفارش
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 py-2">
+                            <img src="{% static 'icons/Speed.svg' %}" alt="">
+                            سرعت ارسال عالی
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="d-flex lh-md fs-5 mt-4 text-muted">با ورود به حساب کاربری خود در سایت ایرانی گرام، می‌توانید لایک‌های اینستاگرام با کیفیت و ویژگی‌های متنوع را در پنل اختصاصی به دست آورید. پس از خرید، لایک های شما به صورت خودکار به عکس مورد نظر شما اضافه می‌شوند و شما فقط کافیست صفحه خود را در حالت عمومی قرار دهید و به افزایش لایک و دیده شدن بیشتر پست خود نظارت کنید.</p>
+        </div>
+        <div class="col-lg-6 col-12 text-center mt-5">
+            <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid"><br>
+            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-2 rounded-4 py-4">
+                شروع خرید لایک واقعی اینستاگرام
+                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+            </a>
+        </div>
+    </div>
+    <p class="d-flex lh-lg fs-5 mt-4">امروزه یکی از شبکه های اجتماعی که در میان ایرانیان نیز محبوبیت زیادی دارد اینستاگرام است و یک راه مناسب برای کسب و کار و تبلیغات می باشد و اگر می خواهید برای تبلیغات کسب و کار خود از این شبکه مجازی محبوب استفاده کنید، کافیست یک صفحه برای خود در این برنامه ایجاد کنید و به تبلیغات کار خود بپردازید.<br><br>
+        در این برنامه مجازی چندین اصطلاح وجود دارد که بهتر است با آن ها آشنا شویم. یکی از این اصطلاح ها واژه پست است. پست هر عکس و فیلمی است که شما در اینستاگرام خود آپلود می کنید و در صفحه ی شما نمایش داده می شود و فالوور های شما می توانند آن ها را ببینند و اگر مورد پسند آن ها بود، پست شما را لایک می کنند. برای بسیاری از افراد تعداد لایک و فالوور هایشان مهم است و افرادی که می خواهند تعداد لایک های خود را بالا ببرند، می توانند از طریق خرید لایک اینستاگرام این کار را انجام دهند.<br><br></p>
+    <div class="row">
+        <a href="{% url 'accounts:new_order' %}"><img src="{% static 'image/Frame 7.png' %}" class="img-fluid"></a><br>
+    </div>
+    <div class="row my-5">
+        <p class="d-flex lh-lg fs-5 mt-4 text-warning">پاسخ به سوالات پر تکرار شما</p>
+        <p class="kalameh-font mt-2 align-middle" style="font-size:40px !important">
+            <i class="bi bi-info-square text-warning"></i> سوالات پر تکرار
+        </p>
+        <div class="accordion" id="accordionFlushExample">
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#QA01" aria-expanded="false" aria-controls="QA01">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold" style="border-left: 1px solid #DFE2E6;line-height:20px">01</span>
+                        <span class="px-2 fw-bold">آیا خرید لایک سبب بلاک شدن شما خواهد شد؟</span>
+                    </button>
+                </h2>
+                <div id="QA01" class="accordion-collapse collapse" aria-labelledby="QA01" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body lh-lg">خیر، خرید لایک امکان ندارد سبب بلاک شدن و یا حذف پیج شما شود، اما ما در ایرانی گرام با کیفیت ترین و پایدارترین نوع لایک نرم افزاری را برای مطالب خود دریافت خواهید کرد.</div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#QA02" aria-expanded="false" aria-controls="QA02">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold" style="border-left: 1px solid #DFE2E6;line-height:20px">02</span>
+                        <span class="px-2 fw-bold">آیا الگوریتم های اینستاگرام متوجه دریافت این محصولات توسط پیج می شود؟</span>
+                    </button>
+                </h2>
+                <div id="QA02" class="accordion-collapse collapse" aria-labelledby="QA02" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body lh-lg">اینستاگرام قطعا متوجه رشد پیج خواهد شد ولی این رشد برای اینستاگرام یک رشد کاملا طبیعی است و مورد مشکوکی از طرف اینستاگرام وجود ندارد به دلیل تجربه زیاد گروه ایرانی گرام در کار با الگوریتم های اینستاگرام از ابتدا تاکنون و آشنایی کامل ما هیچ جای نگرانی برای شما وجود ندارد.</div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#QA03" aria-expanded="false" aria-controls="QA03">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold" style="border-left: 1px solid #DFE2E6;line-height:20px">03</span>
+                        <span class="px-2 fw-bold">آیا برای پیج های خصوصی ( Private ) خدمات ارائه می شود؟</span>
+                    </button>
+                </h2>
+                <div id="QA03" class="accordion-collapse collapse" aria-labelledby="QA03" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body lh-lg">متاسفانه به دلایل امنیتی که بسیار برای ایرانی گرام مهم است، امکان این کار وجود ندارد.</div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#QA04" aria-expanded="false" aria-controls="QA04">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold" style="border-left: 1px solid #DFE2E6;line-height:20px">04</span>
+                        <span class="px-2 fw-bold">آیا امکان خرید لایک برای ویدیو و یا IGTV و ریل هم وجود دارد؟</span>
+                    </button>
+                </h2>
+                <div id="QA04" class="accordion-collapse collapse" aria-labelledby="QA04" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body lh-lg">بله، در ایرانی گرام قادر به سفارش انواع لایک برای پست های عادی، تصاویر اسلاید، ویدیو و یا حتی IGTV و ریل با بالاترین کیفیت فعلی بازار می باشید.</div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#QA05" aria-expanded="false" aria-controls="QA05">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold" style="border-left: 1px solid #DFE2E6;line-height:20px">05</span>
+                        <span class="px-2 fw-bold">چطور بهترین ارائه دهنده سرویس های اینستاگرام را انتخاب کنیم؟</span>
+                    </button>
+                </h2>
+                <div id="QA05" class="accordion-collapse collapse" aria-labelledby="QA05" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body lh-lg">بسیار ساده! ایرانی گرام را باز کنید، رَوان بودن سایت، کیفیت سایت و پنل کاملاً اختصاصی، سرعت انجام کار، کیفیت بالای محصولات و قدمت سایت را با رقبا مقایسه کنید. مطمئناً پاسخ درست را دریافت خواهید کرد.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <p class="kalameh-font mt-2" style="font-size:40px !important">تعریف فالوور اینستاگرام به زبان ساده</p>
+        <p class="d-flex lh-lg fs-6 mt-4">خرید لایک اینستاگرام برای بسیاری از افراد وسوسه انگیز است و این کار می تواند محبوبیت آن ها را در این شبکه اجتماعی بالا ببرد. یک اصطلاح دیگر که در اینستاگرام به کار برده می شود، واژه فالو می باشد. این کلمه به معنی دنبال کردن است و شما می توانید افراد دلخواهی که فعالیت هایشان برای شما مهم است را دنبال کنید که در این صورت تمامی پست ها و استوری های این شخص و یا پست هایی که توسط این شخص لایک شده است را نیز می توانید ببینید. <br><br>
+            یک اصطلاح دیگر در اینستاگرام، فالوور است که به معنی دنبال کننده است. افرادی که شما را فالو کرده اند در صفحه شما به عنوان دنبال کننده نشان داده می شوند. اگر می خواهید تعداد فالوور های پیج شما برای دیگران بیشتر از تعداد واقعی نشان داده شود می توانید مانند خرید لایک ، خرید فالوور اینستاگرام را نیز انتخاب کنید. اگر فعالیت شما در اینستاگرام یک فعالیت تجاری است در این صورت تعداد فالوور های شما مهم است چون به میزان فالوور های شما تبلیغات شما نیز بیشتر می شود. بهترین استراتژی برای افزایش فالوور، خرید فالوور اینستاگرام است چون زمانی که تعداد فالور های شما زیاد باشند مردم نیز ترغیب می شوند تا شما را فالو کنند. ولی اگر تعداد لایک برای شما مهم تر از تعداد فالوور هایتان است، خرید لایک اینستاگرام را انتخاب کنید.<br><br>
+            لایو یکی دیگر از اصطلاحات اینستاگرام است که به معنی پخش زنده است و شما می توانید در اینستاگرام خود به صورت زنده فیلم بگیرید و فالوور های شما قادر به دیدن آن هستند. یکی دیگر از اصطلاحات به کار رفته در صفحه اینستاگرام، لایک است که به معنی علاقه داشتن و پسند کردن است که تعداد آن در زیر پست شما دیده می شود که اگر می خواهید این تعداد برای فالوور های شما زیاد نشان داده شود، از خرید لایک اینستاگرام کمک بگیرید.<br><br>
+            همچنین تعداد بازدیدکنندگان یک پست در پیچ شما به افزایش اعتبار شما در فضای مجازی کمک می کند و ارزش پست و پیج شما را نیز بالا می برد و شما می توانید با خرید بازدید اینستاگرام این کار را هم مانند خرید لایک اینستاگرام انجام دهید. صفحه مجازی به این صورت است که مردم از روی تعداد لایک و بازدید و فالوور ارزش یک صفحه را می سنجند و تصمیم می گیرند که آن پیج را فالو کنند یا نه. در واقع اعتماد مردم به یک صفحه شخصی در اینستاگرام از روی فالوور و تعداد لایک می باشد پس به این مورد باید اهمیت زیادی قائل بود. با افزایش تعداد فالوور، تعداد مشارکت یک پست هم بیشتر می شود و این کار برای تبلیغ پست های تجاری بسیار مهم است و بیشتر افرادی که صفحه تجاری دارند با خرید فالوور، خرید بازدید اینستاگرام و همچنین خرید لایک اینستاگرام این کار را انجام می دهند.<br><br>
+            به طور کلی در این مقاله گفته شد که یکی از بهترین راه های تبلیغات برای کسب و کار، داشتن صفحه ای در اینستاگرام است. برای بازدهی بیشتر، بهتر است که پیج خود را ارتقا دهید که این کار از راه های خرید لایک اینستاگرام و خرید فالوور امکان پذیر است و می توانید پیجی جذاب داشته باشید تا فالوور های زیادی را جذب کنید.<br><br>
+        </p>
+    </div>
+    <div class="row my-5">
+        <div class="col-lg-6 col-12 text-center">
+            <img src="{% static 'image/support.png' %}" class="img-fluid"><br>
+        </div>
+        <div class="col-lg-6 col-12">
+            <p class="kalameh-font mt-2" style="font-size:40px !important">سوالی دارید؟</p>
+            <p class="kalameh-font text-warning">پشتیبانی ما در خدمت شما هستند </p>
+            <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
+            <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
+                ارتباط با پشتیبانی
+                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+            </a>
+        </div>
+    </div>
+</div>
+{% include "inc/footer.html" %}
+{% endblock %}

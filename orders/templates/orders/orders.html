@@ -1,0 +1,74 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load jalali_tags %}
+{% block title %}{{ block.super }} {% trans 'Orders' %} | {% endblock %}
+{% block panelcontent %}
+    <p class="fw-semibold fs-3">{% trans "Orders Report" %}</p>
+    <small class="custom-black fw-bolder fs-5">
+        <img src="{% static 'icons/Info.svg' %}" alt="">
+        {% trans 'Hints' %}:
+    </small><br>
+    <small class="text-black-50 fs-6 fw-bolder">
+        <img src="{% static 'icons/Accept.svg' %}" alt="">
+        {% trans 'You can copy them by clicking on each order code and the buttons next to each link' %}
+    </small><br>
+    <hr>
+    {% if Orders %}
+        <div class="table-responsive">
+            <table class="table caption-top table-hover">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">{% trans "Order Code" %}</th>
+                    <th scope="col" class="text-center">{% trans "Quantity" %}</th>
+                    <th scope="col" class="text-center">{% trans "Price" %}</th>
+                    <th scope="col" class="text-center">{% trans "Link" %}</th>
+                    <th scope="col" class="text-center">{% trans "Status" %}</th>
+                    <th scope="col" class="text-center">{% trans "Remains" %}</th>
+                    <th scope="col" class="text-center">{% trans "Created At" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in Orders %}
+                    <tr>
+                        <th class="text-center align-middle">{{ page_obj.start_index|add:forloop.counter0 }}</th>
+                        <td class="text-center align-middle">
+                            <button class="btn btn-light rounded-4 copy-text mt-1 mt-lg-0"
+                                    value="{{ order.order_code }}">
+                                    <img src="{% static 'icons/Copy.svg' %}" alt=""> <span class="copy-btn-text">{{ order.order_code }}</span>
+                            </button>
+                        </td>
+                        <td class="text-center align-middle">{{ order.quantity }} {% trans "Number" %}</td>
+                        <td class="text-center align-middle">{{ order.amount }} {% trans "Toman" %}</td>
+                        <td class="text-center align-middle">
+                            <button class="btn btn-light rounded-4 copy-text mt-1 mt-lg-0 rounded-4" value="{{ order.link }}">
+                                <img src="{% static 'icons/Copy.svg' %}" alt="">
+                            </button>
+                            <a href="{{ order.link }}" target="_blank" class="btn btn-light rounded-4">
+                                <img src="{% static 'icons/link.svg' %}" alt="">
+                            </a>
+                        </td>
+                        <td class="text-center align-middle">{% trans order.status %}</td>
+                        {% if order.remains >= 0 %}
+                            <td class="text-center align-middle">{{ order.remains }}</td>
+                        {% else %}
+                            <td class="text-center align-middle">--</td>
+                        {% endif %}
+                        <td class="text-center align-middle">{{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    {% else %}
+        <div class="alert alert-light" role="alert">
+            {% trans "No orders have been submitted yet" %}
+        </div>
+    {% endif %}
+    
+{% endblock %}
+    
+{% block script %}
+{% endblock script %}

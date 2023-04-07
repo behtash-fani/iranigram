@@ -1,0 +1,180 @@
+/*!* #ffc107 *!*/
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/woff2/Vazirmatn-RD-FD-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Kalameh;
+    src: url('../fonts/woff2/kalameh.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: Vazirmatn, serif;
+    /*    background: #eeeeeebf;*/
+    background: #FFF;
+}
+
+
+.kalameh-font {
+    font-family: Kalameh !important;
+}
+
+.form-control:disabled {
+    background-color: #f7f7f7 !important;
+}
+
+ul.messages li {
+    list-style: none;
+}
+
+ul.messages {
+    padding: 0;
+}
+
+ul.errorlist {
+    --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+    --bs-alert-border-radius: 0.375rem;
+    padding: 5px;
+    margin-top: 3px;
+    margin-bottom: var(--bs-alert-margin-bottom);
+    color: var(--bs-alert-color);
+    background-color: var(--bs-alert-bg);
+    border: var(--bs-alert-border);
+    border-radius: var(--bs-alert-border-radius);
+    --bs-alert-color: var(--bs-danger-text);
+    --bs-alert-bg: #f8d7da;
+    --bs-alert-border-color: var(--bs-danger-border-subtle);
+}
+
+.errorlist li {
+    list-style: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #000 !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: var(--bs-accordion-btn-icon) !important;
+}
+
+.accordion-button:focus {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+.accordion-body {
+    border-bottom: none !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--bs-warning-border-subtle) !important;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem var(--bs-warning-border-subtle) !important;;
+}
+
+::selection {
+    background-color: var(--bs-warning-border-subtle) !important;
+}
+
+::-moz-selection {
+    background-color: var(--bs-warning-border-subtle) !important;
+}
+
+.custom-black{
+    color:#222628
+}
+
+.page-link:hover{
+    color:#222628 !important;
+}

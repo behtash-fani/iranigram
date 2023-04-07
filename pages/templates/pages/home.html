@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{{ block.super }} {% trans 'Home' %} | {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-5 mt-4">
+            <div class="col-lg-4 col-12 text-center">
+                <img src="{% static 'image/top_banner.png' %}" class="img-fluid mt-4" alt="" width="500px">
+            </div>
+            <div class="col-lg-8 col-12 mt-4">
+            <span class="fs-1 fw-bold kalameh-font px-2 px-lg-0" style="font-size:50px !important">
+                <span class="text-warning">ایرانی گرام</span> همراه شما در سال جدید
+            </span>
+                <p class="d-flex lh-lg fs-5 mt-4 px-2 px-lg-0">در این سال جدید، ما با افتخار خدمات خرید فالوور اینستاگرام و خرید لایک
+                    اینستاگرام را مانند گذشته به شما عزیزان ارائه می‌دهیم. با این خدمات می‌توانید به سرعت تعداد فالوور و
+                    لایک پست‌های خود را افزایش دهید و به راحتی به موفقیت در فضای مجازی دست یابید.<br><br>
+                    ایرانی گرام یکی از معتبرترین سرویس دهنده های ارائه فالوور اینستاگرام، لایک اینستاگرام، بازدید پست و
+                    بازدید استوری میباشد که در طول سالیان توانسته است نظرات مشتریان خود را جلب کند و به صورت کاملا واقعی
+                    ارائه دهنده این سرویس باشد.</p>
+                <div class="row mt-4">
+                    <div>
+                        <a href="{% url 'accounts:new_order' %}" class="btn btn-warning rounded-4 col-lg-3 col-12 mt-lg-0 py-4">ورود به پنل کاربری
+                            <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                        </a>
+                        <a href="{% url 'accounts:new_order' %}" class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4">
+                            خرید فالوور اینستاگرام
+                            <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+                        </a>
+                        <a href="{% url 'accounts:new_order' %}" class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4">
+                            خرید لایک اینستاگرام
+                            <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5 rounded-4 bg-black text-white p-4 mx-1 mx-lg-0">
+            <div class="col-lg-3 col-12 kalameh-font">
+                <p class="fs-1 fw-normal">ویژگی های</p>
+                <p style="font-size:50px !important">ایرانی گرام</p>
+            </div>
+            <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+                <p><img src="{% static 'icons/medal-star.svg' %}" alt=""></p>
+                
+                <span class="kalameh-font fs-5">بالاترین کیفیت خدمات</span><br>
+                <small class="mt-3">بالاترین و با کیفیت ترین خدمات را از ایرانی گرام بخواهید</small>
+            </div>
+            <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+                <p><img src="{% static 'icons/star.svg' %}" alt=""></p>
+                <span class="kalameh-font fs-5">سرعت بالا</span><br>
+                <small class="mt-3">در سرعت و دقت ایرانی گرام همیشه در اولویت شما خواهد بود</small>
+            </div>
+            <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+                <p><img src="{% static 'icons/receipt-search.svg' %}" alt=""></p>
+                <span class="kalameh-font fs-5">مناسبت ترین تعرفه ها</span><br>
+                <small class="mt-3">تعرفه های مناسب در کنار کیفیت فقط در ایرانی گرام معنی پیدا میکند</small>
+            </div>
+            <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+                <p><img src="{% static 'icons/like-tag.svg' %}" alt=""></p>
+                <span class="kalameh-font fs-5">پشتیبانی</span><br>
+                <small class="mt-3">پشتیبانی ایرانی گرام همیشه در کنار شما خواهد بود و حامی شماست</small>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-6 col-12 mt-4">
+                <span class="kalameh-font px-2 px-lg-0" style="font-size:60px !important">شروع کار ایرانی گرام چگونه است</span>
+                <p class="d-flex lh-md fs-5 mt-4 text-muted px-2 px-lg-0">کار با سیستم ایرانی گرام بسیار ساده است، برای شروع می
+                    توانید از بالای سایت گزینه حساب کاربری را انتخاب کنید و با ورود به پنل اختصاصی ، یکی از خدمات از
+                    قبیل خرید فالوور اینستاگرام یا بازدید ویدیو و استوری و حتی لایک اینستاگرام را انتخاب نمایید و تعداد
+                    مدنظرتان را دریافت نمایید
+                    همچنین در این پنل اختصاصی امکانات بسیار کاربردی از قبیل خرید تمامی سرویس های ایرانی گرام با قابلیت
+                    شارژ و داشتن موجودی و خریدهای گروهی و امکانات دیگری مانند مشاهده تمامی لیست سفارشاتتان و تراکنش هایی
+                    که انجام داده اید قرار داده شده که میتوانید استفاده کنید.</p>
+                <a href="{% url 'accounts:user_register' %}" class="btn btn-warning btn-lg rounded-4 py-3">ثبت نام در سایت
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6 col-12 text-center">
+                <img src="{% static 'image/instagram-banner.png' %}" class="img-fluid" alt="" width="500px">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-6 col-12 text-center mt-5">
+                <img src="{% static 'image/followers.png' %}" class="img-fluid" alt="" width="300px"><br>
+                <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-4 rounded-4 py-4">
+                    شروع خرید فالوور با کیفیت اینستاگرام
+                    <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6 col-12">
+                <img src="{% static 'image/flw_icon.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0"><br>
+                <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
+                <p class="kalameh-font mt-2" style="font-size:40px !important">خرید فالوور با کیفیت اینستاگرام</p>
+                <div class='row'>
+                    <div class="col-md-6 col-12">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/card-receive.svg' %}" alt="">
+                                ضمانت بازگشت وجه
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/people.svg' %}" alt="">
+                                بدون نیاز به فالوور کردن دیگران
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                
+                                <img src="{% static 'icons/unlock.svg' %}" alt="">
+                                بدون نیاز به پسورد پیج
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/timer-start.svg' %}" alt="">
+                                شروع آنی پس از ثبت سفارش
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/trend-down.svg' %}" alt="">
+                                دارای ریزش طبیعی
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="d-flex lh-md fs-5 mt-4 text-muted px-2 px-lg-0">شما می توانید فالوور اینستاگرام را در انواع کیفیت و ویژگی
+                    ها در پنل اختصاصی سایت ایرانی گرام با ورود به حساب کاربری خود دریافت کنید . پس از خریدتان فالوورها
+                    به صورت خودکار به پیج شما اضافه می شوند و از طرف شما فقط نیاز هست که صفحه خود را در حالت عمومی قرار
+                    دهید و نظارگر افزایش فالوور و پیشرفت صفحه اینستاگرام خود باشید </p>
+            </div>
+
+        </div>
+        <div class="row my-5">
+            <div class="col">
+                <img src="{% static 'image/like_icon.png' %}" class="mb-3 img-fluid" alt=""><br>
+                <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
+                <p class="kalameh-font mt-2" style="font-size:40px !important">خرید لایک با کیفیت اینستاگرام</p>
+                <div class='row'>
+                    <div class="col-md-6 col-12">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/card-receive.svg' %}" alt="">
+                                ضمانت بازگشت وجه
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/Heart.svg' %}" alt="">
+                                بدون نیاز به لایک کردن دیگران
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/unlock.svg' %}" alt="">
+                                بدون نیاز به پسورد پیج
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/timer-start.svg' %}" alt="">
+                                شروع آنی پس از ثبت سفارش
+                            </li>
+                            <li class="list-group-item bg-transparent border-0 py-2">
+                                <img src="{% static 'icons/Speed.svg' %}" alt="">
+                                سرعت ارسال عالی
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="d-flex lh-md fs-5 mt-4 text-muted px-2 px-lg-0">با ورود به حساب کاربری خود در سایت ایرانی گرام، می‌توانید
+                    لایک‌های اینستاگرام با کیفیت و ویژگی‌های متنوع را در پنل اختصاصی به دست آورید. پس از خرید، لایک های
+                    شما به صورت خودکار به عکس مورد نظر شما اضافه می‌شوند و شما فقط کافیست صفحه خود را در حالت عمومی قرار
+                    دهید و به افزایش لایک و دیده شدن بیشتر پست خود نظارت کنید.</p>
+            </div>
+            <div class="col-lg-6 col-12 text-center mt-5">
+                <img src="{% static 'image/likes.png' %}" class="img-fluid" alt="" width="300px"><br>
+                <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-4 rounded-4 py-4">
+                    شروع خرید لایک واقعی اینستاگرام
+                    <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-lg-6 col-12 text-center">
+                <img src="{% static 'image/other_product.png' %}" class="img-fluid" width="400px"><br>
+            </div>
+            <div class="col-lg-6 col-12">
+                <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
+                <p class="kalameh-font mt-2" style="font-size:40px !important">و محصولات دیگر ...</p>
+                <p class="d-flex lh-md fs-5 mt-2 text-muted px-2 px-lg-0">با ورود به حساب کاربری خود در سایت ایرانی گرام، میتوانید در
+                    پنل اختصاصی که برای شما تهیه شده تمام محصولاتی که مرتبط با پلتفرم اینستاگرام هست را مشاهده کنید و
+                    تهیه بفرمایید. محصولاتی مانند بازدید پست اینستاگرام ، بازدید استوری اینستاگرام و بازدید ریل
+                    اینستاگرام</p>
+                <a href="{% url 'accounts:user_dashboard' %}" class="btn btn-warning btn-lg rounded-4 py-4">
+                    ورود به پنل اختصاصی ایرانی گرام
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-lg-6 col-12">
+                <p class="kalameh-font mt-5" style="font-size:40px !important">سوالی دارید؟</p>
+                <p class="kalameh-font text-warning">پشتیبانی ما در خدمت شما هستند </p>
+                <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
+                <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
+                    ارتباط با پشتیبانی
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-6 col-12">
+                <img src="{% static 'image/support.png' %}" class="img-fluid" width="450px"><br>
+            </div>
+        </div>
+    </div>
+    {% include "inc/footer.html" %}
+{% endblock %}

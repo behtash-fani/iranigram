@@ -1,0 +1,331 @@
+from .forms import (
+    VerifyCodeForm,
+    LoginWithPasswordForm,
+    LoginWithOTPForm,
+    EditProfileForm,
+    AddCreditForm,
+    UserRegisterWithOTPForm,
+    ChangePasswordForm,
+)
+from django.views import View
+from .models import OTPCode, User
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
+from orders.models import Order
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, logout, login
+from support.models import Ticket
+from utils.mixins import LoginRequiredMixin
+from utils.generate_random_number import generate_random_number
+from utils.is_block_user import is_block_user
+from datetime import datetime, timedelta
+from django.utils import timezone
+
+
+class UserDashboardView(LoginRequiredMixin, View):
+    template_name = "accounts/dashboard.html"
+
+    def get(self, request):
+        user = request.user
+        if is_block_user(user.phone_number):
+            messages.error(
+                request,
+                _(
+                    "Your account has been blocked. To follow up on this issue, please contact support"
+                ),
+                "danger",
+            )
+            logout(request)
+            return redirect("accounts:user_login_otp")
+        orders_count = Order.objects.filter(user=user).count()
+        ticket_count = Ticket.objects.filter(user=user).count()
+        context = {"orders_count": orders_count, "ticket_count": ticket_count}
+        return render(request, self.template_name, context)
+
+
+class UserRegisterWithOTPView(View):
+    form_class = UserRegisterWithOTPForm
+    template_name = "accounts/registration/register.html"
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("pages:home")
+        register_form = self.form_class
+        context = {"register_form": register_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        register_form = self.form_class(request.POST)
+        if register_form.is_valid():
+            cd = register_form.cleaned_data
+            verification_code = generate_random_number(4, is_unique=False)
+            phone_number = cd["phone_number"]
+            # send_register_sms_task.delay(phone_number, verification_code)
+            if OTPCode.objects.filter(phone_number=phone_number).exists():
+                OTPCode.objects.filter(phone_number=phone_number).delete()
+            OTPCode.objects.create(phone_number=phone_number, code=verification_code)
+            request.session["phone_number"] = cd["phone_number"]
+            messages.success(request, _("A one-time password has been sent"), "success")
+            return redirect("accounts:user_register_verify")
+        else:
+            context = {"register_form": register_form}
+            return render(request, self.template_name, context)
+
+
+class UserRegisterVerifyCodeView(View):
+    form_class = VerifyCodeForm
+    template_name = "accounts/registration/verify.html"
+
+    def get(self, request):
+        verify_form = self.form_class
+        context = {"verify_form": verify_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        phone_number = self.request.session["phone_number"]
+        verify_form = self.form_class(request.POST, request=self.request)
+        if verify_form.is_valid():
+            user = User.objects.create_user(phone_number)
+            # send_register_success_sms_task.delay(phone_number)
+            login(request, user)
+            messages.success(
+                request,
+                _("Your registration was successful. Welcome to the iranigram family"),
+                "success",
+            )
+            return redirect("accounts:new_order")
+        else:
+            context = {"verify_form": verify_form}
+            return render(request, self.template_name, context)
+
+
+class UserLoginWithPassView(View):
+    form_class = LoginWithPasswordForm
+    template_name = "accounts/registration/login_with_pass.html"
+
+    def get(self, request):
+        login_form = self.form_class
+        context = {"login_form": login_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        login_form = self.form_class(request.POST)
+        if login_form.is_valid():
+            cd = login_form.cleaned_data
+            user = authenticate(
+                username=cd["phone_number"],
+                password=cd["password"],
+            )
+            if user is not None:
+                login(request, user)
+                messages.success(
+                    request,
+                    _("You have successfully logged into your account"),
+                    "success",
+                )
+                return redirect("accounts:user_dashboard")
+        else:
+            context = {"login_form": login_form}
+            return render(request, self.template_name, context)
+
+
+class UserLoginWithOTPView(View):
+    form_class = LoginWithOTPForm
+    template_name = "accounts/registration/login_with_otp.html"
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("pages:home")
+        otp_login_form = self.form_class
+        context = {"otp_login_form": otp_login_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        otp_login_form = self.form_class(request.POST)
+        if otp_login_form.is_valid():
+            cd = otp_login_form.cleaned_data
+            verification_code = generate_random_number(4, is_unique=False)
+            phone_number = cd["phone_number"]
+            # send_verification_sms_task.delay(phone_number, verification_code)
+            if OTPCode.objects.filter(phone_number=phone_number).exists():
+                OTPCode.objects.filter(phone_number=phone_number).delete()
+            OTPCode.objects.create(
+                phone_number=phone_number,
+                code=verification_code,
+                expire_time=datetime.now() + timedelta(seconds=10),
+            )
+            request.session["phone_number"] = cd["phone_number"]
+            messages.success(request, _("A one-time password has been sent"), "success")
+            return redirect("accounts:user_login_verify")
+        else:
+            context = {"otp_login_form": otp_login_form}
+            return render(request, self.template_name, context)
+
+
+@csrf_exempt
+def check_expire_time(request):
+    if request.method == "POST":
+        phone_number = request.POST.get("phone_number")
+        otpcode = OTPCode.objects.filter(phone_number=phone_number)[0]
+        otp_expiry_time = otpcode.expire_time
+        if otp_expiry_time is not None:
+            current_time = datetime.now().time()
+            if current_time <= otp_expiry_time:
+                return JsonResponse({"msg": "True"}) # hanooz zaman baghi hast
+            else:
+                if otpcode:
+                    otpcode.delete()
+                    request.session["phone_number"] = phone_number
+                return JsonResponse({"msg": 'False'}) # zaman tamoom shod
+
+@csrf_exempt
+def send_otpcode_again(request):
+    phone_number = request.session["phone_number"]
+    verification_code = generate_random_number(4, is_unique=False)
+    OTPCode.objects.create(
+                phone_number=phone_number,
+                code=verification_code,
+                expire_time=datetime.now() + timedelta(seconds=10),
+            )
+    # send_verification_sms_task.delay(phone_number, verification_code)
+    messages.success(request, _("A one-time password has been sent"), "success")
+    return redirect('accounts:user_login_verify')
+
+
+class UserLoginVerifyCodeView(View):
+    form_class = VerifyCodeForm
+
+    def get(self, request):
+        phone_number = self.request.session["phone_number"]
+        if request.user.is_authenticated:
+            return redirect("pages:home")
+        verify_form = self.form_class
+        context = {"verify_form": verify_form, "phone_number": phone_number}
+        return render(request, "accounts/registration/verify.html", context)
+
+    def post(self, request):
+        phone_number = self.request.session["phone_number"]
+        verify_form = self.form_class(request.POST, request=self.request)
+        if verify_form.is_valid():
+            user = User.objects.get(phone_number=phone_number)
+            if user is not None:
+                login(request, user)
+                messages.success(
+                    request,
+                    _("You have successfully logged into your account"),
+                    "success",
+                )
+                return redirect("accounts:user_dashboard")
+
+        context = {"verify_form": verify_form, "phone_number": phone_number}
+        return render(request, "accounts/registration/verify.html", context)
+
+
+class UserLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("pages:home")
+
+
+class EditProfileFormView(LoginRequiredMixin, View):
+    template_name = "accounts/profile.html"
+
+    def get(self, request, *args, **kwargs):
+        initial_info = {
+            "full_name": request.user.full_name,
+            "email": request.user.email,
+        }
+        profile_form = EditProfileForm(initial=initial_info)
+        change_password_form = ChangePasswordForm()
+        context = {
+            "profile_form": profile_form,
+            "change_password_form": change_password_form,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        profile_form = EditProfileForm(request.POST)
+        change_password_form = ChangePasswordForm(request.POST)
+        if "change_profile" in request.POST:
+            if profile_form.is_valid():
+                cd = profile_form.cleaned_data
+                if cd["full_name"] == "":
+                    cd["full_name"] = _("Guest User")
+                user = User.objects.filter(email=request.user.email)
+                user.update(email=cd["email"], full_name=cd["full_name"])
+                messages.success(request, _("your profile updated"), "success")
+                return redirect("accounts:user_profile")
+            else:
+                messages.error(
+                    request, _("There was an error with your profile form"), "error"
+                )
+                return redirect("accounts:user_profile")
+        elif "change_password" in request.POST:
+            if change_password_form.is_valid():
+                cd = change_password_form.cleaned_data
+                user = request.user
+                user.set_password(cd["password2"])
+                user.save()
+                messages.success(request, _("Your password has been saved"), "success")
+                return redirect("accounts:user_profile")
+            else:
+                messages.error(
+                    request, _("There was an error with your password form"), "error"
+                )
+                return redirect("accounts:user_profile")
+        else:
+            messages.error(request, _("Invalid request"), "error")
+            return redirect("accounts:user_profile")
+
+
+# @csrf_exempt
+# def login_with_otp_code(request):
+#     if request.method == 'POST':
+#         phone_number = request.session['phone_number']
+#         entered_code = request.POST.get('otp_code')
+#         code_instance = request.session['otp_code']
+#         if int(entered_code) == int(code_instance):
+#             if User.objects.filter(phone_number=phone_number).exists():
+#                 user = User.objects.get_or_create(phone_number=phone_number)
+#                 if user is not None:
+#                     login(request, user)
+#         return JsonResponse({'success': True})
+
+
+class WalletView(LoginRequiredMixin, View):
+    form_class = AddCreditForm
+    template_name = "accounts/wallet.html"
+
+    def get(self, request):
+        add_credit_form = self.form_class
+        context = {"add_credit_form": add_credit_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        add_credit_form = self.form_class(request.POST)
+        if add_credit_form.is_valid():
+            cd = add_credit_form.cleaned_data
+            amount = int(cd["amount"])
+            if amount < 500:
+                messages.error(
+                    request,
+                    _(
+                        "The minimum amount that can be paid to increase credit is 500 Tomans"
+                    ),
+                    "danger",
+                )
+                return redirect("accounts:user_wallet")
+            phone_number = request.user.phone_number
+            transaction_detail = (_("Increase wallet credit"),)
+            request.session["transaction_detail"] = transaction_detail
+            request.session["phone_number"] = phone_number
+            request.session["amount"] = amount
+            request.session["payment_type"] = "add_fund_wallet"
+            return redirect("payment_request")
+        else:
+            # print(add_credit_form.errors.as_data())  # TODO change this print to logging
+            # return redirect('accounts:user_wallet')
+            context = {"add_credit_form": add_credit_form}
+            return render(request, self.template_name, context)

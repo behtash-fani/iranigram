@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="d-flex justify-content-center mt-5 p-3">
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <p class="kalameh-font fw-semibold fs-3">{% trans "Phone Number Verification" %}</p>
+            <span class="text-muted">
+                {% trans "Enter the code sent to" %} {{phone_number}} {% trans "in the field below" %}
+            </span>
+            <hr>
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="form-floating mt-2">
+                    {{ verify_form.code }}
+                    <label for="{{ verify_form.code.id_for_label }}">{% trans 'OTP Code' %}:</label>
+                    {{ verify_form.code.errors }}
+                </div>
+                <div class="row">
+                    <button type="submit" class="col-10 d-block mx-auto btn btn-warning btn-lg rounded-4 py-3 mt-3">
+                        <img src="{% static 'icons/login.svg' %}" alt="">
+                        {% trans "Verification and Login" %}
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <p class="text-end mt-3 rounded-4 py-2" id="counter_box">ارسال مجدد مجدد تا <span id="counter">10</span> ثانیه دیگر</p>
+                        <a href="{% url 'accounts:send_otpcode_again' %}" 
+                        class="btn btn-dark mt-3 shadow-sm rounded-4 py-2 d-none" 
+                        id="send_otpcode_again">
+                            <img src="{% static 'icons/refresh-white.svg' %}" alt="">
+                            {% trans 'Send Code Agian' %}
+                        </a>
+                    </div>
+                </div>
+                <input type="hidden" id="phone_number" data-phone="{{phone_number}}">
+            </form>
+            <hr>
+            <div class="mt-2 d-flex justify-content-around">
+                <div class="col-sm-6 col-lg-6 col-xl-6">
+                    <a href="{% url 'accounts:user_register' %}"
+                       class="btn btn-light shadow-sm rounded-3 text-black text-decoration-none rounded-4 py-2">
+                        {% trans "Not a member? " %} {% trans "Register" %}
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-6 col-xl-6">
+                    <a href="{% url 'accounts:user_login_pass' %}" class="btn btn-light shadow-sm rounded-4 py-2 float-end">
+                        <img src="{% static 'icons/lock.svg' %}" alt="">
+                        {% trans 'Login With Password' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

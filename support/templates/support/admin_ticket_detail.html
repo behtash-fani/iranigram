@@ -1,0 +1,22 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+
+{% block panelcontent %}
+<h2>{{ ticket.subject }}</h2>
+  <p>{{ ticket.message }}</p>
+
+  <h3>Responses</h3>
+  {% for response in responses %}
+    <div>
+      <p>{{ response.message }}</p>
+      <small>by {{ response.user.username }} on {{ response.created_at }}</small>
+    </div>
+  {% endfor %}
+
+  <h3>Add a Response</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock panelcontent %}

@@ -1,0 +1,61 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load jalali_tags %}
+{% block title %}{{ block.super }} {% trans 'Support' %} | {% endblock %}
+{% block panelcontent %}
+    <div class="row">
+        <div class="col d-flex justify-content-start"><span class="fw-semibold fs-3">{% trans "Support" %}</span>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-3">
+                <img src="{% static 'icons/Send.svg' %}" alt="">
+                {% trans "Send New Ticket" %}
+            </a>
+        </div>
+    </div>
+    <hr>
+    {% if Tickets %}
+        <div class="table-responsive">
+        <table class="table caption-top table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">{% trans "Subject" %}</th>
+                <th scope="col" class="text-center">{% trans "Ticket Code" %}</th>
+                <th scope="col" class="text-center">{% trans "Status" %}</th>
+                <th scope="col" class="text-center">{% trans "Responses" %}</th>
+                <th scope="col" class="text-center">{% trans "Created At" %}</th>
+                <th scope="col" class="text-center">{% trans "Updated At" %}</th>
+                <th scope="col" class="text-center">{% trans "Details" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ticket in Tickets %}
+                <tr class="align-middle">
+                    <td class="text-center">{{ page_obj.start_index|add:forloop.counter0 }}</td>
+                    <td class="text-center"><a href="{% url 'accounts:ticket_detail' ticket.id %}"
+                                               class="btn btn-light rounded-4">{{ ticket.subject|truncatechars:25 }}</a></td>
+                    <td class="text-center"><a href="{% url 'accounts:ticket_detail' ticket.id %}"
+                                               class="btn btn-light  rounded-4">{{ ticket.id }}</a></td>
+                    <td class="text-center">{% trans ticket.status %}</td>
+                    <td class="text-center">{{ ticket.response_set.count }}</td>
+                    <td class="text-center">{{ ticket.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
+                    <td class="text-center">{{ ticket.updated_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'accounts:ticket_detail' ticket.id %}" class="btn btn-warning rounded-4">
+                            <img src="{% static 'icons/More.svg' %}" alt="">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="alert alert-light" role="alert">
+            {% trans "No tickets have been submitted yet" %}
+        </div>
+    {% endif %}
+
+{% endblock panelcontent %}
