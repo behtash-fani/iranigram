@@ -25,12 +25,8 @@
             <div class="text-center">
                 <p class="fs-5 mt-3 fw-bolder">{% trans "Your wallet has been successfully topped up" %}</p>
                 <p class="fs-5 mt-3">{% trans "You can now place an order using your wallet" %}</p>
-                <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-3 mb-5">مشاهده کیف پول
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-                    </svg>
+                <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">مشاهده کیف پول
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                 </a>
             </div>
         {% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
@@ -50,13 +46,9 @@
             <div class="text-center">
                 <p class="fs-5 mt-3 fw-bolder">پرداخت شما با موفقیت ثبت شد</p>
                 <p class="fs-5 mt-3">ممنون از اینکه ایرانی گرام را برای سفارش خود انتخاب کردید</p>
-                <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-3 mb-5">
+                <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">
                     پیگیری سفارش
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-                    </svg>
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                 </a>
             </div>
         {% elif payment_type == 'error' %}
@@ -68,12 +60,8 @@
                     اگر مبلغی
                     از حساب شما کسر شده است طی 72 ساعت به حساب شما بازگشت خواهد شد و اگر پرداخت برای ایرانی گرام انجام
                     شده باشد مبلغ به حساب کیف پول شما واریز میشود</p>
-                <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-3 mb-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                    </svg>
+                <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                     بازگشت به داشبورد کاربری
                 </a>
             </div>

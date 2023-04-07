@@ -15,7 +15,7 @@ def payment_request(request):
     phone = request.session["phone_number"]
     amount = request.session["amount"]
     transaction_detail = str(request.session["transaction_detail"][0])
-    CallbackURL = 'http://127.0.0.1:8000/payment-verify/'
+    CallbackURL = f'{settings.DJANGO_SITE_URL}/payment-verify/'
     description = transaction_detail
     req_data = {
         "MerchantID": settings.MERCHANT,
