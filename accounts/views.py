@@ -22,6 +22,13 @@ from utils.generate_random_number import generate_random_number
 from utils.is_block_user import is_block_user
 from datetime import datetime, timedelta
 from django.utils import timezone
+from .tasks import (
+    send_verification_sms_task,
+    send_verification_sms_task,
+    send_register_sms_task,
+    send_register_success_sms_task,
+
+)
 
 
 class UserDashboardView(LoginRequiredMixin, View):
