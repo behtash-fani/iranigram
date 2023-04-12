@@ -79,8 +79,8 @@ def payment_verify(request):
     req = requests.post(settings.ZP_API_VERIFY,
                         data=data, headers=headers)
 
-    if req.status_code == 200:
-        if req.json()['Status'] == 100:
+    if req.status_code == 200: # successful payment
+        if req.json()['Status'] == 100: 
             request.session['status'] = True
             if payment_type == 'pay_order_online':
                 if 'order_id' in request.session:
@@ -103,10 +103,7 @@ def payment_verify(request):
                         ip=request.META.get('REMOTE_ADDR'))
                 else:
                     context = {'payment_type': 'error'}
-                    return render(
-                        request,
-                        'accounts/callback_gateway.html',
-                        context)
+                    return render(request,'accounts/callback_gateway.html',context)
                 return redirect('callback_gateway')
             elif payment_type == 'add_fund_wallet':
                 user.balance += amount
@@ -116,8 +113,7 @@ def payment_verify(request):
                                             price=amount,
                                             balance=user.balance,
                                             payment_type="online",
-                                            details=_(
-                                                'Increase wallet credit'),
+                                            details=_('Increase wallet credit'),
                                             payment_gateway=_('Zarinpal'),
                                             ip=request.META.get('REMOTE_ADDR'))
                 return redirect('callback_gateway')

@@ -13,7 +13,7 @@ class OrderForm(forms.ModelForm):
         widgets = {
             'service_type': forms.Select(attrs={'class': 'form-select'}),
             'service': forms.Select(attrs={'class': 'form-select'}),
-            'link': forms.TextInput(attrs={'class': 'form-control text-left', 'dir': 'ltr'}),
+            'link': forms.TextInput(attrs={'class': 'form-control text-left', 'dir': 'ltr', 'autocomplete': 'off'}),
             'quantity': forms.TextInput(
                 attrs={'class': 'form-control text-left', 'dir': 'ltr', 'type': 'number', 'autocomplete': 'off'}),
         }
@@ -55,10 +55,11 @@ class OrderForm(forms.ModelForm):
         link_pattern = ["https://www.instagram.com", "https://instagram.com", "instagram.com", "www.instagram.com"]
         link = self.cleaned_data["link"]
         result_compare = 0
-        for pattern in link_pattern:
-            if link.startswith(pattern):
-                return link
-        if result_compare == 0:
-            raise forms.ValidationError(_("The link entered is not a valid Instagram post link"))
+        if link:
+            for pattern in link_pattern:
+                if link.startswith(pattern):
+                    return link
+            if result_compare == 0:
+                raise forms.ValidationError(_("The link entered is not a valid Instagram post link"))
         return link
 

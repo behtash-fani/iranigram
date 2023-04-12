@@ -15,6 +15,7 @@ from utils.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse
 from utils.generate_random_number import generate_random_number
+from django.views.decorators.csrf import csrf_exempt
 
 
 class NewOrderView(LoginRequiredMixin, View):
@@ -57,8 +58,7 @@ class NewOrderView(LoginRequiredMixin, View):
                 user = request.user
                 order_item = order_form.save(commit=False)
                 order_item.user = user
-                order_item.order_code = generate_random_number(
-                    8, is_unique=True)
+                order_item.order_code = generate_random_number(8, is_unique=True)
                 unit_price = Service.objects.get(id=cd['service'].id).amount
                 total_price = int(unit_price) * int(cd['quantity'])
                 order_item.amount = total_price
@@ -116,9 +116,39 @@ def pay_remain_price(request):
     request.session['amount'] = amount
     request.session["payment_type"] = 'pay_remain_price'
     request.session["order_id"] = order.id
-    # redirect_url = reverse('payment_request', kwargs={'order_code':order_code})
+    transaction_detail = _('Payment of the order deficit'),
+    request.session["transaction_detail"] = transaction_detail
     redirect_url = reverse('payment_request')
     return JsonResponse({'redirect': redirect_url})
+
+
+
+
+@csrf_exempt
+def complete_order(request):
+    order_id = request.POST.get('order_id')
+    order = Order.objects.get(id=order_id)
+    amount = int(request.POST.get('remain_price'))
+    user = request.user
+    request.session['phone_number'] = user.phone_number
+    request.session['total_order_price'] = order.amount
+    request.session['amount'] = amount
+    request.session["payment_type"] = 'pay_remain_price'
+    request.session["order_id"] = order_id
+    transaction_detail = _('Online payment of the order fee'),
+    request.session["transaction_detail"] = transaction_detail
+    redirect_url = reverse('payment_request')
+    return JsonResponse({'redirect': redirect_url})
+
+
+
+
+
+
+
+
+
+
 
 
 class OrdersListView(LoginRequiredMixin, ListView):
