@@ -141,16 +141,6 @@ def complete_order(request):
     return JsonResponse({'redirect': redirect_url})
 
 
-
-
-
-
-
-
-
-
-
-
 class OrdersListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = "orders/orders.html"

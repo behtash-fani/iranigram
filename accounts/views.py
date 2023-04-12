@@ -60,7 +60,7 @@ class UserRegisterWithOTPView(View):
             cd = register_form.cleaned_data
             verification_code = generate_random_number(4, is_unique=False)
             phone_number = cd["phone_number"]
-            # send_register_sms_task.delay(phone_number, verification_code)
+            send_register_sms_task.delay(phone_number, verification_code)
             if OTPCode.objects.filter(phone_number=phone_number).exists():
                 OTPCode.objects.filter(phone_number=phone_number).delete()
             OTPCode.objects.create(phone_number=phone_number, code=verification_code)
@@ -86,7 +86,7 @@ class UserRegisterVerifyCodeView(View):
         verify_form = self.form_class(request.POST, request=self.request)
         if verify_form.is_valid():
             user = User.objects.create_user(phone_number)
-            # send_register_success_sms_task.delay(phone_number)
+            send_register_success_sms_task.delay(phone_number)
             login(request, user)
             messages.success(
                 request,
@@ -146,7 +146,7 @@ class UserLoginWithOTPView(View):
             cd = otp_login_form.cleaned_data
             verification_code = generate_random_number(4, is_unique=False)
             phone_number = cd["phone_number"]
-            # send_verification_sms_task.delay(phone_number, verification_code)
+            send_verification_sms_task.delay(phone_number, verification_code)
             if OTPCode.objects.filter(phone_number=phone_number).exists():
                 OTPCode.objects.filter(phone_number=phone_number).delete()
             OTPCode.objects.create(
@@ -187,7 +187,7 @@ def send_otpcode_again(request):
                 code=verification_code,
                 expire_time=datetime.now() + timedelta(seconds=60),
             )
-    # send_verification_sms_task.delay(phone_number, verification_code)
+    send_verification_sms_task.delay(phone_number, verification_code)
     messages.success(request, _("A one-time password has been sent"), "success")
     return redirect('accounts:user_login_verify')
 
@@ -280,20 +280,6 @@ class EditProfileFormView(LoginRequiredMixin, View):
             return redirect("accounts:user_profile")
 
 
-# @csrf_exempt
-# def login_with_otp_code(request):
-#     if request.method == 'POST':
-#         phone_number = request.session['phone_number']
-#         entered_code = request.POST.get('otp_code')
-#         code_instance = request.session['otp_code']
-#         if int(entered_code) == int(code_instance):
-#             if User.objects.filter(phone_number=phone_number).exists():
-#                 user = User.objects.get_or_create(phone_number=phone_number)
-#                 if user is not None:
-#                     login(request, user)
-#         return JsonResponse({'success': True})
-
-
 class WalletView(LoginRequiredMixin, View):
     form_class = AddCreditForm
     template_name = "accounts/wallet.html"
@@ -311,9 +297,7 @@ class WalletView(LoginRequiredMixin, View):
             if amount < 500:
                 messages.error(
                     request,
-                    _(
-                        "The minimum amount that can be paid to increase credit is 500 Tomans"
-                    ),
+                    _("The minimum amount that can be paid to increase credit is 500 Tomans"),
                     "danger",
                 )
                 return redirect("accounts:user_wallet")
