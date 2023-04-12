@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-11 04:16+0330\n"
+"POT-Creation-Date: 2023-04-12 12:55+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr "کاهش اعتبار"
 
 #: accounts/models.py:14 accounts/models.py:58
 #: accounts/templates/accounts/registration/login_with_otp.html:33
-#: accounts/templates/accounts/registration/login_with_pass.html:47
+#: accounts/templates/accounts/registration/login_with_pass.html:31
 #: accounts/templates/accounts/registration/register.html:31
 msgid "Phone Number"
 msgstr "شماره تلفن"
@@ -295,7 +295,7 @@ msgid "Change or submit a new password"
 msgstr "تغییر یا ثبت پسورد جدید"
 
 #: accounts/templates/accounts/profile.html:37
-#: accounts/templates/accounts/registration/login_with_pass.html:52
+#: accounts/templates/accounts/registration/login_with_pass.html:36
 msgid "Password"
 msgstr "رمز عبور"
 
@@ -308,20 +308,20 @@ msgid "Login to your account with OTP"
 msgstr "ورود به حساب کاربری با رمز یکبار مصرف"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:14
-#: accounts/templates/accounts/registration/login_with_pass.html:16
+#: accounts/templates/accounts/registration/login_with_pass.html:12
 #: accounts/templates/accounts/registration/register.html:12
 #: orders/templates/orders/orders.html:10
 msgid "Hints"
 msgstr "نکات"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:18
-#: accounts/templates/accounts/registration/login_with_pass.html:24
+#: accounts/templates/accounts/registration/login_with_pass.html:16
 #: accounts/templates/accounts/registration/register.html:16
 msgid "Please set your keyboard to English mode"
 msgstr "لطفا کیبورد خود را در حالت انگلیسی قرار دهید"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:22
-#: accounts/templates/accounts/registration/login_with_pass.html:32
+#: accounts/templates/accounts/registration/login_with_pass.html:20
 #: accounts/templates/accounts/registration/register.html:20
 msgid "Sample correct phone number: 09123456789"
 msgstr "نمونه شماره تلفن صحیح: ۰۹۱۲۳۴۵۶۷۸۹"
@@ -337,13 +337,13 @@ msgid "Send verification code"
 msgstr "ارسال کد تایید"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:48
-#: accounts/templates/accounts/registration/login_with_pass.html:73
+#: accounts/templates/accounts/registration/login_with_pass.html:51
 #: accounts/templates/accounts/registration/verify.html:43
 msgid "Not a member? "
 msgstr "عضو نیستید؟ "
 
 #: accounts/templates/accounts/registration/login_with_otp.html:48
-#: accounts/templates/accounts/registration/login_with_pass.html:73
+#: accounts/templates/accounts/registration/login_with_pass.html:51
 #: accounts/templates/accounts/registration/verify.html:43
 #: templates/inc/navbar.html:165
 msgid "Register"
@@ -358,7 +358,7 @@ msgstr "ورود با رمز عبور"
 msgid "Login to your account with password"
 msgstr "ورود به حساب کاربری با رمز عبور"
 
-#: accounts/templates/accounts/registration/login_with_pass.html:40
+#: accounts/templates/accounts/registration/login_with_pass.html:24
 msgid ""
 "If you have not set a password for yourself, first log in to your account "
 "with a one-time password and register a permanent password in the account "
@@ -368,13 +368,13 @@ msgstr ""
 "حساب کاربری خود شوید و در بخش مشخصات حساب کاربری، یک رمز عبور دائمی ثبت "
 "بفرمایید."
 
-#: accounts/templates/accounts/registration/login_with_pass.html:65
+#: accounts/templates/accounts/registration/login_with_pass.html:43
 #: accounts/templates/accounts/registration/register.html:41
 #: templates/inc/navbar.html:158
 msgid "Login"
 msgstr "ورود"
 
-#: accounts/templates/accounts/registration/login_with_pass.html:83
+#: accounts/templates/accounts/registration/login_with_pass.html:57
 msgid "Login With OTP"
 msgstr "ورود با رمز یکبار مصرف"
 
@@ -738,21 +738,6 @@ msgstr "ثبت سفارش موفقیت آمیز انجام شد. کد سفارش
 msgid "Payment of the order deficit"
 msgstr "پرداخت مبلغ کسری سفارش"
 
-#: pages/templates/pages/buy_follower.html:4 templates/inc/navbar.html:35
-#: templates/inc/navbar.html:84
-msgid "Buy Instagram Follower"
-msgstr "خرید فالوور اینستاگرام"
-
-#: pages/templates/pages/buy_like.html:4 templates/inc/navbar.html:40
-#: templates/inc/navbar.html:90
-msgid "Buy Instagram Like"
-msgstr "خرید لایک اینستاگرام"
-
-#: pages/templates/pages/buy_view.html:4 templates/inc/navbar.html:45
-#: templates/inc/navbar.html:96
-msgid "Buy Instagram View"
-msgstr "خرید بازدید اینستاگرام"
-
 #: pages/templates/pages/home.html:4 templates/inc/navbar.html:25
 #: templates/inc/navbar.html:66
 msgid "Home"
@@ -984,7 +969,7 @@ msgstr "گزارش تراکنش ها"
 msgid "Account Balance"
 msgstr "مانده اعتبار"
 
-#: transactions/templates/transactions/transactions.html:46
+#: transactions/templates/transactions/transactions.html:45
 msgid "No transaction found yet"
 msgstr "تا به الان تراکنشی یافت نشد"
 
@@ -1003,6 +988,18 @@ msgstr "زرین پال"
 #: templates/inc/navbar.html:30 templates/inc/navbar.html:72
 msgid "Mag"
 msgstr "مجله"
+
+#: templates/inc/navbar.html:35 templates/inc/navbar.html:84
+msgid "Buy Instagram Follower"
+msgstr "خرید فالوور اینستاگرام"
+
+#: templates/inc/navbar.html:40 templates/inc/navbar.html:90
+msgid "Buy Instagram Like"
+msgstr "خرید لایک اینستاگرام"
+
+#: templates/inc/navbar.html:45 templates/inc/navbar.html:96
+msgid "Buy Instagram View"
+msgstr "خرید بازدید اینستاگرام"
 
 #: templates/inc/navbar.html:79
 msgid "Instagram Products"
