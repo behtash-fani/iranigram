@@ -14,7 +14,7 @@ urlpatterns = [
     path('callback-gateway/', callback_gateway, name='callback_gateway'),
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
-
+]
 if settings.DEBUG:
     urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
