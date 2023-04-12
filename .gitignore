@@ -1,11 +1,11 @@
 # Django files
 *.pyc
-__pycache__/
+**__pycache__/
 *.pyo
 *.db
 *.sqlite3
 *.log
-*.env
+.env
 
 # Media files
 ticket_files/
@@ -15,3 +15,4 @@ pip-lock.txt
 
 data/
 .idea/
+.vscode
