@@ -25,17 +25,17 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: always
-  pgadmin:
-      image: dpage/pgadmin4
-      container_name: demo-pgadmin #you can change this
-      depends_on:
-        - db
-      ports:
-        - "5051:80"
-      environment:
-        PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-        PGADMIN_DEFAULT_PASSWORD: root
-      restart: always
+  # pgadmin:
+  #     image: dpage/pgadmin4
+  #     container_name: demo-pgadmin #you can change this
+  #     depends_on:
+  #       - db
+  #     ports:
+  #       - "5051:80"
+  #     environment:
+  #       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+  #       PGADMIN_DEFAULT_PASSWORD: root
+  #     restart: always
   web:
     build: .
     command: >
