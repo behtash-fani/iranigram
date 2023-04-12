@@ -9,6 +9,7 @@ config = dotenv_values(".env")
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.getenv('DEBUGMODE', False) == 'True'
+SITE_URL = os.environ.get("DJANGO_SITE_URL")
 
 # Application definition
 
@@ -68,6 +69,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'config.site_url.site_url'
             ],
         },
     },
