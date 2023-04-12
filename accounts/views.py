@@ -32,9 +32,7 @@ class UserDashboardView(LoginRequiredMixin, View):
         if is_block_user(user.phone_number):
             messages.error(
                 request,
-                _(
-                    "Your account has been blocked. To follow up on this issue, please contact support"
-                ),
+                _("Your account has been blocked. To follow up on this issue, please contact support"),
                 "danger",
             )
             logout(request)
@@ -154,7 +152,7 @@ class UserLoginWithOTPView(View):
             OTPCode.objects.create(
                 phone_number=phone_number,
                 code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=10),
+                expire_time=datetime.now() + timedelta(seconds=60),
             )
             request.session["phone_number"] = cd["phone_number"]
             messages.success(request, _("A one-time password has been sent"), "success")
@@ -187,7 +185,7 @@ def send_otpcode_again(request):
     OTPCode.objects.create(
                 phone_number=phone_number,
                 code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=10),
+                expire_time=datetime.now() + timedelta(seconds=60),
             )
     # send_verification_sms_task.delay(phone_number, verification_code)
     messages.success(request, _("A one-time password has been sent"), "success")
@@ -253,8 +251,10 @@ class EditProfileFormView(LoginRequiredMixin, View):
                 cd = profile_form.cleaned_data
                 if cd["full_name"] == "":
                     cd["full_name"] = _("Guest User")
-                user = User.objects.filter(email=request.user.email)
-                user.update(email=cd["email"], full_name=cd["full_name"])
+                user = request.user
+                user.email = cd["email"]
+                user.full_name = cd["full_name"]
+                user.save()
                 messages.success(request, _("your profile updated"), "success")
                 return redirect("accounts:user_profile")
             else:

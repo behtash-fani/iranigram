@@ -7,7 +7,7 @@
         <i class="bi bi-chat-left-quote"></i> {% trans "Details of ticket number" %}: {{ ticket.id }}</span>
     <hr>
     <h6>{% trans "Subject" %} : {{ ticket.subject }}</h6>
-    <p>{% trans "Message" %}: <br>{{ ticket.message }}</p>
+    <p>{% trans "Message" %}: <br>{{ ticket.message|linebreaks }}</p>
     {% if ticket.file %}
         <div class="alert alert-secondary" role="alert">
             <a href="{{ ticket.file.url }}" target="_blank">
@@ -25,7 +25,7 @@
                 <small class="badge rounded-pill text-bg-warning"><i class="bi bi-person"></i> {% trans "Your Answer" %}
                 </small>
             {% endif %}
-            <p class="pt-3">{{ response.message }}</p>
+            <p class="pt-1">{{ response.message|linebreaks }}</p>
             {% if response.file %}
                 <div class="alert alert-secondary" role="alert">
                     <a href="{{ response.file.url }}" target="_blank">

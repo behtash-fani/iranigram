@@ -34,7 +34,7 @@ class Order(models.Model):
     wallet_paid_amount = models.PositiveIntegerField(verbose_name=_('Wallet Paid Amount'), blank=True, null=True)
     online_paid_amount = models.PositiveIntegerField(verbose_name=_('Online Paid Amount'), blank=True, null=True)
     payment_method = models.CharField(max_length=50,choices=PAYMENT_METHOD,default='balance',verbose_name=_('Payment Method'))
-    status = models.CharField(max_length=30,choices=ORDER_STATUS,default="queued", blank=True,null=True, verbose_name=_('Status'))
+    status = models.CharField(max_length=30,choices=ORDER_STATUS,default="Queued", blank=True,null=True, verbose_name=_('Status'))
     start_count = models.PositiveIntegerField(verbose_name=_('Start Count'), blank=True, null=True)
     remains = models.PositiveIntegerField(verbose_name=_('Remains'), blank=True, null=True)
     paid = models.BooleanField(default=False, verbose_name=_('Paid'))

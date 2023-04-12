@@ -49,7 +49,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegisterWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.NumberInput(
+    phone_number = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
 
     def clean_phone_number(self):
@@ -68,7 +68,7 @@ class UserRegisterWithOTPForm(forms.Form):
 
 
 class LoginWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.NumberInput(
+    phone_number = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
 
     def clean_phone_number(self):
@@ -161,6 +161,12 @@ class EditProfileForm(forms.Form):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.fields['full_name'].required = False
         self.fields['email'].required = False
+    
+    # def clean_email(self):
+    #     email = self.cleaned_data['email']
+    #     if User.objects.filter(email=email).exists():
+    #         raise forms.ValidationError
+    #     return email
 
 
 class AddCreditForm(forms.Form):

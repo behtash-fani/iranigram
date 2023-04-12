@@ -25,7 +25,8 @@
             <div class="text-center">
                 <p class="fs-5 mt-3 fw-bolder">{% trans "Your wallet has been successfully topped up" %}</p>
                 <p class="fs-5 mt-3">{% trans "You can now place an order using your wallet" %}</p>
-                <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">مشاهده کیف پول
+                <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
+                    مشاهده کیف پول
                     <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                 </a>
             </div>
@@ -35,8 +36,8 @@
                 <div class="alert alert-light" role="alert">
                     <div class="row">
                         <div class="col-8 fs-6 text-start">
-                            <a class="copy-text btn text-decoration-none" value="{{ order_id }}">
-                            <i class="bi bi-clipboard-plus"></i> {% trans "Order Code" %}
+                            <a class="copy-text btn btn-light rounded-4 text-decoration-none" value="{{ order_id }}">
+                                <img src="{% static 'icons/Copy.svg' %}" alt=""> {% trans "Order Code" %}
                             </a>
                         </div>
                         <div class="col-4 kalameh-font text-warning fs-6 text-end pt-2">{{ order_id }}</div>
@@ -46,7 +47,7 @@
             <div class="text-center">
                 <p class="fs-5 mt-3 fw-bolder">پرداخت شما با موفقیت ثبت شد</p>
                 <p class="fs-5 mt-3">ممنون از اینکه ایرانی گرام را برای سفارش خود انتخاب کردید</p>
-                <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">
+                <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
                     پیگیری سفارش
                     <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                 </a>
@@ -60,9 +61,9 @@
                     اگر مبلغی
                     از حساب شما کسر شده است طی 72 ساعت به حساب شما بازگشت خواهد شد و اگر پرداخت برای ایرانی گرام انجام
                     شده باشد مبلغ به حساب کیف پول شما واریز میشود</p>
-                <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-3 mb-5">
-                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
                     بازگشت به داشبورد کاربری
+                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
                 </a>
             </div>
         {% endif %}

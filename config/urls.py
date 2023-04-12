@@ -4,8 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from utils.zarinpal import payment_verify, payment_request
 from utils.callback_gateway import callback_gateway
-from utils.fix_phonenumber import fix_phonenumber
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
