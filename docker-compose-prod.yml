@@ -6,7 +6,7 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       ports:
-        - 80:80
+        - 8000:8000
       depends_on:
         - web
       volumes:
@@ -34,8 +34,8 @@ services:
       command: >
         sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
         - .:/app
-      ports:
-        - 8000:8000
+      expose:
+        - 8000
       volumes:
         - .:/app
         - ./static:/static
@@ -45,7 +45,6 @@ services:
         - db
       env_file:
         - ./.env
-  
   # pgadmin:
   #     image: dpage/pgadmin4
   #     container_name: demo-pgadmin #you can change this
@@ -88,4 +87,3 @@ services:
 volumes:
   static:
   ticket_files:
-  db:
