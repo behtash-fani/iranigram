@@ -4,11 +4,12 @@ from dotenv import load_dotenv
 import os
 from environ import Env
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 env = Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG")
 SITE_URL = os.getenv("DJANGO_SITE_URL")
