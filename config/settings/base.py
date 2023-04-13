@@ -7,7 +7,7 @@ import os
 load_dotenv()
 config = dotenv_values(".env")
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = os.getenv('DEBUGMODE', False) == 'True'
 SITE_URL = os.environ.get("DJANGO_SITE_URL")
 
