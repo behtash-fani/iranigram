@@ -2,10 +2,10 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
-from environs import Env
+from environ import Env
 
 env = Env()
-env.read_env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
