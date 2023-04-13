@@ -10,6 +10,10 @@ ENV PYTHONUNBUFFERED 1
 # set work directory
 WORKDIR /app
 
+# COPY ./entrypoint.sh ./
+# ENTRYPOINT [ "sh", "./entrypoint.sh" ]
+
+
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
@@ -19,4 +23,4 @@ COPY . .
 RUN chmod 755 -R ./
 
 RUN apt update
-RUN apt install gettext -y
+# RUN apt install gettext -y

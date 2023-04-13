@@ -1,15 +1,15 @@
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
-from dotenv import dotenv_values
+# from dotenv import dotenv_values
 import os
 
-load_dotenv()
+# load_dotenv()
 config = dotenv_values(".env")
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-DEBUG = os.getenv('DEBUGMODE', False) == 'True'
-SITE_URL = os.environ.get("DJANGO_SITE_URL")
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv('DEBUG')
+SITE_URL = os.getenv("DJANGO_SITE_URL")
 
 # Application definition
 
@@ -83,8 +83,8 @@ DATABASES = {
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": 5432,
+        "HOST": 'db',
+        "PORT": '',
     }
 }
 
