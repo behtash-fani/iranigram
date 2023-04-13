@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER: ${DB_USER}
       - POSTGRES_PASSWORD: ${DB_PASSWORD}
       - POSTGRES_HOST: ${DB_HOST}
-      - POSTGRES_PORT: ${DB_PORT}
+      - POSTGRES_PORT: 5432
     restart: always
   web:
       build: .
