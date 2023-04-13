@@ -1,14 +1,16 @@
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
-# from dotenv import dotenv_values
 import os
+from environs import Env
 
-# load_dotenv()
-# config = dotenv_values(".env")
+env = Env()
+env.read_env()
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = os.getenv('DEBUG')
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env.bool("DEBUG")
 SITE_URL = os.getenv("DJANGO_SITE_URL")
 
 # Application definition
@@ -80,9 +82,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
         "HOST": 'db',
         "PORT": '',
     }
@@ -160,8 +162,8 @@ USE_L10N = True
 # NUMBER_GROUPING = 3
 
 # Zarinpal configuration
-SANDBOX = os.environ.get("ZARINPAL_SANDBOX")
-MERCHANT = os.environ.get("ZARINPAL_MERCHANT_ID")
+SANDBOX = env("ZARINPAL_SANDBOX")
+MERCHANT = env("ZARINPAL_MERCHANT_ID")
 
 if SANDBOX:
     sandbox = "sandbox"
