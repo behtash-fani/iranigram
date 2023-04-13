@@ -12,7 +12,7 @@ services:
     volumes:
       - ./static:/static
       - ./ticket_files:/ticket_files
-      - ./nginx/nginx-dev.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     restart: always
   db:
     image: postgres:14
