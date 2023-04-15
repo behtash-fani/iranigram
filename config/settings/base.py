@@ -1,6 +1,5 @@
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
 import os
 from environ import Env
 
@@ -124,6 +123,7 @@ USE_TZ = True
 
 LOCALE_PATHS = (BASE_DIR / "templates/locale/",)
 
+STATIC_URL = "static/"
 
 # Base url to serve media files
 MEDIA_URL = "/ticket_files/"
