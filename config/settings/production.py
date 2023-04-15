@@ -9,4 +9,4 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['http://104.234.196.203']
 
 
-STATIC_ROOT = BASE_DIR / "static/"
+STATIC_ROOT = "static/"
