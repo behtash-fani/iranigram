@@ -123,7 +123,7 @@ USE_TZ = True
 
 LOCALE_PATHS = (BASE_DIR / "templates/locale/",)
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Base url to serve media files
 MEDIA_URL = "/ticket_files/"
