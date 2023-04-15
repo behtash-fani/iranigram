@@ -1,34 +1,19 @@
 version: "3.9"
 
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-      # - ./static:/static
-      # - ./ticket_files:/ticket_files
-    ports:
-      - "8000:8000"
-    restart: always
-    depends_on:
-      - db
-      - celery
-    env_file:
-      - ./.env
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: ./Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - web
-    volumes:
-      - ./static:/static
-      - ./ticket_files:/ticket_files
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-    restart: always
+      build:
+        context: ./nginx
+        dockerfile: ./Dockerfile
+      ports:
+        - 80:80
+      depends_on:
+        - web
+      volumes:
+        - ./static:/static
+        - ./ticket_files:/ticket_files
+        - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      restart: always
   db:
     image: postgres:14
     volumes:
@@ -38,6 +23,24 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: always
+  web:
+    build: .
+    command: >
+     sh -c "python manage.py makemigrations && 
+            python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+      - ./static:/static
+      - ./ticket_files:/ticket_files
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      - db
+      - celery
+    env_file:
+      - ./.env
   # pgadmin:
   #     image: dpage/pgadmin4
   #     container_name: demo-pgadmin #you can change this
