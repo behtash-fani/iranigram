@@ -6,8 +6,8 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
-      - ./static:/static
-      - ./ticket_files:/ticket_files
+      # - ./static:/static
+      # - ./ticket_files:/ticket_files
     ports:
       - "8000:8000"
     restart: always
