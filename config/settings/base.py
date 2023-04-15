@@ -11,7 +11,8 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
-SITE_URL = env("DJANGO_SITE_URL")
+# SITE_URL = env("DJANGO_SITE_URL")
+SITE_URL = "http://104.234.196.203"
 
 # Application definition
 
