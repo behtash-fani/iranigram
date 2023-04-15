@@ -10,8 +10,8 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env.bool("DEBUG")
-SITE_URL = os.getenv("DJANGO_SITE_URL")
+DEBUG = env("DEBUG")
+SITE_URL = env("DJANGO_SITE_URL")
 
 # Application definition
 
