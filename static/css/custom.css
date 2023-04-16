@@ -1,11 +1,11 @@
 @font-face {
     font-family: Vazirmatn;
-    src: url('../fonts/woff2/vazirmatn.woff2') format('woff2');
+    src: url('../fonts/ttf/vazirmatn.ttf') format('ttf');
 }
 
 @font-face {
     font-family: Kalameh;
-    src: url('../fonts/woff2/kalameh.woff2') format('woff2');
+    src: url('../fonts/ttf/kalameh.ttf') format('ttf');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
