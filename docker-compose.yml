@@ -6,7 +6,7 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       ports:
-        - 80:80
+        - 8000:8000
       depends_on:
         - web
       volumes:
@@ -83,5 +83,5 @@ services:
 volumes:
   static:
   ticket_files:
-  db:
+  # db:
   redis_data:

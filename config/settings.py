@@ -1,17 +1,20 @@
 from pathlib import Path
 from datetime import timedelta
 import os
-from environ import Env
+from environs import Env
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# for environment variables
 env = Env()
-env.read_env(os.path.join(BASE_DIR, '.env'))
+env.read_env()
 
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = True
-# DEBUG = env("DEBUG")
+DEBUG = env("DEBUG")
+DJANGO_SITE_URL = env.list("DJANGO_SITE_URL")
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 
 # Application definition
 
@@ -71,7 +74,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'config.site_url.site_url'
+                "config.site_url.site_url",
             ],
         },
     },
@@ -85,13 +88,12 @@ DATABASES = {
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASSWORD"),
-        "HOST": 'db',
-        "PORT": '',
+        "HOST": "db",
+        "PORT": "5432",
     }
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,21 +111,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = "fa-ir"
-# TIME_ZONE = 'UTC'
 TIME_ZONE = "Asia/Tehran"
-
 USE_I18N = True
 USE_L18N = True
-
 USE_TZ = True
-
 LOCALE_PATHS = (BASE_DIR / "templates/locale/",)
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / "static/"]
+else:
+    STATIC_ROOT = BASE_DIR / "static"
 
 # Base url to serve media files
 MEDIA_URL = "/ticket_files/"
@@ -132,9 +132,8 @@ MEDIA_URL = "/ticket_files/"
 MEDIA_ROOT = BASE_DIR / "ticket_files/"
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 AUTH_USER_MODEL = "accounts.User"
 
 
@@ -187,7 +186,7 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
 
-
+# Cache settings
 # CACHES = {
 #     "default": {
 #         "BACKEND": "django.core.cache.backends.redis.RedisCache",
