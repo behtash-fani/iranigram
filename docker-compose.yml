@@ -6,7 +6,7 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       ports:
-        - 80:80
+        - "80:80"
       depends_on:
         - web
       volumes:
@@ -34,7 +34,7 @@ services:
       - ./static:/static
       - ./ticket_files:/ticket_files
     expose:
-      - 8000
+      - "8000"
     restart: always
     depends_on:
       - db
