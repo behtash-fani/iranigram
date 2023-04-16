@@ -11,7 +11,7 @@ env.read_env()
 
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG")
+DEBUG = env.bool("DEBUG")
 DJANGO_SITE_URL = env.list("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
