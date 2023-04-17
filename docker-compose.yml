@@ -6,7 +6,8 @@ services:
         context: ./nginx
         dockerfile: ./Dockerfile
       ports:
-        - 80:80
+        - 8000:80
+        - 8001:80
       depends_on:
         - web
       volumes:
