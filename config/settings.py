@@ -48,6 +48,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
+    "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     # "pages.middleware.AdminLocaleMiddleware",
 ]
 
@@ -124,6 +126,10 @@ if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "static/"]
 else:
     STATIC_ROOT = BASE_DIR / "static/"
+
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Base url to serve media files
 MEDIA_URL = "/ticket_files/"
