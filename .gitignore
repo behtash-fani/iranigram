@@ -21,3 +21,4 @@ pip-lock.txt
 data/
 .idea/
 .vscode
+dbdata
