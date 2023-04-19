@@ -14,8 +14,6 @@ RUN pip install -r requirements.txt
 
 
 CMD python manage.py makemigrations --noinput && \
-    python manage.py migrate --noinput && \
+    while ! python manage.py migrate --noinput  ; do sleep 1 ; done && \
     python manage.py collectstatic --noinput && \
-    python manage.py createsuperuser --phone_number 09302521022 --noinput; \
-    python manage.py runserver
-    # gunicorn -b 0.0.0.0:8000 config.wsgi
+    python manage.py createsuperuser --phone_number 09302521022 --noinput;

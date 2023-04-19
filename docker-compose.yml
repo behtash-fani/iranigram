@@ -14,11 +14,7 @@ services:
         
         env_file:
             - ./volumes/app/.env
-        environment:
-            - "POSTGRES_DATABASE=${DB_NAME}"
-            - "POSTGRES_USER=${DB_USER}"
-            - "POSTGRES_PASSWORD=${DB_PASSWORD}"
-            - "POSTGRES_HOST=db"
+        command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
         depends_on:
             - db
             - nginx
@@ -29,9 +25,6 @@ services:
         expose:
             - '5432'
         environment:
-            - "POSTGRES_DATABASE=${DB_NAME}"
-            - "POSTGRES_USER=${DB_USER}"
-            - "POSTGRES_PASSWORD=${vY8GjoENde2qgH}"
             - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
             - type: 'bind'
