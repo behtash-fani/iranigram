@@ -14,8 +14,8 @@ services:
         
         env_file:
             - ./volumes/app/.env
-        # command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
-        command: sh -c "python manage.py runserver 0.0.0.0:8000"
+        command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+        # command: sh -c "python manage.py runserver 0.0.0.0:8000"
         depends_on:
             - db
             - nginx
@@ -32,8 +32,7 @@ services:
               source: './volumes/dbdata'
               target: '/var/lib/postgresql/data'
         
-        env_file:
-            - ./volumes/app/.env
+         
     redis:
         image: redis:alpine
         container_name: 'redis'
@@ -54,8 +53,7 @@ services:
         container_name: 'nginx'
         restart: 'always'
         ports:
-            - "8080:80"
-            # - "80:80"
+            - "80:80"
         volumes:
             - type: 'bind'
               source: './volumes/ticket_files'
@@ -64,4 +62,6 @@ services:
             - type: 'bind'
               source: './volumes/static'
               target: '/app/static'
+        env_file:
+            - ./volumes/app/.env
     
