@@ -15,7 +15,7 @@ def payment_request(request):
     phone = request.session["phone_number"]
     amount = request.session["amount"]
     transaction_detail = str(request.session["transaction_detail"][0])
-    CallbackURL = f'{settings.DJANGO_SITE_URL}/payment-verify/'
+    CallbackURL = f'{settings.SITE_URL}/payment-verify/'
     description = transaction_detail
     req_data = {
         "MerchantID": settings.MERCHANT,
@@ -28,6 +28,7 @@ def payment_request(request):
     headers = {'content-type': 'application/json',
                'content-length': str(len(data))}
     try:
+        print(CallbackURL)
         req = requests.post(url=settings.ZP_API_REQUEST,
                             data=data, headers=headers, timeout=10)
         if 'meta' in req.json():

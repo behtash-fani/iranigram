@@ -12,14 +12,14 @@ env.read_env()
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG")
-DJANGO_SITE_URL = env.list("DJANGO_SITE_URL")
+SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 
 # Application definition
 
 INSTALLED_APPS = [
-    # "admin_persian",
+    "admin_persian",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,6 +60,7 @@ ADMIN_REORDER = (
     {"app": "transactions"},
     {"app": "service"},
     {"app": "django_celery_beat"},
+    {"app": "admin_persian"},
 )
 
 ROOT_URLCONF = "config.urls"
@@ -82,26 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get("POSTGRES_DATABASE"),
-#         'USER': os.environ.get("POSTGRES_USER"),
-#         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-#         # 'HOST': os.environ.get('POSTGRES_HOST'),
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -139,24 +120,9 @@ USE_L18N = True
 USE_TZ = True
 LOCALE_PATHS = (BASE_DIR / "templates/locale/",)
 
-# Static files (CSS, JavaScript, Images)
-# STATIC_URL = '/static/'
-# if DEBUG:
-#     STATICFILES_DIRS = [BASE_DIR / "static/"]
-# else:
-#     STATIC_ROOT = '/vol/static'
-
-
-# # Base url to serve media files
-# MEDIA_URL = '/static/ticket_files/'
-
-# # Path where media is stored
-# MEDIA_ROOT = '/vol/ticket_files'
-
 STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "static/"]
-# STATIC_ROOT = BASE_DIR.parent / 'static'
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
 
 
@@ -217,11 +183,3 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
-
-# Cache settings
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#         "LOCATION": "redis://redis:6379",
-#     }
-# }

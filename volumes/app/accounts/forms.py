@@ -127,7 +127,7 @@ class LoginWithPasswordForm(forms.Form):
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'OTP Code'}))
+        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'OTP Code', 'autocomplete': 'off'}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
