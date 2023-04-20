@@ -56,7 +56,7 @@ class UserRegisterWithOTPView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect("pages:home")
+            return redirect("accounts:user_dashboard")
         register_form = self.form_class
         context = {"register_form": register_form}
         return render(request, self.template_name, context)
@@ -173,17 +173,18 @@ class UserLoginWithOTPView(View):
 def check_expire_time(request):
     if request.method == "POST":
         phone_number = request.POST.get("phone_number")
-        otpcode = OTPCode.objects.filter(phone_number=phone_number)[0]
-        otp_expiry_time = otpcode.expire_time
-        if otp_expiry_time is not None:
-            current_time = datetime.now().time()
-            if current_time <= otp_expiry_time:
-                return JsonResponse({"msg": "True"}) # hanooz zaman baghi hast
-            else:
-                if otpcode:
-                    otpcode.delete()
-                    request.session["phone_number"] = phone_number
-                return JsonResponse({"msg": 'False'}) # zaman tamoom shod
+        if OTPCode.objects.filter(phone_number=phone_number).exists():
+            otpcode = OTPCode.objects.filter(phone_number=phone_number)[0]
+            otp_expiry_time = otpcode.expire_time
+            if otp_expiry_time is not None:
+                current_time = datetime.now().time()
+                if current_time <= otp_expiry_time:
+                    return JsonResponse({"msg": "True"}) # hanooz zaman baghi hast
+                else:
+                    if otpcode:
+                        otpcode.delete()
+                        request.session["phone_number"] = phone_number
+                    return JsonResponse({"msg": 'False'}) # zaman tamoom shod
 
 @csrf_exempt
 def send_otpcode_again(request):

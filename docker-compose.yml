@@ -14,8 +14,8 @@ services:
         
         env_file:
             - ./volumes/app/.env
-        command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
-        # command: sh -c "python manage.py runserver 0.0.0.0:8000"
+        # command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+        command: sh -c "python manage.py runserver 0.0.0.0:8000"
         depends_on:
             - db
             - nginx
@@ -46,6 +46,14 @@ services:
         depends_on:
             - db
         restart: always
+    celery-beat:
+            build: ./app/
+            container_name: 'celery-beat'
+            command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+            volumes:
+            - type: 'bind'
+              source: './volumes/app'
+              target: '/app'
     nginx:
         build: './nginx'
         container_name: 'nginx'

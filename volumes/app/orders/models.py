@@ -42,7 +42,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
 
     def __str__(self):
-        return f'{self.user}'
+        return f'{self.id}'
 
     class Meta:
         verbose_name = _('Order')
