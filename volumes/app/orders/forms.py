@@ -54,6 +54,8 @@ class OrderForm(forms.ModelForm):
     def clean_link(self):
         link_pattern = ["https://www.instagram.com", "https://instagram.com", "instagram.com", "www.instagram.com"]
         link = self.cleaned_data["link"]
+        if link is None:
+            raise forms.ValidationError(_('Please enter a instagram public link/id'))
         result_compare = 0
         if link:
             for pattern in link_pattern:
@@ -63,3 +65,8 @@ class OrderForm(forms.ModelForm):
                 raise forms.ValidationError(_("The link entered is not a valid Instagram post link"))
         return link
 
+    def clean_quantity(self):
+        quantity = self.cleaned_data["quantity"]
+        if quantity is None:
+            raise forms.ValidationError(_('Please enter quantity of order'))
+        return quantity

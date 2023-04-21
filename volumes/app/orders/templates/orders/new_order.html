@@ -47,6 +47,7 @@
                     type="submit" 
                     class="btn btn-warning rounded-4 py-3 ms-1 credit-payment-button"
                     id="credit_payment"
+                    name="credit_payment"
                     data-user-balance={{ request.user.balance }}>
                     <span class="fs-6 fw-semibold">
                         <img src="{% static 'icons/wallet-check.svg' %}" alt=""> {% trans 'Pay with Wallet' %}

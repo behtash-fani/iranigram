@@ -69,8 +69,7 @@ class NewOrderView(LoginRequiredMixin, View):
                 order_item.wallet_paid_amount = total_price
                 order_item.paid = True
                 order_item.save()
-                transaction_detail = _(
-                    "Deduct the amount for placing the order")
+                transaction_detail = _("Deduct the amount for placing the order")
                 Trans.objects.create(user=user,
                                      type='payment_for_order',
                                      balance=user.balance,
