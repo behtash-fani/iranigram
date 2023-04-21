@@ -4,6 +4,10 @@ from utils.servers.mifa import MifaOrderManager
 from orders.models import Order
 import json
 from django.db.models import Q
+import logging
+
+
+logger = logging.getLogger("orders.tasks.order_status_task")
 
 
 @shared_task()
@@ -17,23 +21,25 @@ def submit_order_task():
                 order_manager = PFOrderManager(order_id)
                 response = order_manager.submit_order()
                 r = json.loads(response.decode('utf-8'))
+                logger.info("Order submitted in Parsifollower Server")
                 if r['status'] == "success":
                     order.status = "Pending"
                     order.server_order_code = r["order"]
                     order.save()
             except ValueError as exp:
-                print("Error", exp)
+                logger.error(exp)
         elif order_server == "mifa":
             try:
                 order_manager = MifaOrderManager(order_id)
                 response = order_manager.submit_order()
+                logger.info("Order submitted in Mifa Server")
                 r = json.loads(response)
                 if r['order']:
                     order.status = "Pending"
                     order.server_order_code = r["order"]
                     order.save()
             except ValueError as exp:
-                print("Error", exp)
+                logger.error(exp)
     return "Ok!"
 
 
@@ -55,6 +61,7 @@ def order_status_task():
                 try:
                     order_manager = PFOrderManager(order_id)
                     response = order_manager.order_status()
+                    logger.info("Get order status from Parsifollower server")
                     r = json.loads(response.decode('utf-8'))
                     if r["status"]:
                         order.status = r["status"]
@@ -64,12 +71,12 @@ def order_status_task():
                         order.remains = r["remains"]
                     order.save()
                 except ValueError as exp:
-                    print("Error", exp)
+                    logger.error(exp)
             elif order_server == "mifa":
                 try:
                     order_manager = MifaOrderManager(order_id)
                     response = order_manager.order_status()
-                    print(response)
+                    logger.info("Get order status from Mifa server")
                     r = json.loads(response)
                     if r["status"]:
                         order.status = r["status"]
@@ -79,5 +86,5 @@ def order_status_task():
                         order.remains = r["remains"]
                     order.save()
                 except ValueError as exp:
-                    print("Error", exp)
+                    logger.error(exp)
 
