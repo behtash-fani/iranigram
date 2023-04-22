@@ -38,42 +38,43 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-var counter = 60;
-    var intervalId;
-    let phone_number = document.querySelector('#phone_number')
-    var phone = phone_number ? phone_number.getAttribute('data-phone') : null;
-
-    window.onload = function startCounter() {
-        intervalId = setInterval(decrementCounter, 1000);
-    }
-
-    function decrementCounter() {
-        counter--;
-        if (document.getElementById("counter")) {
-            document.getElementById("counter").innerHTML = counter;
-        }
-        if (counter === 0) {
-            $.ajax({
-                url: '/dashboard/check-expire-time/',
-                dataType: 'json',
-                method: 'POST',
-                data: {
-                    'phone_number': phone
-                },
-                headers: {
-                    "X-CSRFToken": csrf_token,
-                },
-                success: function (response) {
-                    console.log(response.msg)
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            })
-            clearInterval(intervalId);
-            document.getElementById('counter_box').className = "d-none"
-            document.getElementById('send_otpcode_again').classList.remove('d-none')
-            document.getElementById('send_otpcode_again').classList.remove('d-block')
-        }
-    }
+if (window.location.pathname === '/dashboard/verify-login/' || window.location.pathname === '/dashboard/verify-register/'){
+  var counter = 60;
+  var intervalId;
+  let phone_number = document.querySelector('#phone_number')
+  var phone = phone_number ? phone_number.getAttribute('data-phone') : null;
+  
+  window.onload = function startCounter() {
+      intervalId = setInterval(decrementCounter, 1000);
+  }
+  
+  function decrementCounter() {
+      counter--;
+      if (document.getElementById("counter")) {
+          document.getElementById("counter").innerHTML = counter;
+      }
+      if (counter === 0) {
+          $.ajax({
+              url: '/dashboard/check-expire-time/',
+              dataType: 'json',
+              method: 'POST',
+              data: {
+                  'phone_number': phone
+              },
+              headers: {
+                  "X-CSRFToken": csrf_token,
+              },
+              success: function (response) {
+                  console.log(response.msg)
+              },
+              error: function (error) {
+                  console.log(error);
+              }
+          })
+          clearInterval(intervalId);
+          document.getElementById('counter_box').className = "d-none"
+          document.getElementById('send_otpcode_again').classList.remove('d-none')
+          document.getElementById('send_otpcode_again').classList.remove('d-block')
+      }
+  }
+}

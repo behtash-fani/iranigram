@@ -22,7 +22,6 @@
             </div>
             <div class="form-floating mt-2">
                 {{ order_form.link }}
-                <!-- <label for="{{ id_link }}">{% trans 'Instagram Post Link' %}: </label> -->
                 <label for="{{ id_link }}" class="d-none" id="post_link_label">{% trans 'Instagram Post/IGTV/Reel Link' %}:</label>
                 <label for="{{ id_link }}" class="d-block" id="profile_link_label">{% trans 'Instagram Profile ID' %}:</label>
                 {{ order_form.link.errors }}
@@ -93,19 +92,18 @@
                 <span id="title_service" class="fw-bold"></span>
             </div>
             <hr>
-            <div class="row">
-                <div class="col">
-                    <span class="fs-6">{% trans "Order range between" %}</span>
-                    <span id="min_service" class="fw-bold"></span>
-                    <span>{% trans "to" %}</span>
-                    <span id="max_service" class="fw-bold"></span>
-                    <span>{% trans "Number" %}</span>
-                </div>
-                <div class="col">
-                    {% trans "Price per 1000" %}:
-                    <span id="price_per_unit_service" class="fw-bold"></span>
-                    {% trans "Toman" %}
-                </div>
+            <div>
+                <span class="fs-6">{% trans "Order range between" %}</span>
+                <span id="min_service" class="fw-bold"></span>
+                <span>{% trans "to" %}</span>
+                <span id="max_service" class="fw-bold"></span>
+                <span>{% trans "Number" %}</span>
+            </div>
+            <hr>
+            <div>
+                {% trans "Price per 1000" %}:
+                <span id="price_per_unit_service" class="fw-bold"></span>
+                {% trans "Toman" %}
             </div>
             <hr>
             <div class="row">

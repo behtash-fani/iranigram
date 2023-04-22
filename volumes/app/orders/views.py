@@ -17,6 +17,7 @@ from django.urls import reverse
 from utils.generate_random_number import generate_random_number
 from django.views.decorators.csrf import csrf_exempt
 
+logger = logging.getLogger("django")
 
 class NewOrderView(LoginRequiredMixin, View):
     template_name = 'orders/new_order.html'
@@ -85,7 +86,7 @@ class NewOrderView(LoginRequiredMixin, View):
                     'success')
                 return redirect('accounts:new_order')
         else:
-            print(order_form.errors.as_data())
+            logger.error(order_form.errors.as_data())
             context = {'order_form': order_form}
             return render(request, self.template_name, context)
 
