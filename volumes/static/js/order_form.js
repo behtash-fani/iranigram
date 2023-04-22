@@ -53,6 +53,14 @@ $("#id_service").change(function () {
             "X-CSRFToken": csrf_token
         },
         success: function (data) {
+            if (data.service_detail.link_type === "instagram_profile"){
+                document.getElementById("profile_link_label").classList = "d-block"
+                document.getElementById("post_link_label").classList = "d-none"
+            }
+            else if (data.service_detail.link_type === "instagram_post_link") {
+                document.getElementById("profile_link_label").classList = "d-none"
+                document.getElementById("post_link_label").classList = "d-block"
+            }
             id_quantity.setAttribute("min", data.service_detail.min_order)
             id_quantity.setAttribute("max", data.service_detail.max_order)
             desc_box.innerHTML = ''
@@ -124,7 +132,6 @@ $(function () {
 });
 
 window.onload = function () {
-    console.log("lsjdlskjdlkjsldkf")
     let service_type_select = document.getElementById("id_service_type");
     let service_select = document.getElementById("id_service");
     let id_link = document.getElementById("id_link");

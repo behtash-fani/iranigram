@@ -11,7 +11,6 @@ services:
             - type: 'bind'
               source: './volumes/app'
               target: '/app'
-        
         env_file:
             - ./volumes/app/.env
         # command: sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"

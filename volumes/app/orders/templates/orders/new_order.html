@@ -22,7 +22,9 @@
             </div>
             <div class="form-floating mt-2">
                 {{ order_form.link }}
-                <label for="{{ id_link }}">{% trans 'Instagram Post Link' %}: </label>
+                <!-- <label for="{{ id_link }}">{% trans 'Instagram Post Link' %}: </label> -->
+                <label for="{{ id_link }}" class="d-none" id="post_link_label">{% trans 'Instagram Post/IGTV/Reel Link' %}:</label>
+                <label for="{{ id_link }}" class="d-block" id="profile_link_label">{% trans 'Instagram Profile ID' %}:</label>
                 {{ order_form.link.errors }}
             </div>
             <div class="form-floating mt-2">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 01:51+0330\n"
+"POT-Creation-Date: 2023-04-22 04:29+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,9 +169,9 @@ msgstr "اعتبار فعلی کیف پول شما"
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:15
 #: accounts/templates/accounts/wallet.html:29
-#: orders/templates/orders/new_order.html:37
-#: orders/templates/orders/new_order.html:55
-#: orders/templates/orders/new_order.html:105
+#: orders/templates/orders/new_order.html:39
+#: orders/templates/orders/new_order.html:57
+#: orders/templates/orders/new_order.html:107
 #: orders/templates/orders/orders.html:43
 #: transactions/templates/transactions/transactions.html:28
 #: transactions/templates/transactions/transactions.html:29
@@ -198,7 +198,7 @@ msgstr "داشبورد کاربری"
 
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:22
-#: orders/templates/orders/new_order.html:55
+#: orders/templates/orders/new_order.html:57
 msgid "Credit"
 msgstr "اعتبار"
 
@@ -212,8 +212,8 @@ msgstr "تعداد سفارش"
 
 #: accounts/templates/accounts/dashboard.html:26
 #: accounts/templates/accounts/dashboard.html:41
-#: orders/templates/orders/new_order.html:35
-#: orders/templates/orders/new_order.html:100
+#: orders/templates/orders/new_order.html:37
+#: orders/templates/orders/new_order.html:102
 #: orders/templates/orders/orders.html:42
 msgid "Number"
 msgstr "عدد"
@@ -514,15 +514,15 @@ msgstr "لطفا نوع سرویس را انتخاب کنید"
 msgid "Please select the service"
 msgstr "لطفا یک سرویس انتخاب کنید"
 
-#: orders/forms.py:58
+#: orders/forms.py:57
 msgid "Please enter a instagram public link/id"
 msgstr "لطفا لینک/آی دی عمومی اینستاگرام وارد کنید"
 
-#: orders/forms.py:65
+#: orders/forms.py:67
 msgid "The link entered is not a valid Instagram post link"
 msgstr "لینک وارد شده یک لینک صحیح پست اینستاگرام نیست"
 
-#: orders/forms.py:71
+#: orders/forms.py:73
 msgid "Please enter quantity of order"
 msgstr "لطفا تعداد مورد نظر برای سفارش را وارد کنید"
 
@@ -579,7 +579,7 @@ msgstr "کد سفارش سرور"
 msgid "Link"
 msgstr "لینک"
 
-#: orders/models.py:32 orders/templates/orders/new_order.html:30
+#: orders/models.py:32 orders/templates/orders/new_order.html:32
 #: orders/templates/orders/orders.html:24
 msgid "Quantity"
 msgstr "تعداد"
@@ -649,55 +649,63 @@ msgstr "سرویس را انتخاب کنید"
 msgid "Instagram Post Link"
 msgstr "لینک پست اینستاگرام"
 
-#: orders/templates/orders/new_order.html:35
+#: orders/templates/orders/new_order.html:26
+msgid "Instagram Post/IGTV/Reel Link"
+msgstr "لینک پست / IGTV / ریل اینستاگرام"
+
+#: orders/templates/orders/new_order.html:27
+msgid "Instagram Profile ID"
+msgstr "آی دی پروفایل عمومی اینستاگرام"
+
+#: orders/templates/orders/new_order.html:37
 msgid "The number of requests"
 msgstr "تعداد درخواستی"
 
-#: orders/templates/orders/new_order.html:37
+#: orders/templates/orders/new_order.html:39
 msgid "Final fee payable"
 msgstr "هزینه نهایی قابل پرداخت"
 
-#: orders/templates/orders/new_order.html:43
-#: orders/templates/orders/new_order.html:71
+#: orders/templates/orders/new_order.html:45
+#: orders/templates/orders/new_order.html:73
 #: orders/templates/orders/orders.html:94
 msgid "Online Payment"
 msgstr "پرداخت آنلاین"
 
-#: orders/templates/orders/new_order.html:44
-#: orders/templates/orders/new_order.html:73
+#: orders/templates/orders/new_order.html:46
+#: orders/templates/orders/new_order.html:75
 #: orders/templates/orders/orders.html:96
 msgid "Payment with all bank cards"
 msgstr "پرداخت با تمامی کارتهای بانکی"
 
-#: orders/templates/orders/new_order.html:53
+#: orders/templates/orders/new_order.html:55
 msgid "Pay with Wallet"
 msgstr "پرداخت با کیف پول"
 
-#: orders/templates/orders/new_order.html:85
+#: orders/templates/orders/new_order.html:87
 msgid "Product Specifications"
 msgstr "مشخصات محصول"
 
-#: orders/templates/orders/new_order.html:87
+#: orders/templates/orders/new_order.html:89
 msgid "Please select a product"
 msgstr "یک محصول انتخاب کنید"
 
-#: orders/templates/orders/new_order.html:90
+#: orders/templates/orders/new_order.html:92
 msgid "Title of product"
 msgstr "عنوان محصول"
 
-#: orders/templates/orders/new_order.html:96
+#: orders/templates/orders/new_order.html:98
 msgid "Order range between"
 msgstr "محدوده ثبت سفارش"
 
-#: orders/templates/orders/new_order.html:98
+#: orders/templates/orders/new_order.html:100
 msgid "to"
 msgstr "تا"
 
-#: orders/templates/orders/new_order.html:103
+#: orders/templates/orders/new_order.html:105
 msgid "Price per 1000"
 msgstr "قیمت به ازای ۱۰۰۰ عدد"
 
-#: orders/templates/orders/new_order.html:110 service/models.py:38
+#: orders/templates/orders/new_order.html:112 service/models.py:38
 msgid "Description"
 msgstr "توضیحات"
 

@@ -229,6 +229,7 @@ HANDLERS = {
         'maxBytes': 1024 * 1024 * 5,  # 5 MB
         'backupCount': 5,
         'formatter': 'verbose',
+        "mode": "a",
     },
 }
 
@@ -250,8 +251,9 @@ LOGGERS = (
             "propagate": False,
         },
         'orders.tasks.order_status_task': {
-            'handlers': ['file'],
+            'handlers': ["file"],
             'level': 'INFO',
+            "propagate": False,
         },
     },
 )

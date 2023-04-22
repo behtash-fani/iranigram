@@ -12,6 +12,8 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
+RUN apt update
+RUN apt-get -y install gettext 
 
 CMD python manage.py makemigrations --noinput && \
     while ! python manage.py migrate --noinput  ; do sleep 1 ; done && \
