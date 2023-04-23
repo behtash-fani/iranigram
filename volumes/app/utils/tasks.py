@@ -2,13 +2,15 @@ from django.http import HttpResponse
 from accounts.models import User
 from orders.models import Order
 import json
-from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
+from celery import shared_task
 
 
 
-def import_users(request):
+
+@shared_task()
+def import_users_task():
     # for user in User.objects.all():
     #     if user.email is None:
     #         user.email = f'{user.phone_number}@iranigram.com'
@@ -34,10 +36,10 @@ def import_users(request):
                 is_active=user["is_active"],
                 balance=user["balance"],
                 )
-    return HttpResponse("ok")
+    return "Ok!"
 
 
-def import_orders(request):
+# def import_orders(request):
     # count = 0
     # for order in Order.objects.all():
     #     order.delete()
@@ -67,4 +69,4 @@ def import_orders(request):
     #         )
     #     count += 1
     #     print(count)
-    return HttpResponse("ok")
+    # return HttpResponse("ok")

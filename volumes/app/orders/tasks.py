@@ -8,6 +8,10 @@ import logging
 from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
+from utils.utils import get_jdatetime
+from django.http import HttpResponse
+from django.conf import settings
+import time
 
 logger = logging.getLogger("orders.tasks.order_status_task")
 
@@ -118,3 +122,33 @@ def order_status_task():
                 except ValueError as exp:
                     logger.error(exp)
 
+
+@shared_task()
+def import_orders_task():
+    # count = 0
+    # for order in Order.objects.all():
+    #     order.delete()
+    #     count += 1
+    #     print(count)
+    filepath = settings.BASE_DIR / 'utils/total_orders_file.json'
+    with open(filepath, 'r') as f:
+        orders_data = f.read()
+    orders_data = json.loads(orders_data)
+    orders_dict = {}
+    for i, order in enumerate(orders_data):
+        orders_dict[i] = order
+        # if not Order.objects.filter(order_code=order["order_code"]).exists():
+        if User.objects.filter(phone_number=order["user"]).exists():
+            user = User.objects.get(phone_number=order["user"])
+        Order.objects.update_or_create(
+            user=user,
+            order_code=order["order_code"],
+            link=order["link"],
+            quantity=order["quantity"],
+            amount=order["amount"],
+            status=order["status"],
+            payment_method=order["payment_method"],
+            paid=order["paid"],
+            )
+        time.sleep(0.1)
+    return HttpResponse("ok")
