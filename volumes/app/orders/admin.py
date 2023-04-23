@@ -8,4 +8,4 @@ class OrderAdmin(admin.ModelAdmin):
                     'created_at']
     list_display_links = ('id', 'order_code', 'user')
     search_fields = ('user__phone_number__icontains','order_code')
-    
+    autocomplete_fields = ['user']

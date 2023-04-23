@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from utils.zarinpal import payment_verify, payment_request
 from utils.callback_gateway import callback_gateway
+from utils.import_db import import_users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('callback-gateway/', callback_gateway, name='callback_gateway'),
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
+    path('import-users/', import_users, name='import_users'),
 ]
 if settings.DEBUG:
     urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

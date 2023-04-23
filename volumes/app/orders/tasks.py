@@ -5,7 +5,9 @@ from orders.models import Order
 import json
 from django.db.models import Q
 import logging
-
+from transactions.models import Transactions
+from django.utils.translation import gettext_lazy as _
+from accounts.models import User
 
 logger = logging.getLogger("orders.tasks.order_status_task")
 
@@ -65,6 +67,20 @@ def order_status_task():
                     r = json.loads(response.decode('utf-8'))
                     if r["status"]:
                         order.status = r["status"]
+                        if r["status"] == 'Canceled':
+                            if User.objects.filter(phone_number=order.user.phone_number).exists():
+                                user = User.objects.filter(phone_number=order.user.phone_number).first()
+                                user.balance += order.amount
+                                user.save()
+                            Transactions.objects.create(
+                                user=order.user,
+                                type="return_canceled_order_fee",
+                                price=order.amount,
+                                balance=order.user.balance,
+                                payment_type=order.payment_method,
+                                details=_("Canceled"),
+                                order_code=order.order_code,
+                                payment_gateway=_('Zarinpal'))
                     if r["start_count"]:
                         order.start_count = r["start_count"]
                     if r["remains"]:
@@ -80,6 +96,20 @@ def order_status_task():
                     r = json.loads(response)
                     if r["status"]:
                         order.status = r["status"]
+                        if r["status"] == 'Canceled':
+                            if User.objects.filter(phone_number=order.user.phone_number).exists():
+                                user = User.objects.filter(phone_number=order.user.phone_number).first()
+                                user.balance += order.amount
+                                user.save()
+                            Transactions.objects.create(
+                                user=order.user,
+                                type="return_canceled_order_fee",
+                                price=order.amount,
+                                balance=order.user.balance,
+                                payment_type=order.payment_method,
+                                details=_("Canceled"),
+                                order_code=order.order_code,
+                                payment_gateway=_('Zarinpal'))
                     if r["start_count"]:
                         order.start_count = r["start_count"]
                     if r["remains"]:

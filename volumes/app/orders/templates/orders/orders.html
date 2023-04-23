@@ -45,14 +45,14 @@
                     <button class="btn btn-light rounded-4 copy-text mt-1 mt-lg-0 rounded-4" value="{{ order.link }}">
                         <img src="{% static 'icons/Copy.svg' %}" alt="">
                     </button>
-                    <a href="{{ order.link }}" target="_blank" class="btn btn-light rounded-4">
+                    <a href="{{ order.link }}" target="_blank" class="btn btn-light rounded-4 mt-1 mt-lg-0">
                         <img src="{% static 'icons/link.svg' %}" alt="">
                     </a>
                 </td>
                 {% if order.paid %}
                 <td class="text-center align-middle">{% trans order.status %}</td>
                 {% else %}
-                <td class="text-center align-middle">پرداخت نشده</td>
+                <td class="text-center align-middle">{% trans 'Unpaid' %}</td>
                 {% endif %}
 
                 {% if order.remains >= 0 %}

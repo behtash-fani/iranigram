@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 04:29+0330\n"
+"POT-Creation-Date: 2023-04-23 17:05+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,9 +169,9 @@ msgstr "اعتبار فعلی کیف پول شما"
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:15
 #: accounts/templates/accounts/wallet.html:29
-#: orders/templates/orders/new_order.html:39
-#: orders/templates/orders/new_order.html:57
-#: orders/templates/orders/new_order.html:107
+#: orders/templates/orders/new_order.html:38
+#: orders/templates/orders/new_order.html:56
+#: orders/templates/orders/new_order.html:106
 #: orders/templates/orders/orders.html:43
 #: transactions/templates/transactions/transactions.html:28
 #: transactions/templates/transactions/transactions.html:29
@@ -198,7 +198,7 @@ msgstr "داشبورد کاربری"
 
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:22
-#: orders/templates/orders/new_order.html:57
+#: orders/templates/orders/new_order.html:56
 msgid "Credit"
 msgstr "اعتبار"
 
@@ -212,8 +212,8 @@ msgstr "تعداد سفارش"
 
 #: accounts/templates/accounts/dashboard.html:26
 #: accounts/templates/accounts/dashboard.html:41
-#: orders/templates/orders/new_order.html:37
-#: orders/templates/orders/new_order.html:102
+#: orders/templates/orders/new_order.html:36
+#: orders/templates/orders/new_order.html:100
 #: orders/templates/orders/orders.html:42
 msgid "Number"
 msgstr "عدد"
@@ -579,7 +579,7 @@ msgstr "کد سفارش سرور"
 msgid "Link"
 msgstr "لینک"
 
-#: orders/models.py:32 orders/templates/orders/new_order.html:32
+#: orders/models.py:32 orders/templates/orders/new_order.html:31
 #: orders/templates/orders/orders.html:24
 msgid "Quantity"
 msgstr "تعداد"
@@ -646,66 +646,62 @@ msgid "Choose Service"
 msgstr "سرویس را انتخاب کنید"
 
 #: orders/templates/orders/new_order.html:25
-msgid "Instagram Post Link"
-msgstr "لینک پست اینستاگرام"
-
-#: orders/templates/orders/new_order.html:26
 msgid "Instagram Post/IGTV/Reel Link"
 msgstr "لینک پست / IGTV / ریل اینستاگرام"
 
-#: orders/templates/orders/new_order.html:27
+#: orders/templates/orders/new_order.html:26
 msgid "Instagram Profile ID"
 msgstr "آی دی پروفایل عمومی اینستاگرام"
 
-#: orders/templates/orders/new_order.html:37
+#: orders/templates/orders/new_order.html:36
 msgid "The number of requests"
 msgstr "تعداد درخواستی"
 
-#: orders/templates/orders/new_order.html:39
+#: orders/templates/orders/new_order.html:38
 msgid "Final fee payable"
 msgstr "هزینه نهایی قابل پرداخت"
 
-#: orders/templates/orders/new_order.html:45
-#: orders/templates/orders/new_order.html:73
+#: orders/templates/orders/new_order.html:44
+#: orders/templates/orders/new_order.html:72
 #: orders/templates/orders/orders.html:94
 msgid "Online Payment"
 msgstr "پرداخت آنلاین"
 
-#: orders/templates/orders/new_order.html:46
-#: orders/templates/orders/new_order.html:75
+#: orders/templates/orders/new_order.html:45
+#: orders/templates/orders/new_order.html:74
 #: orders/templates/orders/orders.html:96
 msgid "Payment with all bank cards"
 msgstr "پرداخت با تمامی کارتهای بانکی"
 
-#: orders/templates/orders/new_order.html:55
+#: orders/templates/orders/new_order.html:54
 msgid "Pay with Wallet"
 msgstr "پرداخت با کیف پول"
 
-#: orders/templates/orders/new_order.html:87
+#: orders/templates/orders/new_order.html:86
 msgid "Product Specifications"
 msgstr "مشخصات محصول"
 
-#: orders/templates/orders/new_order.html:89
+#: orders/templates/orders/new_order.html:88
 msgid "Please select a product"
 msgstr "یک محصول انتخاب کنید"
 
-#: orders/templates/orders/new_order.html:92
+#: orders/templates/orders/new_order.html:91
 msgid "Title of product"
 msgstr "عنوان محصول"
 
-#: orders/templates/orders/new_order.html:98
+#: orders/templates/orders/new_order.html:96
 msgid "Order range between"
 msgstr "محدوده ثبت سفارش"
 
-#: orders/templates/orders/new_order.html:100
+#: orders/templates/orders/new_order.html:98
 msgid "to"
 msgstr "تا"
 
-#: orders/templates/orders/new_order.html:105
+#: orders/templates/orders/new_order.html:104
 msgid "Price per 1000"
 msgstr "قیمت به ازای ۱۰۰۰ عدد"
 
-#: orders/templates/orders/new_order.html:112 service/models.py:38
+#: orders/templates/orders/new_order.html:110 service/models.py:38
 msgid "Description"
 msgstr "توضیحات"
 
@@ -730,27 +726,31 @@ msgstr "مبلغ"
 msgid "Paid Status"
 msgstr "وضعیت پرداخت"
 
+#: orders/templates/orders/orders.html:55
+msgid "Unpaid"
+msgstr "پرداخت نشده"
+
 #: orders/templates/orders/orders.html:113
 msgid "No orders have been submitted yet"
 msgstr "تا به الان هیچ سفارشی ثبت نشده"
 
-#: orders/views.py:44
+#: orders/views.py:45
 msgid "For amounts less than 500 Tomans, please use a wallet"
 msgstr "برای مبالغ کمتر از ۵۰۰ تومان لطفا از کیف پول استفاده بفرمایید"
 
-#: orders/views.py:49 orders/views.py:137
+#: orders/views.py:50 orders/views.py:138
 msgid "Online payment of the order fee"
 msgstr "پرداخت آنلاین هزینه سفارش"
 
-#: orders/views.py:72
+#: orders/views.py:73
 msgid "Deduct the amount for placing the order"
 msgstr "کسر مبلغ بابت ثبت سفارش"
 
-#: orders/views.py:83
+#: orders/views.py:84
 msgid "Order created successfully, this is your order code:"
 msgstr "ثبت سفارش موفقیت آمیز انجام شد. کد سفارش شما: "
 
-#: orders/views.py:118
+#: orders/views.py:119
 msgid "Payment of the order deficit"
 msgstr "پرداخت مبلغ کسری سفارش"
 
@@ -1028,3 +1028,6 @@ msgstr "خروج"
 #: templates/inc/navbar.html:153
 msgid "Account"
 msgstr "حساب کاربری"
+
+#~ msgid "Instagram Post Link"
+#~ msgstr "لینک پست اینستاگرام"

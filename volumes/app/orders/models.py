@@ -17,7 +17,7 @@ ORDER_STATUS = (
 )
 
 PAYMENT_METHOD = (
-    ("credit_card", _("Credit Cart")),
+    ("online", _("online")),
     ("wallet", _("Wallet")),
 )
 
