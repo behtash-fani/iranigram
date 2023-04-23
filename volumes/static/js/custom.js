@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     buttons[i].addEventListener("click", function (event) {
       event.preventDefault();
       let value = this.getAttribute("value");
-      let text = this.innerText;
       navigator.clipboard.writeText(value);
       buttons.forEach(function (item) {
         item.className = "btn btn-light rounded-4 copy-text";
