@@ -121,6 +121,7 @@ def order_status_task():
                     order.save()
                 except ValueError as exp:
                     logger.error(exp)
+    return "Ok!"
 
 
 @shared_task()
