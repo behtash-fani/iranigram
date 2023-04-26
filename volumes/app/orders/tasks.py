@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.conf import settings
 import time
 
-logger = logging.getLogger("orders.tasks.order_status_task")
+logger = logging.getLogger("celery_task")
 
 
 @shared_task()

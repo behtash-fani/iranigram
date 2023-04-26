@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-23 17:05+0330\n"
+"POT-Creation-Date: 2023-04-26 03:46+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -542,7 +542,7 @@ msgstr "در حال پردازش"
 msgid "In progress"
 msgstr "در حال انجام"
 
-#: orders/models.py:13
+#: orders/models.py:13 orders/tasks.py:85 orders/tasks.py:114
 msgid "Canceled"
 msgstr "لغو شده"
 
@@ -558,9 +558,9 @@ msgstr "ناتمام"
 msgid "Refunded"
 msgstr "برگشت مبلغ شده"
 
-#: orders/models.py:20
-msgid "Credit Cart"
-msgstr "پرداخت بانکی"
+#: orders/models.py:20 transactions/models.py:16
+msgid "online"
+msgstr "آنلاین"
 
 #: orders/models.py:27 service/models.py:6 service/models.py:10
 #: service/models.py:29
@@ -601,7 +601,8 @@ msgid "Payment Method"
 msgstr "روش پرداخت"
 
 #: orders/models.py:37 orders/templates/orders/orders.html:27
-#: support/models.py:22 support/templates/support/support.html:26
+#: posts/models.py:18 support/models.py:22
+#: support/templates/support/support.html:26
 msgid "Status"
 msgstr "وضعیت"
 
@@ -618,13 +619,13 @@ msgid "Paid"
 msgstr "پرداخت شده"
 
 #: orders/models.py:41 orders/templates/orders/orders.html:30
-#: support/models.py:23 support/models.py:39
+#: posts/models.py:19 support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:28 transactions/models.py:32
 #: transactions/templates/transactions/transactions.html:18
 msgid "Created At"
 msgstr "تاریخ ایجاد"
 
-#: orders/models.py:42 support/models.py:24
+#: orders/models.py:42 posts/models.py:20 support/models.py:24
 #: support/templates/support/support.html:29 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
@@ -632,6 +633,11 @@ msgstr "تاریخ به روزرسانی"
 #: orders/models.py:48
 msgid "Order"
 msgstr "سفارش"
+
+#: orders/tasks.py:87 orders/tasks.py:116 utils/zarinpal.py:103
+#: utils/zarinpal.py:118 utils/zarinpal.py:142
+msgid "Zarinpal"
+msgstr "زرین پال"
 
 #: orders/templates/orders/new_order.html:11
 msgid "Start Here"
@@ -759,6 +765,38 @@ msgstr "پرداخت مبلغ کسری سفارش"
 msgid "Home"
 msgstr "صفحه اصلی"
 
+#: posts/models.py:9
+msgid "Draft"
+msgstr "پیش نویس"
+
+#: posts/models.py:10
+msgid "Publish"
+msgstr "انتشار"
+
+#: posts/models.py:14 service/models.py:34
+msgid "Title"
+msgstr "عنوان"
+
+#: posts/models.py:15
+msgid "Slug"
+msgstr "لینک"
+
+#: posts/models.py:16
+msgid "Author"
+msgstr "نویسنده"
+
+#: posts/models.py:17
+msgid "Content"
+msgstr "محتوا"
+
+#: posts/models.py:30
+msgid "Post"
+msgstr "پست"
+
+#: posts/models.py:31
+msgid "Posts"
+msgstr "پست ها"
+
 #: service/apps.py:8 service/models.py:46
 msgid "Services"
 msgstr "سرویس ها"
@@ -782,10 +820,6 @@ msgstr "کد سرویس متناظر"
 #: service/models.py:33
 msgid "Service Code"
 msgstr "کد سرویس"
-
-#: service/models.py:34
-msgid "Title"
-msgstr "عنوان"
 
 #: service/models.py:35
 msgid "Amount Per 1 Number"
@@ -943,10 +977,6 @@ msgstr "برگشت هزینه سفارش ناقص"
 msgid "wallet"
 msgstr "کیف پول"
 
-#: transactions/models.py:16
-msgid "online"
-msgstr "آنلاین"
-
 #: transactions/models.py:17 transactions/models.py:30
 msgid "system"
 msgstr "سیستمی"
@@ -997,10 +1027,6 @@ msgstr ""
 "متاسفانه ارتباط با درگاه بانک برقرار نشد. تیم فنی در اسرع وقت این مشکل را "
 "برطرف میکند"
 
-#: utils/zarinpal.py:103 utils/zarinpal.py:118 utils/zarinpal.py:142
-msgid "Zarinpal"
-msgstr "زرین پال"
-
 #: templates/inc/navbar.html:30 templates/inc/navbar.html:72
 msgid "Mag"
 msgstr "مجله"
@@ -1029,5 +1055,5 @@ msgstr "خروج"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#~ msgid "Instagram Post Link"
-#~ msgstr "لینک پست اینستاگرام"
+#~ msgid "Credit Cart"
+#~ msgstr "پرداخت بانکی"

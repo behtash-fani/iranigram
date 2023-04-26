@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "transactions.apps.TransactionsConfig",
     "support.apps.SupportConfig",
+    "posts.apps.PostsConfig",
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,7 @@ ADMIN_REORDER = (
     {"app": "support"},
     {"app": "transactions"},
     {"app": "service"},
+    {"app": "posts"},
     {"app": "django_celery_beat"},
     {"app": "admin_persian"},
 )
@@ -161,7 +163,7 @@ USE_L10N = True
 # NUMBER_GROUPING = 3
 
 # Zarinpal configuration
-SANDBOX = env("ZARINPAL_SANDBOX")
+SANDBOX = env.bool("ZARINPAL_SANDBOX")
 MERCHANT = env("ZARINPAL_MERCHANT_ID")
 
 if SANDBOX:
@@ -170,9 +172,7 @@ else:
     sandbox = "www"
 
 ZP_API_REQUEST = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
-ZP_API_VERIFY = (
-    f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
-)
+ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
 ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 
 
@@ -222,7 +222,7 @@ HANDLERS = {
         "backupCount": 5,
         "maxBytes": 1024 * 1024 * 5,  # 5 MB
     },
-    'file': {
+    'celery_task': {
         'level': 'INFO',
         'class': 'logging.handlers.RotatingFileHandler',
         'filename': f"{BASE_DIR}/logs/celery_task.log",
@@ -230,7 +230,7 @@ HANDLERS = {
         'backupCount': 5,
         'formatter': 'verbose',
         "mode": "a",
-    },
+    }
 }
 
 LOGGERS = (
@@ -250,8 +250,8 @@ LOGGERS = (
             "level": "INFO",
             "propagate": False,
         },
-        'orders.tasks.order_status_task': {
-            'handlers': ["file"],
+        'celery_task': {
+            'handlers': ["celery_task"],
             'level': 'INFO',
             "propagate": False,
         },
