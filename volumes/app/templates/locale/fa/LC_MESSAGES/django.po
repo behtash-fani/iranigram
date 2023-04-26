@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-26 12:47+0330\n"
+"POT-Creation-Date: 2023-04-26 17:00+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -506,23 +506,23 @@ msgid ""
 "Please select the number of orders you want according to the service limit"
 msgstr "لطفا تعداد سفارش مورد نظر خود را با توجه به محدودیت سرویس انتخاب کنید"
 
-#: orders/forms.py:45
+#: orders/forms.py:46
 msgid "Please select the type of service"
 msgstr "لطفا نوع سرویس را انتخاب کنید"
 
-#: orders/forms.py:51
+#: orders/forms.py:52
 msgid "Please select the service"
 msgstr "لطفا یک سرویس انتخاب کنید"
 
-#: orders/forms.py:57
+#: orders/forms.py:58
 msgid "Please enter a instagram public link/id"
 msgstr "لطفا لینک/آی دی عمومی اینستاگرام وارد کنید"
 
-#: orders/forms.py:67
+#: orders/forms.py:68
 msgid "The link entered is not a valid Instagram post link"
 msgstr "لینک وارد شده یک لینک صحیح پست اینستاگرام نیست"
 
-#: orders/forms.py:73
+#: orders/forms.py:74
 msgid "Please enter quantity of order"
 msgstr "لطفا تعداد مورد نظر برای سفارش را وارد کنید"
 
@@ -542,7 +542,7 @@ msgstr "در حال پردازش"
 msgid "In progress"
 msgstr "در حال انجام"
 
-#: orders/models.py:13 orders/tasks.py:85 orders/tasks.py:114
+#: orders/models.py:13 orders/tasks.py:89 orders/tasks.py:118
 msgid "Canceled"
 msgstr "لغو شده"
 
@@ -562,12 +562,12 @@ msgstr "برگشت مبلغ شده"
 msgid "online"
 msgstr "آنلاین"
 
-#: orders/models.py:27 service/models.py:6 service/models.py:10
-#: service/models.py:29
+#: orders/models.py:27 service/models.py:6 service/models.py:11
+#: service/models.py:30
 msgid "ServiceType"
 msgstr "نوع سرویس"
 
-#: orders/models.py:28 service/models.py:45
+#: orders/models.py:28 service/models.py:47
 msgid "Service"
 msgstr "سرویس"
 
@@ -634,7 +634,7 @@ msgstr "تاریخ به روزرسانی"
 msgid "Order"
 msgstr "سفارش"
 
-#: orders/tasks.py:87 orders/tasks.py:116 utils/zarinpal.py:103
+#: orders/tasks.py:91 orders/tasks.py:120 utils/zarinpal.py:103
 #: utils/zarinpal.py:118 utils/zarinpal.py:142
 msgid "Zarinpal"
 msgstr "زرین پال"
@@ -707,7 +707,7 @@ msgstr "تا"
 msgid "Price per 1"
 msgstr "قیمت به ازای ۱ عدد"
 
-#: orders/templates/orders/new_order.html:110 service/models.py:38
+#: orders/templates/orders/new_order.html:110 service/models.py:39
 msgid "Description"
 msgstr "توضیحات"
 
@@ -773,7 +773,7 @@ msgstr "پیش نویس"
 msgid "Publish"
 msgstr "انتشار"
 
-#: posts/models.py:14 service/models.py:34
+#: posts/models.py:14 service/models.py:35
 msgid "Title"
 msgstr "عنوان"
 
@@ -797,43 +797,47 @@ msgstr "پست"
 msgid "Posts"
 msgstr "پست ها"
 
-#: service/apps.py:8 service/models.py:46
+#: service/apps.py:8 service/models.py:48
 msgid "Services"
 msgstr "سرویس ها"
 
-#: service/models.py:11
+#: service/models.py:7 service/models.py:40
+msgid "Display priority"
+msgstr "اولویت نمایش"
+
+#: service/models.py:12
 msgid "ServiceTypes"
 msgstr "نوع سرویس ها"
 
-#: service/models.py:30
+#: service/models.py:31
 msgid "Link Type"
 msgstr "نوع لینک"
 
-#: service/models.py:31
+#: service/models.py:32
 msgid "Server"
 msgstr "سرور"
 
-#: service/models.py:32
+#: service/models.py:33
 msgid "Server Service Code"
 msgstr "کد سرویس متناظر"
 
-#: service/models.py:33
+#: service/models.py:34
 msgid "Service Code"
 msgstr "کد سرویس"
 
-#: service/models.py:35
+#: service/models.py:36
 msgid "Amount Per 1 Number"
 msgstr "قیمت به ازای هر ۱ عدد"
 
-#: service/models.py:36
+#: service/models.py:37
 msgid "Min Order"
 msgstr "حداقل سفارش"
 
-#: service/models.py:37
+#: service/models.py:38
 msgid "Max Order"
 msgstr "حداکثر سفارش"
 
-#: service/models.py:39
+#: service/models.py:41
 msgid "Available For User"
 msgstr "فعال برای کاربر"
 

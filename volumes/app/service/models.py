@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 
 class ServiceType(models.Model):
     name = models.CharField(_('ServiceType'), max_length=100, blank=True, null=True)
+    priority = models.IntegerField(_('Display priority'), blank=True, null=True)
 
     class Meta:
         ordering = ('id',)
@@ -36,6 +37,7 @@ class Service(models.Model):
     min_order = models.CharField(max_length=10, null=True, blank=True, verbose_name=_('Min Order'))
     max_order = models.CharField(max_length=10, null=True, blank=True, verbose_name=_('Max Order'))
     description = models.TextField(null=True, blank=True, verbose_name=_('Description'))
+    priority = models.IntegerField(_('Display priority'), blank=True, null=True)
     available_for_user = models.BooleanField(default=True, verbose_name=_('Available For User'))
 
     def __str__(self) -> str:

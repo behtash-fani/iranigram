@@ -1,6 +1,6 @@
 from django import forms
 from orders.models import Order
-from service.models import Service
+from service.models import Service, ServiceType
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from accounts.models import User
@@ -9,6 +9,7 @@ from accounts.models import User
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
+        ordering = ['priority']
         fields = ['service_type', 'service', 'link', 'quantity']
         widgets = {
             'service_type': forms.Select(attrs={'class': 'form-select'}),
@@ -28,16 +29,17 @@ class OrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['service_type'].queryset = ServiceType.objects.all().order_by('priority')
         self.fields['service'].queryset = Service.objects.none()
 
         if 'service_type' in self.data:
             try:
                 service_type_id = int(self.data.get('service_type'))
-                self.fields['service'].queryset = Service.objects.filter(service_type_id=service_type_id).all()
+                self.fields['service'].queryset = Service.objects.filter(service_type_id=service_type_id)
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
-            self.fields['service'].queryset = self.instance.service_type.service_set.order_by('name')
+            self.fields['service'].queryset = self.instance.service_type.service_set
 
     def clean_service_type(self):
         service_type = self.cleaned_data["service_type"]
