@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     "jalali_date",
     # 'django.contrib.humanize',
     "admin_reorder",
-    "redirects",
+    # "redirects",
     # local apps
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 ]
 SITE_ID = 1
 MIDDLEWARE = [
-    "redirects.middleware.RedirectMiddleware",
+    # "redirects.middleware.RedirectMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -67,7 +67,7 @@ ADMIN_REORDER = (
     {"app": "service"},
     {"app": "posts"},
     {"app": "django_celery_beat"},
-    {"app": "redirects"},
+    # {"app": "redirects"},
     {"app": "admin_persian"},
 )
 
