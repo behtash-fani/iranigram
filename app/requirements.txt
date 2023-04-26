@@ -72,3 +72,4 @@ xlrd==2.0.1
 xlwt==1.3.0
 whitenoise
 mysqlclient==2.1.1
+django-redirects==0.4.0
