@@ -45,7 +45,7 @@ class NewOrderView(LoginRequiredMixin, View):
                         'For amounts less than 500 Tomans, please use a wallet'), 'danger')
                     return redirect('accounts:new_order')
                 order_item.amount = total_price
-                order_item.payment_method = "credit_card"
+                order_item.payment_method = "online"
                 order_item.save()
                 transaction_detail = _('Online payment of the order fee'),
                 request.session['phone_number'] = user.phone_number
