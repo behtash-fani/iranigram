@@ -12,7 +12,7 @@ def send_verification_sms(phone_number, verification_code):
     }
     sms.send_pattern(
         "mhrpl8zq76fhm48",  # pattern code
-        "+3000505",  # originator
+        "+5000125475",  # originator
         f"{phone_number}",  # recipient
         pattern_values,  # pattern values
     )

@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_celery_beat",
     "jalali_date",
+    'ckeditor',
+    'ckeditor_uploader',
     # 'django.contrib.humanize',
     "admin_reorder",
     # "redirects",
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 ]
 SITE_ID = 1
+CKEDITOR_UPLOAD_PATH = "blog/"
 MIDDLEWARE = [
     # "redirects.middleware.RedirectMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -134,8 +137,8 @@ if DEBUG:
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
 
 
-MEDIA_URL = '/ticket_files/' 
-MEDIA_ROOT = BASE_DIR.parent / 'ticket_files'
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

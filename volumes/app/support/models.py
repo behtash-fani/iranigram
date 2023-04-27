@@ -22,7 +22,7 @@ class Ticket(models.Model):
     status = models.CharField(max_length=30, choices=STATUS, verbose_name=_('Status'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
-    file = models.ImageField(blank=True, null=True, verbose_name=_('File'))
+    file = models.ImageField(upload_to='ticket/', blank=True, null=True, verbose_name=_('File'))
 
     def __str__(self):
         return self.subject

@@ -19,7 +19,6 @@ def send_verification_sms_task(phone_number, verification_code):
         send_verification_sms(phone_number, verification_code)
     except ValueError as exp:
         print("Error", exp)
-
     return "Ok!"
 
 
