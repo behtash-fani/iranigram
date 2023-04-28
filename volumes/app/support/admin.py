@@ -8,8 +8,10 @@ from django.utils.translation import gettext as _
 class ResponseInline(admin.TabularInline):
     model = Response
     extra = 0
+    autocomplete_fields = ['user']
 
 
+@admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     inlines = [ResponseInline]
     list_display = ('id', 'subject', 'user', 'status', 'created_at', 'updated_at', 'response_count')
@@ -17,6 +19,7 @@ class TicketAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
     fields = ('user', 'subject', 'message', 'file', 'status', 'created_at', 'updated_at')
     ordering = ('-created_at',)
+    autocomplete_fields = ['user']
 
     def response_count(self, obj):
         return obj.response_set.count()
@@ -38,6 +41,6 @@ class TicketAdmin(admin.ModelAdmin):
     #         fieldsets += (('Responses', {'fields': ('view_ticket_responses',)}),)
     #     return fieldsets
 
-
-admin.site.register(Ticket, TicketAdmin)
-# admin.site.register(Response)
+@admin.register(Response)
+class ResponseAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['user']

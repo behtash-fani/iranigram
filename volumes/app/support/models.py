@@ -54,11 +54,11 @@ def change_ticket_status(sender, instance, created, **kwargs):
             instance.ticket.status = 'support answer'
             phone_number = instance.ticket.user.phone_number
             ticketCode = instance.ticket.id
-            # send_support_answer_ticket_sms_task.delay(phone_number, ticketCode)
+            send_support_answer_ticket_sms_task.delay(phone_number, ticketCode)
             instance.ticket.save()
         else:
             instance.ticket.status = 'user answer'
             phone_number = instance.ticket.user.phone_number
             ticketCode = instance.ticket.id
-            # send_user_answer_ticket_sms_task.delay(phone_number, ticketCode)
+            send_user_answer_ticket_sms_task.delay(phone_number, ticketCode)
             instance.ticket.save()
