@@ -14,7 +14,7 @@ migrations/
 !**/migrations/__init__.py
 
 # Media files
-ticket_files/
+media/
 
 # Dependencies
 pip-lock.txt
