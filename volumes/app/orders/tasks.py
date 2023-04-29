@@ -41,7 +41,7 @@ def submit_order_task():
                     response = order_manager.submit_order()
                     logger.info("Order submitted in Mifa Server")
                     r = json.loads(response)
-                    if r['order']:
+                    if 'order' in r:
                         order.status = "Pending"
                         order.server_order_code = r["order"]
                         order.save()
