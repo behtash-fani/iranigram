@@ -50,7 +50,7 @@ def submit_ticket(request):
             ticket.save()
             ticketCode = str(ticket.id)
             phone_number = request.user.phone_number
-            # send_submit_ticket_sms_task.delay(phone_number, ticketCode)
+            send_submit_ticket_sms_task.delay(phone_number, ticketCode)
             messages.success(request, _('Your support ticket was submitted successfully.'), 'success')
             return redirect('accounts:ticket_detail', ticket.id)
     else:
