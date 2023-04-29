@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     # 'ckeditor_uploader',
     # 'django.contrib.humanize',
     "admin_reorder",
-    # "redirects",
     # local apps
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
@@ -45,9 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 ]
 SITE_ID = 1
-CKEDITOR_UPLOAD_PATH = "blog/"
+
 MIDDLEWARE = [
-    # "redirects.middleware.RedirectMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -57,12 +55,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
     "django.middleware.security.SecurityMiddleware",
-    # "pages.middleware.AdminLocaleMiddleware",
     
 ]
 
 ADMIN_REORDER = (
-    "sites",
+   
     {"app": "accounts"},
     {"app": "orders"},
     {"app": "support"},
@@ -70,8 +67,8 @@ ADMIN_REORDER = (
     {"app": "service"},
     {"app": "posts"},
     {"app": "django_celery_beat"},
-    # {"app": "redirects"},
     {"app": "admin_persian"},
+    {"app": "sites"},
 )
 
 ROOT_URLCONF = "config.urls"
@@ -139,12 +136,11 @@ STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
 
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = BASE_DIR / 'media'
-
+CKEDITOR_UPLOAD_PATH = "blog/"
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
-
 
 # default settings (optional)
 JALALI_DATE_DEFAULTS = {

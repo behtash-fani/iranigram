@@ -62,7 +62,7 @@ def import_users_task():
     #     if user.email is None:
     #         user.email = f'{user.phone_number}@iranigram.com'
     #         user.save()
-    filepath = settings.BASE_DIR / 'utils/total_users_file.json'
+    filepath = settings.BASE_DIR / 'utils/files/total_users_file.json'
     with open(filepath, 'r') as f:
         users_data = f.read()
     users_data = json.loads(users_data)
@@ -83,5 +83,4 @@ def import_users_task():
                 is_active=user["is_active"],
                 balance=user["balance"],
                 )
-            time.sleep(0.1)
     return "Ok!"

@@ -61,8 +61,8 @@ services:
             - "80:80"
         volumes:
             - type: 'bind'
-              source: './volumes/ticket_files'
-              target: '/app/ticket_files'
+              source: './volumes/media'
+              target: '/app/media'
             
             - type: 'bind'
               source: './volumes/static'
