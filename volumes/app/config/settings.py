@@ -29,8 +29,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_celery_beat",
     "jalali_date",
-    # 'ckeditor',
-    # 'ckeditor_uploader',
+    'ckeditor',
+    'ckeditor_uploader',
     # 'django.contrib.humanize',
     "admin_reorder",
     # local apps
@@ -190,83 +190,83 @@ CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
 
 
-FORMATTERS = (
-    {
-        "verbose": {
-            "format": "{levelname} {asctime:s} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {asctime:s} {module} {filename} {lineno:d} {funcName} {message}",
-            "style": "{",
-        },
-    },
-)
+# FORMATTERS = (
+#     {
+#         "verbose": {
+#             "format": "{levelname} {asctime:s} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {asctime:s} {module} {filename} {lineno:d} {funcName} {message}",
+#             "style": "{",
+#         },
+#     },
+# )
 
 
-HANDLERS = {
-    "console_handler": {
-        "class": "logging.StreamHandler",
-        "formatter": "simple",
-    },
-    "my_handler": {
-        "class": "logging.handlers.RotatingFileHandler",
-        "filename": f"{BASE_DIR}/logs/igthedata.log",
-        "mode": "a",
-        "encoding": "utf-8",
-        "formatter": "simple",
-        "backupCount": 5,
-        "maxBytes": 1024 * 1024 * 5,  # 5 MB
-    },
-    "my_handler_detailed": {
-        "class": "logging.handlers.RotatingFileHandler",
-        "filename": f"{BASE_DIR}/logs/igthedata_detailed.log",
-        "mode": "a",
-        "formatter": "verbose",
-        "backupCount": 5,
-        "maxBytes": 1024 * 1024 * 5,  # 5 MB
-    },
-    'celery_task': {
-        'level': 'INFO',
-        'class': 'logging.handlers.RotatingFileHandler',
-        'filename': f"{BASE_DIR}/logs/celery_task.log",
-        'maxBytes': 1024 * 1024 * 5,  # 5 MB
-        'backupCount': 5,
-        'formatter': 'verbose',
-        "mode": "a",
-    }
-}
+# HANDLERS = {
+#     "console_handler": {
+#         "class": "logging.StreamHandler",
+#         "formatter": "simple",
+#     },
+#     "my_handler": {
+#         "class": "logging.handlers.RotatingFileHandler",
+#         "filename": f"{BASE_DIR}/logs/igthedata.log",
+#         "mode": "a",
+#         "encoding": "utf-8",
+#         "formatter": "simple",
+#         "backupCount": 5,
+#         "maxBytes": 1024 * 1024 * 5,  # 5 MB
+#     },
+#     "my_handler_detailed": {
+#         "class": "logging.handlers.RotatingFileHandler",
+#         "filename": f"{BASE_DIR}/logs/igthedata_detailed.log",
+#         "mode": "a",
+#         "formatter": "verbose",
+#         "backupCount": 5,
+#         "maxBytes": 1024 * 1024 * 5,  # 5 MB
+#     },
+#     'celery_task': {
+#         'level': 'INFO',
+#         'class': 'logging.handlers.RotatingFileHandler',
+#         'filename': f"{BASE_DIR}/logs/celery_task.log",
+#         'maxBytes': 1024 * 1024 * 5,  # 5 MB
+#         'backupCount': 5,
+#         'formatter': 'verbose',
+#         "mode": "a",
+#     }
+# }
 
-LOGGERS = (
-    {
-        "django": {
-            "handlers": ["console_handler", "my_handler_detailed"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["my_handler"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "my_logger": {
-            "handlers": ["my_handler"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        'celery_task': {
-            'handlers': ["celery_task"],
-            'level': 'INFO',
-            "propagate": False,
-        },
-    },
-)
+# LOGGERS = (
+#     {
+#         "django": {
+#             "handlers": ["console_handler", "my_handler_detailed"],
+#             "level": "INFO",
+#             "propagate": False,
+#         },
+#         "django.request": {
+#             "handlers": ["my_handler"],
+#             "level": "INFO",
+#             "propagate": False,
+#         },
+#         "my_logger": {
+#             "handlers": ["my_handler"],
+#             "level": "INFO",
+#             "propagate": False,
+#         },
+#         'celery_task': {
+#             'handlers': ["celery_task"],
+#             'level': 'INFO',
+#             "propagate": False,
+#         },
+#     },
+# )
 
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": FORMATTERS[0],
-    "handlers": HANDLERS,
-    "loggers": LOGGERS[0],
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": FORMATTERS[0],
+#     "handlers": HANDLERS,
+#     "loggers": LOGGERS[0],
+# }
