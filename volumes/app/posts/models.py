@@ -53,7 +53,4 @@ class Post(models.Model):
 @receiver(post_save, sender=Post)
 def check_read_time(sender, instance, created, **kwargs):
     read_time = readtime.of_text(str(instance.content))
-    # instance.read_time = read_time
-    Post.objects.filter(id=instance.id).update(read_time=read_time.minutes)
-    # instance.save()
-        
+    Post.objects.filter(id=instance.id).update(read_time=read_time.minutes)        
