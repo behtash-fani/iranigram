@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-26 17:00+0330\n"
+"POT-Creation-Date: 2023-05-02 01:05+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: accounts/apps.py:7 accounts/models.py:54
+#: accounts/apps.py:7 accounts/models.py:58
 msgid "Users"
 msgstr "کاربران"
 
@@ -77,7 +77,7 @@ msgstr "افزایش اعتبار"
 msgid "Reduce Credit"
 msgstr "کاهش اعتبار"
 
-#: accounts/models.py:14 accounts/models.py:58
+#: accounts/models.py:14 accounts/models.py:62
 #: accounts/templates/accounts/registration/login_with_otp.html:33
 #: accounts/templates/accounts/registration/login_with_pass.html:31
 #: accounts/templates/accounts/registration/register.html:31
@@ -124,28 +124,28 @@ msgstr "فعال"
 msgid "Admin"
 msgstr "ادمین"
 
-#: accounts/models.py:53 orders/models.py:26 support/models.py:19
+#: accounts/models.py:57 orders/models.py:26 support/models.py:19
 #: support/models.py:37 transactions/models.py:22
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:59
+#: accounts/models.py:63
 msgid "Code"
 msgstr "کد"
 
-#: accounts/models.py:60
+#: accounts/models.py:64
 msgid "Expire Time"
 msgstr "زمان انقضا"
 
-#: accounts/models.py:61
+#: accounts/models.py:65
 msgid "Create At"
 msgstr "ثبت شده در"
 
-#: accounts/models.py:67
+#: accounts/models.py:71
 msgid "OTPCode"
 msgstr "کد یکبار مصرف"
 
-#: accounts/models.py:68
+#: accounts/models.py:72
 msgid "OTPCodes"
 msgstr "کدهای یکبار مصرف"
 
@@ -497,32 +497,32 @@ msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتب
 msgid "Increase wallet credit"
 msgstr "افزایش اعتبار کیف پول"
 
-#: orders/forms.py:22
+#: orders/forms.py:23
 msgid "Please enter a valid Instagram link"
 msgstr "لطفا یک لینک صحیح اینستاگرام وارد کنید"
 
-#: orders/forms.py:25
+#: orders/forms.py:26
 msgid ""
 "Please select the number of orders you want according to the service limit"
 msgstr "لطفا تعداد سفارش مورد نظر خود را با توجه به محدودیت سرویس انتخاب کنید"
 
-#: orders/forms.py:46
+#: orders/forms.py:47
 msgid "Please select the type of service"
 msgstr "لطفا نوع سرویس را انتخاب کنید"
 
-#: orders/forms.py:52
+#: orders/forms.py:53
 msgid "Please select the service"
 msgstr "لطفا یک سرویس انتخاب کنید"
 
-#: orders/forms.py:58
+#: orders/forms.py:59
 msgid "Please enter a instagram public link/id"
 msgstr "لطفا لینک/آی دی عمومی اینستاگرام وارد کنید"
 
-#: orders/forms.py:68
+#: orders/forms.py:69
 msgid "The link entered is not a valid Instagram post link"
 msgstr "لینک وارد شده یک لینک صحیح پست اینستاگرام نیست"
 
-#: orders/forms.py:74
+#: orders/forms.py:75
 msgid "Please enter quantity of order"
 msgstr "لطفا تعداد مورد نظر برای سفارش را وارد کنید"
 
@@ -601,7 +601,7 @@ msgid "Payment Method"
 msgstr "روش پرداخت"
 
 #: orders/models.py:37 orders/templates/orders/orders.html:27
-#: posts/models.py:18 support/models.py:22
+#: posts/models.py:34 support/models.py:22
 #: support/templates/support/support.html:26
 msgid "Status"
 msgstr "وضعیت"
@@ -619,13 +619,13 @@ msgid "Paid"
 msgstr "پرداخت شده"
 
 #: orders/models.py:41 orders/templates/orders/orders.html:30
-#: posts/models.py:19 support/models.py:23 support/models.py:39
+#: posts/models.py:35 support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:28 transactions/models.py:32
 #: transactions/templates/transactions/transactions.html:18
 msgid "Created At"
 msgstr "تاریخ ایجاد"
 
-#: orders/models.py:42 posts/models.py:20 support/models.py:24
+#: orders/models.py:42 posts/models.py:36 support/models.py:24
 #: support/templates/support/support.html:29 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
@@ -765,35 +765,53 @@ msgstr "پرداخت مبلغ کسری سفارش"
 msgid "Home"
 msgstr "صفحه اصلی"
 
-#: posts/models.py:9
+#: posts/models.py:17 posts/models.py:37
+msgid "Category"
+msgstr "دسته بندی"
+
+#: posts/models.py:18
+msgid "Categories"
+msgstr "دسته بندی ها"
+
+#: posts/models.py:22
 msgid "Draft"
 msgstr "پیش نویس"
 
-#: posts/models.py:10
+#: posts/models.py:23
 msgid "Publish"
 msgstr "انتشار"
 
-#: posts/models.py:14 service/models.py:35
+#: posts/models.py:27 service/models.py:35
 msgid "Title"
 msgstr "عنوان"
 
-#: posts/models.py:15
+#: posts/models.py:28
 msgid "Slug"
 msgstr "لینک"
 
-#: posts/models.py:16
+#: posts/models.py:29
 msgid "Author"
 msgstr "نویسنده"
 
-#: posts/models.py:17
+#: posts/models.py:30
+#, fuzzy
+#| msgid "Content"
+msgid "Short Content"
+msgstr "محتوا"
+
+#: posts/models.py:31
 msgid "Content"
 msgstr "محتوا"
 
-#: posts/models.py:30
+#: posts/models.py:32
+msgid "Read Time"
+msgstr "زمان مطالعه"
+
+#: posts/models.py:48
 msgid "Post"
 msgstr "پست"
 
-#: posts/models.py:31
+#: posts/models.py:49
 msgid "Posts"
 msgstr "پست ها"
 
@@ -841,7 +859,7 @@ msgstr "حداکثر سفارش"
 msgid "Available For User"
 msgstr "فعال برای کاربر"
 
-#: support/admin.py:24 support/admin.py:33 support/models.py:47
+#: support/admin.py:27 support/admin.py:36 support/models.py:47
 #: support/templates/support/support.html:27
 msgid "Responses"
 msgstr "پاسخ ها"

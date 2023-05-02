@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls', namespace='pages')),
     path('services/', include('service.urls', namespace='services')),
-    # path('blog/', include('posts.urls', namespace='posts')),
+    path('blog/', include('posts.urls', namespace='posts')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('dashboard/', include('accounts.urls', namespace='accounts')),
     path('callback-gateway/', callback_gateway, name='callback_gateway'),

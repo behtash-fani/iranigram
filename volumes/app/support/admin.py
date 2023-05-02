@@ -34,12 +34,7 @@ class TicketAdmin(admin.ModelAdmin):
         return format_html('<br>'.join(response_links))
 
     view_ticket_responses.short_description = _('Responses')
-
-    # def get_fieldsets(self, request, obj=None):
-    #     fieldsets = super().get_fieldsets(request, obj=obj)
-    #     if obj is not None:
-    #         fieldsets += (('Responses', {'fields': ('view_ticket_responses',)}),)
-    #     return fieldsets
+    
 
 @admin.register(Response)
 class ResponseAdmin(admin.ModelAdmin):
