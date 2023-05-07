@@ -27,11 +27,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
     "django_celery_beat",
     "jalali_date",
     'ckeditor',
     'ckeditor_uploader',
-    # 'django.contrib.humanize',
     "admin_reorder",
     # local apps
     "pages.apps.PagesConfig",
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "support.apps.SupportConfig",
     "posts.apps.PostsConfig",
     'django.contrib.sites',
+    'django.contrib.sitemaps',
+    
 ]
 SITE_ID = 1
 
@@ -55,7 +57,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
     "django.middleware.security.SecurityMiddleware",
-    
 ]
 
 ADMIN_REORDER = (
@@ -163,8 +164,8 @@ JALALI_DATE_DEFAULTS = {
 
 USE_L10N = True
 # USE_THOUSAND_SEPARATOR = True
-# THOUSAND_SEPARATOR = ','
-# NUMBER_GROUPING = 3
+THOUSAND_SEPARATOR = ','
+NUMBER_GROUPING = 3
 
 # Zarinpal configuration
 SANDBOX = env.bool("ZARINPAL_SANDBOX")
@@ -189,6 +190,8 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
 
+LOGOUT_REDIRECT_URL="pages:home"
+LOGIN_URL = "accounts:user_login_otp"
 
 FORMATTERS = (
     {

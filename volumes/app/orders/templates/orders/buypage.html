@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mb-5">
+	<div class="row mt-5">
+		<div class="col-md-6">
+			<div class="card rounded-4 p-3">
+				<div class="card-body">
+					<p class="bg-dark text-white fw-semibold rounded-4 text-center py-3 fs-3">
+						خرید {{quantity}} {{service.title}}
+					</p>
+					<form action="" method="POST" class="mt-3" novalidate>
+						{% csrf_token %}
+						{{ temp_order_form.non_field_errors }}
+						<div class="form-floating mt-2">
+							{{ temp_order_form.link }}
+							{% if service.link_type == "instagram_profile" %}
+							<label for="id_{{ temp_order_form.link.id_for_label }}">
+								{% trans 'Instagram Profile ID' %}:
+							</label>
+							{% else %}
+							<label for="id_{{ temp_order_form.link.id_for_label }}">
+								{% trans 'Instagram Post/IGTV/Reel Link' %}:
+							</label>
+							{% endif %}
+							{{ temp_order_form.link.errors }}
+							<div class="alert alert-danger d-none py-1 mt-1" id="link-empty-error">
+								{% trans 'Phone Number field is required' %}
+							</div>
+							<button class="d-none" id="price_per_unit_service">{{price_per_unit_service}}</button>
+							<input type="hidden" id="id_quantity" value="{{quantity}}">
+							<input type="hidden" id="id_service_type" value="{{service.service_type.id}}">
+							<input type="hidden" id="id_service" value="{{service.id}}">
+						</div><br>
+
+						{% if request.user.is_authenticated %}
+						<input type="hidden" value="{{phone_number}}" id="user_phone_number">
+						<div class="form-floating mt-2" id="user_authenticated">
+							{{ temp_order_form.phone_number }}
+							<label for="id_phone_number">{% trans 'Phone Number' %}:</label>
+							{{ temp_order_form.phone_number.errors }}
+						</div>
+						{% else %}
+						<small class="custom-black fw-bolder fs-5">
+							<img src="{% static 'icons/Info.svg' %}" alt="">
+							{% trans 'Hints' %}:
+						</small><br>
+						<small class="text-black-50 fs-6 fw-bolder">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							{% trans 'Please set your keyboard to English mode' %}
+						</small><br>
+						<small class="text-black-50 fs-6 fw-bolder">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							{% trans 'Sample correct phone number: 09123456789' %}
+						</small><br>
+						<small class="text-black-50 fs-6 fw-bolder">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							{% trans 'Please keep the phone in active mode because of the confirmation SMS' %}
+						</small><br>
+						<div class="form-floating mt-2">
+							{{ temp_order_form.phone_number }}
+							<label for="id_phone_number">{% trans 'Phone Number' %}:</label>
+							{{ temp_order_form.phone_number.errors }}
+							<div class="alert alert-danger d-none py-1 mt-1" id="phone-empty-error">
+								{% trans 'Phone Number field is required' %}
+							</div>
+							<div class="alert alert-danger d-none py-1 mt-1" id="wrong-phone-error">
+								{% trans 'The phone number entered is incorrect. Please enter as in the example' %}
+							</div>
+						</div>
+						{% endif %}
+						{% if request.user.is_authenticated %}
+						<div class="row">
+							<div class="col-lg-6 col-md-12 d-grid mt-2">
+								<button type="submit" class="btn btn-warning rounded-4 py-3" name="online_payment">
+									<h6 class="fw-semibold">
+										<img src="{% static 'icons/card-tick.svg' %}" alt=""> {% trans 'Online Payment' %}
+									</h6>
+									<span class="text-muted">{% trans "Payment with all bank cards" %}</span>
+								</button>
+							</div>
+							<div class="col-lg-6 col-md-12 d-grid mt-2">
+								<button type="submit" class="btn btn-warning rounded-4 ms-1 credit-payment-button py-3"
+									id="credit_payment" name="credit_payment"
+									data-user-balance="{{ request.user.balance }}">
+									<h6 class="fw-semibold">
+										<img src="{% static 'icons/wallet-check.svg' %}" alt=""> 
+										{% trans 'Pay with Wallet' %}
+									</h6>
+									<span class="text-muted">
+										{% trans "Credit" %}: {{ request.user.balance }} {% trans "Toman" %}
+									</span>
+								</button>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="paymentModal" data-bs-backdrop="static" tabindex="-1"
+								aria-labelledby="paymentModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content rounded-4">
+										<div class="modal-header border border-0">
+											<button type="button" class="btn" data-bs-dismiss="modal"
+												aria-label="Close">
+												<img src="{% static 'icons/close-circle.svg' %}" alt=""> 
+											</button>
+										</div>
+										<div class="modal-body border border-0 text-center fs-6 fw-semibold" id="modal_body">
+											<img src="{% static 'image/callback_success.png' %}" class="w-75 mx-auto d-block mb-2" alt="">
+										</div>
+										<div class="modal-footer border border-0">
+											<button type="button" class="btn btn-warning rounded-4 py-3 mx-auto d-block"
+												id="modal_pay_button">
+												<span class="fs-6 fw-semibold">
+													<img src="{% static 'icons/card-tick.svg' %}" alt=""> 
+													{% trans 'Online Payment' %}
+												</span><br>
+												<small class="text-muted">
+													{% trans "Payment with all bank cards" %}
+												</small>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End of Modal -->
+						</div>
+						<div class="border border-1 p-3 mt-3 rounded-4">
+							<div class="row">
+								<small>قابل پرداخت با تمامی کارت های عضو شتاب</small>
+								<div class="col pt-1">
+									<img src="{% static 'icons/bank_logo/keshavarzi.svg' %}" alt="" width="24px" class="me-3">
+									<img src="{% static 'icons/bank_logo/mellat.svg' %}" alt="" width="24px" class="mx-3">
+									<img src="{% static 'icons/bank_logo/melli.svg' %}" alt="" width="24px" class="mx-3">
+									<img src="{% static 'icons/bank_logo/parsian.svg' %}" alt="" width="24px"class="mx-3">
+									<img src="{% static 'icons/bank_logo/sepah.svg' %}" alt="" width="24px" class="mx-3">
+									<img src="{% static 'icons/bank_logo/saman.svg' %}" alt="" width="24px" class="mx-3">
+								</div>
+							</div>
+						</div>
+						{% else %}
+						<div class="row">
+							<div class="col text-center mt-2">
+								<button type="button" class="btn btn-warning rounded-4 py-3 px-4"
+									name="verify_phone_number" id="verify_phone_number">
+									<h6 class="fw-semibold">
+										<img src="{% static 'icons/Send.svg' %}" alt=""> 
+										{% trans 'Send verfication code and submit order' %}
+									</h6>
+									<span class="text-muted">
+										{% trans "Payment with all bank cards" %}
+									</span>
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="sendVerifyCodeModal" tabindex="-1"
+								data-bs-backdrop="static" aria-labelledby="sendVerifyCodeLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content rounded-4">
+											<div class="modal-header border border-0">
+												<button type="button" class="btn" data-bs-dismiss="modal"
+													aria-label="Close">
+													<img src="{% static 'icons/close-circle.svg' %}" alt="">
+												</button>
+											</div>
+											<div class="modal-body border border-0 text-center">
+												<img src="{% static 'image/verify_modal.svg' %}" class="w-75 mx-auto d-block" alt="">
+												<p class="kalameh-font fs-1 mt-1">کد ارسالی</p>
+												<form action="" method="POST" novalidate>
+													{% csrf_token %}
+													<span class="text-muted mt-2">
+														{% trans "Enter the code sent to" %} 
+														<span class="fw-semibold" id="phone_number"></span> 
+														{% trans "in the field below" %}
+													</span>
+													<div class="form-floating mt-2">
+														{{ verify_form.code }}
+														<label for="id_code">
+															{% trans 'Code' %}:
+														</label>
+														{{ verify_form.code.errors }}
+													</div>
+
+													<button type="submit" name="nologin_payment"
+														class="btn btn-warning mt-2 rounded-4 py-3">
+														<img src="{% static 'icons/card-tick.svg' %}" alt="">
+														{% trans 'Verify the code and pay' %}
+													</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Modal -->
+							</div>
+						</div>
+						{% endif %}
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card rounded-4 p-3">
+				<div class="card-body">
+					<h5 class="card-title text-muted text-center">قیمت نهایی</h5>
+					<h6 class="card-subtitle mb-2 text-center fs-1 kalameh-font mt-4">{{amount|intcomma}}</h6>
+					<p class="card-subtitle mb-2 text-body-secondary text-center fs-5 kalameh-font mt-2">{% trans 'Toman' %}</p>
+					<div class="card-text bg-dark-subtle rounded-4 p-4 mt-3">
+						<small class="custom-black fw-bolder fs-4">
+							<img src="{% static 'icons/Info.svg' %}" alt="">
+							{% trans 'Hints' %}:
+						</small><br>
+						<h5 class="fw-semibold mt-2">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							عمومی بودن پیج: 
+						</h5>
+						<h6 class="text-muted lh-lg">
+							پیش از ثبت سفارش حتماً از عمومی بودن پیج خود اطمینان حاصل نمایید، در صورتی که پیج شما خصوصی باشد ، مجموعه ایرانی گرام هیچ مسئولیتی در قبال عدم انجام کار و حتی بازگشت وجه نخواهد داشت.
+						</h6>
+						<h5 class="fw-semibold">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							پیج تا اتمام سفارش باید عمومی بماند.
+						</h5>
+						<h5 class="fw-semibold">
+							<img src="{% static 'icons/Accept.svg' %}" alt="">
+							آیدی پیج را تا پایان سفارش و تحویل کامل آن، تغییر ندهید.
+						</h5>
+					</div>
+					<a href="#" class="card-link"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% include 'inc/footer.html' %}
+{% endblock %}

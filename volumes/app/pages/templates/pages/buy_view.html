@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% block title %}{{ block.super }} خرید بازدید ایرانی اینستاگرام | {% endblock %}
 {% block meta %}
 <meta name="keywords" content="خرید بازدید اینستاگرام">
@@ -78,12 +79,55 @@
                 شما فقط کافیست صفحه خود را در حالت عمومی قرار دهید و به افزایش بازدید و دیده شدن بیشتر پست خود نظارت
                 کنید.</p>
         </div>
-        <div class="col text-center mt-5">
-            <img src="{% static 'image/view-banner.png' %}" class="img-fluid"><br>
-            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-2 rounded-4 py-4">
-                شروع خرید بازدید اینستاگرام
-                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
-            </a>
+        <div class="col-lg-6 col-12 mt-5">
+            <div class="card p-2 rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title kalameh-font fs-3">خرید بازدید اینستاگرام</h5>
+                    <div class="nav-tabs-section mt-3" id="flw-section">
+                        <ul class="nav nav-pills mb-3 pills-tab" id="flw-pills-tab" role="tablist">
+                            {% for service in view_services %}
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-4" id="tab{{service.id}}" data-bs-toggle="pill"
+                                    data-bs-target="#service{{service.id}}" type="button" role="tab"
+                                    aria-controls="pills-home" aria-selected="true">{{service.title}}</button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <h6 class="my-3">
+                            <img src="{% static 'icons/note.svg' %}" alt="">
+                            <span class="fw-bold" style="color: #5D6B81">بسته های جذاب</span>
+                        </h6>
+                        {% for service in view_services %}
+                        <div class="tab-content pills-tabContent" id="flw-pills-tabContent">
+                            <div class="rounded-4 tab-pane show" id="service{{service.id}}" role="tabpanel"
+                                aria-labelledby="tab{{service.id}}" tabindex="0">
+                                <div class="row row-cols-1 row-cols-md-2 g-2">
+                                    {% for key, value in service.template_packages.items %}
+                                    <div class="col">
+                                        <div class="card rounded-4 px-1">
+                                            <div class="row p-2">
+                                                <div class="col d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <span>{{value.quantity}} عدد</span><br>
+                                                        <small class="fw-semibold">{{value.total_price|intcomma}} {% trans 'Toman' %}</small>
+                                                    </div>
+                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}" 
+                                                    class="btn btn-warning rounded-4" target="_blank">
+                                                        <img src="{% static 'icons/shop-add.svg' %}" alt="">
+                                                        خرید
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <p class="d-flex lh-lg fs-5 mt-5">خرید بازدید اینستاگرام از جمله روش هایی است که برای ارتقای پیج و رونق بخشیدن
@@ -97,10 +141,11 @@
         ها می باشد.<br><br>
         بازدید اینستاگرام که با عنوان ویو در برنامه ی اینستاگرام مشخص می شود، تعداد مشاهده شدن فیلم های به اشتراک
         گذاشته شده ی یک پیج است. در واقع تعداد ویو یا بازدید همان تعداد دفعاتی است که کاربر های مختلف فیلم یک پیج را
-        در صفحه ی شخص می بینند.<br><br></p>
+        در صفحه ی شخص می بینند.<br><br>
+    </p>
     <div class="row">
         <a href="{% url 'accounts:new_order' %}">
-            <img src="{% static 'image/Group 33565.png' %}" class="img-fluid">
+            <img src="{% static 'image/view_banner.png' %}" class="img-fluid">
         </a><br>
     </div>
     <div class="row my-5">
@@ -243,4 +288,16 @@
     </div>
 </div>
 {% include "inc/footer.html" %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $(".nav-tabs-section").each(function() {
+        var sectionId = $(this).attr("id");
+        $("#" + sectionId + "> .pills-tab > :first-child > button").addClass("active")
+        $(this).each(function() {
+            $(this).children()[2].children[0].classList = 'rounded-4 tab-pane show active'
+        });
+        });
+    });
+</script>
 {% endblock %}

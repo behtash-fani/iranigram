@@ -29,7 +29,6 @@ django-ckeditor==6.5.1
 django-hashid-field==3.3.7
 django-jalali-date==1.0.1
 django-js-asset==2.0.0
-django-redirects==0.4.0
 django-reorder-admin==0.3.1
 django-timezone-field==5.0
 environs==9.5.0
@@ -45,7 +44,6 @@ lxml==4.9.2
 markdown2==2.4.8
 MarkupPy==1.14
 marshmallow==3.19.0
-mysqlclient==2.1.1
 odfpy==1.4.1
 openpyxl==3.1.2
 packaging==23.0

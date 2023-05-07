@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container d-flex justify-content-around">
         <div>
-            <button class="btn d-lg-none text-black fs-3    px-2" type="button" data-bs-toggle="offcanvas"
+            <button class="btn d-lg-none text-black fs-3 px-2" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasTop"
                     aria-controls="offcanvasTop">
                     <img src="{% static 'icons/Menu.svg' %}" alt="">
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mt-md-2 mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mt-md-2 mb-2 mb-lg-0 rounded-4">
                 <li class="nav-item">
                     <a class="nav-link px-3 pb-3 custom-black" aria-current="page" href="/">
                         <img src="{% static 'icons/Home.svg' %}" alt="">
@@ -72,13 +72,13 @@
                         {% trans 'Mag' %}
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown rounded-4">
                     <a class="nav-link px-3 pb-3 dropdown-toggle custom-black" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                        <img src="{% static 'icons/instagram.svg' %}" alt="">
                        {% trans 'Instagram Products' %}
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu rounded-4">
                         <li>
                             <a class="dropdown-item btn btn-warning py-2" href="{% url 'pages:follower' %}">
                                 <img src="{% static 'icons/people.svg' %}" alt=""> {% trans 'Buy Instagram Follower' %}
@@ -112,7 +112,7 @@
                             <img src="{% static 'icons/Profile.svg' %}" alt="">
                         <span class="d-none d-md-inline">{{ request.user.full_name }}</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end rounded-4">
                         <li>
                             <a href="{% url 'accounts:new_order' %}" class="btn dropdown-item py-2">
                                 <img src="{% static 'icons/shop-add.svg' %}" alt="">
@@ -152,7 +152,7 @@
                         <img src="{% static 'icons/Profile.svg' %}" alt="">
                     {% trans 'Account' %}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end rounded-4">
                     <li><a href="{% url 'accounts:user_login_otp' %}" class="dropdown-item btn py-2">
                         <img src="{% static 'icons/login.svg' %}" alt="">
                         {% trans 'Login' %}</a></li>

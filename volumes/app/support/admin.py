@@ -3,6 +3,10 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import Ticket, Response
 from django.utils.translation import gettext as _
+from jalali_date import datetime2jalali, date2jalali
+from jalali_date.admin import ModelAdminJalaliMixin, StackedInlineJalaliMixin, TabularInlineJalaliMixin	
+
+
 
 
 class ResponseInline(admin.TabularInline):
@@ -14,12 +18,21 @@ class ResponseInline(admin.TabularInline):
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     inlines = [ResponseInline]
-    list_display = ('id', 'subject', 'user', 'status', 'created_at', 'updated_at', 'response_count')
+    list_display = ('id', 'subject', 'user', 'status', 'get_created_jalali', 'get_updated_jalali', 'response_count')
     list_display_links = ('id', 'subject', 'user')
-    readonly_fields = ('created_at', 'updated_at')
-    fields = ('user', 'subject', 'message', 'file', 'status', 'created_at', 'updated_at')
+    readonly_fields = ('get_created_jalali', 'get_updated_jalali')
+    fields = ('user', 'subject', 'message', 'file', 'status', 'get_created_jalali', 'get_updated_jalali')
     ordering = ('-created_at',)
     autocomplete_fields = ['user']
+
+
+    @admin.display(description='تاریخ ایجاد', ordering='created_at')
+    def get_created_jalali(self, obj):
+        return datetime2jalali(obj.created_at).strftime('%Y/%m/%d - %H:%M')
+
+    @admin.display(description='تاریخ به روزرسانی', ordering='updated_at')
+    def get_updated_jalali(self, obj):
+        return datetime2jalali(obj.updated_at).strftime('%Y/%m/%d - %H:%M')
 
     def response_count(self, obj):
         return obj.response_set.count()
@@ -36,6 +49,6 @@ class TicketAdmin(admin.ModelAdmin):
     view_ticket_responses.short_description = _('Responses')
     
 
-@admin.register(Response)
-class ResponseAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['user']
+# @admin.register(Response)
+# class ResponseAdmin(admin.ModelAdmin):
+#     autocomplete_fields = ['user']

@@ -6,6 +6,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 import readtime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 class Category(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
@@ -49,6 +50,8 @@ class Post(models.Model):
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
 
+    def get_absolute_url(self):
+        return reverse('posts:post_detail', kwargs={'slug':self.slug})
 
 @receiver(post_save, sender=Post)
 def check_read_time(sender, instance, created, **kwargs):

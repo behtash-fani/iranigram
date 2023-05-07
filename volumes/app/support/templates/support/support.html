@@ -5,7 +5,8 @@
 {% block title %}{{ block.super }} {% trans 'Support' %} | {% endblock %}
 {% block panelcontent %}
     <div class="row">
-        <div class="col d-flex justify-content-start"><span class="fw-semibold fs-3">{% trans "Support" %}</span>
+        <div class="col d-flex justify-content-start">
+            <span class="fw-semibold fs-3">{% trans "Support" %}</span>
         </div>
         <div class="col d-flex justify-content-end">
             <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-3">

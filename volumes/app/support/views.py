@@ -8,13 +8,16 @@ from .forms import ResponseForm
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
+from django.views import View
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from .tasks import send_submit_ticket_sms_task
+from utils.mixins import LoginRequiredMixin
 
 
-class SupportView(ListView):
+
+class SupportView(LoginRequiredMixin, ListView):
     model = Ticket
     template_name = 'support/support.html'
     context_object_name = 'Tickets'
@@ -29,7 +32,6 @@ class SupportView(ListView):
         context = super().get_context_data(**kwargs)
         paginator = Paginator(context['object_list'], self.paginate_by)
         page = self.request.GET.get('page')
-
         try:
             tickets = paginator.page(page)
         except PageNotAnInteger:
@@ -40,9 +42,17 @@ class SupportView(ListView):
         return context
 
 
-def submit_ticket(request):
-    if request.method == 'POST':
-        ticket_form = TicketForm(request.POST, request.FILES)
+class SubmitTicket(View):
+    template_name = 'support/submit_ticket.html'
+    form_class = TicketForm
+
+    def get(self, request, *args, **kwargs):
+        ticket_form = self.form_class()
+        context = {'ticket_form': ticket_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        ticket_form = self.form_class(request.POST, request.FILES)
         if ticket_form.is_valid():
             ticket = ticket_form.save(commit=False)
             ticket.user = request.user
@@ -53,11 +63,12 @@ def submit_ticket(request):
             send_submit_ticket_sms_task.delay(phone_number, ticketCode)
             messages.success(request, _('Your support ticket was submitted successfully.'), 'success')
             return redirect('accounts:ticket_detail', ticket.id)
-    else:
-        ticket_form = TicketForm()
-    return render(request, 'support/submit_ticket.html', {'ticket_form': ticket_form})
+        else:
+            context = {'ticket_form': ticket_form}
+            return render(request, self.template_name, context)
 
 
+@login_required
 def ticket_detail(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     responses = Response.objects.filter(ticket=ticket).order_by('created_at')

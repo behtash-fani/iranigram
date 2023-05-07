@@ -7,5 +7,4 @@ urlpatterns = [
     path('iranian-instagram-followers', views.FollowerView.as_view(), name='follower'),
     path('iranian_instagram_like', views.LikeView.as_view(), name='like'),
     path('خرید-بازدید-ایرانی-اینستاگرام', views.ViewView.as_view(), name='view'),
-
 ]

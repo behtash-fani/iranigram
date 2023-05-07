@@ -33,7 +33,7 @@ class Transactions(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
     ip = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('IP'))
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.user}"
 
     class Meta:

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
-
+import json
 
 class ServiceType(models.Model):
     name = models.CharField(_('ServiceType'), max_length=100, blank=True, null=True)
@@ -25,6 +25,11 @@ SERVER = (
     ("mifa", "Mifa"),
 )
 
+TEMPLATE_CATEOGORY = (
+    ("follower", "Follower"),
+    ("like", "Like"),
+    ("view", "View"),
+)
 
 class Service(models.Model):
     service_type = models.ForeignKey(ServiceType, verbose_name=_('ServiceType'), on_delete=models.DO_NOTHING)
@@ -39,6 +44,9 @@ class Service(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name=_('Description'))
     priority = models.IntegerField(_('Display priority'), blank=True, null=True)
     available_for_user = models.BooleanField(default=True, verbose_name=_('Available For User'))
+    template_service = models.BooleanField(_('Template Service'), blank=True, null=True)
+    template_packages = models.JSONField(_('Template Packages'), max_length=500, null=True, blank=True)
+    template_service_category = models.CharField(max_length=20, choices=TEMPLATE_CATEOGORY, verbose_name=_('Template Service Category'), null=True, blank=True)
 
     def __str__(self) -> str:
         return f'{self.title}'
@@ -48,5 +56,15 @@ class Service(models.Model):
         verbose_name_plural = _('Services')
 
     def save(self, *args, **kwargs):
+        pkgs = {}
         self.service_code = self.id
+        factor = [1,2,3,4,5,10,20,50,100,200]
+        for index, item in enumerate(factor):
+            temp_dict = {}
+            quantity = int(self.min_order) * int(item)
+            temp_dict["quantity"] = quantity
+            temp_dict["total_price"] = int(quantity) * int(self.amount)
+            pkgs[index] = temp_dict
+        pkgs = json.dumps(pkgs)
+        self.template_packages = json.loads(pkgs)
         super(Service, self).save(*args, **kwargs)

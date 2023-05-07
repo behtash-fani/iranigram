@@ -27,7 +27,6 @@ from .tasks import (
     send_verification_sms_task,
     send_register_sms_task,
     send_register_success_sms_task,
-
 )
 
 
@@ -179,22 +178,23 @@ def check_expire_time(request):
             if otp_expiry_time is not None:
                 current_time = datetime.now().time()
                 if current_time <= otp_expiry_time:
-                    return JsonResponse({"msg": "True"}) # hanooz zaman baghi hast
+                    return JsonResponse({"msg": "True"})  # hanooz zaman baghi hast
                 else:
                     if otpcode:
                         otpcode.delete()
                         request.session["phone_number"] = phone_number
-                    return JsonResponse({"msg": 'False'}) # zaman tamoom shod
+                    return JsonResponse({"msg": 'False'})  # zaman tamoom shod
+
 
 @csrf_exempt
 def send_otpcode_again(request):
     phone_number = request.session["phone_number"]
     verification_code = generate_random_number(4, is_unique=False)
     OTPCode.objects.create(
-                phone_number=phone_number,
-                code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=60),
-            )
+        phone_number=phone_number,
+        code=verification_code,
+        expire_time=datetime.now() + timedelta(seconds=60),
+    )
     send_verification_sms_task.delay(phone_number, verification_code)
     messages.success(request, _("A one-time password has been sent"), "success")
     return redirect('accounts:user_login_verify')
@@ -260,7 +260,11 @@ class EditProfileFormView(LoginRequiredMixin, View):
                 if cd["full_name"] == "":
                     cd["full_name"] = _("Guest User")
                 user = request.user
-                user.email = cd["email"]
+                if cd["email"] is None or cd["email"] == '':
+                    print(';lkajdsl;fjs;lkdjf;lskjlksj;ldkjf;lk')
+                    user.email = f'{request.user.phone_number}@iranigram.com'
+                else:
+                    user.email = cd["email"]
                 user.full_name = cd["full_name"]
                 user.save()
                 messages.success(request, _("your profile updated"), "success")

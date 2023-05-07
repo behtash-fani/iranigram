@@ -4,6 +4,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from utils.zarinpal import payment_verify, payment_request
 from utils.callback_gateway import callback_gateway
+from utils.utils import send_otpcode_again
+from django.contrib.sitemaps.views import sitemap
+from posts.sitemap import PostSitemap
+from pages.sitemap import PagesSitemap
+from django.contrib.sitemaps import views
+
+
+
+sitemaps = {
+    'posts': PostSitemap,
+    'pages': PagesSitemap,
+}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +29,19 @@ urlpatterns = [
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
     path('ckeditor', include('ckeditor_uploader.urls')),
+    path('send-verify-code/', send_otpcode_again, name='send_verify_code'),
+    path(
+        "sitemap.xml",
+        views.index,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.index",
+    ),
+    path(
+        "sitemap-<section>.xml",
+        views.sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

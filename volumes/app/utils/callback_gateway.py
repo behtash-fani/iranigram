@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from accounts.models import User
 import logging
+from orders.models import Order
 
 
 def callback_gateway(request):
@@ -14,11 +15,13 @@ def callback_gateway(request):
             return render(request, 'accounts/callback_gateway.html', context)
         elif request.session['payment_type'] == 'pay_order_online':
             order_id = request.session['order_id']
-            context = {'payment_type': payment_type, 'order_id': order_id}
+            order_code = Order.objects.get(id=order_id).order_code
+            context = {'payment_type': payment_type, 'order_code': order_code}
             return render(request, 'accounts/callback_gateway.html', context)
         elif request.session['payment_type'] == 'pay_remain_price':
             order_id = request.session['order_id']
-            context = {'payment_type': payment_type, 'order_id': order_id}
+            order_code = Order.objects.get(id=order_id).order_code
+            context = {'payment_type': payment_type, 'order_code': order_code}
             return render(request, 'accounts/callback_gateway.html', context)
     else:
         context = {'payment_type': 'error'}
