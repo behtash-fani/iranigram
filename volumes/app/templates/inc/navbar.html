@@ -26,7 +26,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-bolder" href="#">
-                                <img src="{% static 'icons/teacher.svg' %}" alt="">
+                                <img src="{% static 'icons/teacher.svg' %}" alt="{% url 'posts:posts_list' %}">
                                 {% trans 'Mag' %}
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3 pb-3 custom-black" href="#">
+                    <a class="nav-link px-3 pb-3 custom-black" href="{% url 'posts:posts_list' %}">
                         <img src="{% static 'icons/teacher.svg' %}" alt="">
                         {% trans 'Mag' %}
                     </a>
