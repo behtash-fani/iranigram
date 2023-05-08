@@ -58,7 +58,7 @@ class Service(models.Model):
     def save(self, *args, **kwargs):
         pkgs = {}
         self.service_code = self.id
-        factor = [1,2,3,4,5,10,20,50,100,200]
+        factor = [1,2,3,4,5,10,20,30,50,100]
         for index, item in enumerate(factor):
             temp_dict = {}
             quantity = int(self.min_order) * int(item)
