@@ -5,9 +5,7 @@
 {% block title %}{{ block.super }} {% trans 'Home' %} | {% endblock %}
 {% block meta %}
 <meta content="خرید فالوور اینستاگرام ارزان | خرید لایک اینستاگرام" property="og:title">
-<meta name="description" content="ایرانی گرام، بهترین فروشگاه خدمات اینستاگرام برای خرید فالوور اینستاگرام و خرید لایک اینستاگرام با قیمتی بسیار مناسب، با خدمات ما به سرعت دنبال کننده های واقعی و فعال برای صفحه اینستاگرام خود جمع آوری کنید و تعامل بیشتری با مخاطبان خود داشته باشید">
-<meta content="{{site_url}}" property="og:url">
-<meta content="Iranigram" property="og:site_name">
+<meta name="description" content="ایرانی گرام، بهترین فروشگاه خدمات اینستاگرام برای خرید فالوور اینستاگرام و خرید لایک اینستاگرام با قیمتی بسیار مناسب، با خدمات ما به سرعت دنبال کننده های واقعی و فعال برای صفحه اینستاگرام خود جمع آوری کنید">
 {% endblock meta %}
 {% block content %}
 <div class="container">
@@ -342,7 +340,7 @@
                 <div class="card-body">
                     <h5 class="card-title kalameh-font fs-3">خرید بازدید اینستاگرام</h5>
                     <div class="nav-tabs-section mt-3" id="flw-section">
-                        <ul class="nav nav-pills mb-3 pills-tab" id="flw-pills-tab" role="tablist">
+                        <ul class="nav nav-pills mb-3 pills-tab" id="view-pills-tab" role="tablist">
                             {% for service in view_services %}
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link rounded-4" id="tab{{service.id}}" data-bs-toggle="pill"
@@ -356,7 +354,7 @@
                             <span class="fw-bold" style="color: #5D6B81">بسته های جذاب</span>
                         </h6>
                         {% for service in view_services %}
-                        <div class="tab-content pills-tabContent" id="flw-pills-tabContent">
+                        <div class="tab-content pills-tabContent" id="view-pills-tabContent">
                             <div class="rounded-4 tab-pane show" id="service{{service.id}}" role="tabpanel"
                                 aria-labelledby="tab{{service.id}}" tabindex="0">
                                 <div class="row row-cols-1 row-cols-md-2 g-2">
@@ -367,12 +365,10 @@
                                                 <div class="col d-flex justify-content-between align-items-center">
                                                     <div>
                                                         <span>{{value.quantity}} عدد</span><br>
-                                                        <small class="fw-semibold">
-                                                            {{value.total_price|intcomma}} {% trans 'Toman' %}
-                                                        </small>
+                                                        <small class="fw-semibold">{{value.total_price|intcomma}} {% trans 'Toman' %}</small>
                                                     </div>
-                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}"
-                                                        class="btn btn-warning rounded-4" target="_blank">
+                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}" 
+                                                    class="btn btn-warning rounded-4" target="_blank">
                                                         <img src="{% static 'icons/shop-add.svg' %}" alt="">
                                                         خرید
                                                     </a>
