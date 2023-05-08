@@ -248,7 +248,6 @@ LOGIN_URL = "accounts:user_login_otp"
 #             "propagate": False,
 #         },
 #         "django.request": {
-#             "handlers": ["my_handler"],
 #             "level": "INFO",
 #             "propagate": False,
 #         },
