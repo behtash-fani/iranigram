@@ -153,6 +153,7 @@ if (window.location.pathname === "/dashboard/new-order/") {
     }
   };
 }
+
 function openPaymentModal() {
   const modal = document.getElementById("paymentModal");
   const payment_modal = new bootstrap.Modal(modal);
@@ -162,6 +163,16 @@ function openPaymentModal() {
 let credit_payment = document.getElementById("credit_payment");
 if (credit_payment) {
   credit_payment.addEventListener("click", (e) => {
+	let instagram_link = document.getElementById("id_link");
+	if(instagram_link){
+		if (instagram_link.value == null || instagram_link.value == ""){
+			document.getElementById("link-empty-error").classList.remove("d-none");
+		}
+		else{
+			document.getElementById("link-empty-error").classList.add("d-none");
+		}
+	}
+	
     let price_per_unit_service = document.getElementById(
       "price_per_unit_service"
     );
@@ -175,17 +186,21 @@ if (credit_payment) {
     let remain_price = 0;
     if (total_amount > user_balance) {
       e.preventDefault();
-      openPaymentModal();
+	  if (!(instagram_link.value == null || instagram_link.value == "")){
+		  openPaymentModal();
+	  }
       remain_price = total_amount - user_balance;
       if (remain_price < 500) {
         document.getElementById(
           "modal_body"
-        ).innerHTML = `با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
+        ).innerHTML += `
+        با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
         remain_price = 500;
       } else {
         document.getElementById(
           "modal_body"
-        ).innerHTML = `مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
+        ).innerHTML += `
+        مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
           user_balance
         )} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
       }
@@ -211,7 +226,6 @@ if (credit_payment) {
         success: function (response) {
           if (response.redirect) {
             window.location.href = response.redirect;
-            console.log(response.redirect);
           }
         },
         error: function (error) {
