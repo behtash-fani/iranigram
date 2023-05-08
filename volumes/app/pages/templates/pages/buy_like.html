@@ -110,7 +110,8 @@
                                                         <span>{{value.quantity}} عدد لایک</span><br>
                                                         <small>{{value.total_price}} {% trans 'Toman' %}</small>
                                                     </div>
-                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}" class="btn btn-warning rounded-4">
+                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}"
+                                                        class="btn btn-warning rounded-4">
                                                         <img src="{% static 'icons/shop-add.svg' %}" alt="">
                                                         خرید
                                                     </a>
@@ -138,7 +139,8 @@
         فالوور هایشان مهم است و افرادی که می خواهند تعداد لایک های خود را بالا ببرند، می توانند از طریق خرید لایک
         اینستاگرام این کار را انجام دهند.<br><br></p>
     <div class="row">
-        <a href="{% url 'accounts:new_order' %}"><img src="{% static 'image/buy_like_banner.png' %}" class="img-fluid"></a><br>
+        <a href="{% url 'accounts:new_order' %}"><img src="{% static 'image/buy_like_banner.png' %}"
+                class="img-fluid"></a><br>
     </div>
     <div class="row my-5">
         <p class="d-flex lh-lg fs-5 mt-4 text-warning">پاسخ به سوالات پر تکرار شما</p>
@@ -274,15 +276,15 @@
     </div>
 </div>
 {% include "inc/footer.html" %}
-<script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
-    $(document).ready(function() {
-        $(".nav-tabs-section").each(function() {
-        var sectionId = $(this).attr("id");
-        $("#" + sectionId + "> .pills-tab > :first-child > button").addClass("active")
-        $(this).each(function() {
-            $(this).children()[2].children[0].classList = 'rounded-4 tab-pane show active'
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        var navTabSections = document.querySelectorAll(".nav-tabs-section");
+        navTabSections.forEach(function (navTabSection) {
+            var sectionId = navTabSection.getAttribute("id");
+            document.querySelector("#" + sectionId + " > .pills-tab > :first-child > button").classList.add("active");
+            for (var i = 0; i < navTabSection.children.length; i++) {
+                navTabSection.children[2].children[0].classList = 'rounded-4 tab-pane show active';
+            }
         });
     });
 </script>
