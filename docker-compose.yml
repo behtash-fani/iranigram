@@ -65,7 +65,7 @@ services:
                 target: '/app/media'
 
             -   type: 'bind'
-                source: './volumes/app/static'
+                source: './volumes/static'
                 target: '/app/static'
         env_file:
             - ./volumes/app/.env
