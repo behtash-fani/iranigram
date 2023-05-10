@@ -5,8 +5,6 @@ from orders.forms import TemplateOrderForm
 from datetime import datetime, timedelta
 from django.http import JsonResponse
 from accounts.models import OTPCode
-import jdatetime
-
 
 
 def send_otpcode_again(request):

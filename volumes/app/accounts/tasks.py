@@ -5,7 +5,6 @@ from common.send_sms import (
     send_register_sms,
     send_register_success_sms
 )
-from common.utils import get_jdatetime
 from django.http import HttpResponse
 from accounts.models import User
 from orders.models import Order
@@ -44,7 +43,8 @@ def send_register_sms_task(phone_number, verification_code):
 
 @shared_task()
 def send_register_success_sms_task(phone_number):
-    time = get_jdatetime()[1]  # index of 1 in jdatetime return persian time
+    now = datetime.datetime.now()
+    time = now.strftime("%H:%M")
     try:
         send_register_success_sms(phone_number, time)
     except ValueError as exp:

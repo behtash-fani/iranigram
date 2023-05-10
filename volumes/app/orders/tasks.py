@@ -8,7 +8,6 @@ import logging
 from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
-from common.utils import get_jdatetime
 from django.http import HttpResponse
 from django.conf import settings
 import time
