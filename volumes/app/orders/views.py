@@ -97,10 +97,7 @@ class NewOrderView(LoginRequiredMixin, View):
                     )
                     return redirect("accounts:new_order")
                 else:
-                    messages.error(request,
-                        _("Your balance amount is less than the order amount. Please use online paymen")
-                        ,"warning",
-                    )
+                    messages.error(request,_("Your balance amount is less than the order amount. Please use online payment"),"warning",)
                     return redirect("accounts:new_order")
         else:
             logger.error(order_form.errors.as_data())
