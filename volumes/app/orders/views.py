@@ -70,31 +70,38 @@ class NewOrderView(LoginRequiredMixin, View):
                 unit_price = Service.objects.get(id=cd["service"].id).amount
                 total_price = int(unit_price) * int(cd["quantity"])
                 order_item.amount = total_price
-                user.balance -= total_price
-                user.save()
-                order_item.payment_method = "wallet"
-                order_item.status = "Queued"
-                order_item.wallet_paid_amount = total_price
-                order_item.paid = True
-                order_item.save()
-                transaction_detail = _("Deduct the amount for placing the order")
-                Trans.objects.create(
-                    user=user,
-                    type="payment_for_order",
-                    balance=user.balance,
-                    price=total_price,
-                    payment_type="wallet",
-                    order_code=order_item.order_code,
-                    details=transaction_detail,
-                    ip=request.META.get("REMOTE_ADDR"),
-                )
-                messages.success(
-                    request,
-                    _("Order created successfully, this is your order code:")
-                    + f"{order_item.order_code}",
-                    "success",
-                )
-                return redirect("accounts:new_order")
+                if user.balance > total_price:
+                    user.balance -= total_price
+                    user.save()
+                    order_item.payment_method = "wallet"
+                    order_item.status = "Queued"
+                    order_item.wallet_paid_amount = total_price
+                    order_item.paid = True
+                    order_item.save()
+                    transaction_detail = _("Deduct the amount for placing the order")
+                    Trans.objects.create(
+                        user=user,
+                        type="payment_for_order",
+                        balance=user.balance,
+                        price=total_price,
+                        payment_type="wallet",
+                        order_code=order_item.order_code,
+                        details=transaction_detail,
+                        ip=request.META.get("REMOTE_ADDR"),
+                    )
+                    messages.success(
+                        request,
+                        _("Order created successfully, this is your order code:")
+                        + f"{order_item.order_code}",
+                        "success",
+                    )
+                    return redirect("accounts:new_order")
+                else:
+                    messages.error(request,
+                        _("Your balance amount is less than the order amount. Please use online paymen")
+                        ,"warning",
+                    )
+                    return redirect("accounts:new_order")
         else:
             logger.error(order_form.errors.as_data())
             context = {"order_form": order_form}
