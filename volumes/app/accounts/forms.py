@@ -3,7 +3,7 @@ from .models import OTPCode, User
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
-from utils.valid_phone_number import validate_phone_number
+from common.valid_phone_number import validate_phone_number
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, logout, login
 

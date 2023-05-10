@@ -1,5 +1,5 @@
 from celery import shared_task
-from utils.send_sms import (
+from common.send_sms import (
     send_submit_ticket_sms,
     send_support_answer_ticket_sms,
     send_user_answer_ticket_sms

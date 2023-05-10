@@ -2,9 +2,9 @@ from django import forms
 from orders.models import Order
 from service.models import Service, ServiceType
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext as _
+from django.common.translation import gettext as _
 from accounts.models import User
-from utils.valid_phone_number import validate_phone_number
+from common.valid_phone_number import validate_phone_number
 
 class OrderForm(forms.ModelForm):
     class Meta:

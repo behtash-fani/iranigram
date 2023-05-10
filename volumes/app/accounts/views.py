@@ -17,9 +17,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, logout, login
 from support.models import Ticket
-from utils.mixins import LoginRequiredMixin
-from utils.generate_random_number import generate_random_number
-from utils.is_block_user import is_block_user
+from common.mixins import LoginRequiredMixin
+from common.generate_random_number import generate_random_number
+from common.is_block_user import is_block_user
 from datetime import datetime, timedelta
 from django.utils import timezone
 from .tasks import (

@@ -1,6 +1,6 @@
 from celery import shared_task
-from utils.servers.parsifollower import PFOrderManager
-from utils.servers.mifa import MifaOrderManager
+from common.servers.parsifollower import PFOrderManager
+from common.servers.mifa import MifaOrderManager
 from orders.models import Order
 import json
 from django.db.models import Q
@@ -8,7 +8,7 @@ import logging
 from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
-from utils.utils import get_jdatetime
+from common.utils import get_jdatetime
 from django.http import HttpResponse
 from django.conf import settings
 import time

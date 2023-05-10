@@ -1,11 +1,11 @@
 from celery import shared_task
-from utils.send_sms import (
+from common.send_sms import (
     send_verification_sms,
     send_increase_credit_sms,
     send_register_sms,
     send_register_success_sms
 )
-from utils.utils import get_jdatetime
+from common.utils import get_jdatetime
 from django.http import HttpResponse
 from accounts.models import User
 from orders.models import Order

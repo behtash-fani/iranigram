@@ -2,9 +2,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from utils.zarinpal import payment_verify, payment_request
-from utils.callback_gateway import callback_gateway
-from utils.utils import send_otpcode_again
+from common.zarinpal import payment_verify, payment_request
+from common.callback_gateway import callback_gateway
+from common.utils import send_otpcode_again
 from django.contrib.sitemaps.views import sitemap
 from posts.sitemap import PostSitemap
 from pages.sitemap import PagesSitemap
