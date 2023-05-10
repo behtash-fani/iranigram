@@ -16,7 +16,7 @@ import time
 @shared_task()
 def send_login_sms_task(phone_number, verification_code):
     try:
-        send_verification_sms(phone_number, verification_code)
+        send_login_sms(phone_number, verification_code)
     except ValueError as exp:
         print("Error", exp)
     return "Ok!"

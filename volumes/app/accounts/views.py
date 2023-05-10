@@ -194,7 +194,7 @@ def send_otpcode_again(request):
         code=verification_code,
         expire_time=datetime.now() + timedelta(seconds=60),
     )
-    send_verification_sms_task.delay(phone_number, verification_code)
+    send_login_sms_task.delay(phone_number, verification_code)
     messages.success(request, _("A one-time password has been sent"), "success")
     return redirect('accounts:user_login_verify')
 
