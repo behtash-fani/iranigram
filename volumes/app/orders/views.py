@@ -12,10 +12,10 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 import logging
-from utils.mixins import LoginRequiredMixin
+from common.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse
-from utils.generate_random_number import generate_random_number
+from common.generate_random_number import generate_random_number
 from django.views.decorators.csrf import csrf_exempt
 from accounts.models import User
 from django.contrib.auth import authenticate, logout, login
