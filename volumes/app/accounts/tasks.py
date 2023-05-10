@@ -1,6 +1,6 @@
 from celery import shared_task
 from common.send_sms import (
-    send_verification_sms,
+    send_login_sms,
     send_increase_credit_sms,
     send_register_sms,
     send_register_success_sms
@@ -14,7 +14,7 @@ from django.conf import settings
 import time
 
 @shared_task()
-def send_verification_sms_task(phone_number, verification_code):
+def send_login_sms_task(phone_number, verification_code):
     try:
         send_verification_sms(phone_number, verification_code)
     except ValueError as exp:

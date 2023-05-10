@@ -23,8 +23,7 @@ from common.is_block_user import is_block_user
 from datetime import datetime, timedelta
 from django.utils import timezone
 from .tasks import (
-    send_verification_sms_task,
-    send_verification_sms_task,
+    send_login_sms,
     send_register_sms_task,
     send_register_success_sms_task,
 )
@@ -152,7 +151,7 @@ class UserLoginWithOTPView(View):
             cd = otp_login_form.cleaned_data
             verification_code = generate_random_number(4, is_unique=False)
             phone_number = cd["phone_number"]
-            send_verification_sms_task.delay(phone_number, verification_code)
+            send_login_sms_task.delay(phone_number, verification_code)
             if OTPCode.objects.filter(phone_number=phone_number).exists():
                 OTPCode.objects.filter(phone_number=phone_number).delete()
             OTPCode.objects.create(
