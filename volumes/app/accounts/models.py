@@ -15,7 +15,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True, verbose_name=_('Email'))
     full_name = models.CharField(default=_('Guest User'), max_length=255, blank=True, null=True,
                                  verbose_name=_('Full Name'))
-    balance = models.IntegerField(default=0, verbose_name=_('Balance'), blank=True, null=True)
+    balance = models.PositiveIntegerField(default=0, verbose_name=_('Balance'), blank=True, null=True)
     amount_change_wallet = models.PositiveIntegerField(default=0, verbose_name=_('Amount Change Wallet'), blank=True,
                                                        null=True)
     status_change_wallet = models.CharField(max_length=100, choices=STATUS_CHANGE_WALLET, default="do_nothing",
@@ -60,7 +60,7 @@ class User(AbstractBaseUser):
 
 class OTPCode(models.Model):
     phone_number = models.CharField(max_length=12, verbose_name=_('Phone Number'))
-    code = models.PositiveSmallIntegerField(verbose_name=_('Code'))
+    code = models.CharField(max_length=4, verbose_name=_('Code'))
     expire_time = models.TimeField(blank=True, null=True, verbose_name=_('Expire Time'))
     created_at = models.DateTimeField(auto_now=True, verbose_name=_('Create At'))
 
