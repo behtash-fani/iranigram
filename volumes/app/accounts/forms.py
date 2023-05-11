@@ -136,13 +136,13 @@ class VerifyCodeForm(forms.Form):
     def clean_code(self, *args, **kwargs):
         cleaned_data = super().clean()
         code = cleaned_data['code']
+        
         phone_number = self.request.session['phone_number']
         verification_code = OTPCode.objects.get(phone_number=phone_number)
-
         if not code:
             raise ValidationError("Code field is required.")
         
-        if code == verification_code.code:
+        if int(code) == int(verification_code.code):
             verification_code.delete()
             return code
         else:
