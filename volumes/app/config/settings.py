@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     "admin_reorder",
-    "compressor",
     # local apps
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
@@ -46,13 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 ]
 SITE_ID = 1
-
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
-)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -140,9 +132,6 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "static/"]
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
-
-COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_URL = STATIC_URL
 
 
 MEDIA_URL = '/media/' 
