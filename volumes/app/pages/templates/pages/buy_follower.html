@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% load humanize %}
 {% block title %}{{ block.super }} خرید فالوور واقعی اینستاگرام فوری ایرانی | {% endblock %}
 {% block meta %}
 <meta name="description"
@@ -38,12 +37,12 @@
                 روند ارتقا پیج شما کمک کند نیز می پردازیم.</p>
         </div>
     </div>
-    <!-- Start Follower Section -->
-    <div class="row mt-5">
+    <div class="row mt-2">
         <div class="col-lg-6 col-12">
-            <img src="{% static 'image/flw_icon.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0"><br>
-            <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
-            <p class="kalameh-font mt-2" style="font-size:40px !important">خرید فالوور با کیفیت اینستاگرام</p>
+            <img src="{% static 'image/flw_icon.png' %}" class="mb-3"><br>
+            <span class="text-warning px-2 px-lg-0">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
+            <p class="kalameh-font mt-2 px-2 px-lg-0" style="font-size:40px !important">خرید فالوور با کیفیت اینستاگرام
+            </p>
             <div class='row'>
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
@@ -75,65 +74,19 @@
                     </ul>
                 </div>
             </div>
-            <p class="d-flex lh-lg fs-5 mt-2 text-muted px-2 px-lg-0">شما می توانید فالوور اینستاگرام را در انواع کیفیت
-                و ویژگی
-                ها در پنل اختصاصی سایت ایرانی گرام با ورود به حساب کاربری خود دریافت کنید . پس از خریدتان فالوورها
-                به صورت خودکار به پیج شما اضافه می شوند و از طرف شما فقط نیاز هست که صفحه خود را در حالت عمومی قرار
-                دهید و نظارگر افزایش فالوور و پیشرفت صفحه اینستاگرام خود باشید
-            </p>
+            <p class="d-flex lh-md fs-5 mt-2 text-muted px-2 px-lg-0">شما می توانید فالوور اینستاگرام را در انواع کیفیت
+                و ویژگی ها در پنل اختصاصی سایت ایرانی گرام با ورود به حساب کاربری خود دریافت کنید . پس از خریدتان
+                فالوورها به صورت خودکار به پیج شما اضافه می شوند و از طرف شما فقط نیاز هست که صفحه خود را در حالت عمومی
+                قرار دهید و نظارگر افزایش فالوور و پیشرفت صفحه اینستاگرام خود باشید </p>
         </div>
-        <div class="col-lg-6 col-12">
-            <div class="card p-2 rounded-4">
-                <div class="card-body">
-                    <h5 class="card-title kalameh-font fs-3">خرید فالوور اینستاگرام</h5>
-                    <div class="nav-tabs-section mt-3" id="flw-section">
-                        <ul class="nav nav-pills mb-3 pills-tab" id="flw-pills-tab" role="tablist">
-                            {% for service in follower_services %}
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link rounded-4" id="tab{{service.id}}" data-bs-toggle="pill"
-                                    data-bs-target="#service{{service.id}}" type="button" role="tab"
-                                    aria-controls="pills-home" aria-selected="true">{{service.title}}</button>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <h6 class="my-3">
-                            <img src="{% static 'icons/note.svg' %}" alt="">
-                            <span class="fw-bold" style="color: #5D6B81">بسته های جذاب</span>
-                        </h6>
-                        {% for service in follower_services %}
-                        <div class="tab-content pills-tabContent" id="flw-pills-tabContent">
-                            <div class="rounded-4 tab-pane show" id="service{{service.id}}" role="tabpanel"
-                                aria-labelledby="tab{{service.id}}" tabindex="0">
-                                <div class="row row-cols-1 row-cols-md-2 g-2">
-                                    {% for key, value in service.template_packages.items %}
-                                    <div class="col">
-                                        <div class="card rounded-4 px-1">
-                                            <div class="row p-2">
-                                                <div class="col d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <span>{{value.quantity}} عدد فالوور</span><br>
-                                                        <small class="fw-semibold">{{value.total_price|intcomma}} {%trans 'Toman' %}</small>
-                                                    </div>
-                                                    <a href="{% url 'orders:new_order' service.id value.quantity %}"
-                                                        class="btn btn-warning rounded-4" target="_blank">
-                                                        <img src="{% static 'icons/shop-add.svg' %}" alt="">
-                                                        خرید
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-6 col-12 text-center mt-">
+            <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid" width="450px"><br>
+            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-2 rounded-4 py-4">
+                شروع خرید فالوور با کیفیت اینستاگرام
+                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+            </a>
         </div>
     </div>
-    <!-- End Follower Section -->
     <p class="lh-lg fs-5 mt-4 px-2 px-lg-0">خرید فالوور اینستاگرام از جمله روش هایی است که کمک فراوانی برای پیشرفت در
         حوزه ی فعالیت های مجازی می کند. در ادامه شما را با اهمیت شبکه های مجازی و خرید فالوور اینستاگرام آشنا می کنیم.
         با پیشرفت روز افزون شبکه های اجتماعی و افزایش کاربران این شبکه ها، فضاهای مجازی مثل اینستاگرام تبدیل به فضایی
@@ -338,16 +291,4 @@
     </div>
 </div>
 {% include "inc/footer.html" %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var navTabSections = document.querySelectorAll(".nav-tabs-section");
-        navTabSections.forEach(function (navTabSection) {
-            var sectionId = navTabSection.getAttribute("id");
-            document.querySelector("#" + sectionId + " > .pills-tab > :first-child > button").classList.add("active");
-            for (var i = 0; i < navTabSection.children.length; i++) {
-                navTabSection.children[2].children[0].classList = 'rounded-4 tab-pane show active';
-            }
-        });
-    });
-</script>
 {% endblock %}

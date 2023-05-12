@@ -5,7 +5,6 @@ from support.views import SubmitTicket
 from transactions.views import TransactionsView
 from orders.views import OrdersListView, NewOrderView
 from support.views import SupportView
-from datetime import datetime, timedelta
 
 
 app_name = 'accounts'

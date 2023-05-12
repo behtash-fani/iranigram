@@ -25,12 +25,6 @@ SERVER = (
     ("mifa", "Mifa"),
 )
 
-TEMPLATE_CATEOGORY = (
-    ("follower", "Follower"),
-    ("like", "Like"),
-    ("view", "View"),
-)
-
 class Service(models.Model):
     service_type = models.ForeignKey(ServiceType, verbose_name=_('ServiceType'), on_delete=models.DO_NOTHING)
     link_type = models.CharField(max_length=20, choices=LINK_TYPE_CHOICES, verbose_name=_('Link Type'))
@@ -44,9 +38,6 @@ class Service(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name=_('Description'))
     priority = models.IntegerField(_('Display priority'), blank=True, null=True)
     available_for_user = models.BooleanField(default=True, verbose_name=_('Available For User'))
-    template_service = models.BooleanField(_('Template Service'), blank=True, null=True)
-    template_packages = models.JSONField(_('Template Packages'), max_length=500, null=True, blank=True)
-    template_service_category = models.CharField(max_length=20, choices=TEMPLATE_CATEOGORY, verbose_name=_('Template Service Category'), null=True, blank=True)
 
     def __str__(self) -> str:
         return f'{self.title}'

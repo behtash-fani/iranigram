@@ -1,11 +1,9 @@
 from accounts.tasks import send_login_sms_task
 from common.generate_random_number import generate_random_number
 from common.valid_phone_number import validate_phone_number
-from orders.forms import TemplateOrderForm
 from datetime import datetime, timedelta
 from django.http import JsonResponse
 from accounts.models import OTPCode
-
 
 def send_otpcode_again(request):
     phone_number = request.POST.get("phone_number")

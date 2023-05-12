@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import Order
 from django.urls import reverse
 from django.utils.html import format_html
-from jalali_date import datetime2jalali, date2jalali
-from jalali_date.admin import ModelAdminJalaliMixin, StackedInlineJalaliMixin, TabularInlineJalaliMixin	
+from jalali_date import datetime2jalali
+from jalali_date.admin import ModelAdminJalaliMixin
 
 
 

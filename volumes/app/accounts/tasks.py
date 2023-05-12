@@ -5,12 +5,9 @@ from common.send_sms import (
     send_register_sms,
     send_register_success_sms
 )
-from django.http import HttpResponse
 from accounts.models import User
-from orders.models import Order
 import json
 from django.conf import settings
-import time
 
 @shared_task()
 def send_login_sms_task(phone_number, verification_code):

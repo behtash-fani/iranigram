@@ -3,8 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import Ticket, Response
 from django.utils.translation import gettext as _
-from jalali_date import datetime2jalali, date2jalali
-from jalali_date.admin import ModelAdminJalaliMixin, StackedInlineJalaliMixin, TabularInlineJalaliMixin	
+from jalali_date import datetime2jalali
 
 
 

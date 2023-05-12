@@ -143,7 +143,7 @@ if (window.location.pathname === "/dashboard/new-order/") {
       service_type_select.selectedIndex = 0;
     }
     if (service_select) {
-      service_select.selectedIndex = 0; 
+      service_select.selectedIndex = 0;
     }
     if (id_link) {
       id_link.value = "";
@@ -162,78 +162,73 @@ function openPaymentModal() {
 
 let credit_payment = document.getElementById("credit_payment");
 if (credit_payment) {
-  credit_payment.addEventListener("click", (e) => {
-	let instagram_link = document.getElementById("id_link");
-	if(instagram_link){
-		if (instagram_link.value == null || instagram_link.value == ""){
-			document.getElementById("link-empty-error").classList.remove("d-none");
+	credit_payment.addEventListener("click", (e) => {
+		let instagram_link = document.getElementById("id_link");
+		// if (instagram_link) {
+		// if (instagram_link.value == null || instagram_link.value == "") {
+		// 	document.getElementById("link-empty-error").classList.remove("d-none");
+		// } else {
+		// 	document.getElementById("link-empty-error").classList.add("d-none");
+		// }
+		// }
+		let price_per_unit_service = document.getElementById(
+		"price_per_unit_service"
+		);
+		let order_quantity = document.getElementById("id_quantity");
+		let user_balance = parseInt(
+		credit_payment.getAttribute("data-user-balance").replace(",", "")
+		);
+		let total_amount = parseInt(
+		order_quantity.value * price_per_unit_service.textContent
+		);
+		let remain_price = 0;
+		if (total_amount > user_balance) {
+		e.preventDefault();
+		openPaymentModal();
+		// if (!(instagram_link.value == null || instagram_link.value == "")) {
+		// 	openPaymentModal();
+		// }
+		remain_price = total_amount - user_balance;
+		if (remain_price < 500) {
+			document.getElementById("modal_body").innerHTML = `
+			با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
+			remain_price = 500;
+		} else {
+			document.getElementById("modal_body").innerHTML = `
+			مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
+			user_balance
+			)} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
 		}
-		else{
-			document.getElementById("link-empty-error").classList.add("d-none");
+		} else {
 		}
-	}
-	
-    let price_per_unit_service = document.getElementById(
-      "price_per_unit_service"
-    );
-    let order_quantity = document.getElementById("id_quantity");
-    let user_balance = parseInt(
-      credit_payment.getAttribute("data-user-balance").replace(",", "")
-    );
-    let total_amount = parseInt(
-      order_quantity.value * price_per_unit_service.textContent
-    );
-    let remain_price = 0;
-    if (total_amount > user_balance) {
-      e.preventDefault();
-	  if (!(instagram_link.value == null || instagram_link.value == "")){
-		  openPaymentModal();
-	  }
-      remain_price = total_amount - user_balance;
-      if (remain_price < 500) {
-        document.getElementById(
-          "modal_body"
-        ).innerHTML += `
-        با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
-        remain_price = 500;
-      } else {
-        document.getElementById(
-          "modal_body"
-        ).innerHTML += `
-        مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
-          user_balance
-        )} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
-      }
-    } else {
-    }
-    let modal_pay_button = document.getElementById("modal_pay_button");
-    modal_pay_button.addEventListener("click", (e) => {
-      let data = {
-        service_type: $("#id_service_type").val(),
-        service: $("#id_service").val(),
-        link: $("#id_link").val(),
-        order_quantity: $("#id_quantity").val(),
-        remain_price: remain_price,
-      };
-      $.ajax({
-        url: "/orders/pay-remain-price/",
-        dataType: "json",
-        method: "POST",
-        data: data,
-        headers: {
-          "X-CSRFToken": csrf_token,
-        },
-        success: function (response) {
-          if (response.redirect) {
-            window.location.href = response.redirect;
-          }
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
-    });
-  });
+		let modal_pay_button = document.getElementById("modal_pay_button");
+		modal_pay_button.addEventListener("click", (e) => {
+		let data = {
+			service_type: $("#id_service_type").val(),
+			service: $("#id_service").val(),
+			link: $("#id_link").val(),
+			order_quantity: $("#id_quantity").val(),
+			remain_price: remain_price,
+		};
+		$.ajax({
+			url: "/orders/pay-remain-price/",
+			dataType: "json",
+			method: "POST",
+			data: data,
+			headers: {
+			"X-CSRFToken": csrf_token,
+			},
+			success: function (response) {
+			if (response.redirect) {
+				window.location.href = response.redirect;
+			}
+			},
+			error: function (error) {
+			console.log(error);
+			},
+		});
+		});
+	});
 }
 
 function openCompletePaymentModal() {
@@ -302,72 +297,3 @@ if (complete_order_payment) {
     });
   });
 }
-
-// document.addEventListener('click', (e) => {
-//     let remain_price = 0;
-//     if (e.target && e.target.matches('.credit-payment-button')) {
-//         if (e.target && e.target.matches('#payment-new-order')) {
-//             let credit_payment = e.target;
-//             let price_per_unit_service = document.getElementById('price_per_unit_service');
-//             let order_quantity = document.getElementById('id_quantity');
-//             let user_balance = parseInt(credit_payment.getAttribute('data-user-balance'));
-//             let total_amount = parseInt(order_quantity.value * price_per_unit_service.textContent);
-//             if (total_amount > user_balance) {
-//                 e.preventDefault();
-//                 openPaymentModal();
-//                 let remain_price = 0;
-//                 remain_price = parseInt(total_amount) - parseInt(user_balance);
-//                 if (remain_price < 500) {
-//                     document.getElementById("modal_body").innerHTML = `با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`
-//                     remain_price = 500;
-//                 } else {
-//                     document.getElementById("modal_body").innerHTML = `مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(user_balance)} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
-//                 }
-//             }
-//         }
-//         else if (e.target && e.target.matches('#payment-submitted-order')){
-//             let credit_payment = e.target;
-//             let user_balance = parseInt(credit_payment.getAttribute('data-user-balance'));
-//             let total_amount = parseInt(credit_payment.getAttribute('data-total-amount'));
-//             if (total_amount > user_balance) {
-//                 e.preventDefault();
-//                 openPaymentModal();
-//                 remain_price = parseInt(total_amount) - parseInt(user_balance);
-//                 if (remain_price < 500) {
-//                     document.getElementById("modal_body").innerHTML = `با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`
-//                     remain_price = 500;
-//                 } else {
-//                     document.getElementById("modal_body").innerHTML = `مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(user_balance)} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
-//                 }
-//             }
-//         }
-//         let modal_pay_button = document.getElementById("modal_pay_button");
-//         modal_pay_button.addEventListener('click', (e) => {
-//             let data = {
-//                 'service_type': $('#id_service_type').val(),
-//                 'service': $('#id_service').val(),
-//                 'link': $('#id_link').val(),
-//                 'order_quantity': $('#id_quantity').val(),
-//                 'remain_price': remain_price
-//             };
-//             $.ajax({
-//                 url: '/orders/pay-remain-price/',
-//                 dataType: 'json',
-//                 method: 'POST',
-//                 data: data,
-//                 headers: {
-//                     "X-CSRFToken": csrf_token
-//                 },
-//                 success: function (response) {
-//                     if (response.redirect) {
-//                         window.location.href = response.redirect;
-//                         console.log(response.redirect);
-//                     }
-//                 },
-//                 error: function (error) {
-//                     console.log(error);
-//                 }
-//             });
-//         });
-//     }
-// });
