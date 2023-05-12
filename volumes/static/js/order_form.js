@@ -163,14 +163,6 @@ function openPaymentModal() {
 let credit_payment = document.getElementById("credit_payment");
 if (credit_payment) {
 	credit_payment.addEventListener("click", (e) => {
-		let instagram_link = document.getElementById("id_link");
-		// if (instagram_link) {
-		// if (instagram_link.value == null || instagram_link.value == "") {
-		// 	document.getElementById("link-empty-error").classList.remove("d-none");
-		// } else {
-		// 	document.getElementById("link-empty-error").classList.add("d-none");
-		// }
-		// }
 		let price_per_unit_service = document.getElementById(
 		"price_per_unit_service"
 		);
@@ -185,9 +177,6 @@ if (credit_payment) {
 		if (total_amount > user_balance) {
 		e.preventDefault();
 		openPaymentModal();
-		// if (!(instagram_link.value == null || instagram_link.value == "")) {
-		// 	openPaymentModal();
-		// }
 		remain_price = total_amount - user_balance;
 		if (remain_price < 500) {
 			document.getElementById("modal_body").innerHTML = `

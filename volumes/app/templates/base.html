@@ -1,4 +1,6 @@
 {% load static %}
+{% load compress %}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -8,8 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} خرید فالوور اینستاگرام ارزان | خرید لایک اینستاگرام</title>
     {% block meta %}{% endblock meta %}
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% endcompress %}
     <link rel="icon" href="{% static 'image/favicon.png' %}" sizes="16x16" type="image/png">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'image/apple-touch-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'image/apple-touch-icon-60x60.png' %}">
@@ -31,6 +35,7 @@
 {% block content %}
 {% endblock %}
 </body>
+{% compress js %}
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/num2persian-min.js' %}"></script>
@@ -39,4 +44,5 @@
 <script src="{% static 'js/custom.js' %}"></script>
 <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
 <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+{% endcompress %}
 </html>

@@ -128,57 +128,57 @@ if (
   }
 }
 
-function openVerifyPayment() {
-  const modal = document.getElementById("sendVerifyCodeModal");
-  const payment_modal = new bootstrap.Modal(modal);
-  payment_modal.show();
-}
+// function openVerifyPayment() {
+//   const modal = document.getElementById("sendVerifyCodeModal");
+//   const payment_modal = new bootstrap.Modal(modal);
+//   payment_modal.show();
+// }
 
-if (document.getElementById("user_authenticated"))
-{
-  document.getElementById("id_phone_number").setAttribute('readonly', '');
-}
+// if (document.getElementById("user_authenticated"))
+// {
+//   document.getElementById("id_phone_number").setAttribute('readonly', '');
+// }
 
-let verify_phone_number = document.getElementById("verify_phone_number");
-if (verify_phone_number) {
-  verify_phone_number.addEventListener("click", (e) => {
-    let link = document.querySelector("#id_link").value;
-    if (link == null || link == "") {
-      document.getElementById("link-empty-error").classList.remove("d-none");
-    } else {
-      document.getElementById("link-empty-error").classList.add("d-none");
-      let phone_number = document.querySelector("#id_phone_number").value;
-      if (phone_number == null || phone_number == "") {
-        document.getElementById("phone-empty-error").classList.remove("d-none");
-      }
-      else {
-        document.getElementById("phone-empty-error").classList.add("d-none");
-        document.getElementById("phone_number").innerHTML = phone_number;
-        $.ajax({
-          url: "/send-verify-code/",
-          method: "POST",
-          dataType: "json",
-          data: {
-            phone_number: phone_number,
-            link: link,
-          },
-          headers: {
-            "X-CSRFToken": csrf_token,
-          },
-          success: function (response) {
-            if (response.Status == "code_sent"){
-              openVerifyPayment();
-            }
-            else if (response.Status == "wrong_phone_number"){
-              document.getElementById("wrong-phone-error").classList.remove("d-none");
-            }
+// let verify_phone_number = document.getElementById("verify_phone_number");
+// if (verify_phone_number) {
+//   verify_phone_number.addEventListener("click", (e) => {
+//     let link = document.querySelector("#id_link").value;
+//     if (link == null || link == "") {
+//       document.getElementById("link-empty-error").classList.remove("d-none");
+//     } else {
+//       document.getElementById("link-empty-error").classList.add("d-none");
+//       let phone_number = document.querySelector("#id_phone_number").value;
+//       if (phone_number == null || phone_number == "") {
+//         document.getElementById("phone-empty-error").classList.remove("d-none");
+//       }
+//       else {
+//         document.getElementById("phone-empty-error").classList.add("d-none");
+//         document.getElementById("phone_number").innerHTML = phone_number;
+//         $.ajax({
+//           url: "/send-verify-code/",
+//           method: "POST",
+//           dataType: "json",
+//           data: {
+//             phone_number: phone_number,
+//             link: link,
+//           },
+//           headers: {
+//             "X-CSRFToken": csrf_token,
+//           },
+//           success: function (response) {
+//             if (response.Status == "code_sent"){
+//               openVerifyPayment();
+//             }
+//             else if (response.Status == "wrong_phone_number"){
+//               document.getElementById("wrong-phone-error").classList.remove("d-none");
+//             }
             
-          },
-          error: function (error) {
-            console.log(error);
-          },
-        });
-      }
-    }    
-  });
-}
+//           },
+//           error: function (error) {
+//             console.log(error);
+//           },
+//         });
+//       }
+//     }    
+//   });
+// }
