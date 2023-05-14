@@ -31,11 +31,23 @@ class LikeView(View):
     template_name = "pages/buy_like.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        meta_description_tag = PagesSeo.objects.filter(page='buy_like')[0].meta_description_tag
+        title_tag = PagesSeo.objects.filter(page='buy_like')[0].title_tag
+        context = {
+            'meta_description_tag': meta_description_tag,
+            'title_tag': title_tag,
+            }
+        return render(request, self.template_name, context)
 
 
 class ViewView(View):
     template_name = "pages/buy_view.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        meta_description_tag = PagesSeo.objects.filter(page='buy_view')[0].meta_description_tag
+        title_tag = PagesSeo.objects.filter(page='buy_view')[0].title_tag
+        context = {
+            'meta_description_tag': meta_description_tag,
+            'title_tag': title_tag,
+            }
+        return render(request, self.template_name, context)
