@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     "django_celery_beat",
     "jalali_date",
     'ckeditor',
@@ -41,8 +43,8 @@ INSTALLED_APPS = [
     "transactions.apps.TransactionsConfig",
     "support.apps.SupportConfig",
     "posts.apps.PostsConfig",
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
+    "seo.apps.SeoConfig",
+    
 ]
 SITE_ID = 1
 
@@ -65,6 +67,7 @@ ADMIN_REORDER = (
     {"app": "support"},
     {"app": "transactions"},
     {"app": "service"},
+    {"app": "seo"},
     {"app": "posts"},
     {"app": "django_celery_beat"},
     {"app": "admin_persian"},

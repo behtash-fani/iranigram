@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{ block.super }} {% trans 'Home' %} | {% endblock %}
-{% block meta %}
-<meta content="خرید فالوور اینستاگرام ارزان | خرید لایک اینستاگرام" property="og:title">
-<meta content="با خرید فالوور اینستاگرام و خرید لایک اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد" property="og:description">
-<meta content="{{site_url}}" property="og:url">
-<meta content="Iranigram" property="og:site_name">
-{% endblock meta %}
+{% block title %}{{title_tag}}{% endblock %}
+<meta name="description" content="{{meta_description_tag}}">
 {% block content %}
     <div class="container">
         <div class="row mb-5 mt-4">
