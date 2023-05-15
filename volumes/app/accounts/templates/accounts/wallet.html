@@ -5,7 +5,7 @@
 {% block panelcontent %}
 <div class="row mt-4">
     <p class="fw-semibold fs-3">
-        <img src="{% static 'icon/wallet-add.svg' %}" alt="">
+        <img src="{% static 'icons/wallet-add.svg' %}" alt="">
         {% trans "Increase the amount of credit" %}
     </p>
     <hr>
@@ -23,12 +23,12 @@
                 {{ add_credit_form.amount.errors }}
             </div>
             <div class="d-flex justify-content-between">
-                
+
                 <span class="mt-2">
                     {% trans "Amount of credit entered" %} :
                     <span id="letter_price" class="mt-2 fw-semibold"></span> {% trans 'Toman' %}
                 </span>
-                
+
             </div>
             <button class="btn btn-warning rounded-4 px-3 py-3 mt-2" type="submit">
                 <img src="{% static 'icons/wallet-add.svg' %}" alt="">
@@ -53,4 +53,6 @@
             {% trans 'The minimum amount payable is 500 Tomans' %}
         </small><br>
     </div>
+</div>
+
 {% endblock panelcontent %}
