@@ -17,8 +17,8 @@
             <div class="col-lg-3 col-12 mx-auto">
                 <div class="alert alert-light" role="alert">
                     <div class="row">
-                        <div class="col-8 kalameh-font fs-6 text-start">{% trans 'Your current wallet credit' %}</div>
-                        <div class="col-4 kalameh-font text-warning fs-6 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
+                        <div class="col-8 fw-bold fs-6 text-start">{% trans 'Your current wallet credit' %}</div>
+                        <div class="col-4 fw-bold text-warning fs-6 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                                 <img src="{% static 'icons/Copy.svg' %}" alt=""> {% trans "Order Code" %}
                             </a>
                         </div>
-                        <div class="col-4 kalameh-font text-warning fs-6 text-end pt-2">{{ order_code }}</div>
+                        <div class="col-4 fw-bold text-warning fs-6 text-end pt-2">{{ order_code }}</div>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
         {% elif payment_type == 'error' %}
             <img src="{% static 'image/callback_error.png' %}" class="img-fluid mt-4" alt="...">
             <div class="text-center col-md-6 col-lg-4 d-block mx-auto">
-                <p class="fs-3 mt-5 kalameh-font fw-bolder">پرداخت شما با شکست مواجه شد</p>
+                <p class="fs-3 mt-5 fw-bold fw-bolder">پرداخت شما با شکست مواجه شد</p>
                 <p class="fs-6 mt-3 text-black-50">پرداخت شما با شکست مواجه شد و خرید شما در سامانه ایرانی گرام ثبت
                     نگردید
                     اگر مبلغی

@@ -71,21 +71,9 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: Kalameh;
-  src: url("../fonts/ttf/kalameh.ttf");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 body {
   font-family: Vazirmatn, serif;
   background: #fff;
-}
-
-.kalameh-font {
-  font-family: Kalameh !important;
 }
 
 .form-control:disabled {
