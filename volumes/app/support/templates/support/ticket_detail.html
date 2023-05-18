@@ -1,7 +1,7 @@
 {% extends "accounts/dashboard_base.html" %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{ block.super }} {% trans 'Ticket Details' %} | {% endblock %}
+{% block title %}{% trans 'Ticket Details' %}{% endblock %}
 {% block panelcontent %}
     <span class="fs-4 fw-semibold">
         <i class="bi bi-chat-left-quote"></i> {% trans "Details of ticket number" %}: {{ ticket.id }}</span>
