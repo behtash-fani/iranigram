@@ -29,7 +29,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, unique=True, verbose_name=_("Title"), blank=True, null=True)
     slug = models.SlugField(max_length=900, unique=True, verbose_name=_("Slug"), blank=True, null=True, allow_unicode=True)
     author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts', verbose_name=_("Author"), default='1')
-    short_content = models.CharField(max_length=100, verbose_name=_("Short Content"), blank=True, null=True)
+    short_content = models.TextField(max_length=170, verbose_name=_("Short Content"), blank=True, null=True)
     content = RichTextUploadingField(verbose_name=_("Content"), blank=True, null=True)
     read_time = models.CharField(max_length=100, verbose_name=_("Read Time"), blank=True, null=True)
     thumbnail = models.ImageField(upload_to='blog/', blank=True, null=True)
