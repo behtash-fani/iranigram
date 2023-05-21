@@ -3,8 +3,10 @@
 {% load static %}
 {% block title %}{{title_tag}}{% endblock %}
 {% block meta %}
-<meta name="description" content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد" />
-<meta property="og:description" content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد">
+<meta name="description"
+    content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد" />
+<meta property="og:description"
+    content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد">
 <meta name="keywords" content="خرید لایک اینستاگرام ارزان">
 <meta content="https://iranigram.com/" property="og:url">
 <meta content="Iranigram" property="og:site_name">
@@ -54,13 +56,17 @@
 <div class="container">
     <div class="row mb-5 mt-4">
         <div class="col-md-4 text-center">
-            <img src="{% static 'image/likes.webp' %}" class="img-fluid text-center" alt="">
+            <img src="{% static 'image/likes.webp' %}" class="img-fluid text-center" width="300px" height="440px"
+                alt="خرید لایک اینستاگرام">
         </div>
         <div class="col-md-8 mt-4">
-            <span><img src="{% static 'image/Group 33586.png' %}"></span>
+            <span>
+                <img src="{% static 'image/Group 33586.png' %}" alt="لایک اینستاگرام" width="59px" height="53px">
+            </span>
             <span class="fs-1 fw-bold" style="font-size:50px !important;">
                 خرید لایک اینستاگرام ارزان
-                <img src="{% static 'image/image 270.png' %}" class="img-fluid float-end" alt="">
+                <img src="{% static 'image/image 270.png' %}" width="226px" height="171px" class="img-fluid float-end"
+                    alt="افزایش لایک">
             </span>
             <p class="col lh-lg fs-5 mt-4 text-warning">خرید لایک اینستاگرام ایرانی ارزان آنی و واقعی</p>
             <p class="col lh-lg fs-5 mt-1">میلیون‌ها کاربر در سرتاسر جهان از اینستاگرام برای به اشتراک گذاشتن لحظات
@@ -72,28 +78,32 @@
                 را خریداری کنید.</p>
             <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-4">
                 شروع خرید لایک واقعی اینستاگرام
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ" width="25px" height="25px">
             </a>
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-lg-6 col-12">
-            <img src="{% static 'image/like_icon.webp' %}" class="mb-3"><br>
+            <img src="{% static 'image/like_icon.webp' %}" class="mb-3" width="118px" height="119px"
+                alt="آیکن لایک"><br>
             <span class="text-warning fw-bold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
             <h1 class="my-4 fw-bold">خرید لایک با کیفیت اینستاگرام</h1>
             <div class='row'>
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/card-receive.svg' %}" alt="">
+                            <img src="{% static 'icons/card-receive.svg' %}" width="24px" height="24px"
+                                alt="ضمانت بازگشت وجه">
                             ضمانت بازگشت وجه
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/Heart.svg' %}" alt="">
+                            <img src="{% static 'icons/Heart.svg' %}" width="24px" height="24px"
+                                alt="بدون نیاز به لایک کردن دیگران">
                             بدون نیاز به لایک کردن دیگران
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/unlock.svg' %}" alt="">
+                            <img src="{% static 'icons/unlock.svg' %}" width="24px" height="24px"
+                                alt="بدون نیاز به پسورد پیج">
                             بدون نیاز به پسورد پیج
                         </li>
                     </ul>
@@ -101,11 +111,12 @@
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/timer-start.svg' %}" alt="">
+                            <img src="{% static 'icons/timer-start.svg' %}" width="24px" height="24px"
+                                alt="شروع آنی پس از ثبت سفارش">
                             شروع آنی پس از ثبت سفارش
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/Speed.svg' %}" alt="">
+                            <img src="{% static 'icons/Speed.svg' %}" width="24px" height="24px" alt="سرعت ارسال عالی">
                             سرعت ارسال عالی
                         </li>
                     </ul>
@@ -117,10 +128,11 @@
                 به افزایش لایک و دیده شدن بیشتر پست خود نظارت کنید.</p>
         </div>
         <div class="col-lg-6 col-12 text-center">
-            <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid" width="400px"><br>
+            <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid" width="400px" height="433px"
+                alt="شروع خرید لایک اینستاگرام"><br>
             <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-2 rounded-4 py-4">
                 شروع خرید لایک واقعی اینستاگرام
-                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="">
+                <img src="{% static 'icons/Arrow-Left-White.svg' %}" width="24px" height="24px" alt="فلش سمت چپ">
             </a>
         </div>
     </div>
@@ -135,7 +147,8 @@
         اینستاگرام این کار را انجام دهند.</p>
     <div class="row">
         <a href="{% url 'accounts:new_order' %}">
-            <img src="{% static 'image/Frame 7.png' %}" class="img-fluid">
+            <img src="{% static 'image/Frame 7.png' %}" width="1296px" height="257px" class="img-fluid"
+                alt="بنر خرید لایک">
         </a><br>
     </div>
     <div class="row my-5">
@@ -258,7 +271,8 @@
     </div>
     <div class="row my-5">
         <div class="col-lg-6 col-12 text-center">
-            <img src="{% static 'image/support.webp' %}" class="img-fluid" width="500px"><br>
+            <img src="{% static 'image/support.webp' %}" class="img-fluid" width="500px" height="280px"
+                alt=" پشتیبانی"><br>
         </div>
         <div class="col-lg-6 col-12">
             <p class="mt-5 fs-1 fw-bold">سوالی دارید؟</p>
@@ -266,7 +280,7 @@
             <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
             <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
                 ارتباط با پشتیبانی
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
+                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px" height="24px" alt="دکمه ارتباط با پشتیبانی">
             </a>
         </div>
     </div>
