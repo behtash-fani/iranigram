@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 import requests
 import json
 from django.contrib import messages
+from orders.tasks import send_login_sms_task
 
 
 def payment_request(request):
@@ -88,10 +89,11 @@ def payment_verify(request):
                     order_id = request.session["order_id"]
                     order = get_object_or_404(Order, id=order_id)
                     order.wallet_paid_amount = 0
+                    order_code = order.order_code
                     order.online_paid_amount = amount
                     order.status = 'Queued'
                     order.paid = True
-                    order.save()
+                    send_login_sms_task.delay(phone, order_code)
                     Transactions.objects.create(
                         user=user,
                         type="payment_for_order",
@@ -99,7 +101,7 @@ def payment_verify(request):
                         balance=user.balance,
                         payment_type="online",
                         details=transaction_detail,
-                        order_code=order.order_code,
+                        order_code=order_code,
                         payment_gateway=_('Zarinpal'),
                         ip=request.META.get('REMOTE_ADDR'))
                 else:

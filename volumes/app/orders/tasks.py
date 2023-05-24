@@ -10,6 +10,11 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import User
 from django.http import HttpResponse
 from django.conf import settings
+from common.send_sms import (
+    send_submit_order_sms,
+    send_cancel_order_sms
+)
+
 
 logger = logging.getLogger("celery_task")
 
@@ -77,6 +82,7 @@ def order_status_task():
                                 if User.objects.filter(phone_number=order.user.phone_number).exists():
                                     user = User.objects.filter(phone_number=order.user.phone_number).first()
                                     user.balance += order.amount
+                                    send_cancel_order_sms.delay(order.user.phone_number, order.order_code)
                                     user.save()
                                 Transactions.objects.create(
                                     user=order.user,
@@ -157,3 +163,15 @@ def import_orders_task():
             )
         # print(i)
     return HttpResponse("ok")
+
+
+
+
+
+@shared_task()
+def send_login_sms_task(phone_number, order_code):
+    try:
+        send_submit_order_sms(phone_number, order_code)
+    except ValueError as exp:
+        print("Error", exp)
+    return "Ok!"
