@@ -1,16 +1,18 @@
 from django.shortcuts import render
 from django.views import View
 from seo.models import PagesSeo
-
+from posts.models import Post
 class HomeView(View):
     template_name = "pages/home.html"
 
     def get(self, request):
         meta_description_tag = PagesSeo.objects.filter(page='home')[0].meta_description_tag
         title_tag = PagesSeo.objects.filter(page='home')[0].title_tag
+        posts = Post.objects.all()[0:4]
         context = {
             'meta_description_tag': meta_description_tag,
             'title_tag': title_tag,
+            'posts': posts
             }
         return render(request, self.template_name, context)
 
