@@ -16,53 +16,56 @@ def payment_request(request):
     phone = request.session["phone_number"]
     amount = request.session["amount"]
     transaction_detail = str(request.session["transaction_detail"][0])
-    CallbackURL = f'{settings.SITE_URL}/payment-verify/'
+    CallbackURL = f"{settings.SITE_URL}/payment-verify/"
     description = transaction_detail
     req_data = {
         "MerchantID": settings.MERCHANT,
         "Amount": amount,
         "CallbackURL": CallbackURL,
         "Description": description,
-        "metadata": {"mobile": phone}
+        "Mobile": f"{phone}",
     }
     data = json.dumps(req_data)
-    headers = {'content-type': 'application/json',
-               'content-length': str(len(data))}
+    headers = {"content-type": "application/json", "content-length": str(len(data))}
     try:
         print(CallbackURL)
-        req = requests.post(url=settings.ZP_API_REQUEST,
-                            data=data, headers=headers, timeout=10)
-        if 'meta' in req.json():
-            if req.json()['meta']['code'] == 404:
-                request.session['status'] = False
+        req = requests.post(
+            url=settings.ZP_API_REQUEST, data=data, headers=headers, timeout=10
+        )
+        if "meta" in req.json():
+            if req.json()["meta"]["code"] == 404:
+                request.session["status"] = False
                 messages.error(
                     request,
-                    _('Unfortunately, the connection with the bank portal was not established. The technical team will fix this problem as soon as possible'),
-                    'danger')
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                    _(
+                        "Unfortunately, the connection with the bank portal was not established. The technical team will fix this problem as soon as possible"
+                    ),
+                    "danger",
+                )
+                return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         if req.status_code == 200:
-            authority = req.json()['Authority']
-            if req.json()['Status'] == 100:
+            authority = req.json()["Authority"]
+            if req.json()["Status"] == 100:
                 return redirect(settings.ZP_API_STARTPAY + str(authority))
             else:
-                request.session['status'] = False
-                return redirect('callback_gateway')
+                request.session["status"] = False
+                return redirect("callback_gateway")
         return req.json()
 
     except requests.exceptions.Timeout:
-        request.session['status'] = False
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        request.session["status"] = False
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     except requests.exceptions.ConnectionError:
-        request.session['status'] = False
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        request.session["status"] = False
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     except Exception as e:
         print(e)
-        request.session['status'] = False
-        return redirect('callback_gateway')
+        request.session["status"] = False
+        return redirect("callback_gateway")
 
 
 def payment_verify(request):
-    authority = request.GET['Authority']
+    authority = request.GET["Authority"]
     amount = request.session["amount"]
     phone = request.session["phone_number"]
     user = User.objects.get(phone_number=phone)
@@ -76,22 +79,20 @@ def payment_verify(request):
         "Authority": authority,
     }
     data = json.dumps(data)
-    headers = {"accept": "application/json",
-               "content-type": "application/json'"}
-    req = requests.post(settings.ZP_API_VERIFY,
-                        data=data, headers=headers)
+    headers = {"accept": "application/json", "content-type": "application/json'"}
+    req = requests.post(settings.ZP_API_VERIFY, data=data, headers=headers)
 
-    if req.status_code == 200: # successful payment
-        if req.json()['Status'] == 100: 
-            request.session['status'] = True
-            if payment_type == 'pay_order_online':
-                if 'order_id' in request.session:
+    if req.status_code == 200:  # successful payment
+        if req.json()["Status"] == 100:
+            request.session["status"] = True
+            if payment_type == "pay_order_online":
+                if "order_id" in request.session:
                     order_id = request.session["order_id"]
                     order = get_object_or_404(Order, id=order_id)
                     order.wallet_paid_amount = 0
                     order_code = order.order_code
                     order.online_paid_amount = amount
-                    order.status = 'Queued'
+                    order.status = "Queued"
                     order.paid = True
                     send_login_sms_task.delay(phone, order_code)
                     Transactions.objects.create(
@@ -102,26 +103,29 @@ def payment_verify(request):
                         payment_type="online",
                         details=transaction_detail,
                         order_code=order_code,
-                        payment_gateway=_('Zarinpal'),
-                        ip=request.META.get('REMOTE_ADDR'))
+                        payment_gateway=_("Zarinpal"),
+                        ip=request.META.get("REMOTE_ADDR"),
+                    )
                 else:
-                    context = {'payment_type': 'error'}
-                    return render(request,'accounts/callback_gateway.html',context)
-                return redirect('callback_gateway')
-            elif payment_type == 'add_fund_wallet':
+                    context = {"payment_type": "error"}
+                    return render(request, "accounts/callback_gateway.html", context)
+                return redirect("callback_gateway")
+            elif payment_type == "add_fund_wallet":
                 user.balance += amount
                 user.save()
-                Transactions.objects.create(user=user,
-                                            type="add_fund",
-                                            price=amount,
-                                            balance=user.balance,
-                                            payment_type="online",
-                                            details=_('Increase wallet credit'),
-                                            payment_gateway=_('Zarinpal'),
-                                            ip=request.META.get('REMOTE_ADDR'))
-                return redirect('callback_gateway')
-            elif payment_type == 'pay_remain_price':
-                total_order_price = request.session['total_order_price']
+                Transactions.objects.create(
+                    user=user,
+                    type="add_fund",
+                    price=amount,
+                    balance=user.balance,
+                    payment_type="online",
+                    details=_("Increase wallet credit"),
+                    payment_gateway=_("Zarinpal"),
+                    ip=request.META.get("REMOTE_ADDR"),
+                )
+                return redirect("callback_gateway")
+            elif payment_type == "pay_remain_price":
+                total_order_price = request.session["total_order_price"]
                 order = get_object_or_404(Order, id=order_id)
                 order.paid = True
                 total_amount = user.balance + amount
@@ -141,10 +145,11 @@ def payment_verify(request):
                     payment_type="online",
                     details=transaction_detail,
                     order_code=order.order_code,
-                    payment_gateway=_('Zarinpal'),
-                    ip=request.META.get('REMOTE_ADDR'))
-                return redirect('callback_gateway')
+                    payment_gateway=_("Zarinpal"),
+                    ip=request.META.get("REMOTE_ADDR"),
+                )
+                return redirect("callback_gateway")
         else:
-            request.session['status'] = False
-            return redirect('callback_gateway')
+            request.session["status"] = False
+            return redirect("callback_gateway")
     return req
