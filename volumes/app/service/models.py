@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 import json
 
+
 class ServiceType(models.Model):
     name = models.CharField(_('ServiceType'), max_length=100, blank=True, null=True)
     priority = models.IntegerField(_('Display priority'), blank=True, null=True)
@@ -45,17 +46,3 @@ class Service(models.Model):
     class Meta:
         verbose_name = _('Service')
         verbose_name_plural = _('Services')
-
-    def save(self, *args, **kwargs):
-        pkgs = {}
-        self.service_code = self.id
-        factor = [1,2,3,4,5,10,20,30,50,100]
-        for index, item in enumerate(factor):
-            temp_dict = {}
-            quantity = int(self.min_order) * int(item)
-            temp_dict["quantity"] = quantity
-            temp_dict["total_price"] = int(quantity) * int(self.amount)
-            pkgs[index] = temp_dict
-        pkgs = json.dumps(pkgs)
-        self.template_packages = json.loads(pkgs)
-        super(Service, self).save(*args, **kwargs)

@@ -1,7 +1,6 @@
 from django.db import models
 from accounts.models import User
-from service.models import Service
-from service.models import ServiceType
+from service.models import Service, ServiceType
 from django.utils.translation import gettext_lazy as _
 
 ORDER_STATUS = (
@@ -46,3 +45,14 @@ class Order(models.Model):
     class Meta:
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
+
+
+class QueuedOrder(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING,blank=True, null=True,verbose_name=_('Order'))
+
+    def __str__(self):
+        return f'{self.order.order_code}'
+
+    class Meta:
+        verbose_name = _('Queued Order')
+        verbose_name_plural = _('Queued Orders')

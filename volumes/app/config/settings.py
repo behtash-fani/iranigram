@@ -61,7 +61,6 @@ MIDDLEWARE = [
 ]
 
 ADMIN_REORDER = (
-   
     {"app": "accounts"},
     {"app": "orders"},
     {"app": "support"},
