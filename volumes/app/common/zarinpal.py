@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 import requests
 import json
 from django.contrib import messages
-from orders.tasks import send_login_sms_task
+from orders.tasks import send_submit_order_sms_task
 
 
 def payment_request(request):
@@ -94,7 +94,8 @@ def payment_verify(request):
                     order.online_paid_amount = amount
                     order.status = "Queued"
                     order.paid = True
-                    send_login_sms_task.delay(phone, order_code)
+                    order.save()
+                    send_submit_order_sms_task.delay(phone, order_code)
                     Transactions.objects.create(
                         user=user,
                         type="payment_for_order",

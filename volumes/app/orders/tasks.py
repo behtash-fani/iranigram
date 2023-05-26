@@ -20,6 +20,14 @@ logger = logging.getLogger("celery_task")
 
 
 @shared_task()
+def send_submit_order_sms_task(phone_number, order_code):
+    try:
+        send_submit_order_sms(phone_number, order_code)
+    except ValueError as exp:
+        print("Error", exp)
+    return "Ok!"
+
+@shared_task()
 def submit_order_task():
     orders = Order.objects.filter(status='Queued', paid=True)
     for order in orders:
@@ -168,10 +176,3 @@ def import_orders_task():
 
 
 
-@shared_task()
-def send_login_sms_task(phone_number, order_code):
-    try:
-        send_submit_order_sms(phone_number, order_code)
-    except ValueError as exp:
-        print("Error", exp)
-    return "Ok!"
