@@ -7,11 +7,17 @@ from .models import OTPCode
 from jalali_date.admin import ModelAdminJalaliMixin
 from django.utils.translation import gettext_lazy as _
 from transactions.models import Transactions as Trans
+from jalali_date import datetime2jalali
+
 
 
 @admin.register(OTPCode)
 class OTPCodeAdmin(admin.ModelAdmin):
-    list_display = ('phone_number', 'code', 'expire_time' , 'created_at')
+    list_display = ('phone_number', 'code', 'expire_time' , 'get_created_jalali')
+
+    @admin.display(description="تاریخ ایجاد", ordering="created_at")
+    def get_created_jalali(self, obj):
+        return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
 
 
 class UserAdmin(ModelAdminJalaliMixin, BaseUserAdmin):

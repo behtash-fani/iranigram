@@ -156,7 +156,7 @@ class UserLoginWithOTPView(View):
             OTPCode.objects.create(
                 phone_number=phone_number,
                 code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=60),
+                expire_time=datetime.now() + timedelta(seconds=120),
             )
             request.session["phone_number"] = cd["phone_number"]
             messages.success(request, _("A one-time password has been sent"), "success")
@@ -187,11 +187,13 @@ def check_expire_time(request):
 @csrf_exempt
 def send_otpcode_again(request):
     phone_number = request.session["phone_number"]
+    if OTPCode.objects.filter(phone_number=phone_number).exists():
+        OTPCode.objects.filter(phone_number=phone_number).delete() 
     verification_code = generate_random_number(4, is_unique=False)
     OTPCode.objects.create(
         phone_number=phone_number,
         code=verification_code,
-        expire_time=datetime.now() + timedelta(seconds=60),
+        expire_time=datetime.now() + timedelta(seconds=120),
     )
     send_login_sms_task.delay(phone_number, verification_code)
     messages.success(request, _("A one-time password has been sent"), "success")
@@ -203,15 +205,19 @@ class UserLoginVerifyCodeView(View):
 
     def get(self, request):
         phone_number = self.request.session["phone_number"]
+        otp_code = OTPCode.objects.get(phone_number=phone_number)
+        expire_time = otp_code.expire_time
         if request.user.is_authenticated:
             return redirect("pages:home")
         verify_form = self.form_class
-        context = {"verify_form": verify_form, "phone_number": phone_number}
+        context = {"verify_form": verify_form, "phone_number": phone_number, 'expire_time': expire_time}
         return render(request, "accounts/registration/verify.html", context)
 
     def post(self, request):
         phone_number = self.request.session["phone_number"]
         verify_form = self.form_class(request.POST, request=self.request)
+        otp_code = OTPCode.objects.get(phone_number=phone_number)
+        expire_time = otp_code.expire_time
         if verify_form.is_valid():
             user = User.objects.get(phone_number=phone_number)
             if user is not None:
@@ -223,7 +229,7 @@ class UserLoginVerifyCodeView(View):
                 )
                 return redirect("accounts:user_dashboard")
 
-        context = {"verify_form": verify_form, "phone_number": phone_number}
+        context = {"verify_form": verify_form, "phone_number": phone_number, 'expire_time': expire_time}
         return render(request, "accounts/registration/verify.html", context)
 
 
@@ -259,7 +265,6 @@ class EditProfileFormView(LoginRequiredMixin, View):
                     cd["full_name"] = _("Guest User")
                 user = request.user
                 if cd["email"] is None or cd["email"] == '':
-                    print(';lkajdsl;fjs;lkdjf;lskjlksj;ldkjf;lk')
                     user.email = f'{request.user.phone_number}@iranigram.com'
                 else:
                     user.email = cd["email"]
