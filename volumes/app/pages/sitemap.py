@@ -4,8 +4,8 @@ from django.urls import reverse
 
 
 class PagesSitemap(Sitemap):
-    changefreq = 'monthly'
-    priority = 0.5
+    changefreq = 'daily'
+    priority = 1.0
     protocol = 'https'
     def items(self):
         return ['pages:home','pages:follower','pages:like','pages:view']
