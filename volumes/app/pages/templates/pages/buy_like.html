@@ -3,11 +3,10 @@
 {% load static %}
 {% block title %}{{title_tag}}{% endblock %}
 {% block meta %}
+
 <meta name="description"
     content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد" />
-<meta property="og:description"
-    content="با خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد">
-<meta name="keywords" content="خرید لایک اینستاگرام ارزان">
+<meta name="keywords" content="خرید لایک اینستاگرام">
 <meta content="https://iranigram.com/" property="og:url">
 <meta content="Iranigram" property="og:site_name">
 <meta content="954496781748371" property="fb:app_id">
@@ -15,7 +14,7 @@
 <meta content="fa_IR" property="og:locale">
 <link href="https://iranigram.com/iranian_instagram_like/" rel="canonical">
 <meta content="website" property="og:type">
-<meta content="خرید لایک اینستاگرام ارزان | فالوور اینستاگرام | ایرانی گرام" property="og:title">
+<meta content="خرید لایک اینستاگرام و فالوور اینستاگرام" property="og:title">
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -50,7 +49,7 @@
         }
       }]
     }
-    </script>
+</script>
 {% endblock meta %}
 {% block content %}
 <div class="container">
@@ -280,7 +279,8 @@
             <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
             <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
                 ارتباط با پشتیبانی
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px" height="24px" alt="دکمه ارتباط با پشتیبانی">
+                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px" height="24px"
+                    alt="دکمه ارتباط با پشتیبانی">
             </a>
         </div>
     </div>

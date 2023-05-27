@@ -1,15 +1,15 @@
 from django.utils.translation import gettext_lazy as _
+from orders.tasks import send_submit_order_sms_task
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from transactions.models import Transactions
+from django.contrib import messages
 from django.conf import settings
 from accounts.models import User
 from orders.models import Order
-from django.shortcuts import get_object_or_404
 import requests
 import json
-from django.contrib import messages
-from orders.tasks import send_submit_order_sms_task
 
 
 def payment_request(request):
@@ -28,7 +28,6 @@ def payment_request(request):
     data = json.dumps(req_data)
     headers = {"content-type": "application/json", "content-length": str(len(data))}
     try:
-        print(CallbackURL)
         req = requests.post(
             url=settings.ZP_API_REQUEST, data=data, headers=headers, timeout=10
         )
@@ -59,7 +58,6 @@ def payment_request(request):
         request.session["status"] = False
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     except Exception as e:
-        print(e)
         request.session["status"] = False
         return redirect("callback_gateway")
 

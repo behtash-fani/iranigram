@@ -16,17 +16,12 @@
             <img src="{% static 'image/top_banner.webp' %}" class="img-fluid mt-4" alt="افزایش بازدید استوری"
                 width="416px" height="409px">
         </div>
-        <div class="col-lg-8 col-12 mt-4">
+        <div class="col-lg-8 col-12 mt-5">
             <span class="fs-1 px-2 px-lg-0" style="font-size:45px !important;font-weight:900;">
                 <span class="text-warning">ایرانی گرام،</span> خدمات بی‌نهایت اینستاگرام
             </span>
-            <p class="d-flex lh-lg fs-5 mt-4 px-2 px-lg-0">در این سال جدید، ما با افتخار خدمات خرید فالوور اینستاگرام و
-                خرید لایک
-                اینستاگرام را مانند گذشته به شما عزیزان ارائه می‌دهیم. با این خدمات می‌توانید به سرعت تعداد فالوور و
-                لایک پست‌های خود را افزایش دهید و به راحتی به موفقیت در فضای مجازی دست یابید.<br><br>
-                ایرانی گرام یکی از معتبرترین سرویس دهنده های ارائه فالوور اینستاگرام، لایک اینستاگرام، بازدید پست و
-                بازدید استوری میباشد که در طول سالیان توانسته است نظرات مشتریان خود را جلب کند و به صورت کاملا واقعی
-                ارائه دهنده این سرویس باشد.</p>
+            <h1 class="lh-lg fs-4 mt-2 px-2 px-lg-0">خدمات خرید فالوور اینستاگرام و خرید لایک اینستاگرام و
+                افزایش بازدید پست و استوری در قدیمی ترین وب سایت ارائه خدمات اینستاگرام</h1>
             <div class="row mt-4">
                 <div>
                     <a href="{% url 'accounts:new_order' %}"
@@ -254,7 +249,8 @@
                 <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank" class="text-decoration-none">
                     <div class="card h-100 rounded-4 border border-0 shadow p-2">
                         {% if post.thumbnail %}
-                        <img src="{{post.thumbnail.url}}" class="card-img-top rounded-4 h-md-100 post-img" alt="...">
+                        <img src="{{post.thumbnail.url}}" class="card-img-top rounded-4 h-md-100 post-img" width="290px"
+                            height="192px" alt="{{post.title}}">
                         {% endif %}
                         <div class="card-body">
                             <h6 class="card-title fw-semibold custom-black lh-base">{{post.title}}</h6>

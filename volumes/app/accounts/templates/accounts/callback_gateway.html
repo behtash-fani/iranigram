@@ -1,74 +1,78 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{ block.super }}
-    {% if payment_type == 'add_fund_wallet' %}
-    {% trans 'Successful increase of wallet credit' %} |
-    {% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
-    {% trans 'Successful order payment' %} |
-    {% elif payment_type == 'error' %}
-    {% trans 'Unsuccessful payment' %} |
-    {% endif %}
+{% block title %}
+{% if payment_type == 'add_fund_wallet' %}
+{% trans 'Successful increase of wallet credit' %}
+{% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
+{% trans 'Successful order payment' %}
+{% elif payment_type == 'error' %}
+{% trans 'Unsuccessful payment' %}
+{% endif %}
 {% endblock %}
 {% block content %}
-    <div class="text-center mx-auto p-3">
-        {% if payment_type == 'add_fund_wallet' %}
-            <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
-            <div class="col-lg-3 col-12 mx-auto">
-                <div class="alert alert-light" role="alert">
-                    <div class="row">
-                        <div class="col-8 fw-bold fs-6 text-start">{% trans 'Your current wallet credit' %}</div>
-                        <div class="col-4 fw-bold text-warning fs-6 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
-                    </div>
-                </div>
+<div class="text-center mx-auto p-3">
+    {% if payment_type == 'add_fund_wallet' %}
+    <img src="{% static 'image/callback_success.svg' %}" class="img-fluid" width="516px" height="420px"
+        alt="پرداخت موفق خرید فالوور و لایک اینستاگرام">
+    <div class="col-lg-3 col-12 mx-auto">
+        <div class="alert alert-light" role="alert">
+            <div class="row">
+                <div class="col-8 fw-bold fs-6 text-start">{% trans 'Your current wallet credit' %}</div>
+                <div class="col-4 fw-bold text-warning fs-6 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
             </div>
-            <div class="text-center">
-                <p class="fs-5 mt-3 fw-bolder">{% trans "Your wallet has been successfully topped up" %}</p>
-                <p class="fs-5 mt-3">{% trans "You can now place an order using your wallet" %}</p>
-                <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
-                    مشاهده کیف پول
-                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
-                </a>
-            </div>
-        {% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
-            <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
-            <div class="col-lg-3 col-12 mx-auto">
-                <div class="alert alert-light" role="alert">
-                    <div class="row">
-                        <div class="col-8 fs-6 text-start">
-                            <a class="copy-text btn btn-light rounded-4 text-decoration-none" value="{{ order_code }}">
-                                <img src="{% static 'icons/Copy.svg' %}" alt=""> {% trans "Order Code" %}
-                            </a>
-                        </div>
-                        <div class="col-4 fw-bold text-warning fs-6 text-end pt-2">{{ order_code }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <p class="fs-5 mt-3 fw-bolder">پرداخت شما با موفقیت ثبت شد</p>
-                <p class="fs-5 mt-3">ممنون از اینکه ایرانی گرام را برای سفارش خود انتخاب کردید</p>
-                <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
-                    پیگیری سفارش
-                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
-                </a>
-            </div>
-        {% elif payment_type == 'error' %}
-            <img src="{% static 'image/callback_error.png' %}" class="img-fluid mt-4" alt="...">
-            <div class="text-center col-md-6 col-lg-4 d-block mx-auto">
-                <p class="fs-3 mt-5 fw-bold fw-bolder">پرداخت شما با شکست مواجه شد</p>
-                <p class="fs-6 mt-3 text-black-50">پرداخت شما با شکست مواجه شد و خرید شما در سامانه ایرانی گرام ثبت
-                    نگردید
-                    اگر مبلغی
-                    از حساب شما کسر شده است طی 72 ساعت به حساب شما بازگشت خواهد شد و اگر پرداخت برای ایرانی گرام انجام
-                    شده باشد مبلغ به حساب کیف پول شما واریز میشود</p>
-                <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
-                    بازگشت به داشبورد کاربری
-                    <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="">
-                </a>
-            </div>
-        {% endif %}
-
+        </div>
     </div>
-    {% include "inc/footer.html" %}
+    <div class="text-center">
+        <p class="fs-5 mt-3 fw-bolder">{% trans "Your wallet has been successfully topped up" %}</p>
+        <p class="fs-5 mt-3">{% trans "You can now place an order using your wallet" %}</p>
+        <a href="{% url 'accounts:user_wallet' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
+            مشاهده کیف پول
+            <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ سیاه برای دکمه مشاهده کیف پول">
+        </a>
+    </div>
+    {% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
+    <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
+    <div class="col-lg-3 col-12 mx-auto">
+        <div class="alert alert-light" role="alert">
+            <div class="row">
+                <div class="col-8 fs-6 text-start">
+                    <a class="copy-text btn btn-light rounded-4 text-decoration-none" value="{{ order_code }}">
+                        <img src="{% static 'icons/Copy.svg' %}" alt=""> {% trans "Order Code" %}
+                    </a>
+                </div>
+                <div class="col-4 fw-bold text-warning fs-6 text-end pt-2">{{ order_code }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <p class="fs-5 mt-3 fw-bolder">پرداخت شما با موفقیت ثبت شد</p>
+        <p class="fs-5 mt-3">ممنون از اینکه ایرانی گرام را برای سفارش خود انتخاب کردید</p>
+        <a href="{% url 'accounts:user_orders' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
+            پیگیری سفارش
+            <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ سیاه برای دکمه پیگیری سفارش"
+                width="24px" height="24px">
+        </a>
+    </div>
+    {% elif payment_type == 'error' %}
+    <img src="{% static 'image/callback_error.svg' %}" class="img-fluid mt-4" width="516px" height="422px"
+        alt="پرداخت ناموفق تراکنش خرید فالوور و لایک اینستاگرام">
+    <div class="text-center col-md-6 col-lg-4 d-block mx-auto">
+        <p class="fs-3 mt-5 fw-bold fw-bolder">پرداخت شما با شکست مواجه شد</p>
+        <p class="fs-6 mt-3 text-black-50">پرداخت شما با شکست مواجه شد و خرید شما در سامانه ایرانی گرام ثبت
+            نگردید
+            اگر مبلغی
+            از حساب شما کسر شده است طی 72 ساعت به حساب شما بازگشت خواهد شد و اگر پرداخت برای ایرانی گرام انجام
+            شده باشد مبلغ به حساب کیف پول شما واریز میشود</p>
+        <a href="{% url 'accounts:new_order' %}" class="btn btn-warning btn-lg rounded-4 py-4 mb-5">
+            بازگشت به داشبورد کاربری
+            <img src="{% static 'icons/Arrow-Left-Black.svg' %}"
+                alt="فلش سمت چپ سیاه برای دکمه بازگشت به داشبورد کاربری" width="24px" height="24px">
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% include "inc/footer.html" %}
 
 {% endblock %}
