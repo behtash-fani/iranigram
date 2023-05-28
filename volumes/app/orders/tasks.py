@@ -27,6 +27,7 @@ def send_submit_order_sms_task(phone_number, order_code):
         print("Error", exp)
     return "Ok!"
 
+
 @shared_task()
 def submit_order_task():
     orders = Order.objects.filter(status='Queued', paid=True)
@@ -66,18 +67,18 @@ def submit_order_task():
 @shared_task()
 def order_status_task():
     orders = Order.objects.filter(
+        Q(paid=True) &
         Q(status='Pending') |
         Q(status='Processing') |
         Q(status='In progress') |
-        Q(status='Canceled') |
-        Q(status='Completed') |
-        Q(status='Partial') |
-        Q(status='Refunded'))
+        Q(status='Partial'))
     for order in orders:
         if order.status not in ["Canceled", "Completed", "Partial", "Refunded"]:
             order_id = order.id
             if order.service is not None:
                 order_server = order.service.server
+                service_code = order.service.service_code
+                order_quantity = order.quantity
                 if order_server == "parsifollower":
                     try:
                         order_manager = PFOrderManager(order_id)
@@ -105,6 +106,8 @@ def order_status_task():
                             order.start_count = r["start_count"]
                         if r["remains"]:
                             order.remains = r["remains"]
+
+                        # check and insert server amount of order
                         order.save()
                     except ValueError as exp:
                         logger.error(exp)

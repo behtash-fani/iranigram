@@ -34,3 +34,14 @@ class PFOrderManager: # Parsifollower order manager
         }
         response = requests.post(self.endpoint, params=params)
         return response.content
+    
+    def get_service_data(self, service_code):
+        params = {
+            "key": self.api_key,
+            "action": "services",
+        }
+        r = requests.post(self.endpoint, params=params)
+        for item in json.loads(r.content):
+            if item['service'] == str(service_code):
+                response = item
+        return response
