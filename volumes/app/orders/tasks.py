@@ -30,37 +30,38 @@ def send_submit_order_sms_task(phone_number, order_code):
 
 @shared_task()
 def submit_order_task():
-    orders = Order.objects.filter(status='Queued', paid=True)
-    for order in orders:
-        if order.service is not None:
-            order_id = order.id
-            order_server = order.service.server
-            if order_server == "parsifollower":
-                try:
-                    order_manager = PFOrderManager(order_id)
-                    response = order_manager.submit_order()
-                    r = json.loads(response.decode('utf-8'))
-                    logger.info("Order submitted in Parsifollower Server")
-                    if "order" in r:
-                        order.status = "Pending"
-                        order.server_order_code = r["order"]
-                        order.save()
-                except ValueError as exp:
-                    logger.error(exp)
-            elif order_server == "mifa":
-                try:
-                    order_manager = MifaOrderManager(order_id)
-                    response = order_manager.submit_order()
-                    logger.info("Order submitted in Mifa Server")
-                    r = json.loads(response)
-                    if 'order' in r:
-                        order.status = "Pending"
-                        order.server_order_code = r["order"]
-                        order.save()
-                except ValueError as exp:
-                    logger.error(exp)
-        else:
-            pass
+    if settings.SUBMIT_AUTOMATIC_ORDERS:
+        orders = Order.objects.filter(status='Queued', paid=True)
+        for order in orders:
+            if order.service is not None:
+                order_id = order.id
+                order_server = order.service.server
+                if order_server == "parsifollower":
+                    try:
+                        order_manager = PFOrderManager(order_id)
+                        response = order_manager.submit_order()
+                        r = json.loads(response.decode('utf-8'))
+                        logger.info("Order submitted in Parsifollower Server")
+                        if "order" in r:
+                            order.status = "Pending"
+                            order.server_order_code = r["order"]
+                            order.save()
+                    except ValueError as exp:
+                        logger.error(exp)
+                elif order_server == "mifa":
+                    try:
+                        order_manager = MifaOrderManager(order_id)
+                        response = order_manager.submit_order()
+                        logger.info("Order submitted in Mifa Server")
+                        r = json.loads(response)
+                        if 'order' in r:
+                            order.status = "Pending"
+                            order.server_order_code = r["order"]
+                            order.save()
+                    except ValueError as exp:
+                        logger.error(exp)
+            else:
+                pass
     return "Ok!"
 
 

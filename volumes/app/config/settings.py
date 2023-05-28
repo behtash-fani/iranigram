@@ -274,3 +274,6 @@ if not DEBUG:
         "handlers": HANDLERS,
         "loggers": LOGGERS[0],
     }
+
+
+SUBMIT_AUTOMATIC_ORDERS=env("SUBMIT_AUTOMATIC_ORDERS")
