@@ -30,7 +30,7 @@ def send_submit_order_sms_task(phone_number, order_code):
 
 @shared_task()
 def submit_order_task():
-    if settings.SUBMIT_AUTOMATIC_ORDERS:
+    if settings.SUBMIT_AUTOMATIC_ORDERS == True:
         orders = Order.objects.filter(status='Queued', paid=True)
         for order in orders:
             if order.service is not None:
