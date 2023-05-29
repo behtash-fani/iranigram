@@ -32,7 +32,7 @@ def check_token_exists():
         return False
 
 
-def send_login_sms(verification_code):
+def send_login_sms(phone_number, verification_code):
     url = "http://RestfulSms.com/api/UltraFastSend"
     payload = json.dumps(
         {
