@@ -16,7 +16,7 @@ from common.send_sms import (
 )
 
 
-logger = logging.getLogger("celery_task")
+# logger = logging.getLogger("celery_task")
 
 
 @shared_task()
@@ -25,7 +25,7 @@ def send_submit_order_sms_task(phone_number, order_code):
         send_submit_order_sms(phone_number, order_code)
     except ValueError as exp:
         print("Error", exp)
-    return "Ok!"
+      
 
 
 @shared_task()

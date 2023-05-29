@@ -45,10 +45,10 @@ services:
     #         - db
     #     restart: always
     # celery-beat:
-    #         build: ./app/
-    #         container_name: 'celery-beat'
-    #         command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    #         volumes:
+    #     build: ./app/
+    #     container_name: 'celery-beat'
+    #     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    #     volumes:
     #         - type: 'bind'
     #           source: './volumes/app'
     #           target: '/app'

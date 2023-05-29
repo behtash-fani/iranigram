@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     "admin_reorder",
+    # 'django_redis',
     # local apps
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
@@ -191,6 +192,15 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://redis:6379',
+    }
+}
+
+
 LOGOUT_REDIRECT_URL="pages:home"
 LOGIN_URL = "accounts:user_login_otp"
 
@@ -274,6 +284,8 @@ if not DEBUG:
         "handlers": HANDLERS,
         "loggers": LOGGERS[0],
     }
+
+
 
 
 SUBMIT_AUTOMATIC_ORDERS=env("SUBMIT_AUTOMATIC_ORDERS")
