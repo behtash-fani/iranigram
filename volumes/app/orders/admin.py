@@ -42,6 +42,10 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 def make_complete_order(modeladmin, request, queryset):
     queryset.update(status="Completed")
 
+@admin.action(description="الان ثبت شود")
+def enable_submit_now(modeladmin, request, queryset):
+    queryset.update(submit_now=True)
+
 
 @admin.register(QueuedOrder)
 class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
