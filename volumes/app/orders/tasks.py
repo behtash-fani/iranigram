@@ -16,7 +16,7 @@ from common.send_sms import (
 )
 
 
-# logger = logging.getLogger("celery_task")
+logger = logging.getLogger("celery_task")
 
 
 @shared_task()
