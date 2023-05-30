@@ -30,9 +30,9 @@ def send_submit_order_sms_task(phone_number, order_code):
 
 @shared_task()
 def submit_order_task():
-    if settings.SUBMIT_AUTOMATIC_ORDERS == True:
-        orders = Order.objects.filter(status='Queued', paid=True)
-        for order in orders:
+    orders = Order.objects.filter(status='Queued', paid=True)
+    for order in orders:
+        if settings.SUBMIT_AUTOMATIC_ORDERS == True or order.submit_now == True:
             if order.service is not None:
                 order_id = order.id
                 order_server = order.service.server

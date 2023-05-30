@@ -36,6 +36,7 @@ class Order(models.Model):
     start_count = models.PositiveIntegerField(verbose_name=_('Start Count'), blank=True, null=True)
     remains = models.PositiveIntegerField(verbose_name=_('Remains'), blank=True, null=True)
     paid = models.BooleanField(default=False, verbose_name=_('Paid'))
+    submit_now = models.BooleanField(default=False, verbose_name=_("Submit Now"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 03:06+0330\n"
+"POT-Creation-Date: 2023-05-30 17:04+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr "فعال"
 msgid "Admin"
 msgstr "ادمین"
 
-#: accounts/models.py:57 orders/models.py:33 support/models.py:19
+#: accounts/models.py:57 orders/models.py:24 support/models.py:19
 #: support/models.py:37 transactions/models.py:22
 msgid "User"
 msgstr "کاربر"
@@ -187,7 +187,7 @@ msgstr "افزایش اعتبار کیف پول شما با موفقیت انج�
 msgid "You can now place an order using your wallet"
 msgstr "هم اکنون می توانید با استفاده از کیف پول خود ثبت سفارش انجام دهید"
 
-#: accounts/templates/accounts/callback_gateway.html:41 orders/models.py:37
+#: accounts/templates/accounts/callback_gateway.html:41 orders/models.py:28
 #: orders/templates/orders/orders.html:23 transactions/models.py:29
 msgid "Order Code"
 msgstr "کد سفارش"
@@ -251,13 +251,13 @@ msgstr "سفارش جدید"
 
 #: accounts/templates/accounts/mobilescreen-menu.html:35
 #: accounts/templates/accounts/wallet.html:4
-#: accounts/templates/accounts/widescreen-menu.html:21 orders/models.py:28
+#: accounts/templates/accounts/widescreen-menu.html:21 orders/models.py:19
 msgid "Wallet"
 msgstr "کیف پول"
 
 #: accounts/templates/accounts/mobilescreen-menu.html:42
 #: accounts/templates/accounts/widescreen-menu.html:28 orders/apps.py:8
-#: orders/models.py:56 orders/templates/orders/orders.html:5
+#: orders/models.py:48 orders/templates/orders/orders.html:5
 #: templates/inc/navbar.html:139
 msgid "Orders"
 msgstr "سفارش ها"
@@ -506,7 +506,7 @@ msgstr ""
 "برطرف میکند"
 
 #: common/zarinpal.py:105 common/zarinpal.py:122 common/zarinpal.py:147
-#: orders/tasks.py:104 orders/tasks.py:135
+#: orders/tasks.py:105 orders/tasks.py:136
 msgid "Zarinpal"
 msgstr "زرین پال"
 
@@ -531,123 +531,127 @@ msgstr "لطفا یک سرویس انتخاب کنید"
 msgid "Please enter a instagram public link/id"
 msgstr "لطفا لینک/آی دی عمومی اینستاگرام وارد کنید"
 
-#: orders/forms.py:97
+#: orders/forms.py:80
 msgid "Please enter quantity of order"
 msgstr "لطفا تعداد مورد نظر برای سفارش را وارد کنید"
 
-#: orders/models.py:16
+#: orders/models.py:7
 msgid "Queued"
 msgstr "در صف انتظار"
 
-#: orders/models.py:17
+#: orders/models.py:8
 msgid "Pending"
 msgstr "در حال بررسی"
 
-#: orders/models.py:18
+#: orders/models.py:9
 msgid "Processing"
 msgstr "در حال پردازش"
 
-#: orders/models.py:19
+#: orders/models.py:10
 msgid "In progress"
 msgstr "در حال انجام"
 
-#: orders/models.py:20 orders/tasks.py:102 orders/tasks.py:133
+#: orders/models.py:11 orders/tasks.py:103 orders/tasks.py:134
 msgid "Canceled"
 msgstr "لغو شده"
 
-#: orders/models.py:21
+#: orders/models.py:12
 msgid "Completed"
 msgstr "کامل شده"
 
-#: orders/models.py:22
+#: orders/models.py:13
 msgid "Partial"
 msgstr "ناتمام"
 
-#: orders/models.py:23
+#: orders/models.py:14
 msgid "Refunded"
 msgstr "برگشت مبلغ شده"
 
-#: orders/models.py:27 transactions/models.py:16
+#: orders/models.py:18 transactions/models.py:16
 msgid "online"
 msgstr "آنلاین"
 
-#: orders/models.py:34 service/models.py:11 service/models.py:16
-#: service/models.py:34
+#: orders/models.py:25 service/models.py:12 service/models.py:17
+#: service/models.py:35
 msgid "ServiceType"
 msgstr "نوع سرویس"
 
-#: orders/models.py:35 service/models.py:53
+#: orders/models.py:26 service/models.py:56
 msgid "Service"
 msgstr "سرویس"
 
-#: orders/models.py:36
+#: orders/models.py:27
 msgid "Server Order Code"
 msgstr "کد سفارش سرور"
 
-#: orders/models.py:38 orders/templates/orders/orders.html:26
+#: orders/models.py:29 orders/templates/orders/orders.html:26
 msgid "Link"
 msgstr "لینک"
 
-#: orders/models.py:39 orders/templates/orders/new_order.html:31
+#: orders/models.py:30 orders/templates/orders/new_order.html:31
 #: orders/templates/orders/orders.html:24
 msgid "Quantity"
 msgstr "تعداد"
 
-#: orders/models.py:40
+#: orders/models.py:31
 msgid "Amount"
 msgstr "قیمت نهایی قابل پرداخت"
 
-#: orders/models.py:41
+#: orders/models.py:32
 msgid "Wallet Paid Amount"
 msgstr "مبلغ پرداخت شده با کیف پول"
 
-#: orders/models.py:42
+#: orders/models.py:33
 msgid "Online Paid Amount"
 msgstr "مبلغ پرداخت شده به صورت آنلاین"
 
-#: orders/models.py:43
+#: orders/models.py:34
 msgid "Payment Method"
 msgstr "روش پرداخت"
 
-#: orders/models.py:44 orders/templates/orders/orders.html:27
+#: orders/models.py:35 orders/templates/orders/orders.html:27
 #: posts/models.py:36 support/models.py:22
 #: support/templates/support/support.html:27
 msgid "Status"
 msgstr "وضعیت"
 
-#: orders/models.py:45
+#: orders/models.py:36
 msgid "Start Count"
 msgstr "تعداد اولیه"
 
-#: orders/models.py:46 orders/templates/orders/orders.html:28
+#: orders/models.py:37 orders/templates/orders/orders.html:28
 msgid "Remains"
 msgstr "باقی مانده"
 
-#: orders/models.py:47 orders/templates/orders/orders.html:67
+#: orders/models.py:38 orders/templates/orders/orders.html:67
 msgid "Paid"
 msgstr "پرداخت شده"
 
-#: orders/models.py:48 orders/templates/orders/orders.html:30
+#: orders/models.py:39
+msgid "Submit Now"
+msgstr "الان ثبت شود"
+
+#: orders/models.py:40 orders/templates/orders/orders.html:30
 #: posts/models.py:37 support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:29 transactions/models.py:32
 #: transactions/templates/transactions/transactions.html:18
 msgid "Created At"
 msgstr "تاریخ ایجاد"
 
-#: orders/models.py:49 posts/models.py:38 support/models.py:24
+#: orders/models.py:41 posts/models.py:38 support/models.py:24
 #: support/templates/support/support.html:30 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
 
-#: orders/models.py:55 orders/models.py:60
+#: orders/models.py:47 orders/models.py:52
 msgid "Order"
 msgstr "سفارش"
 
-#: orders/models.py:66
+#: orders/models.py:58
 msgid "Queued Order"
 msgstr "سفارش در صف انتظار"
 
-#: orders/models.py:67
+#: orders/models.py:59
 msgid "Queued Orders"
 msgstr "سفارشهای در صف انتظار"
 
@@ -719,7 +723,7 @@ msgstr "تا"
 msgid "Price per 1"
 msgstr "قیمت به ازای ۱ عدد"
 
-#: orders/templates/orders/new_order.html:109 service/models.py:45
+#: orders/templates/orders/new_order.html:109 service/models.py:46
 msgid "Description"
 msgstr "توضیحات"
 
@@ -794,7 +798,7 @@ msgstr "پیش نویس"
 msgid "Publish"
 msgstr "انتشار"
 
-#: posts/models.py:29 service/models.py:39
+#: posts/models.py:29 service/models.py:40
 msgid "Title"
 msgstr "عنوان"
 
@@ -846,57 +850,71 @@ msgstr "تنظیم سئو"
 msgid "SEO Settings"
 msgstr "تنظیمات سئو"
 
-#: service/apps.py:8 service/models.py:54
+#: service/admin.py:12
+msgid "به روز رسانی سرویس ها"
+msgstr ""
+
+#: service/apps.py:8 service/models.py:57
 msgid "Services"
 msgstr "سرویس ها"
 
-#: service/models.py:12 service/models.py:46
+#: service/models.py:13 service/models.py:47
 msgid "Display priority"
 msgstr "اولویت نمایش"
 
-#: service/models.py:17
+#: service/models.py:18
 msgid "ServiceTypes"
 msgstr "نوع سرویس ها"
 
-#: service/models.py:35
+#: service/models.py:36
 msgid "Link Type"
 msgstr "نوع لینک"
 
-#: service/models.py:36
+#: service/models.py:37
 msgid "Server"
 msgstr "سرور"
 
-#: service/models.py:37
+#: service/models.py:38
 msgid "Server Service Code"
 msgstr "کد سرویس متناظر"
 
-#: service/models.py:38
+#: service/models.py:39
 msgid "Service Code"
 msgstr "کد سرویس"
 
-#: service/models.py:40
+#: service/models.py:41
 msgid "Amount Per 1 Number"
 msgstr "قیمت به ازای هر ۱ عدد"
 
-#: service/models.py:41
+#: service/models.py:42
 msgid "Price for 1000 site"
 msgstr "قیمت برای ۱۰۰۰ عدد در سایت"
 
-#: service/models.py:42
+#: service/models.py:43
 msgid "Price for 1000 server"
 msgstr "قیمت برای ۱۰۰۰ عدد در سرورس"
 
-#: service/models.py:43
+#: service/models.py:44
 msgid "Min Order"
 msgstr "حداقل سفارش"
 
-#: service/models.py:44
+#: service/models.py:45
 msgid "Max Order"
 msgstr "حداکثر سفارش"
 
-#: service/models.py:47
+#: service/models.py:48
 msgid "Available For User"
 msgstr "فعال برای کاربر"
+
+#: service/models.py:49
+#, fuzzy
+#| msgid "Service"
+msgid "Template Service"
+msgstr "سرویس"
+
+#: service/models.py:50
+msgid "Template Packages"
+msgstr ""
 
 #: support/admin.py:39 support/admin.py:48 support/models.py:47
 #: support/templates/support/support.html:28
