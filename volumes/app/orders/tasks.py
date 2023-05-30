@@ -68,11 +68,13 @@ def submit_order_task():
 @shared_task()
 def order_status_task():
     orders = Order.objects.filter(
-        Q(paid=True) &
         Q(status='Pending') |
         Q(status='Processing') |
         Q(status='In progress') |
-        Q(status='Partial'))
+        Q(status='Canceled') |
+        Q(status='Completed') |
+        Q(status='Partial') |
+        Q(status='Refunded'))
     for order in orders:
         if order.status not in ["Canceled", "Completed", "Partial", "Refunded"]:
             order_id = order.id
