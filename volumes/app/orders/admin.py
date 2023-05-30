@@ -8,6 +8,16 @@ from django.db.models import Q
 from django.contrib import messages
 
 
+
+@admin.action(description="تغییر وضعیت به کامل شده")
+def make_complete_order(modeladmin, request, queryset):
+    queryset.update(status="Completed")
+
+@admin.action(description="الان ثبت شود")
+def enable_submit_now(modeladmin, request, queryset):
+    queryset.update(submit_now=True)
+
+
 @admin.register(Order)
 class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = [
@@ -26,6 +36,7 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display_links = ("id", "order_code", "user_link")
     search_fields = ("user__phone_number__icontains", "order_code", "link")
     autocomplete_fields = ["user"]
+    actions = [make_complete_order, enable_submit_now]
 
     def user_link(self, obj):
         url = reverse("admin:accounts_user_change", args=[obj.user.id])
@@ -36,15 +47,6 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     @admin.display(description="تاریخ ایجاد", ordering="created_at")
     def get_created_jalali(self, obj):
         return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
-
-
-@admin.action(description="تغییر وضعیت به کامل شده")
-def make_complete_order(modeladmin, request, queryset):
-    queryset.update(status="Completed")
-
-@admin.action(description="الان ثبت شود")
-def enable_submit_now(modeladmin, request, queryset):
-    queryset.update(submit_now=True)
 
 
 @admin.register(QueuedOrder)
@@ -62,7 +64,7 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "order_code_link",
     )
     search_fields = ("order_code_link", "user_link")
-    actions = [make_complete_order]
+    actions = [make_complete_order, enable_submit_now]
 
     # autocomplete_fields = ['user']
     def get_queryset(self, request):
