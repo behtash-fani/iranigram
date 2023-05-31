@@ -6,7 +6,8 @@ from jalali_date import datetime2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
 from django.db.models import Q
 from django.contrib import messages
-
+from transactions.models import Transactions as Trans
+from django.utils.translation import gettext_lazy as _
 
 
 @admin.action(description="تغییر وضعیت به کامل شده")
@@ -16,6 +17,23 @@ def make_complete_order(modeladmin, request, queryset):
 @admin.action(description="الان ثبت شود")
 def enable_submit_now(modeladmin, request, queryset):
     queryset.update(submit_now=True)
+
+@admin.action(description="لغو سفارش")
+def cancel_order(modeladmin, request, queryset):
+    queryset.update(status="Canceled")
+    for order in queryset:
+        order.user.balance += order.amount
+        order.user.save()
+        Trans.objects.create(
+                user=order.user,
+                type="return_canceled_order_fee",
+                price=order.amount,
+                balance=order.user.balance,
+                details=_("Canceled"),
+                order_code=order.order_code,
+                payment_gateway=_('Zarinpal'),
+                ip=request.META.get('REMOTE_ADDR'),
+            )
 
 
 @admin.register(Order)
@@ -34,9 +52,9 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "get_created_jalali",
     ]
     list_display_links = ("id", "order_code", "user_link")
-    search_fields = ("user__phone_number__icontains", "order_code", "link")
+    search_fields = ("user__phone_number__icontains", "order_code", "link__icontains", "server_order_code",)
     autocomplete_fields = ["user"]
-    actions = [make_complete_order, enable_submit_now]
+    actions = [make_complete_order, enable_submit_now, cancel_order]
 
     def user_link(self, obj):
         url = reverse("admin:accounts_user_change", args=[obj.user.id])
