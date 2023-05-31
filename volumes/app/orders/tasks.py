@@ -26,6 +26,12 @@ def send_submit_order_sms_task(phone_number, order_code):
     except ValueError as exp:
         print("Error", exp)
       
+@shared_task()
+def send_cancel_order_sms_task(phone_number, order_code):
+    try:
+        send_cancel_order_sms(phone_number, order_code)
+    except ValueError as exp:
+        print("Error", exp)
 
 
 @shared_task()
@@ -94,7 +100,7 @@ def order_status_task():
                                 if User.objects.filter(phone_number=order.user.phone_number).exists():
                                     user = User.objects.filter(phone_number=order.user.phone_number).first()
                                     user.balance += order.amount
-                                    send_cancel_order_sms.delay(order.user.phone_number, order.order_code)
+                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
                                     user.save()
                                 Transactions.objects.create(
                                     user=order.user,
@@ -109,8 +115,6 @@ def order_status_task():
                             order.start_count = r["start_count"]
                         if r["remains"]:
                             order.remains = r["remains"]
-
-                        # check and insert server amount of order
                         order.save()
                     except ValueError as exp:
                         logger.error(exp)
