@@ -82,7 +82,7 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "order_code_link",
     )
     search_fields = ("order_code_link", "user_link")
-    actions = [make_complete_order, enable_submit_now]
+    actions = [make_complete_order, enable_submit_now, cancel_order]
 
     # autocomplete_fields = ['user']
     def get_queryset(self, request):
