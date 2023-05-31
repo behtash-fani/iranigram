@@ -73,8 +73,10 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "order_id",
         "order_code_link",
         "user_link",
-        "amount",
+        "quantity",
         "status",
+        "amount",
+        "service",
         "get_created_jalali",
     ]
     list_display_links = (
@@ -113,9 +115,14 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     status.short_description = "وضعیت"
 
     def service(self, obj):
-        return obj.amount
+        return obj.service
 
     service.short_description = "سرویس"
+
+    def quantity(self, obj):
+        return obj.quantity
+
+    quantity.short_description = "تعداد"
 
     def user_link(self, obj):
         url = reverse("admin:accounts_user_change", args=[obj.user.id])
