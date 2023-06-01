@@ -10,23 +10,30 @@
             <div class="col-lg-3 col-12 text-white">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item fw-bold bg-transparent border-0 text-white">صفحات اصلی</li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید فالوور اینستاگرام</a></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید لایک اینستاگرام</a></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید بازدید اینستاگرام</a></li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:follower' %}" class="text-decoration-none text-white-50">خرید فالوور اینستاگرام</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:like' %}" class="text-decoration-none text-white-50">خرید لایک اینستاگرام</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:view' %}" class="text-decoration-none text-white-50">خرید بازدید اینستاگرام</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-3 col-12">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item fw-bold bg-transparent border-0 text-white mt-4"></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید بازدید استوری</a></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید بازدید Reel</a></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">خرید بازدید IGTV</a></li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:view' %}" class="text-decoration-none text-white-50">خرید بازدید
+                            استوری</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:view' %}" class="text-decoration-none text-white-50">خرید بازدید Reel</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'pages:view' %}" class="text-decoration-none text-white-50">خرید بازدید IGTV</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-3 col-12">
@@ -34,16 +41,21 @@
                     <li class="list-group-item fw-bold bg-transparent border-0 text-white">پنل کاربری</li>
 
                     {% if request.user.is_authenticated %}
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">ورود به پنل</a></li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="{% url 'accounts:new_order' %}" class="text-decoration-none text-white-50">ورود به
+                            پنل</a>
+                    </li>
                     {% else %}
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">ورود</a></li>
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">ثبت نام</a></li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="#" class="text-decoration-none text-white-50">ورود</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="#" class="text-decoration-none text-white-50">ثبت نام</a>
+                    </li>
                     {% endif %}
-                    <li class="list-group-item bg-transparent border-0 py-3"><a href="#"
-                            class="text-decoration-none text-white-50">آموزش کار با پنل</a></li>
+                    <li class="list-group-item bg-transparent border-0 py-3">
+                        <a href="#" class="text-decoration-none text-white-50">آموزش کار با پنل</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -66,7 +78,8 @@
             <div class="col-lg-3 col-12 mt-3 mt-lg-0">
                 <span class="fw-bold text-white fs-4">پشتیبانی تلگرام</span><br>
                 <small class="text-white fw-bold">
-                    <img src="{% static 'icons/Telegram.svg' %}" width="24px" height="24px" alt="ارسال پیامک تلگرامی به پشتیبانی ایرانی گرام"> 
+                    <img src="{% static 'icons/Telegram.svg' %}" width="24px" height="24px"
+                        alt="ارسال پیامک تلگرامی به پشتیبانی ایرانی گرام">
                     <a href="https://t.me/iranigram_support"
                         class="text-decoration-none text-white">iranigram_support@</a>
                 </small>
