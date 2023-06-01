@@ -11,7 +11,7 @@ env.read_env()
 def store_token_sms():
     url = "http://RestfulSms.com/api/Token"
     payload = json.dumps(
-        {"UserApiKey": "b2d30f228ccd7e1ec3b71801", "SecretKey": "6590"}
+        {"UserApiKey": env("SMS_PANEL_API_KEY"), "SecretKey": env("SMS_PANEL_SECRET_KEY")}
     )
     headers = {"Content-Type": "application/json"}
     response = requests.request("POST", url, headers=headers, data=payload)
