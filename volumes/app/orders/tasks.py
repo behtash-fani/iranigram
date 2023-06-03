@@ -97,20 +97,23 @@ def order_status_task():
                         if r["status"]:
                             order.status = r["status"]
                             if r["status"] == 'Canceled':
+                                print(r)
                                 if User.objects.filter(phone_number=order.user.phone_number).exists():
                                     user = User.objects.filter(phone_number=order.user.phone_number).first()
                                     user.balance += order.amount
-                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
                                     user.save()
-                                Transactions.objects.create(
-                                    user=order.user,
-                                    type="return_canceled_order_fee",
-                                    price=order.amount,
-                                    balance=order.user.balance,
-                                    payment_type=order.payment_method,
-                                    details=_("Canceled"),
-                                    order_code=order.order_code,
-                                    payment_gateway=_('Zarinpal'))
+                                    order.status = "Canceled"
+                                    order.save()
+                                    Transactions.objects.create(
+                                        user=order.user,
+                                        type="return_canceled_order_fee",
+                                        price=order.amount,
+                                        balance=order.user.balance,
+                                        payment_type=order.payment_method,
+                                        details=_("Canceled"),
+                                        order_code=order.order_code,
+                                        payment_gateway=_('Zarinpal'))
+                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
                         if r["start_count"]:
                             order.start_count = r["start_count"]
                         if r["remains"]:

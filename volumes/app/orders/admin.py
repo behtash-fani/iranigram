@@ -6,8 +6,9 @@ from jalali_date import datetime2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
 from django.db.models import Q
 from django.contrib import messages
-from transactions.models import Transactions as Trans
+from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
+from accounts.models import User
 
 
 @admin.action(description="تغییر وضعیت به کامل شده")
@@ -22,13 +23,14 @@ def enable_submit_now(modeladmin, request, queryset):
 def cancel_order(modeladmin, request, queryset):
     queryset.update(status="Canceled")
     for order in queryset:
-        order.user.balance += order.amount
-        order.user.save()
-        Trans.objects.create(
+        user = User.objects.get(phone_number=order.user.phone_number)
+        user.balance = user.balance + order.amount
+        user.save()
+        Transactions.objects.create(
                 user=order.user,
                 type="return_canceled_order_fee",
                 price=order.amount,
-                balance=order.user.balance,
+                balance=user.balance,
                 details=_("Canceled"),
                 order_code=order.order_code,
                 payment_gateway=_('Zarinpal'),
