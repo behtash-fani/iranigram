@@ -42,6 +42,7 @@ def submit_order_task():
             if order.service is not None:
                 order_id = order.id
                 order_server = order.service.server
+                print(order_server)
                 if order_server == "parsifollower":
                     try:
                         order_manager = PFOrderManager(order_id)
@@ -97,7 +98,6 @@ def order_status_task():
                         if r["status"]:
                             order.status = r["status"]
                             if r["status"] == 'Canceled':
-                                print(r)
                                 if User.objects.filter(phone_number=order.user.phone_number).exists():
                                     user = User.objects.filter(phone_number=order.user.phone_number).first()
                                     user.balance += order.amount

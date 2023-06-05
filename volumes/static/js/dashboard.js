@@ -125,9 +125,16 @@ $("#id_service").change(function () {
       if (data.service_detail.link_type === "instagram_profile") {
         document.getElementById("profile_link_label").classList = "d-block";
         document.getElementById("post_link_label").classList = "d-none";
+        document.getElementById("telegram_link_label").classList = "d-none";
       } else if (data.service_detail.link_type === "instagram_post_link") {
         document.getElementById("profile_link_label").classList = "d-none";
         document.getElementById("post_link_label").classList = "d-block";
+        document.getElementById("telegram_link_label").classList = "d-none";
+      }
+      else if (data.service_detail.link_type === "telegram_link") {
+        document.getElementById("profile_link_label").classList = "d-none";
+        document.getElementById("post_link_label").classList = "d-none";
+        document.getElementById("telegram_link_label").classList = "d-block";
       }
       id_quantity.setAttribute("min", data.service_detail.min_order);
       id_quantity.setAttribute("max", data.service_detail.max_order);

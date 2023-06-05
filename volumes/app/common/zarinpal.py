@@ -65,8 +65,8 @@ def payment_request(request):
 def payment_verify(request):
     authority = request.GET["Authority"]
     amount = request.session["amount"]
-    phone = request.session["phone_number"]
-    user = User.objects.get(phone_number=phone)
+    phone_number = request.session["phone_number"]
+    user = User.objects.get(phone_number=phone_number)
     if "order_id" in request.session:
         order_id = request.session["order_id"]
     payment_type = request.session["payment_type"]
@@ -93,7 +93,9 @@ def payment_verify(request):
                     order.status = "Queued"
                     order.paid = True
                     order.save()
-                    send_submit_order_sms_task.delay(phone, order_code)
+                    print(phone_number)
+                    print(order_code)
+                    send_submit_order_sms_task.delay(phone_number, order_code)
                     Transactions.objects.create(
                         user=user,
                         type="payment_for_order",
