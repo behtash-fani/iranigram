@@ -32,4 +32,18 @@
     {% endblock %}
 </body>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script>
+    // this code enable toast message
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElements = document.querySelectorAll('.toast');
+        for (var i = 0; i < toastElements.length; i++) {
+            var toast = new bootstrap.Toast(toastElements[i], {
+                delay: 10000
+            });
+            toast.show();
+        }
+    });
+// end of snippet
+</script>
+
 </html>
