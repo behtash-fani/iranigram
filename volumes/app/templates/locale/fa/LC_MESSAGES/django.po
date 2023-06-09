@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 17:04+0330\n"
+"POT-Creation-Date: 2023-06-09 14:47+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,13 +169,13 @@ msgstr "اعتبار فعلی کیف پول شما"
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:15
 #: accounts/templates/accounts/wallet.html:29
-#: orders/templates/orders/new_order.html:38
-#: orders/templates/orders/new_order.html:56
-#: orders/templates/orders/new_order.html:105
+#: orders/templates/orders/new_order.html:39
+#: orders/templates/orders/new_order.html:57
+#: orders/templates/orders/new_order.html:106
 #: orders/templates/orders/orders.html:43
 #: transactions/templates/transactions/transactions.html:28
 #: transactions/templates/transactions/transactions.html:29
-#: templates/inc/navbar.html:113
+#: templates/inc/navbar.html:117
 msgid "Toman"
 msgstr "تومان"
 
@@ -192,13 +192,13 @@ msgstr "هم اکنون می توانید با استفاده از کیف پول
 msgid "Order Code"
 msgstr "کد سفارش"
 
-#: accounts/templates/accounts/dashboard.html:4 templates/inc/navbar.html:132
+#: accounts/templates/accounts/dashboard.html:4 templates/inc/navbar.html:136
 msgid "User Dashboard"
 msgstr "داشبورد کاربری"
 
 #: accounts/templates/accounts/dashboard.html:11
 #: accounts/templates/accounts/wallet.html:22
-#: orders/templates/orders/new_order.html:56
+#: orders/templates/orders/new_order.html:57
 msgid "Credit"
 msgstr "اعتبار"
 
@@ -212,8 +212,8 @@ msgstr "تعداد سفارش"
 
 #: accounts/templates/accounts/dashboard.html:26
 #: accounts/templates/accounts/dashboard.html:41
-#: orders/templates/orders/new_order.html:36
-#: orders/templates/orders/new_order.html:99
+#: orders/templates/orders/new_order.html:37
+#: orders/templates/orders/new_order.html:100
 #: orders/templates/orders/orders.html:42
 msgid "Number"
 msgstr "عدد"
@@ -245,7 +245,7 @@ msgstr "خلاصه وضعیت"
 
 #: accounts/templates/accounts/mobilescreen-menu.html:28
 #: accounts/templates/accounts/widescreen-menu.html:14
-#: orders/templates/orders/new_order.html:4 templates/inc/navbar.html:125
+#: orders/templates/orders/new_order.html:4 templates/inc/navbar.html:129
 msgid "New Order"
 msgstr "سفارش جدید"
 
@@ -258,7 +258,7 @@ msgstr "کیف پول"
 #: accounts/templates/accounts/mobilescreen-menu.html:42
 #: accounts/templates/accounts/widescreen-menu.html:28 orders/apps.py:8
 #: orders/models.py:48 orders/templates/orders/orders.html:5
-#: templates/inc/navbar.html:139
+#: templates/inc/navbar.html:143
 msgid "Orders"
 msgstr "سفارش ها"
 
@@ -345,7 +345,7 @@ msgstr "عضو نیستید؟ "
 #: accounts/templates/accounts/registration/login_with_otp.html:48
 #: accounts/templates/accounts/registration/login_with_pass.html:51
 #: accounts/templates/accounts/registration/verify.html:50
-#: templates/inc/navbar.html:171
+#: templates/inc/navbar.html:175
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -370,7 +370,7 @@ msgstr ""
 
 #: accounts/templates/accounts/registration/login_with_pass.html:43
 #: accounts/templates/accounts/registration/register.html:41
-#: templates/inc/navbar.html:164
+#: templates/inc/navbar.html:168
 msgid "Login"
 msgstr "ورود"
 
@@ -493,7 +493,7 @@ msgstr "درخواست تایید نشد . لطفا دوباره تلاش کنی
 msgid "The minimum amount that can be paid to increase credit is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتبار ۵۰۰ تومان است "
 
-#: accounts/views.py:320 common/zarinpal.py:121
+#: accounts/views.py:320 common/zarinpal.py:123
 msgid "Increase wallet credit"
 msgstr "افزایش اعتبار کیف پول"
 
@@ -505,10 +505,16 @@ msgstr ""
 "متاسفانه ارتباط با درگاه بانک برقرار نشد. تیم فنی در اسرع وقت این مشکل را "
 "برطرف میکند"
 
-#: common/zarinpal.py:105 common/zarinpal.py:122 common/zarinpal.py:147
-#: orders/tasks.py:105 orders/tasks.py:136
+#: common/zarinpal.py:107 common/zarinpal.py:124 common/zarinpal.py:149
+#: orders/admin.py:36 orders/tasks.py:127 orders/tasks.py:159
+#: orders/tasks.py:189
 msgid "Zarinpal"
 msgstr "زرین پال"
+
+#: orders/admin.py:34 orders/models.py:11 orders/tasks.py:125
+#: orders/tasks.py:157 orders/tasks.py:187
+msgid "Canceled"
+msgstr "لغو شده"
 
 #: orders/forms.py:32
 msgid "Please enter a valid Instagram link"
@@ -551,10 +557,6 @@ msgstr "در حال پردازش"
 msgid "In progress"
 msgstr "در حال انجام"
 
-#: orders/models.py:11 orders/tasks.py:103 orders/tasks.py:134
-msgid "Canceled"
-msgstr "لغو شده"
-
 #: orders/models.py:12
 msgid "Completed"
 msgstr "کامل شده"
@@ -571,12 +573,12 @@ msgstr "برگشت مبلغ شده"
 msgid "online"
 msgstr "آنلاین"
 
-#: orders/models.py:25 service/models.py:12 service/models.py:17
-#: service/models.py:35
+#: orders/models.py:25 service/models.py:11 service/models.py:16
+#: service/models.py:36
 msgid "ServiceType"
 msgstr "نوع سرویس"
 
-#: orders/models.py:26 service/models.py:56
+#: orders/models.py:26 service/models.py:55
 msgid "Service"
 msgstr "سرویس"
 
@@ -588,7 +590,7 @@ msgstr "کد سفارش سرور"
 msgid "Link"
 msgstr "لینک"
 
-#: orders/models.py:30 orders/templates/orders/new_order.html:31
+#: orders/models.py:30 orders/templates/orders/new_order.html:32
 #: orders/templates/orders/orders.html:24
 msgid "Quantity"
 msgstr "تعداد"
@@ -675,55 +677,59 @@ msgstr "لینک پست / IGTV / ریل اینستاگرام"
 msgid "Instagram Profile ID"
 msgstr "آی دی پروفایل عمومی اینستاگرام"
 
-#: orders/templates/orders/new_order.html:36
+#: orders/templates/orders/new_order.html:27
+msgid "Telegram Link/ID"
+msgstr "لینک کانال تلگرام"
+
+#: orders/templates/orders/new_order.html:37
 msgid "The number of requests"
 msgstr "تعداد درخواستی"
 
-#: orders/templates/orders/new_order.html:38
+#: orders/templates/orders/new_order.html:39
 msgid "Final fee payable"
 msgstr "هزینه نهایی قابل پرداخت"
 
-#: orders/templates/orders/new_order.html:44
-#: orders/templates/orders/new_order.html:72
+#: orders/templates/orders/new_order.html:45
+#: orders/templates/orders/new_order.html:73
 #: orders/templates/orders/orders.html:94
 msgid "Online Payment"
 msgstr "پرداخت آنلاین"
 
-#: orders/templates/orders/new_order.html:45
-#: orders/templates/orders/new_order.html:74
+#: orders/templates/orders/new_order.html:46
+#: orders/templates/orders/new_order.html:75
 #: orders/templates/orders/orders.html:96
 msgid "Payment with all bank cards"
 msgstr "پرداخت با تمامی کارتهای بانکی"
 
-#: orders/templates/orders/new_order.html:54
+#: orders/templates/orders/new_order.html:55
 msgid "Pay with Wallet"
 msgstr "پرداخت با کیف پول"
 
-#: orders/templates/orders/new_order.html:85
+#: orders/templates/orders/new_order.html:86
 msgid "Product Specifications"
 msgstr "مشخصات محصول"
 
-#: orders/templates/orders/new_order.html:87
+#: orders/templates/orders/new_order.html:88
 msgid "Please select a product"
 msgstr "یک محصول انتخاب کنید"
 
-#: orders/templates/orders/new_order.html:90
+#: orders/templates/orders/new_order.html:91
 msgid "Title of product"
 msgstr "عنوان محصول"
 
-#: orders/templates/orders/new_order.html:95
+#: orders/templates/orders/new_order.html:96
 msgid "Order range between"
 msgstr "محدوده ثبت سفارش"
 
-#: orders/templates/orders/new_order.html:97
+#: orders/templates/orders/new_order.html:98
 msgid "to"
 msgstr "تا"
 
-#: orders/templates/orders/new_order.html:103
+#: orders/templates/orders/new_order.html:104
 msgid "Price per 1"
 msgstr "قیمت به ازای ۱ عدد"
 
-#: orders/templates/orders/new_order.html:109 service/models.py:46
+#: orders/templates/orders/new_order.html:110 service/models.py:47
 msgid "Description"
 msgstr "توضیحات"
 
@@ -798,7 +804,7 @@ msgstr "پیش نویس"
 msgid "Publish"
 msgstr "انتشار"
 
-#: posts/models.py:29 service/models.py:40
+#: posts/models.py:29 service/models.py:41
 msgid "Title"
 msgstr "عنوان"
 
@@ -854,67 +860,57 @@ msgstr "تنظیمات سئو"
 msgid "به روز رسانی سرویس ها"
 msgstr ""
 
-#: service/apps.py:8 service/models.py:57
+#: service/apps.py:8 service/models.py:56
 msgid "Services"
 msgstr "سرویس ها"
 
-#: service/models.py:13 service/models.py:47
+#: service/models.py:12 service/models.py:48
 msgid "Display priority"
 msgstr "اولویت نمایش"
 
-#: service/models.py:18
+#: service/models.py:17
 msgid "ServiceTypes"
 msgstr "نوع سرویس ها"
 
-#: service/models.py:36
+#: service/models.py:37
 msgid "Link Type"
 msgstr "نوع لینک"
 
-#: service/models.py:37
+#: service/models.py:38
 msgid "Server"
 msgstr "سرور"
 
-#: service/models.py:38
+#: service/models.py:39
 msgid "Server Service Code"
 msgstr "کد سرویس متناظر"
 
-#: service/models.py:39
+#: service/models.py:40
 msgid "Service Code"
 msgstr "کد سرویس"
 
-#: service/models.py:41
+#: service/models.py:42
 msgid "Amount Per 1 Number"
 msgstr "قیمت به ازای هر ۱ عدد"
 
-#: service/models.py:42
+#: service/models.py:43
 msgid "Price for 1000 site"
 msgstr "قیمت برای ۱۰۰۰ عدد در سایت"
 
-#: service/models.py:43
+#: service/models.py:44
 msgid "Price for 1000 server"
 msgstr "قیمت برای ۱۰۰۰ عدد در سرورس"
 
-#: service/models.py:44
+#: service/models.py:45
 msgid "Min Order"
 msgstr "حداقل سفارش"
 
-#: service/models.py:45
+#: service/models.py:46
 msgid "Max Order"
 msgstr "حداکثر سفارش"
 
-#: service/models.py:48
+#: service/models.py:49
 msgid "Available For User"
 msgstr "فعال برای کاربر"
-
-#: service/models.py:49
-#, fuzzy
-#| msgid "Service"
-msgid "Template Service"
-msgstr "سرویس"
-
-#: service/models.py:50
-msgid "Template Packages"
-msgstr ""
 
 #: support/admin.py:39 support/admin.py:48 support/models.py:47
 #: support/templates/support/support.html:28
@@ -1098,37 +1094,42 @@ msgstr "مانده اعتبار"
 msgid "No transaction found yet"
 msgstr "تا به الان تراکنشی یافت نشد"
 
-#: templates/inc/navbar.html:25 templates/inc/navbar.html:69
+#: templates/inc/navbar.html:27 templates/inc/navbar.html:73
 msgid "Home"
 msgstr "صفحه اصلی"
 
-#: templates/inc/navbar.html:30 templates/inc/navbar.html:75
+#: templates/inc/navbar.html:32 templates/inc/navbar.html:79
 msgid "Mag"
 msgstr "مجله"
 
-#: templates/inc/navbar.html:36 templates/inc/navbar.html:88
+#: templates/inc/navbar.html:38 templates/inc/navbar.html:92
 msgid "Buy Instagram Follower"
 msgstr "خرید فالوور اینستاگرام"
 
-#: templates/inc/navbar.html:42 templates/inc/navbar.html:95
+#: templates/inc/navbar.html:44 templates/inc/navbar.html:99
 msgid "Buy Instagram Like"
 msgstr "خرید لایک اینستاگرام"
 
-#: templates/inc/navbar.html:48 templates/inc/navbar.html:102
+#: templates/inc/navbar.html:50 templates/inc/navbar.html:106
 msgid "Buy Instagram View"
 msgstr "خرید بازدید اینستاگرام"
 
-#: templates/inc/navbar.html:82
+#: templates/inc/navbar.html:86
 msgid "Instagram Products"
 msgstr "محصولات اینستاگرام"
 
-#: templates/inc/navbar.html:148
+#: templates/inc/navbar.html:152
 msgid "Logout"
 msgstr "خروج"
 
-#: templates/inc/navbar.html:159
+#: templates/inc/navbar.html:163
 msgid "Account"
 msgstr "حساب کاربری"
+
+#, fuzzy
+#~| msgid "Service"
+#~ msgid "Template Service"
+#~ msgstr "سرویس"
 
 #~ msgid "Server Amount"
 #~ msgstr "قیمت سرور"
