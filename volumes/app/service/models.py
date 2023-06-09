@@ -28,6 +28,7 @@ LINK_TYPE_CHOICES = (
 
 SERVER = (
     ("parsifollower", "Parsifollower"),
+    ("berlia", "Berlia"),
     ("mifa", "Mifa"),
 )
 
@@ -58,6 +59,19 @@ class Service(models.Model):
         if self.server == 'parsifollower':
             endpoint = env("PARSIFOLLOWER_ENDPOINT")
             api_key = env("PARSIFOLLOWER_API_KEY")
+            params = {
+                "key": api_key,
+                "action": "services",
+            }
+            r = requests.post(endpoint, params=params)
+            for item in json.loads(r.content):
+                if item['service'] == str(self.server_service_code):
+                    rate = int(float(item['rate']))
+                    self.price_1000_server = rate
+                    self.price_1000_site = int(self.amount) * 1000
+        elif self.server == "berlia":
+            endpoint = env("BERLIA_ENDPOINT")
+            api_key = env("BERLIA_API_KEY")
             params = {
                 "key": api_key,
                 "action": "services",

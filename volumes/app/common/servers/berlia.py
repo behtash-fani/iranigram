@@ -7,11 +7,11 @@ import json
 env = Env()
 env.read_env()
 
-class PFOrderManager: # Parsifollower order manager
+class BLOrderManager: # Parsifollower order manager
     def __init__(self, order_id):
         self.order_id = order_id
-        self.endpoint = env("PARSIFOLLOWER_ENDPOINT")
-        self.api_key = env("PARSIFOLLOWER_API_KEY")
+        self.endpoint = env("BERLIA_ENDPOINT")
+        self.api_key = env("BERLIA_API_KEY")
 
     def submit_order(self):
         order = Order.objects.get(id=self.order_id)

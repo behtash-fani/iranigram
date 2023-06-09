@@ -16,6 +16,7 @@ DEBUG = env.bool("DEBUG")
 SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
+SUBMIT_AUTOMATIC_ORDERS=env.bool("SUBMIT_AUTOMATIC_ORDERS")
 
 # Application definition
 
@@ -284,8 +285,3 @@ if not DEBUG:
         "handlers": HANDLERS,
         "loggers": LOGGERS[0],
     }
-
-
-
-
-SUBMIT_AUTOMATIC_ORDERS=env("SUBMIT_AUTOMATIC_ORDERS")

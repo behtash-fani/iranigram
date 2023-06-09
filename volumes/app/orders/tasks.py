@@ -1,5 +1,6 @@
 from celery import shared_task
 from common.servers.parsifollower import PFOrderManager
+from common.servers.berlia import BLOrderManager
 from common.servers.mifa import MifaOrderManager
 from orders.models import Order
 import json
@@ -42,13 +43,24 @@ def submit_order_task():
             if order.service is not None:
                 order_id = order.id
                 order_server = order.service.server
-                print(order_server)
                 if order_server == "parsifollower":
                     try:
                         order_manager = PFOrderManager(order_id)
                         response = order_manager.submit_order()
                         r = json.loads(response.decode('utf-8'))
                         logger.info("Order submitted in Parsifollower Server")
+                        if "order" in r:
+                            order.status = "Pending"
+                            order.server_order_code = r["order"]
+                            order.save()
+                    except ValueError as exp:
+                        logger.error(exp)
+                elif order_server == "berlia":
+                    try:
+                        order_manager = BLOrderManager(order_id)
+                        response = order_manager.submit_order()
+                        r = json.loads(response.decode('utf-8'))
+                        logger.info("Order submitted in BerliaSMM Server")
                         if "order" in r:
                             order.status = "Pending"
                             order.server_order_code = r["order"]
@@ -94,6 +106,38 @@ def order_status_task():
                         order_manager = PFOrderManager(order_id)
                         response = order_manager.order_status()
                         logger.info("Get order status from Parsifollower server")
+                        r = json.loads(response.decode('utf-8'))
+                        if r["status"]:
+                            order.status = r["status"]
+                            if r["status"] == 'Canceled':
+                                if User.objects.filter(phone_number=order.user.phone_number).exists():
+                                    user = User.objects.filter(phone_number=order.user.phone_number).first()
+                                    user.balance += order.amount
+                                    user.save()
+                                    order.status = "Canceled"
+                                    order.save()
+                                    Transactions.objects.create(
+                                        user=order.user,
+                                        type="return_canceled_order_fee",
+                                        price=order.amount,
+                                        balance=order.user.balance,
+                                        payment_type=order.payment_method,
+                                        details=_("Canceled"),
+                                        order_code=order.order_code,
+                                        payment_gateway=_('Zarinpal'))
+                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
+                        if r["start_count"]:
+                            order.start_count = r["start_count"]
+                        if r["remains"]:
+                            order.remains = r["remains"]
+                        order.save()
+                    except ValueError as exp:
+                        logger.error(exp)
+                elif order_server == "berlia":
+                    try:
+                        order_manager = BLOrderManager(order_id)
+                        response = order_manager.order_status()
+                        logger.info("Get order status from BerliaSMM server")
                         r = json.loads(response.decode('utf-8'))
                         if r["status"]:
                             order.status = r["status"]
