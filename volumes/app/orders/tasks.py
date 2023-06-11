@@ -99,13 +99,10 @@ def order_status_task():
             order_id = order.id
             if order.service is not None:
                 order_server = order.service.server
-                service_code = order.service.service_code
-                order_quantity = order.quantity
                 if order_server == "parsifollower":
                     try:
                         order_manager = PFOrderManager(order_id)
                         response = order_manager.order_status()
-                        logger.info("Get order status from Parsifollower server")
                         r = json.loads(response.decode('utf-8'))
                         if r["status"]:
                             order.status = r["status"]
@@ -135,11 +132,17 @@ def order_status_task():
                         logger.error(exp)
                 elif order_server == "berlia":
                     try:
+                        print(order_id)
                         order_manager = BLOrderManager(order_id)
                         response = order_manager.order_status()
-                        logger.info("Get order status from BerliaSMM server")
                         r = json.loads(response.decode('utf-8'))
+                        print("*"*100)
+                        print(r)
+                        print("*"*100)
                         if r["status"]:
+                            print("="*100)
+                            print(r)
+                            print("="*100)
                             order.status = r["status"]
                             if r["status"] == 'Canceled':
                                 if User.objects.filter(phone_number=order.user.phone_number).exists():
@@ -169,7 +172,6 @@ def order_status_task():
                     try:
                         order_manager = MifaOrderManager(order_id)
                         response = order_manager.order_status()
-                        logger.info("Get order status from Mifa server")
                         r = json.loads(response)
                         if r["status"]:
                             order.status = r["status"]
