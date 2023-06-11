@@ -5,7 +5,6 @@ from common.servers.mifa import MifaOrderManager
 from orders.models import Order
 import json
 from django.db.models import Q
-import logging
 from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
@@ -17,7 +16,6 @@ from common.send_sms import (
 )
 
 
-logger = logging.getLogger("celery_task")
 
 
 @shared_task()
@@ -48,37 +46,34 @@ def submit_order_task():
                         order_manager = PFOrderManager(order_id)
                         response = order_manager.submit_order()
                         r = json.loads(response.decode('utf-8'))
-                        logger.info("Order submitted in Parsifollower Server")
                         if "order" in r:
                             order.status = "Pending"
                             order.server_order_code = r["order"]
                             order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
                 elif order_server == "berlia":
                     try:
                         order_manager = BLOrderManager(order_id)
                         response = order_manager.submit_order()
                         r = json.loads(response.decode('utf-8'))
-                        logger.info("Order submitted in BerliaSMM Server")
                         if "order" in r:
                             order.status = "Pending"
                             order.server_order_code = r["order"]
                             order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
                 elif order_server == "mifa":
                     try:
                         order_manager = MifaOrderManager(order_id)
                         response = order_manager.submit_order()
-                        logger.info("Order submitted in Mifa Server")
                         r = json.loads(response)
                         if 'order' in r:
                             order.status = "Pending"
                             order.server_order_code = r["order"]
                             order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
             else:
                 pass
     return "Ok!"
@@ -129,7 +124,7 @@ def order_status_task():
                             order.remains = r["remains"]
                         order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
                 elif order_server == "berlia":
                     try:
                         print(order_id)
@@ -167,7 +162,7 @@ def order_status_task():
                             order.remains = r["remains"]
                         order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
                 elif order_server == "mifa":
                     try:
                         order_manager = MifaOrderManager(order_id)
@@ -195,7 +190,7 @@ def order_status_task():
                             order.remains = r["remains"]
                         order.save()
                     except ValueError as exp:
-                        logger.error(exp)
+                        print(exp)
     return "Ok!"
 
 
