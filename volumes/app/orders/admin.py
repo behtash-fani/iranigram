@@ -54,7 +54,7 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "get_created_jalali",
     ]
     list_display_links = ("id", "order_code", "user_link")
-    search_fields = ("user__phone_number__icontains", "order_code", "link__icontains", "server_order_code","service__title__icontains")
+    search_fields = ("id", "user__phone_number__icontains", "order_code", "link__icontains", "server_order_code","service__title__icontains")
     autocomplete_fields = ["user"]
     actions = [make_complete_order, enable_submit_now, cancel_order]
 

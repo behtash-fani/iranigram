@@ -81,100 +81,24 @@ def submit_order_task():
 
 @shared_task()
 def order_status_task():
-    orders = Order.objects.filter(
-        Q(status='Pending') |
-        Q(status='Processing') |
-        Q(status='In progress') |
-        Q(status='Canceled') |
-        Q(status='Completed') |
-        Q(status='Partial') |
-        Q(status='Refunded'))
+    orders = Order.objects.filter(Q(status='Pending') | Q(status='Processing') | Q(status='In progress')).exclude(service__isnull=True)
     for order in orders:
-        if order.status not in ["Canceled", "Completed", "Partial", "Refunded"]:
-            order_id = order.id
-            if order.service is not None:
-                order_server = order.service.server
-                if order_server == "parsifollower":
-                    try:
-                        order_manager = PFOrderManager(order_id)
-                        response = order_manager.order_status()
-                        r = json.loads(response.decode('utf-8'))
-                        if r["status"]:
-                            order.status = r["status"]
-                            if r["status"] == 'Canceled':
-                                if User.objects.filter(phone_number=order.user.phone_number).exists():
-                                    user = User.objects.filter(phone_number=order.user.phone_number).first()
-                                    user.balance += order.amount
-                                    user.save()
-                                    order.status = "Canceled"
-                                    order.save()
-                                    Transactions.objects.create(
-                                        user=order.user,
-                                        type="return_canceled_order_fee",
-                                        price=order.amount,
-                                        balance=order.user.balance,
-                                        payment_type=order.payment_method,
-                                        details=_("Canceled"),
-                                        order_code=order.order_code,
-                                        payment_gateway=_('Zarinpal'))
-                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
-                        if r["start_count"]:
-                            order.start_count = r["start_count"]
-                        if r["remains"]:
-                            order.remains = r["remains"]
-                        order.save()
-                    except ValueError as exp:
-                        print(exp)
-                elif order_server == "berlia":
-                    try:
-                        print(order_id)
-                        order_manager = BLOrderManager(order_id)
-                        response = order_manager.order_status()
-                        r = json.loads(response.decode('utf-8'))
-                        print("*"*100)
-                        print(r)
-                        print("*"*100)
-                        if r["status"]:
-                            print("="*100)
-                            print(r)
-                            print("="*100)
-                            order.status = r["status"]
-                            if r["status"] == 'Canceled':
-                                if User.objects.filter(phone_number=order.user.phone_number).exists():
-                                    user = User.objects.filter(phone_number=order.user.phone_number).first()
-                                    user.balance += order.amount
-                                    user.save()
-                                    order.status = "Canceled"
-                                    order.save()
-                                    Transactions.objects.create(
-                                        user=order.user,
-                                        type="return_canceled_order_fee",
-                                        price=order.amount,
-                                        balance=order.user.balance,
-                                        payment_type=order.payment_method,
-                                        details=_("Canceled"),
-                                        order_code=order.order_code,
-                                        payment_gateway=_('Zarinpal'))
-                                    send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
-                        if r["start_count"]:
-                            order.start_count = r["start_count"]
-                        if r["remains"]:
-                            order.remains = r["remains"]
-                        order.save()
-                    except ValueError as exp:
-                        print(exp)
-                elif order_server == "mifa":
-                    try:
-                        order_manager = MifaOrderManager(order_id)
-                        response = order_manager.order_status()
-                        r = json.loads(response)
-                        if r["status"]:
-                            order.status = r["status"]
-                            if r["status"] == 'Canceled':
-                                if User.objects.filter(phone_number=order.user.phone_number).exists():
-                                    user = User.objects.filter(phone_number=order.user.phone_number).first()
-                                    user.balance += order.amount
-                                    user.save()
+        order_id = order.id
+        for order_server in ["parsifollower", "berlia"]:
+            if order_server == "parsifollower":
+                try:
+                    order_manager = PFOrderManager(order_id)
+                    response = order_manager.order_status()
+                    order_status = json.loads(response.decode('utf-8'))
+                    if "status" in order_status:
+                        order.status = order_status["status"]
+                        if order_status["status"] == 'Canceled':
+                            if User.objects.filter(phone_number=order.user.phone_number).exists():
+                                user = User.objects.filter(phone_number=order.user.phone_number).first()
+                                user.balance += order.amount
+                                user.save()
+                                order.status = "Canceled"
+                                order.save()
                                 Transactions.objects.create(
                                     user=order.user,
                                     type="return_canceled_order_fee",
@@ -184,13 +108,47 @@ def order_status_task():
                                     details=_("Canceled"),
                                     order_code=order.order_code,
                                     payment_gateway=_('Zarinpal'))
-                        if r["start_count"]:
-                            order.start_count = r["start_count"]
-                        if r["remains"]:
-                            order.remains = r["remains"]
+                                send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
+                        if order_status["start_count"]:
+                            order.start_count = order_status["start_count"]
+                        if order_status["remains"]:
+                            order.remains = order_status["remains"]
                         order.save()
-                    except ValueError as exp:
-                        print(exp)
+                    elif "error" in order_status:
+                        continue
+                except ValueError as exp:
+                    print(exp)
+            elif order_server == "berlia":
+                try:
+                    order_manager = BLOrderManager(order_id)
+                    response = order_manager.order_status()
+                    order_status = json.loads(response.decode('utf-8'))
+                    if "status" in order_status:
+                        order.status = order_status["status"]
+                        if order_status["status"] == 'Canceled':
+                            if User.objects.filter(phone_number=order.user.phone_number).exists():
+                                user = User.objects.filter(phone_number=order.user.phone_number).first()
+                                user.balance += order.amount
+                                user.save()
+                                order.status = "Canceled"
+                                order.save()
+                                Transactions.objects.create(
+                                    user=order.user,
+                                    type="return_canceled_order_fee",
+                                    price=order.amount,
+                                    balance=order.user.balance,
+                                    payment_type=order.payment_method,
+                                    details=_("Canceled"),
+                                    order_code=order.order_code,
+                                    payment_gateway=_('Zarinpal'))
+                                send_cancel_order_sms_task.delay(order.user.phone_number, order.order_code)
+                        if "start_count" in order_status:
+                            order.start_count = order_status["start_count"]
+                        if "remains" in order_status:
+                            order.remains = order_status["remains"]
+                        order.save()
+                except ValueError as exp:
+                    print(exp)
     return "Ok!"
 
 
