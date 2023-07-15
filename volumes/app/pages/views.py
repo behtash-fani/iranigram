@@ -6,12 +6,12 @@ class HomeView(View):
     template_name = "pages/home.html"
 
     def get(self, request):
-        meta_description_tag = PagesSeo.objects.filter(page='home')[0].meta_description_tag
-        title_tag = PagesSeo.objects.filter(page='home')[0].title_tag
+        # meta_description_tag = PagesSeo.objects.filter(page='home')[0].meta_description_tag
+        # title_tag = PagesSeo.objects.filter(page='home')[0].title_tag
         posts = Post.objects.all()[0:4]
         context = {
-            'meta_description_tag': meta_description_tag,
-            'title_tag': title_tag,
+            # 'meta_description_tag': meta_description_tag,
+            # 'title_tag': title_tag,
             'posts': posts
             }
         return render(request, self.template_name, context)
@@ -20,10 +20,10 @@ class HomeView(View):
 class FollowerView(View):
     template_name = "pages/buy_follower.html"
     def get(self, request):
-        meta_description_tag = PagesSeo.objects.filter(page='buy_follower')[0].meta_description_tag
+        # meta_description_tag = PagesSeo.objects.filter(page='buy_follower')[0].meta_description_tag
         title_tag = PagesSeo.objects.filter(page='buy_follower')[0].title_tag
         context = {
-            'meta_description_tag': meta_description_tag,
+            # 'meta_description_tag': meta_description_tag,
             'title_tag': title_tag,
             }
         return render(request, self.template_name, context)
@@ -33,10 +33,10 @@ class LikeView(View):
     template_name = "pages/buy_like.html"
 
     def get(self, request):
-        meta_description_tag = PagesSeo.objects.filter(page='buy_like')[0].meta_description_tag
+        # meta_description_tag = PagesSeo.objects.filter(page='buy_like')[0].meta_description_tag
         title_tag = PagesSeo.objects.filter(page='buy_like')[0].title_tag
         context = {
-            'meta_description_tag': meta_description_tag,
+            # 'meta_description_tag': meta_description_tag,
             'title_tag': title_tag,
             }
         return render(request, self.template_name, context)
@@ -46,10 +46,10 @@ class ViewView(View):
     template_name = "pages/buy_view.html"
 
     def get(self, request):
-        meta_description_tag = PagesSeo.objects.filter(page='buy_view')[0].meta_description_tag
+        # meta_description_tag = PagesSeo.objects.filter(page='buy_view')[0].meta_description_tag
         title_tag = PagesSeo.objects.filter(page='buy_view')[0].title_tag
         context = {
-            'meta_description_tag': meta_description_tag,
+            # 'meta_description_tag': meta_description_tag,
             'title_tag': title_tag,
             }
         return render(request, self.template_name, context)
