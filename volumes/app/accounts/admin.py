@@ -8,6 +8,7 @@ from jalali_date.admin import ModelAdminJalaliMixin
 from django.utils.translation import gettext_lazy as _
 from transactions.models import Transactions as Trans
 from jalali_date import datetime2jalali
+from import_export.admin import ImportExportModelAdmin
 
 
 
@@ -20,7 +21,7 @@ class OTPCodeAdmin(admin.ModelAdmin):
         return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
 
 
-class UserAdmin(ModelAdminJalaliMixin, BaseUserAdmin):
+class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     list_display = ('phone_number', 'full_name', 'balance', 'is_block', 'is_active')

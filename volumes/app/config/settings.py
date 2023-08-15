@@ -2,7 +2,6 @@ from pathlib import Path
 from datetime import timedelta
 import os
 from environs import Env
-import logging
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
     "support.apps.SupportConfig",
     "posts.apps.PostsConfig",
     "seo.apps.SeoConfig",
+    'import_export',
     
 ]
 SITE_ID = 1
