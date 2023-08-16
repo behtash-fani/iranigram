@@ -8,6 +8,9 @@ from common.send_sms import (
 from accounts.models import User
 import json
 from django.conf import settings
+import time
+
+
 
 @shared_task()
 def send_login_sms_task(phone_number, verification_code):
@@ -81,3 +84,15 @@ def import_users_task():
                 balance=user["balance"],
                 )
     return "Ok!"
+
+
+@shared_task()
+def submit_order_count():
+    users = User.objects.all()
+    for user in users:
+        orders_count = user.orders.all().count()
+        user.orders_count = orders_count
+        user.save()
+        time.sleep(0.0000001)
+    
+    return "OK"
