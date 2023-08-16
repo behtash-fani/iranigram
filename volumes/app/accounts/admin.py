@@ -46,7 +46,9 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     filter_horizontal = ()
 
     def order_count(self, obj):
-        return Order.objects.filter(user=obj.phone_number).count()
+        # user = User.objects.filter(phone_number=obj.phone_number).first()
+        order_count = Order.objects.filter(user=obj).count()
+        return order_count
 
     order_count.short_description = "تعداد سفارش"
 
