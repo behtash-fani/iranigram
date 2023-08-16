@@ -26,7 +26,7 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     add_form = UserCreationForm
     list_display = ('phone_number', 'full_name', 'balance', 'is_block', 'is_active')
     list_filter = ('is_admin',)
-    search_fields = ('phone_number', 'full_name', 'email')
+    search_fields = ('phone_number', 'full_name', 'email', 'full_name')
     fieldsets = (
         ('personal information', {'fields': ('phone_number', 'full_name', 'email', 'password',)}),
         (
