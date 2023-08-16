@@ -8,7 +8,7 @@ from common.utils import send_otpcode_again
 from posts.sitemap import PostSitemap
 from pages.sitemap import PagesSitemap
 from django.contrib.sitemaps import views
-
+from common.submit_order_count import submit_order_count
 
 
 sitemaps = {
@@ -28,6 +28,7 @@ urlpatterns = [
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
     path('ckeditor', include('ckeditor_uploader.urls')),
+    path('submit_orders_count/', submit_order_count, name='submit_order_count'),
     path('send-verify-code/', send_otpcode_again, name='send_verify_code'),
     path(
         "sitemap.xml",
