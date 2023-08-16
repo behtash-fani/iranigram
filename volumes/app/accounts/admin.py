@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from transactions.models import Transactions as Trans
 from jalali_date import datetime2jalali
 from import_export.admin import ImportExportModelAdmin
-
+from orders.models import Order
 
 
 @admin.register(OTPCode)
@@ -24,7 +24,7 @@ class OTPCodeAdmin(admin.ModelAdmin):
 class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('phone_number', 'full_name', 'balance', 'is_block', 'is_active')
+    list_display = ('phone_number', 'full_name', 'balance', 'order_count', 'is_block', 'is_active')
     list_filter = ('is_admin',)
     search_fields = ('phone_number__icontains', 'full_name__icontains', 'email__icontains')
     fieldsets = (
@@ -44,6 +44,11 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     search_fields = ('phone_number',)
     ordering = ('phone_number',)
     filter_horizontal = ()
+
+    def order_count(self, obj):
+        return Order.objects.filter(user=obj.phone_number).count()
+
+    order_count.short_description = "تعداد سفارش"
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
