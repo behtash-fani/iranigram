@@ -11,6 +11,7 @@ from orders.models import Order
 class TransactionsAdmin(admin.ModelAdmin):
     list_display = ['user', 'type','order_code_link', 'payment_type', 'price', 'balance', 'get_created_jalali']
     autocomplete_fields = ['user']
+    search_fields = ('user__phone_number__icontains',)
 
 
     @admin.display(description='تاریخ ایجاد', ordering='created_at')
