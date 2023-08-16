@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-09 14:47+0330\n"
+"POT-Creation-Date: 2023-08-16 22:22+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: accounts/apps.py:7 accounts/models.py:58
+#: accounts/apps.py:8 accounts/models.py:63
 msgid "Users"
 msgstr "کاربران"
 
@@ -69,83 +69,87 @@ msgstr "کد وارد شده اشتباه است"
 msgid "Password Confirmation"
 msgstr "تکرار رمز عبور"
 
-#: accounts/models.py:8
+#: accounts/models.py:12
 msgid "Add Credit"
 msgstr "افزایش اعتبار"
 
-#: accounts/models.py:9
+#: accounts/models.py:13
 msgid "Reduce Credit"
 msgstr "کاهش اعتبار"
 
-#: accounts/models.py:14 accounts/models.py:62
+#: accounts/models.py:18 accounts/models.py:75
 #: accounts/templates/accounts/registration/login_with_otp.html:33
 #: accounts/templates/accounts/registration/login_with_pass.html:31
 #: accounts/templates/accounts/registration/register.html:31
 msgid "Phone Number"
 msgstr "شماره تلفن"
 
-#: accounts/models.py:15 accounts/templates/accounts/profile.html:20
+#: accounts/models.py:19 accounts/templates/accounts/profile.html:20
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/models.py:16 accounts/views.py:265
+#: accounts/models.py:20 accounts/views.py:265
 msgid "Guest User"
 msgstr "کاربر مهمان"
 
-#: accounts/models.py:17 accounts/templates/accounts/profile.html:15
+#: accounts/models.py:21 accounts/templates/accounts/profile.html:15
 msgid "Full Name"
 msgstr "نام کامل"
 
-#: accounts/models.py:18 transactions/models.py:25
+#: accounts/models.py:22 transactions/models.py:25
 msgid "Balance"
 msgstr "اعتبار"
 
-#: accounts/models.py:19
+#: accounts/models.py:23
 msgid "Amount Change Wallet"
 msgstr "میزان تغییر کیف پول"
 
-#: accounts/models.py:22
+#: accounts/models.py:26
 msgid "Status Change Wallet"
 msgstr "وضعیت تغییر"
 
-#: accounts/models.py:24
+#: accounts/models.py:28
 msgid "Description Change Wallet"
 msgstr "توضیحات این تغییر"
 
-#: accounts/models.py:25
+#: accounts/models.py:29
+msgid "Order Counts"
+msgstr "تعداد سفارش"
+
+#: accounts/models.py:30
 msgid "Block"
 msgstr "مسدود"
 
-#: accounts/models.py:26
+#: accounts/models.py:31
 msgid "Active"
 msgstr "فعال"
 
-#: accounts/models.py:27
+#: accounts/models.py:32
 msgid "Admin"
 msgstr "ادمین"
 
-#: accounts/models.py:57 orders/models.py:24 support/models.py:19
+#: accounts/models.py:62 orders/models.py:24 support/models.py:19
 #: support/models.py:37 transactions/models.py:22
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:63
+#: accounts/models.py:76
 msgid "Code"
 msgstr "کد"
 
-#: accounts/models.py:64
+#: accounts/models.py:77
 msgid "Expire Time"
 msgstr "زمان انقضا"
 
-#: accounts/models.py:65
+#: accounts/models.py:78
 msgid "Create At"
 msgstr "ثبت شده در"
 
-#: accounts/models.py:71
+#: accounts/models.py:84
 msgid "OTPCode"
 msgstr "کد یکبار مصرف"
 
-#: accounts/models.py:72
+#: accounts/models.py:85
 msgid "OTPCodes"
 msgstr "کدهای یکبار مصرف"
 
@@ -506,13 +510,12 @@ msgstr ""
 "برطرف میکند"
 
 #: common/zarinpal.py:107 common/zarinpal.py:124 common/zarinpal.py:149
-#: orders/admin.py:36 orders/tasks.py:127 orders/tasks.py:159
-#: orders/tasks.py:189
+#: orders/admin.py:36 orders/tasks.py:110 orders/tasks.py:143
 msgid "Zarinpal"
 msgstr "زرین پال"
 
-#: orders/admin.py:34 orders/models.py:11 orders/tasks.py:125
-#: orders/tasks.py:157 orders/tasks.py:187
+#: orders/admin.py:34 orders/models.py:11 orders/tasks.py:108
+#: orders/tasks.py:141
 msgid "Canceled"
 msgstr "لغو شده"
 

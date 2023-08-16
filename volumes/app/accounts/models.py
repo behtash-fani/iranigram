@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 STATUS_CHANGE_WALLET = (
     ('do_nothing', "---------"),
@@ -22,6 +26,7 @@ class User(AbstractBaseUser):
                                             verbose_name=_('Status Change Wallet'))
     description_change_wallet = models.TextField(max_length=2000, default="", blank=True, null=True,
                                                  verbose_name=_('Description Change Wallet'))
+    orders_count = models.PositiveBigIntegerField(default='0', blank=True, null=True, verbose_name=_("Order Counts"))
     is_block = models.BooleanField(default=False, verbose_name=_('Block'))
     is_active = models.BooleanField(default=True, verbose_name=_('Active'))
     is_admin = models.BooleanField(default=False, verbose_name=_('Admin'))
@@ -56,6 +61,14 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
+
+
+@receiver(post_save, sender=User)
+def order_count(sender, instance, created, **kwargs):
+    user_orders_count = instance.orders.all().count()
+    user_orders_count += 1
+    user_instance = User.objects.filter(phone_number=instance.phone_number)
+    user_instance.update(orders_count=user_orders_count)
 
 
 class OTPCode(models.Model):

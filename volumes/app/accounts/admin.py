@@ -24,15 +24,23 @@ class OTPCodeAdmin(admin.ModelAdmin):
 class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('phone_number', 'full_name', 'balance', 'get_order_count', 'is_block', 'is_active')
+    list_display = ('phone_number', 'full_name', 'balance','orders_count', 'is_block', 'is_active')
     list_filter = ('is_admin',)
     search_fields = ('phone_number__icontains', 'full_name__icontains', 'email__icontains')
     fieldsets = (
-        ('personal information', {'fields': ('phone_number', 'full_name', 'email', 'password',)}),
+        (
+            'personal information', {'fields': ('phone_number', 'full_name', 'email', 'password',)}
+        ),
         (
             'Wallet',
-            {'fields': ('balance', 'amount_change_wallet', 'status_change_wallet', 'description_change_wallet')}),
-        ('Permissions', {'fields': ('is_block', 'is_admin', 'is_active', 'last_login')}),
+            {'fields': ('balance', 'amount_change_wallet', 'status_change_wallet', 'description_change_wallet')}
+        ),
+        (
+            'Activity', {'fields': ('orders_count',)}
+        ),
+        (
+            'Permissions', {'fields': ('is_block', 'is_admin', 'is_active', 'last_login')}
+        ),
     )
 
     add_fieldsets = (
@@ -44,13 +52,6 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     search_fields = ('phone_number',)
     ordering = ('phone_number',)
     filter_horizontal = ()
-
-    def get_order_count(self, obj):
-        order_count = Order.objects.filter(user=obj).count()
-        return order_count
-    
-    get_order_count.admin_order_field = "order_count"
-    get_order_count.short_description = "تعداد سفارش"
     
     def save_model(self, request, obj, form, change):
         obj.user = request.user

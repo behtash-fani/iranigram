@@ -21,7 +21,7 @@ PAYMENT_METHOD = (
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name=_('User'))
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name=_('User'), related_name='orders')
     service_type = models.ForeignKey(ServiceType,on_delete=models.DO_NOTHING,blank=True, null=True,verbose_name=_('ServiceType'))
     service = models.ForeignKey(Service, on_delete=models.DO_NOTHING, blank=True, null=True,verbose_name=_('Service'))
     server_order_code = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('Server Order Code'))
