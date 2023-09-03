@@ -1,5 +1,4 @@
 import requests
-from orders.models import Order
 from environs import Env
 import json
 
@@ -7,34 +6,34 @@ import json
 env = Env()
 env.read_env()
 
-class BLOrderManager: # Parsifollower order manager
-    def __init__(self, order_id):
-        self.order_id = order_id
+class Berlia: # Parsifollower order manager
+    def __init__(self):
         self.endpoint = env("BERLIA_ENDPOINT")
         self.api_key = env("BERLIA_API_KEY")
 
-    def submit_order(self):
-        order = Order.objects.get(id=self.order_id)
+    def submit_order(self, service, link, quantity):
         params = {
             "key": self.api_key,
             "action": "add",
-            "service": order.service.server_service_code,
-            "link": order.link,
-            "quantity": order.quantity,
+            "service": service,
+            "link": link,
+            "quantity": quantity,
         }
         response = requests.post(self.endpoint, params=params)
-        return response.content
+        response = response.content
+        submitted_order = json.loads(response.decode("utf-8"))
+        return submitted_order
 
-    def order_status(self):
-        order = Order.objects.get(id=self.order_id)
-        server_order_code = order.server_order_code
+    def order_status(self,server_order_code):
         params = {
             "key": self.api_key,
             "action": "status",
             "order": server_order_code
         }
         response = requests.post(self.endpoint, params=params)
-        return response.content
+        response = response.content
+        order_status = json.loads(response)
+        return order_status
     
     def get_service_data(self, service_code):
         params = {
