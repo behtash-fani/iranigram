@@ -16,7 +16,7 @@
                     <th scope="col" class="text-center">{% trans "Price" %}</th>
                     <th scope="col" class="text-center">{% trans "Account Balance" %}</th>
                     <th scope="col" class="text-center">{% trans "Created At" %}</th>
-                    <th scope="col" class="text-center">{% trans "Details" %}</th>
+                    <th scope="col" class="text-center">{% trans "Order Code" %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,13 +28,7 @@
                         <td class="text-center">{{ transaction.price }} {% trans "Toman" %}</td>
                         <td class="text-center">{{ transaction.balance }} {% trans "Toman" %}</td>
                         <td class="text-center">{{ transaction.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
-                        <td class="text-center">
-                            {% if transaction.details %}
-                                {{ transaction.details }}
-                            {% else %}
-                                --
-                            {% endif %}
-                        </td>
+                        <td class="text-center">{{ transaction.order_code }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

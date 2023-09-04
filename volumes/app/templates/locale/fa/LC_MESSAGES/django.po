@@ -1049,7 +1049,7 @@ msgstr "برگشت هزینه سفارش کنسلی"
 
 #: transactions/models.py:11
 msgid "return_partial_order_fee"
-msgstr "برگشت هزینه سفارش ناقص"
+msgstr "برگشت مابقی هزینه سفارش ناتمام"
 
 #: transactions/models.py:15
 msgid "wallet"

@@ -81,7 +81,6 @@ class Service(models.Model):
         verbose_name_plural = _("Services")
 
     def save(self, *args, **kwargs):
-        # start get information from webservers that iranigram use from their services when service saved
         if self.server == "parsifollower":
             order_manager = Parsifollower()
         elif self.server == "berlia":
@@ -91,5 +90,4 @@ class Service(models.Model):
         rate = int(float(service_data["rate"]))
         self.price_1000_server = rate
         self.price_1000_site = int(self.amount) * 1000
-        # end information from webservers that iranigram use from their services when service saved
         super().save(*args, **kwargs)
