@@ -32,7 +32,7 @@ SERVER = (
 
 class Service(models.Model):
     service_type = models.ForeignKey(
-        ServiceType, verbose_name=_("ServiceType"), on_delete=models.DO_NOTHING
+        ServiceType, verbose_name=_("Service Type"), on_delete=models.DO_NOTHING
     )
     link_type = models.CharField(
         max_length=20, choices=LINK_TYPE_CHOICES, verbose_name=_("Link Type")
@@ -51,10 +51,10 @@ class Service(models.Model):
         max_length=10, null=True, blank=True, verbose_name=_("Amount Per 1 Number")
     )
     price_1000_site = models.CharField(
-        max_length=10, null=True, blank=True, verbose_name=_("Price for 1000 site")
+        max_length=10, null=True, blank=True, verbose_name=_("Price For 1000 Site")
     )
     price_1000_server = models.CharField(
-        max_length=10, null=True, blank=True, verbose_name=_("Price for 1000 server")
+        max_length=10, null=True, blank=True, verbose_name=_("Price For 1000 Server")
     )
     min_order = models.CharField(
         max_length=10, null=True, blank=True, verbose_name=_("Min Order")
@@ -63,15 +63,17 @@ class Service(models.Model):
         max_length=10, null=True, blank=True, verbose_name=_("Max Order")
     )
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
-    priority = models.IntegerField(_("Display priority"), blank=True, null=True)
+    priority = models.IntegerField(_("Display Priority"), blank=True, null=True)
     available_for_user = models.BooleanField(
         default=True, verbose_name=_("Available For User")
     )
     # available_for_package = models.BooleanField(
-    #     default=False, verbose_name=_("Available For package")
+    #     default=False, verbose_name=_("Available For Package")
     # )
     # packages = models.TextField(blank=True, null=True, verbose_name=_("Packages"))
-    # service_tag = models.CharField(max_length=50, verbose_name=_("service Tag Name"), blank=True, null=True)
+    # service_tag = models.CharField(
+    #     max_length=50, verbose_name=_("Service Tag Name"), blank=True, null=True
+    # )
 
     def __str__(self) -> str:
         return f"{self.title}"

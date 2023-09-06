@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 22:22+0330\n"
+"POT-Creation-Date: 2023-09-05 17:23+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,6 +193,7 @@ msgstr "هم اکنون می توانید با استفاده از کیف پول
 
 #: accounts/templates/accounts/callback_gateway.html:41 orders/models.py:28
 #: orders/templates/orders/orders.html:23 transactions/models.py:29
+#: transactions/templates/transactions/transactions.html:19
 msgid "Order Code"
 msgstr "کد سفارش"
 
@@ -510,12 +511,11 @@ msgstr ""
 "برطرف میکند"
 
 #: common/zarinpal.py:107 common/zarinpal.py:124 common/zarinpal.py:149
-#: orders/admin.py:36 orders/tasks.py:110 orders/tasks.py:143
+#: orders/admin.py:36 orders/tasks.py:87 orders/tasks.py:108
 msgid "Zarinpal"
 msgstr "زرین پال"
 
-#: orders/admin.py:34 orders/models.py:11 orders/tasks.py:108
-#: orders/tasks.py:141
+#: orders/admin.py:34 orders/models.py:11 orders/tasks.py:85
 msgid "Canceled"
 msgstr "لغو شده"
 
@@ -564,7 +564,7 @@ msgstr "در حال انجام"
 msgid "Completed"
 msgstr "کامل شده"
 
-#: orders/models.py:13
+#: orders/models.py:13 orders/tasks.py:106
 msgid "Partial"
 msgstr "ناتمام"
 
@@ -576,12 +576,11 @@ msgstr "برگشت مبلغ شده"
 msgid "online"
 msgstr "آنلاین"
 
-#: orders/models.py:25 service/models.py:11 service/models.py:16
-#: service/models.py:36
+#: orders/models.py:25 service/models.py:8 service/models.py:13
 msgid "ServiceType"
 msgstr "نوع سرویس"
 
-#: orders/models.py:26 service/models.py:55
+#: orders/models.py:26 service/models.py:82
 msgid "Service"
 msgstr "سرویس"
 
@@ -732,7 +731,7 @@ msgstr "تا"
 msgid "Price per 1"
 msgstr "قیمت به ازای ۱ عدد"
 
-#: orders/templates/orders/new_order.html:110 service/models.py:47
+#: orders/templates/orders/new_order.html:110 service/models.py:65
 msgid "Description"
 msgstr "توضیحات"
 
@@ -807,7 +806,7 @@ msgstr "پیش نویس"
 msgid "Publish"
 msgstr "انتشار"
 
-#: posts/models.py:29 service/models.py:41
+#: posts/models.py:29 service/models.py:48
 msgid "Title"
 msgstr "عنوان"
 
@@ -859,61 +858,81 @@ msgstr "تنظیم سئو"
 msgid "SEO Settings"
 msgstr "تنظیمات سئو"
 
-#: service/admin.py:12
+#: service/admin.py:11
 msgid "به روز رسانی سرویس ها"
 msgstr ""
 
-#: service/apps.py:8 service/models.py:56
+#: service/apps.py:8 service/models.py:83
 msgid "Services"
 msgstr "سرویس ها"
 
-#: service/models.py:12 service/models.py:48
+#: service/models.py:9
 msgid "Display priority"
 msgstr "اولویت نمایش"
 
-#: service/models.py:17
+#: service/models.py:14
 msgid "ServiceTypes"
 msgstr "نوع سرویس ها"
 
-#: service/models.py:37
+#: service/models.py:35
+msgid "Service Type"
+msgstr "نوع سرویس"
+
+#: service/models.py:38
 msgid "Link Type"
 msgstr "نوع لینک"
 
-#: service/models.py:38
+#: service/models.py:40
 msgid "Server"
 msgstr "سرور"
 
-#: service/models.py:39
+#: service/models.py:42
 msgid "Server Service Code"
 msgstr "کد سرویس متناظر"
 
-#: service/models.py:40
+#: service/models.py:45
 msgid "Service Code"
 msgstr "کد سرویس"
 
-#: service/models.py:42
+#: service/models.py:51
 msgid "Amount Per 1 Number"
 msgstr "قیمت به ازای هر ۱ عدد"
 
-#: service/models.py:43
-msgid "Price for 1000 site"
+#: service/models.py:54
+msgid "Price For 1000 Site"
 msgstr "قیمت برای ۱۰۰۰ عدد در سایت"
 
-#: service/models.py:44
-msgid "Price for 1000 server"
-msgstr "قیمت برای ۱۰۰۰ عدد در سرورس"
+#: service/models.py:57
+msgid "Price For 1000 Server"
+msgstr "قیمت برای ۱۰۰۰ عدد در سرویس"
 
-#: service/models.py:45
+#: service/models.py:60
 msgid "Min Order"
 msgstr "حداقل سفارش"
 
-#: service/models.py:46
+#: service/models.py:63
 msgid "Max Order"
 msgstr "حداکثر سفارش"
 
-#: service/models.py:49
+#: service/models.py:66
+msgid "Display Priority"
+msgstr "اولویت نمایش"
+
+#: service/models.py:68
 msgid "Available For User"
 msgstr "فعال برای کاربر"
+
+#: service/models.py:71
+msgid "Available For Package"
+msgstr "فعال برای پکیج"
+
+#: service/models.py:73
+msgid "Packages"
+msgstr "پکیج"
+
+#: service/models.py:75
+msgid "Service Tag Name"
+msgstr "تگ پکیج سرویس"
 
 #: support/admin.py:39 support/admin.py:48 support/models.py:47
 #: support/templates/support/support.html:28
@@ -987,7 +1006,6 @@ msgid "Ticket Code"
 msgstr "شماره تیکت"
 
 #: support/templates/support/support.html:31 transactions/models.py:28
-#: transactions/templates/transactions/transactions.html:19
 msgid "Details"
 msgstr "جزییات"
 
@@ -1093,7 +1111,7 @@ msgstr "گزارش تراکنش ها"
 msgid "Account Balance"
 msgstr "مانده اعتبار"
 
-#: transactions/templates/transactions/transactions.html:45
+#: transactions/templates/transactions/transactions.html:39
 msgid "No transaction found yet"
 msgstr "تا به الان تراکنشی یافت نشد"
 
@@ -1128,20 +1146,3 @@ msgstr "خروج"
 #: templates/inc/navbar.html:163
 msgid "Account"
 msgstr "حساب کاربری"
-
-#, fuzzy
-#~| msgid "Service"
-#~ msgid "Template Service"
-#~ msgstr "سرویس"
-
-#~ msgid "Server Amount"
-#~ msgstr "قیمت سرور"
-
-#~ msgid "The link entered is not a valid Instagram post link"
-#~ msgstr "لینک وارد شده یک لینک صحیح پست اینستاگرام نیست"
-
-#~ msgid "Canonical Tag"
-#~ msgstr "تگ کنونیکال"
-
-#~ msgid "Seo"
-#~ msgstr "سئو"
