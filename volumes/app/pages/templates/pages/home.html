@@ -5,21 +5,27 @@
 {% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
 <!-- Start Title Tag -->
 {% block meta %}
-<link href="https://iranigram.com/" rel="canonical">
-<meta name="robots" content="all">
-<meta http-equiv="content-language" content="fa">
+<!-- Start Canonical Tag -->
+{% if canonical_link %}
+<link href="{{canonical_link}}" rel="canonical">
+{% else %}
+<link href="" rel="canonical">
+{% endif %}
+<!-- End Canonical Tag -->
+<meta content="all" name="robots">
+<meta content="fa" http-equiv="content-language">
 <!-- Start Description Tag -->
 {% if description_tag %}
-<meta name="description" content="{{description_tag}}">
+<meta content="{{description_tag}}" name="description">
 {% else %}
-<meta name="description" content="">
+<meta content="" name="description">
 {% endif %}
 <!-- End Description Tag -->
 <!-- Start Keywords Tag -->
 {% if keywords_tag %}
-<meta name="keywords" content="{{keywords_tag}}">
+<meta content="{{keywords_tag}}" name="keywords">
 {% else %}
-<meta name="keywords" content="">
+<meta content="" name="keywords">
 {% endif %}
 <!-- End Keywords Tag -->
 {% endblock meta %}
@@ -27,8 +33,8 @@
 <div class="container">
     <div class="row mb-5 mt-4">
         <div class="col-lg-4 col-12 text-center">
-            <img src="{% static 'image/top_banner.webp' %}" class="img-fluid mt-4" alt="افزایش بازدید استوری"
-                width="416px" height="409px">
+            <img alt="افزایش بازدید استوری" class="img-fluid mt-4" height="409px"
+                 src="{% static 'image/top_banner.webp' %}" width="416px">
         </div>
         <div class="col-lg-8 col-12 mt-5">
             <span class="fs-1 px-2 px-lg-0" style="font-size:45px !important;font-weight:900;">
@@ -38,22 +44,22 @@
                 افزایش بازدید پست و استوری در قدیمی ترین وب سایت ارائه خدمات اینستاگرام</h1>
             <div class="row mt-4">
                 <div>
-                    <a href="{% url 'accounts:new_order' %}"
-                        class="btn btn-warning rounded-4 col-lg-3 col-12 mt-lg-0 py-4">
+                    <a class="btn btn-warning rounded-4 col-lg-3 col-12 mt-lg-0 py-4"
+                       href="{% url 'accounts:new_order' %}">
                         ورود به پنل کاربری
-                        <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش چپ" width="24px" height="24px">
+                        <img alt="فلش چپ" height="24px" src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px">
                     </a>
-                    <a href="{% url 'accounts:new_order' %}"
-                        class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4">
+                    <a class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4"
+                       href="{% url 'accounts:new_order' %}">
                         خرید فالوور اینستاگرام
-                        <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="خرید فالوور اینستاگرام" width="24px"
-                            height="24px">
+                        <img alt="خرید فالوور اینستاگرام" height="24px" src="{% static 'icons/Arrow-Left-White.svg' %}"
+                             width="24px">
                     </a>
-                    <a href="{% url 'accounts:new_order' %}"
-                        class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4">
+                    <a class="btn btn-dark rounded-4 col-lg-3 col-12 mt-2 mt-lg-0 py-4"
+                       href="{% url 'accounts:new_order' %}">
                         خرید لایک اینستاگرام
-                        <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="خرید لایک اینستاگرام" width="24px"
-                            height="24px">
+                        <img alt="خرید لایک اینستاگرام" height="24px" src="{% static 'icons/Arrow-Left-White.svg' %}"
+                             width="24px">
                     </a>
                 </div>
             </div>
@@ -65,24 +71,24 @@
             <p style="font-size:50px !important;font-weight: 900;">ایرانی گرام</p>
         </div>
         <div class="col-lg-2 col-12 mt-2 mt-lg-0">
-            <p><img src="{% static 'icons/medal-star.svg' %}" alt="بالاترین کیفیت خدمات" width="60px" height="60px"></p>
+            <p><img alt="بالاترین کیفیت خدمات" height="60px" src="{% static 'icons/medal-star.svg' %}" width="60px"></p>
 
             <span class="fs-5 fw-bold">بالاترین کیفیت خدمات</span><br>
             <small class="mt-3">بالاترین و با کیفیت ترین خدمات را از ایرانی گرام بخواهید</small>
         </div>
         <div class="col-lg-2 col-12 mt-2 mt-lg-0">
-            <p><img src="{% static 'icons/star.svg' %}" alt="سرعت بالا" width="60px" height="60px"></p>
+            <p><img alt="سرعت بالا" height="60px" src="{% static 'icons/star.svg' %}" width="60px"></p>
             <span class="fs-5 fw-bold">سرعت بالا</span><br>
             <small class="mt-3">در سرعت و دقت ایرانی گرام همیشه در اولویت شما خواهد بود</small>
         </div>
         <div class="col-lg-2 col-12 mt-2 mt-lg-0">
-            <p><img src="{% static 'icons/receipt-search.svg' %}" alt="مناسبت ترین تعرفه ها" width="60px" height="60px">
+            <p><img alt="مناسبت ترین تعرفه ها" height="60px" src="{% static 'icons/receipt-search.svg' %}" width="60px">
             </p>
             <span class="fs-5 fw-bold">مناسبت ترین تعرفه ها</span><br>
             <small class="mt-3">تعرفه های مناسب در کنار کیفیت فقط در ایرانی گرام معنی پیدا میکند</small>
         </div>
         <div class="col-lg-2 col-12 mt-2 mt-lg-0">
-            <p><img src="{% static 'icons/like-tag.svg' %}" alt="پشتیبانی ۲۴ ساعته" width="60px" height="60px"></p>
+            <p><img alt="پشتیبانی ۲۴ ساعته" height="60px" src="{% static 'icons/like-tag.svg' %}" width="60px"></p>
             <span class="fs-5 fw-bold">پشتیبانی</span><br>
             <small class="mt-3">پشتیبانی ایرانی گرام همیشه در کنار شما خواهد بود و حامی شماست</small>
         </div>
@@ -98,46 +104,47 @@
                 همچنین در این پنل اختصاصی امکانات بسیار کاربردی از قبیل خرید تمامی سرویس های ایرانی گرام با قابلیت
                 شارژ و داشتن موجودی و خریدهای گروهی و امکانات دیگری مانند مشاهده تمامی لیست سفارشاتتان و تراکنش هایی
                 که انجام داده اید قرار داده شده که میتوانید استفاده کنید.</p>
-            <a href="{% url 'accounts:user_register' %}" class="btn btn-warning btn-lg rounded-4 py-3">ثبت نام در سایت
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="ثبت نام در ایرانی گرام" width="24px"
-                    height="24px">
+            <a class="btn btn-warning btn-lg rounded-4 py-3" href="{% url 'accounts:user_register' %}">ثبت نام در سایت
+                <img alt="ثبت نام در ایرانی گرام" height="24px" src="{% static 'icons/Arrow-Left-Black.svg' %}"
+                     width="24px">
             </a>
         </div>
         <div class="col-lg-6 col-12 text-center">
-            <img src="{% static 'image/instagram-banner.webp' %}" class="img-fluid" alt="شروع کار ایرانی گرام چگونه است"
-                width="500px" height="514px">
+            <img alt="شروع کار ایرانی گرام چگونه است" class="img-fluid" height="514px"
+                 src="{% static 'image/instagram-banner.webp' %}" width="500px">
         </div>
     </div>
     <div class="row mt-2">
         <div class="col-lg-6 col-12 text-center mt-5">
-            <img src="{% static 'image/followers.webp' %}" class="img-fluid" alt="شروع خرید فالوور با کیفیت اینستاگرام"
-                width="300px" height="386px"><br>
-            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-4 rounded-4 py-4">
+            <img alt="شروع خرید فالوور با کیفیت اینستاگرام" class="img-fluid" height="386px"
+                 src="{% static 'image/followers.webp' %}" width="300px"><br>
+            <a class="btn btn-dark btn-lg mt-4 rounded-4 py-4" href="{% url 'accounts:new_order' %}">
                 شروع خرید فالوور با کیفیت اینستاگرام
-                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="خرید فالوور" width="24px" height="24px">
+                <img alt="خرید فالوور" height="24px" src="{% static 'icons/Arrow-Left-White.svg' %}" width="24px">
             </a>
         </div>
         <div class="col-lg-6 col-12">
-            <img src="{% static 'image/flw_icon.webp' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px"
-                height="107px"><br>
+            <img class="mb-3 img-fluid mt-4 mt-lg-0" height="107px" src="{% static 'image/flw_icon.webp' %}"
+                 width="126px"><br>
             <span class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
             <h2 class="my-4 fw-bold">خرید فالوور با کیفیت اینستاگرام</h2>
             <div class='row'>
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/card-receive.svg' %}" alt="ضمانت بازگشت وجه" width="24px"
-                                height="24px">
+                            <img alt="ضمانت بازگشت وجه" height="24px" src="{% static 'icons/card-receive.svg' %}"
+                                 width="24px">
                             ضمانت بازگشت وجه
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/people.svg' %}" alt="بدون نیاز به فالوو کردن دیگران" width="24px"
-                                height="24px">
+                            <img alt="بدون نیاز به فالوو کردن دیگران" height="24px"
+                                 src="{% static 'icons/people.svg' %}"
+                                 width="24px">
                             بدون نیاز به فالوو کردن دیگران
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/unlock.svg' %}" alt="بدون نیاز به پسورد پیج" width="24px"
-                                height="24px">
+                            <img alt="بدون نیاز به پسورد پیج" height="24px" src="{% static 'icons/unlock.svg' %}"
+                                 width="24px">
                             بدون نیاز به پسورد پیج
                         </li>
                     </ul>
@@ -145,13 +152,13 @@
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/timer-start.svg' %}" alt="شروع آنی پس از ثبت سفارش" width="24px"
-                                height="24px">
+                            <img alt="شروع آنی پس از ثبت سفارش" height="24px" src="{% static 'icons/timer-start.svg' %}"
+                                 width="24px">
                             شروع آنی پس از ثبت سفارش
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/trend-down.svg' %}" alt="دارای ریزش طبیعی" width="24px"
-                                height="24px">
+                            <img alt="دارای ریزش طبیعی" height="24px" src="{% static 'icons/trend-down.svg' %}"
+                                 width="24px">
                             دارای ریزش طبیعی
                         </li>
                     </ul>
@@ -167,26 +174,26 @@
     </div>
     <div class="row my-5">
         <div class="col">
-            <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid" alt="ایرانی گرام ضامن کیفیت خرید شما"
-                width="118px" height="119px"><br>
+            <img alt="ایرانی گرام ضامن کیفیت خرید شما" class="mb-3 img-fluid" height="119px"
+                 src="{% static 'image/like_icon.webp' %}" width="118px"><br>
             <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
             <h2 class="fw-bold my-4">خرید لایک با کیفیت اینستاگرام</h2>
             <div class='row'>
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/card-receive.svg' %}" alt="ضمانت بازگشت وجه" width="24px"
-                                height="24px">
+                            <img alt="ضمانت بازگشت وجه" height="24px" src="{% static 'icons/card-receive.svg' %}"
+                                 width="24px">
                             ضمانت بازگشت وجه
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/Heart.svg' %}" alt="بدون نیاز به لایک کردن دیگران" width="24px"
-                                height="24px">
+                            <img alt="بدون نیاز به لایک کردن دیگران" height="24px" src="{% static 'icons/Heart.svg' %}"
+                                 width="24px">
                             بدون نیاز به لایک کردن دیگران
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/unlock.svg' %}" alt="بدون نیاز به پسورد پیج" width="24px"
-                                height="24px">
+                            <img alt="بدون نیاز به پسورد پیج" height="24px" src="{% static 'icons/unlock.svg' %}"
+                                 width="24px">
                             بدون نیاز به پسورد پیج
                         </li>
                     </ul>
@@ -194,12 +201,12 @@
                 <div class="col-md-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/timer-start.svg' %}" alt="شروع آنی پس از ثبت سفارش" width="24px"
-                                height="24px">
+                            <img alt="شروع آنی پس از ثبت سفارش" height="24px" src="{% static 'icons/timer-start.svg' %}"
+                                 width="24px">
                             شروع آنی پس از ثبت سفارش
                         </li>
                         <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/Speed.svg' %}" alt="سرعت ارسال عالی" width="24px" height="24px">
+                            <img alt="سرعت ارسال عالی" height="24px" src="{% static 'icons/Speed.svg' %}" width="24px">
                             سرعت ارسال عالی
                         </li>
                     </ul>
@@ -212,18 +219,18 @@
                 دهید و به افزایش لایک و دیده شدن بیشتر پست خود نظارت کنید.</p>
         </div>
         <div class="col-lg-6 col-12 text-center mt-5">
-            <img src="{% static 'image/likes.webp' %}" class="img-fluid" alt="شروع خرید لایک واقعی اینستاگرام"
-                width="300px" height="440px"><br>
-            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-4 rounded-4 py-4">
+            <img alt="شروع خرید لایک واقعی اینستاگرام" class="img-fluid" height="440px"
+                 src="{% static 'image/likes.webp' %}" width="300px"><br>
+            <a class="btn btn-dark btn-lg mt-4 rounded-4 py-4" href="{% url 'accounts:new_order' %}">
                 شروع خرید لایک واقعی اینستاگرام
-                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="فلش سمت چپ" width="24px" height="24px">
+                <img alt="فلش سمت چپ" height="24px" src="{% static 'icons/Arrow-Left-White.svg' %}" width="24px">
             </a>
         </div>
     </div>
     <div class="row my-5">
         <div class="col-lg-6 col-12 text-center">
-            <img src="{% static 'image/other_product.webp' %}" class="img-fluid" width="400px" height="293px"
-                alt="محصولات دیگر"><br>
+            <img alt="محصولات دیگر" class="img-fluid" height="293px" src="{% static 'image/other_product.webp' %}"
+                 width="400px"><br>
         </div>
         <div class="col-lg-6 col-12">
             <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
@@ -233,10 +240,10 @@
                 پنل اختصاصی که برای شما تهیه شده تمام محصولاتی که مرتبط با پلتفرم اینستاگرام هست را مشاهده کنید و
                 تهیه بفرمایید. محصولاتی مانند بازدید پست اینستاگرام ، بازدید استوری اینستاگرام و بازدید ریل
                 اینستاگرام</p>
-            <a href="{% url 'accounts:user_dashboard' %}" class="btn btn-warning btn-lg rounded-4 py-4">
+            <a class="btn btn-warning btn-lg rounded-4 py-4" href="{% url 'accounts:user_dashboard' %}">
                 ورود به پنل اختصاصی ایرانی گرام
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="پنل اختصاصی ایرانی گرام" width="24px"
-                    height="24px">
+                <img alt="پنل اختصاصی ایرانی گرام" height="24px" src="{% static 'icons/Arrow-Left-Black.svg' %}"
+                     width="24px">
             </a>
         </div>
     </div>
@@ -245,14 +252,14 @@
             <p class="mt-5 fs-1 fw-bold">سوالی دارید؟</p>
             <p class="text-warning fs-3 fw-semibold">پشتیبانی ما در خدمت شما هستند</p>
             <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
-            <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
+            <a class="btn btn-warning rounded-4 py-4" href="{% url 'accounts:submit_ticket' %}">
                 ارتباط با پشتیبانی
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ" width="24px" height="24px">
+                <img alt="فلش سمت چپ" height="24px" src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px">
             </a>
         </div>
         <div class="col-lg-6 col-12">
-            <img src="{% static 'image/support.webp' %}" class="img-fluid" width="450px" height="252px"
-                alt="پشتیبانی ایرانی گرام"><br>
+            <img alt="پشتیبانی ایرانی گرام" class="img-fluid" height="252px" src="{% static 'image/support.webp' %}"
+                 width="450px"><br>
         </div>
     </div>
     <div class="mb-5 mt-2">
@@ -260,11 +267,11 @@
         <div class="row row-cols-1 row-cols-md-4 g-4 mb-3">
             {% for post in posts %}
             <div class="col mt-lg-5 mt-md-3">
-                <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank" class="text-decoration-none">
+                <a class="text-decoration-none" href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank">
                     <div class="card h-100 rounded-4 border border-0 shadow p-2">
                         {% if post.thumbnail %}
-                        <img src="{{post.thumbnail.url}}" class="card-img-top rounded-4 h-md-100 post-img" width="290px"
-                            height="192px" alt="{{post.title}}">
+                        <img alt="{{post.title}}" class="card-img-top rounded-4 h-md-100 post-img" height="192px"
+                             src="{{post.thumbnail.url}}" width="290px">
                         {% endif %}
                         <div class="card-body">
                             <h6 class="card-title fw-semibold custom-black lh-base">{{post.title}}</h6>
@@ -275,9 +282,9 @@
             {% endfor %}
         </div>
         <div class="text-center">
-            <a href="{% url 'posts:posts_list' %}" class="btn btn-light btn-lg mt-4 rounded-4 py-4 shadow">
+            <a class="btn btn-light btn-lg mt-4 rounded-4 py-4 shadow" href="{% url 'posts:posts_list' %}">
                 مشاهده تمامی آموزش ها
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ" width="24px" height="24px">
+                <img alt="فلش سمت چپ" height="24px" src="{% static 'icons/Arrow-Left-Black.svg' %}" width="24px">
             </a>
         </div>
     </div>

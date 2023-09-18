@@ -5,7 +5,13 @@
 {% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
 <!-- Start Title Tag -->
 {% block meta %}
-<link href="https://iranigram.com/iranian-instagram-followers/" rel="canonical">
+<!-- Start Canonical Tag -->
+{% if canonical_link %}
+<link href="{{canonical_link}}" rel="canonical">
+{% else %}
+<link href="" rel="canonical">
+{% endif %}
+<!-- End Canonical Tag -->
 <meta name="robots" content="all">
 <meta http-equiv="content-language" content="fa">
 <!-- Start Description Tag -->

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-17 22:10+0330\n"
+"POT-Creation-Date: 2023-09-17 22:43+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -851,14 +851,18 @@ msgid "Meta Keywords Tag"
 msgstr "تگ کلمات کلیدی"
 
 #: seo/models.py:11
+msgid "Canonical Link"
+msgstr "لینک کنونیکال"
+
+#: seo/models.py:12
 msgid "Title Tag"
 msgstr "تگ عنوان"
 
-#: seo/models.py:19
+#: seo/models.py:20
 msgid "SEO Setting"
 msgstr "تنظیم سئو"
 
-#: seo/models.py:20
+#: seo/models.py:21
 msgid "SEO Settings"
 msgstr "تنظیمات سئو"
 

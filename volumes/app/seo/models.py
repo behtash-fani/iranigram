@@ -8,6 +8,7 @@ class PagesSeo(models.Model):
     page = models.CharField(_('Which Page'),max_length=255, blank=True, null=True)
     description_tag = models.TextField(_('Meta Description Tag'),blank=True, null=True)
     keywords_tag = models.CharField(_('Meta Keywords Tag'),max_length=255, blank=True, null=True)
+    canonical_link = models.CharField(_('Canonical Link'),max_length=255, blank=True, null=True)
     title_tag = models.CharField(_('Title Tag'),max_length=255, blank=True, null=True)
 
 

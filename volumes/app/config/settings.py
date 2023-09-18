@@ -15,7 +15,7 @@ DEBUG = env.bool("DEBUG")
 SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
-SUBMIT_AUTOMATIC_ORDERS=env.bool("SUBMIT_AUTOMATIC_ORDERS")
+SUBMIT_AUTOMATIC_ORDERS = env.bool("SUBMIT_AUTOMATIC_ORDERS")
 
 # Application definition
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "admin_reorder",
     # 'django_redis',
     # local apps
-    "pages.apps.PagesConfig",
+    'pages.apps.PagesConfig',
     "service.apps.ServiceConfig",
     "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "posts.apps.PostsConfig",
     "seo.apps.SeoConfig",
     'import_export',
-    
+
 ]
 SITE_ID = 1
 
@@ -138,7 +138,7 @@ if DEBUG:
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
 
 
-MEDIA_URL = '/media/' 
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 CKEDITOR_UPLOAD_PATH = "blog/"
 # Default primary key field type
@@ -202,7 +202,7 @@ CACHES = {
 }
 
 
-LOGOUT_REDIRECT_URL="pages:home"
+LOGOUT_REDIRECT_URL = "pages:home"
 LOGIN_URL = "accounts:user_login_otp"
 
 if not DEBUG:
@@ -218,7 +218,6 @@ if not DEBUG:
             },
         },
     )
-
 
     HANDLERS = {
         "console_handler": {
@@ -277,7 +276,6 @@ if not DEBUG:
         },
     )
 
-
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
@@ -285,3 +283,8 @@ if not DEBUG:
         "handlers": HANDLERS,
         "loggers": LOGGERS[0],
     }
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
