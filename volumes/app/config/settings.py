@@ -27,17 +27,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.humanize',
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
+    "django.contrib.humanize",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "django_celery_beat",
     "jalali_date",
-    'ckeditor',
-    'ckeditor_uploader',
+    "ckeditor",
+    "ckeditor_uploader",
     "admin_reorder",
-    # 'django_redis',
+    "robots",
+    "import_export",
     # local apps
-    'pages.apps.PagesConfig',
+    "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
     "orders.apps.OrdersConfig",
     "accounts.apps.AccountsConfig",
@@ -45,8 +46,6 @@ INSTALLED_APPS = [
     "support.apps.SupportConfig",
     "posts.apps.PostsConfig",
     "seo.apps.SeoConfig",
-    'import_export',
-
 ]
 SITE_ID = 1
 
@@ -70,6 +69,7 @@ ADMIN_REORDER = (
     {"app": "service"},
     {"app": "seo"},
     {"app": "posts"},
+    {"app": "robots"},
     {"app": "django_celery_beat"},
     {"app": "admin_persian"},
     {"app": "sites"},
@@ -93,7 +93,10 @@ TEMPLATES = [
         },
     },
 ]
-
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
@@ -284,7 +287,4 @@ if not DEBUG:
         "loggers": LOGGERS[0],
     }
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+
