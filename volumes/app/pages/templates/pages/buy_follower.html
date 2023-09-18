@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{title_tag}}{% endblock %}
+<!-- Start Title Tag -->
+{% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
+<!-- Start Title Tag -->
 {% block meta %}
-<meta name="description"
-    content="خرید فالوور واقعی اینستاگرام با ارسال فوری از ایرانی گرام فالوور ارزان فعال ایرانی بخرید شامل خرید فالوور بدون ریزش اینستاگرام ارزان قیمت همراه فالوور رایگان">
 <link href="https://iranigram.com/iranian-instagram-followers/" rel="canonical">
-<meta name="keywords" content="خرید فالوور اینستاگرام">
-<meta content="https://iranigram.com/" property="og:url">
-<meta content="Iranigram" property="og:site_name">
-<meta content="954496781748371" property="fb:app_id">
 <meta name="robots" content="all">
-<meta content="fa_IR" property="og:locale">
-<meta content="website" property="og:type">
-<meta content="خرید لایک اینستاگرام ارزان | فالوور اینستاگرام | ایرانی گرام" property="og:title">
+<meta http-equiv="content-language" content="fa">
+<!-- Start Description Tag -->
+{% if description_tag %}
+<meta name="description" content="{{description_tag}}">
+{% else %}
+<meta name="description" content="">
+{% endif %}
+<!-- End Description Tag -->
+<!-- Start Keywords Tag -->
+{% if keywords_tag %}
+<meta name="keywords" content="{{keywords_tag}}">
+{% else %}
+<meta name="keywords" content="">
+{% endif %}
+<!-- End Keywords Tag -->
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -380,12 +388,12 @@
             حالا باید یاد بگیریم برای افزایش فالوور اینستاگرام چه راه هایی وجود داره :
         </h2>
         <p class="lh-lg fs-6">
-            <p class="fs-6 fw-semibold">1. ارسال محتوای عالی و جذاب.</p>
-            <p class="fs-6 fw-semibold">2. استفاده از هشتگ‌های مرتبط بر اساس ترند های روز.</p>
-            <p class="fs-6 fw-semibold">3. ارتباط و تعامل با دیگران.</p>
-            <p class="fs-6 fw-semibold">4. انجام همکاری با سایر اکانت‌های مرتبط.</p>
-            <p class="fs-6 fw-semibold">5. استفاده از روش‌های تبلیغاتی.</p>
-            <p class="fs-6 fw-semibold">6. و خیلی از راه های دیگه که میتونی اینجا بخونی </p>‌
+        <p class="fs-6 fw-semibold">1. ارسال محتوای عالی و جذاب.</p>
+        <p class="fs-6 fw-semibold">2. استفاده از هشتگ‌های مرتبط بر اساس ترند های روز.</p>
+        <p class="fs-6 fw-semibold">3. ارتباط و تعامل با دیگران.</p>
+        <p class="fs-6 fw-semibold">4. انجام همکاری با سایر اکانت‌های مرتبط.</p>
+        <p class="fs-6 fw-semibold">5. استفاده از روش‌های تبلیغاتی.</p>
+        <p class="fs-6 fw-semibold">6. و خیلی از راه های دیگه که میتونی اینجا بخونی </p>‌
         </p>
         <h2 class="fw-bold px-2 px-lg-0">
             فالوور اینستاگرام ارزان بخریم یا نخریم؟

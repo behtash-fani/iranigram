@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}خرید فالوور اینستاگرام و خرید لایک اینستاگرام{% endblock %}
+<!-- Start Title Tag -->
+{% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
+<!-- Start Title Tag -->
 {% block meta %}
-<meta name="description"
-    content="افزایش و خرید فالوور اینستاگرام ارزان و با کیفیت ✓ جبران کامل ریزش ها ✓ برگشت وجه بدون قید و شرط  ✓ خرید لایک اینستاگرام و خرید بازدید اینستاگرام ✓ پشتیبانی ۲۴ ساعته">
 <link href="https://iranigram.com/" rel="canonical">
 <meta name="robots" content="all">
 <meta http-equiv="content-language" content="fa">
+<!-- Start Description Tag -->
+{% if description_tag %}
+<meta name="description" content="{{description_tag}}">
+{% else %}
+<meta name="description" content="">
+{% endif %}
+<!-- End Description Tag -->
+<!-- Start Keywords Tag -->
+{% if keywords_tag %}
+<meta name="keywords" content="{{keywords_tag}}">
+{% else %}
+<meta name="keywords" content="">
+{% endif %}
+<!-- End Keywords Tag -->
 {% endblock meta %}
 {% block content %}
 <div class="container">

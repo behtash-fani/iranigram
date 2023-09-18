@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 17:23+0330\n"
+"POT-Creation-Date: 2023-09-17 22:10+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -847,18 +847,22 @@ msgid "Meta Description Tag"
 msgstr "تگ توضیحات متا"
 
 #: seo/models.py:10
+msgid "Meta Keywords Tag"
+msgstr "تگ کلمات کلیدی"
+
+#: seo/models.py:11
 msgid "Title Tag"
 msgstr "تگ عنوان"
 
-#: seo/models.py:18
+#: seo/models.py:19
 msgid "SEO Setting"
 msgstr "تنظیم سئو"
 
-#: seo/models.py:19
+#: seo/models.py:20
 msgid "SEO Settings"
 msgstr "تنظیمات سئو"
 
-#: service/admin.py:11
+#: service/admin.py:12
 msgid "به روز رسانی سرویس ها"
 msgstr ""
 
@@ -921,18 +925,6 @@ msgstr "اولویت نمایش"
 #: service/models.py:68
 msgid "Available For User"
 msgstr "فعال برای کاربر"
-
-#: service/models.py:71
-msgid "Available For Package"
-msgstr "فعال برای پکیج"
-
-#: service/models.py:73
-msgid "Packages"
-msgstr "پکیج"
-
-#: service/models.py:75
-msgid "Service Tag Name"
-msgstr "تگ پکیج سرویس"
 
 #: support/admin.py:39 support/admin.py:48 support/models.py:47
 #: support/templates/support/support.html:28
@@ -1146,3 +1138,12 @@ msgstr "خروج"
 #: templates/inc/navbar.html:163
 msgid "Account"
 msgstr "حساب کاربری"
+
+#~ msgid "Available For Package"
+#~ msgstr "فعال برای پکیج"
+
+#~ msgid "Packages"
+#~ msgstr "پکیج"
+
+#~ msgid "Service Tag Name"
+#~ msgstr "تگ پکیج سرویس"

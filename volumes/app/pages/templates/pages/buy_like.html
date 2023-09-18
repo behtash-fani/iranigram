@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{{title_tag}}{% endblock %}
+<!-- Start Title Tag -->
+{% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
+<!-- Start Title Tag -->
 {% block meta %}
-
-<meta name="description"
-    content="خرید لایک اینستاگرام و خرید فالوور اینستاگرام از ایرانی گرام - معتبرترین و قدیمی ترین تیم تبلیغاتی اینستاگرام - خیالتان از امنیت پیج اینستاگرامتان راحت باشد" />
-<meta name="keywords" content="خرید لایک اینستاگرام">
-<meta content="https://iranigram.com/" property="og:url">
-<meta content="Iranigram" property="og:site_name">
-<meta content="954496781748371" property="fb:app_id">
-<meta name="robots" content="all">
-<meta content="fa_IR" property="og:locale">
 <link href="https://iranigram.com/%D8%AE%D8%B1%DB%8C%D8%AF-%D9%84%D8%A7%DB%8C%DA%A9-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D8%A7%DB%8C%D9%86%D8%B3%D8%AA%D8%A7%DA%AF%D8%B1%D8%A7%D9%85/" rel="canonical">
-<meta content="website" property="og:type">
-<meta content="خرید لایک اینستاگرام و فالوور اینستاگرام" property="og:title">
+<meta name="robots" content="all">
+<meta http-equiv="content-language" content="fa">
+<!-- Start Description Tag -->
+{% if description_tag %}
+<meta name="description" content="{{description_tag}}">
+{% else %}
+<meta name="description" content="">
+{% endif %}
+<!-- End Description Tag -->
+<!-- Start Keywords Tag -->
+{% if keywords_tag %}
+<meta name="keywords" content="{{keywords_tag}}">
+{% else %}
+<meta name="keywords" content="">
+{% endif %}
+<!-- End Keywords Tag -->
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
