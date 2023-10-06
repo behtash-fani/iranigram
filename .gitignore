@@ -33,3 +33,4 @@ volumes/app/service/migrations/__init__.py
 volumes/app/support/migrations/__init__.py
 volumes/app/transactions/migrations/__init__.py
 volumes/app/utils/total_users_file.json
+nginx/default.conf
