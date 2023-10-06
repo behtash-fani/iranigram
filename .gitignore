@@ -7,7 +7,7 @@
 *.log
 *.log*
 .env
-
+default.conf
 
 **/migrations/**
 migrations/
