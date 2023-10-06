@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+<!-- Start Title Tag -->
+{% block title %}
+ثبت نام در ایرانی گرام
+{% endblock %}
+<!-- Start Title Tag -->
 {% block content %}
     <div class="d-flex justify-content-center mt-5 p-3">
         <div class="col-sm-6 col-lg-4 col-xl-3">
@@ -37,7 +42,7 @@
                 </button>
             </form>
             <hr>
-            <a href="{% url 'accounts:user_login_otp' %}" class="btn btn-light shadow-sm text-black text-decoration-none rounded-4 py-2">
+            <a href="{% url 'accounts:user_login_otp' %}" class="btn btn-light shadow-sm rounded-3 text-black text-decoration-none rounded-4 py-4">
                 {% trans "Do you have an account? " %} {% trans "Login" %}
             </a>
         </div>

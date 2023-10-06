@@ -148,17 +148,8 @@ class UserLoginWithOTPView(View):
         otp_login_form = self.form_class(request.POST)
         if otp_login_form.is_valid():
             cd = otp_login_form.cleaned_data
-            verification_code = generate_random_number(4, is_unique=False)
             phone_number = cd["phone_number"]
-            send_login_sms_task.delay(phone_number, verification_code)
-            if OTPCode.objects.filter(phone_number=phone_number).exists():
-                OTPCode.objects.filter(phone_number=phone_number).delete()
-            OTPCode.objects.create(
-                phone_number=phone_number,
-                code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=120),
-            )
-            request.session["phone_number"] = cd["phone_number"]
+            request.session["phone_number"] = phone_number
             messages.success(request, _("A one-time password has been sent"), "success")
             return redirect("accounts:user_login_verify")
         else:

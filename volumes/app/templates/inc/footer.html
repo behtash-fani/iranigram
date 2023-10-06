@@ -47,10 +47,10 @@
                     </li>
                     {% else %}
                     <li class="list-group-item bg-transparent border-0 py-3">
-                        <a href="#" class="text-decoration-none text-white-50">ورود</a>
+                        <a href="{% url "accounts:user_login_otp" %}" class="text-decoration-none text-white-50">ورود</a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 py-3">
-                        <a href="#" class="text-decoration-none text-white-50">ثبت نام</a>
+                        <a href="{% url "accounts:user_register" %}" class="text-decoration-none text-white-50">ثبت نام</a>
                     </li>
                     {% endif %}
                     <li class="list-group-item bg-transparent border-0 py-3">

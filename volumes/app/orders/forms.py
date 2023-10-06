@@ -79,3 +79,29 @@ class OrderForm(forms.ModelForm):
         if quantity is None:
             raise forms.ValidationError(_("Please enter quantity of order"))
         return quantity
+    
+
+class TemplateNewOrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ["link"]
+        widgets = {
+         "link": forms.TextInput(
+                attrs={
+                    "class": "form-control text-left",
+                    "dir": "ltr",
+                    "autocomplete": "off",
+                    "placeholder":"Enter Instagram Public Link/ID "
+                }
+            ), 
+        }
+        error_messages = {
+            "link": {
+                "required": _("Please enter a valid Instagram link"),
+            },
+        }
+    def clean_link(self):
+        link = self.cleaned_data["link"]
+        if link is None:  # if link field is empty raise error
+            raise forms.ValidationError(_("Please enter a instagram public link/id"))
+        return link
