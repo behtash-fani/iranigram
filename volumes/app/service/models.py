@@ -113,6 +113,9 @@ class Packages(models.Model):
     amount = models.CharField(
         max_length=10, null=True, blank=True, verbose_name=_("Amount")
     )
+    priority = models.IntegerField(
+        _("Display Priority"), blank=True, null=True)
+    
 
     def __str__(self) -> str:
         return f"{self.service}"

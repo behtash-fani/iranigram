@@ -20,7 +20,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             flw_packages[tag] = packages
 
         like_service_tags = ['like1', 'like2', 'like3']
@@ -29,7 +29,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             like_packages[tag] = packages
 
         view_service_tags = ['view1', 'view2', 'sview']
@@ -38,7 +38,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             view_packages[tag] = packages
         posts = Post.objects.all()[0:4]
         context = {
@@ -74,7 +74,7 @@ class FollowerView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             flw_packages[tag] = packages
 
         context = {
@@ -102,7 +102,7 @@ class LikeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             like_packages[tag] = packages
         context = {
             'description_tag': description_tag,
@@ -131,7 +131,7 @@ class ViewView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
-            )
+            ).order_by('priority')
             view_packages[tag] = packages
         context = {
             'description_tag': description_tag,
