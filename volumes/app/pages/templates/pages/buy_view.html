@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 <!-- Start Title Tag -->
 {% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
 <!-- Start Title Tag -->
@@ -88,60 +89,53 @@
                 را با افزایش بازدید ویدیوها ارتقا می دهند و اکسپلور هم پر از ویدیوهای وایرال شده می باشد که صرفاً بر
                 پایه تعداد بازدید و ریچ به آنجا رسیده اند. داشتن بازدید بیشتر و خرید بازدید اینستاگرام مطمئناً در
                 ارتقا پیج شما و اعتبار آن به شما کمک خواهد کرد.</p>
-            <a class="btn btn-warning btn-lg rounded-4 py-4" href="{% url 'accounts:new_order' %}">
-                شروع خرید بازدید واقعی اینستاگرام
-                <img alt="" src="{% static 'icons/Arrow-Left-Black.svg' %}">
-            </a>
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-6 col-12 mt-3">
-            <img class="mb-3 img-fluid" src="{% static 'image/like_icon.webp' %}"><br>
-            <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
-            <h1 class="my-4 fw-bold">خرید بازدید با کیفیت اینستاگرام</h1>
-            <div class='row'>
-                <div class="col-md-6 col-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img alt="" src="{% static 'icons/card-receive.svg' %}">
-                            ضمانت بازگشت وجه
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img alt="" src="{% static 'icons/View.svg' %}">
-                            ارسال برای انواع ویدیو
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-
-                            <img alt="" src="{% static 'icons/unlock.svg' %}">
-                            بدون نیاز به پسورد پیج
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img alt="" src="{% static 'icons/timer-start.svg' %}">
-                            شروع آنی پس از ثبت سفارش
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img alt="" src="{% static 'icons/Speed-Black.svg' %}">
-                            تحویل با سرعت بسیار زیاد
-                        </li>
-                    </ul>
-                </div>
+        <div class="col-lg-6 col-12">
+            <div class="row">
+              <div class="col-2">
+                <img src="{% static 'image/image-16 8.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px" height="107px" />
+              </div>
+              <div class="col-10">
+                <span class="fw-bold fs-4">بسته های بازدید پست، IGTV، استوری، Reel اینستاگرام</span><br />
+                <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+              </div>
             </div>
-            <p class="d-flex lh-md fs-5 mt-4 text-muted">با ورود به حساب کاربری خود در سایت ایرانی گرام، می‌توانید
-                انواع بازدید پست، IGTV، استوری و Reel اینستاگرام را با کیفیت و ویژگی‌های متنوع در پنل اختصاصی تهیه
-                بفرمایید. پس از خرید، سفارش بازدید به صورت خودکار به ویدیو یا استوری مورد نظر شما اضافه می‌شوند و
-                شما فقط کافیست صفحه خود را در حالت عمومی قرار دهید و به افزایش بازدید و دیده شدن بیشتر پست خود نظارت
-                کنید.</p>
-        </div>
-        <div class="col text-center mt-5">
-            <img class="img-fluid" src="{% static 'image/view-banner.png' %}"><br>
-            <a class="btn btn-dark btn-lg mt-2 rounded-4 py-4" href="{% url 'accounts:new_order' %}">
-                شروع خرید بازدید اینستاگرام
-                <img alt="" src="{% static 'icons/Arrow-Left-White.svg' %}">
-            </a>
+            {% for tag, packages in view_packages.items %}
+              {% if packages %}
+                <div class="card mt-2 rounded-4">
+                  <div class="card-body">
+                    <div class="row justify-content-center">
+                      <h5 class="text-center">
+                        {{ packages.0.service }}
+                        <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                        {{ packages.0.service.features }}
+                      </h5>
+                      <div class="col-12 col-md-8 col-lg-6 text-center">
+                        <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                          <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                          {% for package in packages %}
+                            <option value="{{ package.id }}">
+                                تعداد : {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                        <a href="" class="btn btn-warning rounded-4 py-2">
+                          ثبت سفارش
+                          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        <div class="col text-center">
+            <img class="img-fluid" src="{% static 'image/view-banner.png' %}">
         </div>
     </div>
     <p class="d-flex lh-lg fs-5 mt-5">خرید بازدید اینستاگرام از جمله روش هایی است که برای ارتقای پیج و رونق بخشیدن
@@ -152,16 +146,11 @@
         پوشیده نیست و تعداد بسیاری از کاربران آن از پیج خودشان برای تبلیغات استفاده می کنند. اما مانند هر تبلیغات
         دیگری، تبلیغات در اینستاگرام نیز روش ها و ترفند های مخصوص به خودش را دارد که بدون شناخت این اصول و روش ها
         تبلیغات گسترده و موفقی در این فضا نخواهیم داشت. این ترفند ها شامل مواردی مثل افزایش تعداد لایک و بازدید پست
-        ها می باشد.<br><br>
+        ها می باشد.<br>
         بازدید اینستاگرام که با عنوان ویو در برنامه ی اینستاگرام مشخص می شود، تعداد مشاهده شدن فیلم های به اشتراک
         گذاشته شده ی یک پیج است. در واقع تعداد ویو یا بازدید همان تعداد دفعاتی است که کاربر های مختلف فیلم یک پیج را
-        در صفحه ی شخص می بینند.<br><br></p>
+        در صفحه ی شخص می بینند.</p>
     <div class="row">
-        <a href="{% url 'accounts:new_order' %}">
-            <img class="img-fluid" src="{% static 'image/view_banner.webp' %}">
-        </a><br>
-    </div>
-    <div class="row my-5">
         <p class="d-flex lh-lg fs-5 mt-4 text-warning">پاسخ به سوالات پر تکرار شما</p>
         <p class="mt-2 align-middle fs-1 fw-bold">
             <i class="bi bi-info-square text-warning"></i> سوالات پر تکرار
@@ -288,7 +277,7 @@
     <div class="row my-5">
         <div class="col-lg-6 col-12 text-center">
             <img class="img-fluid" src="{% static 'image/support.webp' %}" width="500px"><br>
-        </div>
+        </div>  
         <div class="col-lg-6 col-12">
             <p class="mt-5 fs-1 fw-bold">سوالی دارید؟</p>
             <p class="fw-bold text-warning">پشتیبانی ما در خدمت شما هستند </p>
@@ -301,4 +290,15 @@
     </div>
 </div>
 {% include "inc/footer.html" %}
+<script>
+    var pkg_selects = document.querySelectorAll(".pkg-select");
+    pkg_selects.forEach(function (select) {
+        select.addEventListener("change", function () {
+            pkg_id = select.value;
+            let parentElement = select.parentElement;
+            let submit_order_btn = parentElement.nextElementSibling.firstElementChild
+            submit_order_btn.href = "/orders/" + pkg_id + "/new-order/"
+        });
+    });
+</script>
 {% endblock %}

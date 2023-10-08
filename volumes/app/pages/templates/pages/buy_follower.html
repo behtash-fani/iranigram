@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 <!-- Start Title Tag -->
 {% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
 <!-- Start Title Tag -->
@@ -94,53 +95,47 @@
     </div>
     <div class="row mt-2">
         <div class="col-lg-6 col-12">
-            <img src="{% static 'image/flw_icon.webp' %}" class="mb-3" alt="ایرانی گرام ضامن کیفیت سرویس هاست"
-                width="126px" height="107px"><br>
-            <span class="text-warning px-2 px-lg-0 fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br>
-            <h1 class="my-4 fw-bold px-2 px-lg-0">خرید فالوور با کیفیت اینستاگرام</h1>
-            <div class='row'>
-                <div class="col-md-6 col-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/card-receive.svg' %}" alt="ضمانت بازگشت وجه">
-                            ضمانت بازگشت وجه
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/people.svg' %}" alt="بدون نیاز به فالوور کردن دیگران">
-                            بدون نیاز به فالوور کردن دیگران
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-
-                            <img src="{% static 'icons/unlock.svg' %}" alt="بدون نیاز به پسورد پیج">
-                            بدون نیاز به پسورد پیج
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/timer-start.svg' %}" alt="شروع آنی پس از ثبت سفارش">
-                            شروع آنی پس از ثبت سفارش
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 py-2">
-                            <img src="{% static 'icons/trend-down.svg' %}" alt="دارای ریزش طبیعی">
-                            دارای ریزش طبیعی
-                        </li>
-                    </ul>
-                </div>
+            <div class="row">
+              <div class="col-2">
+                <img src="{% static 'image/flw_icon.webp' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px" height="107px" />
+              </div>
+              <div class="col-10">
+                <span class="fw-bold fs-4"> خرید فالوور اینستاگرام با انواع کیفیت</span><br/>
+                <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+              </div>
             </div>
-            <p class="d-flex lh-md fs-5 mt-2 text-muted px-2 px-lg-0">در پنل اختصاصی سایت ایرانی گرام، شما می‌توانید
-                فالوورهای اینستاگرام با انواع کیفیت و ویژگی‌ها را دریافت کنید. با ورود به حساب کاربری خود، این امکان به
-                شما داده می‌شود. پس از خرید، فالوورها به صورت خودکار به پیج شما اضافه می‌شوند. شما فقط کافی است صفحه خود
-                را در حالت عمومی قرار داده و از نزدیک نظاره‌گر افزایش فالوور و پیشرفت صفحه اینستاگرام خود باشید. حالا
-                بر روی دکمه زیر کلیک کنید و این تجربه را شروع کنید!
-            </p>
-            <a href="{% url 'accounts:new_order' %}" class="btn btn-dark btn-lg mt-2 rounded-4">
-                شروع خرید!
-                <img src="{% static 'icons/Arrow-Left-White.svg' %}" alt="ارسال کاربر به صفحه خرید فالوور اینستاگرام"
-                    width="24px" height="24px">
-            </a>
-        </div>
+            {% for tag, packages in flw_packages.items %}
+              {% if packages %}
+                <div class="card mt-2 rounded-4">
+                  <div class="card-body">
+                    <div class="row justify-content-center">
+                      <h5 class="text-center">
+                        {{ packages.0.service }}
+                        <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                        {{ packages.0.service.features }}
+                      </h5>
+                      <div class="col-12 col-md-8 col-lg-6 text-center">
+                        <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                          <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                          {% for package in packages %}
+                            <option value="{{ package.id }}">
+                                تعداد : {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                        <a href="" class="btn btn-warning rounded-4 py-2">
+                          ثبت سفارش
+                          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
         <div class="col-lg-6 col-12 text-center mt-5">
             <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid" width="450px"><br>
         </div>
@@ -435,4 +430,15 @@
     </div>
 </div>
 {% include "inc/footer.html" %}
+<script>
+    var pkg_selects = document.querySelectorAll(".pkg-select");
+    pkg_selects.forEach(function (select) {
+        select.addEventListener("change", function () {
+            pkg_id = select.value;
+            let parentElement = select.parentElement;
+            let submit_order_btn = parentElement.nextElementSibling.firstElementChild
+            submit_order_btn.href = "/orders/" + pkg_id + "/new-order/"
+        });
+    });
+</script>
 {% endblock %}
