@@ -24,11 +24,11 @@
                         <div class="form-floating">
                             {{ order_form.link }}
                             {% if pkg.service.link_type == 'instagram_profile' %}
-                            <label for="id_link" class="d-block" id="profile_link_label">
+                            <label for="id_link" id="profile_link_label">
                                 {% trans 'Instagram Profile ID' %}:
                             </label>
-                            {% else %}
-                            <label for="id_link" class="d-none" id="post_link_label">
+                            {% elif pkg.service.link_type == 'instagram_post_link' %}
+                            <label for="id_link" id="post_link_label">
                                 {% trans 'Instagram Post/IGTV/Reel Link' %}:
                             </label>
                             {% endif %}
