@@ -34,5 +34,5 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Packages)
 class PackagesAdmin(admin.ModelAdmin):
-    list_display = ["id", "service", "quantity", 'amount']
-    list_display_links = ["id", "service"]
+    list_display = ["id", "service", "quantity", 'amount', 'priority']
+    list_display_links = ["id", "service", 'priority']
