@@ -215,6 +215,8 @@ class TemplateNewOrder(View):
         pkg_id = kwargs["pkg_id"]
         pkg = Packages.objects.get(id=pkg_id)
         service = Packages.objects.get(id=pkg_id).service
+        service_type = service.service_type
+        quantity = Packages.objects.get(id=pkg_id).quantity
         order_form = self.form_class(request.POST or None)
         otp_form = self.otp_form_class(request.POST or None)
         verify_otp_form = self.verify_otp_form_class(request.POST or None)
@@ -226,6 +228,9 @@ class TemplateNewOrder(View):
                 user = request.user
                 order_item.user = user
                 order_item.order_code = order_code
+                order_item.quantity = quantity
+                order_item.service = service
+                order_item.service_type = service_type
                 order_item.save()
                 unit_price = Service.objects.get(id=service.id).amount
                 total_price = int(unit_price) * int(pkg.quantity)
@@ -253,6 +258,9 @@ class TemplateNewOrder(View):
                     user.save()
                     order_item.payment_method = "wallet"
                     order_item.status = "Queued"
+                    order_item.quantity = quantity
+                    order_item.service = service
+                    order_item.service_type = service_type
                     order_item.wallet_paid_amount = total_price
                     order_item.paid = True
                     order_item.save()
@@ -312,8 +320,7 @@ def get_phone_number(request):
     request.session["link"] = link
     request.session["phone_number"] = phone_number
     verification_code = generate_random_number(4, is_unique=False)
-    # send_login_sms_task.delay(phone_number, verification_code)
-    print(verification_code)
+    send_login_sms_task.delay(phone_number, verification_code)
     if OTPCode.objects.filter(phone_number=phone_number).exists():
         OTPCode.objects.filter(phone_number=phone_number).delete()
     OTPCode.objects.create(
