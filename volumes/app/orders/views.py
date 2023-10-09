@@ -12,20 +12,16 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 import logging
 from common.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.urls import reverse
 from common.generate_random_number import generate_random_number
 from django.views.decorators.csrf import csrf_exempt
 from common.instagram.insta_info import InstagramAccInfo
 from accounts.forms import LoginWithOTPForm, VerifyCodeForm
-from accounts.tasks import (
-    send_login_sms_task,
-    send_register_sms_task,
-    send_register_success_sms_task,
-)
+from accounts.tasks import send_login_sms_task
 from datetime import datetime, timedelta
 from accounts.models import OTPCode, User
-from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth import login
 
 logger = logging.getLogger("django")
 
