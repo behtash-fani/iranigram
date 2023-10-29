@@ -7,6 +7,10 @@ from .forms import (
     UserRegisterWithOTPForm,
     ChangePasswordForm,
 )
+from django.views.generic import ListView
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 from django.views import View
 from .models import OTPCode, User
 from django.contrib import messages
@@ -28,6 +32,7 @@ from .tasks import (
 )
 from django.conf import settings
 from rest_framework.authtoken.models import Token
+from service.models import Service
 
 
 class UserDashboardView(LoginRequiredMixin, View):
@@ -354,3 +359,39 @@ def regenerate_token(request):
     Token.objects.create(user=user)
     messages.success(request, "Token has been replaced", "success")
     return redirect('accounts:api_docs')
+
+
+# class ServicesView(View):
+#     template_name = 'accounts/services.html'
+
+#     def get(self, request):
+#         services = Service.objects.filter(available_for_user=True).order_by("priority")
+#         context = {
+#             'services': services
+#         }
+#         return render(request, self.template_name, context)
+
+class ServicesView(ListView):
+    model = Service
+    template_name = "accounts/services.html"
+    context_object_name = "Services"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = Service.objects.filter(available_for_user=True).order_by("priority")
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(context["object_list"], self.paginate_by)
+        page = self.request.GET.get("page")
+
+        try:
+            services = paginator.page(page)
+        except PageNotAnInteger:
+            services = paginator.page(1)
+        except EmptyPage:
+            services = paginator.page(paginator.num_pages)
+        context["Services"] = services
+        return context

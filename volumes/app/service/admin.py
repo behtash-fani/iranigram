@@ -21,6 +21,7 @@ class ServiceAdmin(admin.ModelAdmin):
         "title",
         "price_1000_site",
         "price_1000_server",
+        "service_code",
         "priority",
         "server_service_code",
         "server",

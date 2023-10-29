@@ -24,6 +24,7 @@ urlpatterns = [
     path('transactions/', TransactionsView.as_view(), name='user_transactions'),
     path('support/', SupportView.as_view(), name='user_support'),
     path('api-docs/', views.ApiDocsView.as_view(), name='api_docs'),
+    path('services/', views.ServicesView.as_view(), name='services'),
     path('regenerate-token/', views.regenerate_token, name='regenerate_token'),
     path('submit-ticket/', SubmitTicket.as_view(), name='submit_ticket'),
     path('ticket/<int:ticket_id>/', ticket_detail, name='ticket_detail'),

@@ -242,8 +242,3 @@ input[type="number"] {
   margin-left: auto !important;
   margin-right: unset !important;
 }
-
-.ltr-text{
-  direction: ltr;
-  text-align: left;
-}

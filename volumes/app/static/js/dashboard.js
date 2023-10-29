@@ -10,6 +10,7 @@ const transactions_dashboard = document.getElementsByClassName(
   "transactions_dashboard"
 );
 const api_docs = document.getElementsByClassName("api_docs");
+const services = document.getElementsByClassName("services");
 const support_dashboard = document.getElementsByClassName("support_dashboard");
 
 if (window.location.pathname === "/dashboard/new-order/") {
@@ -49,6 +50,11 @@ if (window.location.pathname === "/dashboard/new-order/") {
   for (let i = 0; i < api_docs.length; i++) {
     api_docs[i].classList.add("bg-warning");
     api_docs[i].classList.remove("bg-transparent");
+  }
+} else if ( window.location.pathname === "/dashboard/services/"){
+  for (let i = 0; i < services.length; i++) {
+    services[i].classList.add("bg-warning");
+    services[i].classList.remove("bg-transparent");
   }
 } else if (
   window.location.pathname === "/dashboard/support/" ||
