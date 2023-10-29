@@ -49,7 +49,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegisterWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.TextInput(
+    phone_number = forms.CharField(widget=forms.NumberInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
 
     def clean_phone_number(self):
@@ -68,7 +68,7 @@ class UserRegisterWithOTPForm(forms.Form):
 
 
 class LoginWithPasswordForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.TextInput(
+    phone_number = forms.CharField(widget=forms.NumberInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'password'}))
@@ -104,7 +104,7 @@ class LoginWithPasswordForm(forms.Form):
     
 
 class LoginWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.TextInput(
+    phone_number = forms.CharField(widget=forms.NumberInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
 
     def clean_phone_number(self):
