@@ -28,6 +28,7 @@ urlpatterns = [
     path('payment-verify/', payment_verify, name='payment_verify'),
     path('ckeditor', include('ckeditor_uploader.urls')),
     path('send-verify-code/', send_otpcode_again, name='send_verify_code'),
+    path('api/v1/', include('api.urls')),
     path(
         "sitemap.xml",
         views.index,
@@ -45,3 +46,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns += path("__debug__/", include("debug_toolbar.urls")),

@@ -26,6 +26,8 @@ from .tasks import (
     send_register_sms_task,
     send_register_success_sms_task,
 )
+from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 
 class UserDashboardView(LoginRequiredMixin, View):
@@ -319,3 +321,36 @@ class WalletView(LoginRequiredMixin, View):
             # return redirect('accounts:user_wallet')
             context = {"add_credit_form": add_credit_form}
             return render(request, self.template_name, context)
+
+class ApiDocsView(View):
+    template_name = 'accounts/api_docs.html'
+
+    def get(self, request):
+        user = request.user
+
+        token = None
+        try:
+            token = Token.objects.get(user=user)
+        except Token.DoesNotExist:
+            token = Token.objects.create(user=user)
+
+        context = {
+            'token': token,
+            'site_url': settings.SITE_URL
+        }
+
+        return render(request, self.template_name, context)
+
+
+
+def regenerate_token(request):
+    user = request.user
+    try:
+        token = Token.objects.get(user=user)
+        token.delete() 
+    except Token.DoesNotExist:
+        pass
+
+    Token.objects.create(user=user)
+    messages.success(request, "Token has been replaced", "success")
+    return redirect('accounts:api_docs')

@@ -9,6 +9,7 @@ const orders_list_dashboard = document.getElementsByClassName(
 const transactions_dashboard = document.getElementsByClassName(
   "transactions_dashboard"
 );
+const api_docs = document.getElementsByClassName("api_docs");
 const support_dashboard = document.getElementsByClassName("support_dashboard");
 
 if (window.location.pathname === "/dashboard/new-order/") {
@@ -40,6 +41,14 @@ if (window.location.pathname === "/dashboard/new-order/") {
   for (let i = 0; i < transactions_dashboard.length; i++) {
     transactions_dashboard[i].classList.add("bg-warning");
     transactions_dashboard[i].classList.remove("bg-transparent");
+  }
+}  else if ( window.location.pathname === "/dashboard/api-docs/" ) {
+  var body = document.body;
+  body.style.overflowX = "hidden";
+  body.style.overflowY = "scroll";
+  for (let i = 0; i < api_docs.length; i++) {
+    api_docs[i].classList.add("bg-warning");
+    api_docs[i].classList.remove("bg-transparent");
   }
 } else if (
   window.location.pathname === "/dashboard/support/" ||

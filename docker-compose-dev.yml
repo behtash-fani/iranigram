@@ -6,14 +6,14 @@ services:
         container_name: 'app'
         restart: 'always'
         expose:
-            - '8000'
+            - '4500'
         volumes:
             -   type: 'bind'
                 source: './volumes/app'
                 target: '/app'
         env_file:
             - ./volumes/app/.env
-        command: sh -c "python manage.py runserver 0.0.0.0:8000"
+        command: sh -c "python manage.py runserver 0.0.0.0:4500"
         depends_on:
             - db
             - nginx
@@ -33,31 +33,31 @@ services:
         image: redis:alpine
         container_name: 'redis'
         restart: always
-    celery:
-        build: ./app/
-        container_name: 'celery'
-        command: celery -A config worker --loglevel=info
-        volumes:
-            - type: 'bind'
-              source: './volumes/app'
-              target: '/app'
-        depends_on:
-            - db
-        restart: always
-    celery-beat:
-        build: ./app/
-        container_name: 'celery-beat'
-        command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-        volumes:
-            - type: 'bind'
-              source: './volumes/app'
-              target: '/app'
+    # celery:
+    #     build: ./app/
+    #     container_name: 'celery'
+    #     command: celery -A config worker --loglevel=info
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
+    #     depends_on:
+    #         - db
+    #     restart: always
+    # celery-beat:
+    #     build: ./app/
+    #     container_name: 'celery-beat'
+    #     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
     nginx:
         build: './nginx'
         container_name: 'nginx'
         restart: 'always'
         ports:
-            - "8000:80"
+            - "4500:80"
         volumes:
             -   type: 'bind'
                 source: './volumes/app/media'

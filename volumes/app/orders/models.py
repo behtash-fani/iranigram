@@ -19,6 +19,12 @@ PAYMENT_METHOD = (
     ("wallet", _("Wallet")),
 )
 
+SUBMIT_ORDER_METHOD = (
+    ("panel", _("panel")),
+    ("packages", _("packages")),
+    ("api", _("api")),
+)
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name=_('User'), related_name='orders')
@@ -35,6 +41,7 @@ class Order(models.Model):
     status = models.CharField(max_length=30, choices=ORDER_STATUS,default="Queued", blank=True,null=True, verbose_name=_('Status'))
     start_count = models.PositiveIntegerField(verbose_name=_('Start Count'), blank=True, null=True)
     remains = models.PositiveIntegerField(verbose_name=_('Remains'), blank=True, null=True)
+    submit_order_method = models.CharField(max_length=50,choices=SUBMIT_ORDER_METHOD, verbose_name=_('Submit Order Method'), blank=True, null=True)
     paid = models.BooleanField(default=False, verbose_name=_('Paid'))
     submit_now = models.BooleanField(default=False, verbose_name=_("Submit Now"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))

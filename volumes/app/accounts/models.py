@@ -4,7 +4,7 @@ from .managers import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from rest_framework.authtoken.models import Token
 
 
 STATUS_CHANGE_WALLET = (
@@ -69,6 +69,7 @@ def order_count(sender, instance, created, **kwargs):
     user_orders_count += 1
     user_instance = User.objects.filter(phone_number=instance.phone_number)
     user_instance.update(orders_count=user_orders_count)
+    Token.objects.get_or_create(user=instance)
 
 
 class OTPCode(models.Model):

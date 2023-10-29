@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "admin_reorder",
     "robots",
     "import_export",
+    "rest_framework",
+    'rest_framework.authtoken',
     # local apps
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     "support.apps.SupportConfig",
     "posts.apps.PostsConfig",
     "seo.apps.SeoConfig",
+    "api.apps.ApiConfig",
 ]
 SITE_ID = 1
 
@@ -63,6 +66,7 @@ MIDDLEWARE = [
 
 ADMIN_REORDER = (
     {"app": "accounts"},
+    {"app": "authtoken"},
     {"app": "orders"},
     {"app": "support"},
     {"app": "transactions"},
@@ -287,4 +291,12 @@ if not DEBUG:
         "loggers": LOGGERS[0],
     }
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '60/minute'
+    },
+    'EXCEPTION_HANDLER': 'api.custom_exception_handler.auth_exception_handler',
+}

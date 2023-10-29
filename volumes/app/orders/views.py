@@ -44,6 +44,7 @@ class NewOrderView(LoginRequiredMixin, View):
                 user = request.user
                 order_item.user = user
                 order_item.order_code = order_code
+                order_item.submit_order_method= "panel"
                 unit_price = Service.objects.get(id=cd["service"].id).amount
                 total_price = int(unit_price) * int(cd["quantity"])
                 if total_price < 500:
@@ -79,6 +80,7 @@ class NewOrderView(LoginRequiredMixin, View):
                     order_item.status = "Queued"
                     order_item.wallet_paid_amount = total_price
                     order_item.paid = True
+                    order_item.submit_order_method="panel"
                     order_item.save()
                     transaction_detail = _("Deduct the amount for placing the order")
                     Trans.objects.create(
@@ -227,6 +229,7 @@ class TemplateNewOrder(View):
                 order_item.quantity = quantity
                 order_item.service = service
                 order_item.service_type = service_type
+                order_item.submit_order_method="packages"
                 order_item.save()
                 unit_price = Service.objects.get(id=service.id).amount
                 total_price = int(unit_price) * int(pkg.quantity)
@@ -257,6 +260,7 @@ class TemplateNewOrder(View):
                     order_item.quantity = quantity
                     order_item.service = service
                     order_item.service_type = service_type
+                    order_item.submit_order_method="packages"
                     order_item.wallet_paid_amount = total_price
                     order_item.paid = True
                     order_item.save()

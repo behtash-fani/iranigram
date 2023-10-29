@@ -70,6 +70,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: VazirCodeHack;
+  src: url("../fonts/woff2/Vazir-Code-Hack.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 body {
   font-family: Vazirmatn, serif;
@@ -230,4 +237,8 @@ input[type="number"] {
   background: url("/static/image/buypage_support_bg.svg");
   background-repeat: no-repeat;
   background-size: contain;
+}
+.accordionAPI .accordion-button::after{
+  margin-left: auto !important;
+  margin-right: unset !important;
 }

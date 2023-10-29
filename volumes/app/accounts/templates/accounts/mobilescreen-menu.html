@@ -58,6 +58,13 @@
                     <img src="{% static 'icons/math.svg' %}" alt="">
                 </div>
             </a>
+            <a href="{% url 'accounts:api_docs' %}"
+            class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom api_docs">
+                <div class="d-flex w-100 justify-content-between">
+                    <span class="fs-5 fw-bolder">{% trans "Api Docs" %}</span>
+                    <img src="{% static 'icons/api_docs.svg' %}" alt="">
+                </div>
+            </a>
             <a href="{% url 'accounts:user_support' %}"
                 class="list-group-item list-group-item-action bg-transparent rounded-4 border-0 border-bottom support_dashboard">
                 <div class="d-flex w-100 justify-content-between">
