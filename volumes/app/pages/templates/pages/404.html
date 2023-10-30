@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5 justify-content-md-center text-center">
+        <img src="{% static 'image/404_banner.webp' %}" alt="" style="width: 500px;">
+        <h4 class="text-muted mt-5">سلام دوست عزیز</h4>
+        <h2 class="mt-3 mb-5">متاسفانه صفحه مورد نظر شما یافت نشد</h2>
+    </div>
+    <div class="text-center mb-5">
+    <a href="{% url 'pages:home' %}" class="btn btn-warning btn-lg rounded-4 py-4">
+        <img src="{% static 'icons/back.svg' %}" alt="بازگشت به صفحه اصلی width="24px" height="24px" />
+        بازگشت به صفحه اصلی
+    </a>
+</div>
+</div>
+{% include "inc/footer.html" %}
+{% endblock %}

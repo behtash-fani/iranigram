@@ -7,11 +7,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # for environment variables
 env = Env()
-env.read_env()
-
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env.bool("DEBUG")
+DEBUG = env.bool('DEBUG')
 SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
@@ -211,85 +210,6 @@ CACHES = {
 
 LOGOUT_REDIRECT_URL = "pages:home"
 LOGIN_URL = "accounts:user_login_otp"
-
-if not DEBUG:
-    FORMATTERS = (
-        {
-            "verbose": {
-                "format": "{levelname} {asctime:s} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
-                "style": "{",
-            },
-            "simple": {
-                "format": "{levelname} {asctime:s} {module} {filename} {lineno:d} {funcName} {message}",
-                "style": "{",
-            },
-        },
-    )
-
-    HANDLERS = {
-        "console_handler": {
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-        "my_handler": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": f"{BASE_DIR}/logs/igthedata.log",
-            "mode": "a",
-            "encoding": "utf-8",
-            "formatter": "simple",
-            "backupCount": 5,
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-        },
-        "my_handler_detailed": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": f"{BASE_DIR}/logs/igthedata_detailed.log",
-            "mode": "a",
-            "formatter": "verbose",
-            "backupCount": 5,
-            "maxBytes": 1024 * 1024 * 5,  # 5 MB
-        },
-        'celery_task': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': f"{BASE_DIR}/logs/celery_task.log",
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 5,
-            'formatter': 'verbose',
-            "mode": "a",
-        }
-    }
-
-    LOGGERS = (
-        {
-            "django": {
-                "handlers": ["console_handler", "my_handler_detailed"],
-                "level": "INFO",
-                "propagate": False,
-            },
-            "django.request": {
-                "level": "INFO",
-                "propagate": False,
-            },
-            "my_logger": {
-                "handlers": ["my_handler"],
-                "level": "INFO",
-                "propagate": False,
-            },
-            'celery_task': {
-                'handlers': ["celery_task"],
-                'level': 'INFO',
-                "propagate": False,
-            },
-        },
-    )
-
-    LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": FORMATTERS[0],
-        "handlers": HANDLERS,
-        "loggers": LOGGERS[0],
-    }
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': [

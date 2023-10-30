@@ -8,3 +8,5 @@ urlpatterns = [
     path('خرید-لایک-ایرانی-اینستاگرام/', views.LikeView.as_view(), name='like'),
     path('خرید-بازدید-ایرانی-اینستاگرام/', views.ViewView.as_view(), name='view'),
 ]
+
+

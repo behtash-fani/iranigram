@@ -1,9 +1,13 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from seo.models import PagesSeo
 from posts.models import Post
 from service.models import Packages
 
+
+def handling_404(request, exception):
+    return render(request, 'pages/404.html', {})
 
 class HomeView(View):
     template_name = "pages/home.html"
