@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+<!-- Start Title Tag -->
+{% block title %}
+  {% if title_tag %}صفحه یافت نشد{% endif %}
+{% endblock %}
+<!-- Start Title Tag -->
 {% block content %}
 <div class="container">
     <div class="row mt-5 justify-content-md-center text-center">
