@@ -1,18 +1,11 @@
 {% extends "accounts/dashboard_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% load jalali_tags %}
 {% block title %}{% trans 'Orders' %}{% endblock %}
 {% block panelcontent %}
 <p class="fw-semibold fs-3">{% trans "Orders Report" %}</p>
-<small class="custom-black fw-bolder fs-5">
-    <img src="{% static 'icons/Info.svg' %}" alt="">
-    {% trans 'Hints' %}:
-</small><br>
-<small class="text-black-50 fs-6 fw-bolder">
-    <img src="{% static 'icons/Accept.svg' %}" alt="">
-    {% trans 'You can copy them by clicking on each order code and the buttons next to each link' %}
-</small><br>
 <hr>
 {% if Orders %}
 <div class="table-responsive">
@@ -27,7 +20,7 @@
                 <th scope="col" class="text-center">{% trans "Status" %}</th>
                 <th scope="col" class="text-center">{% trans "Remains" %}</th>
                 <th scope="col" class="text-center">{% trans "Paid Status" %}</th>
-                <th scope="col" class="text-center">{% trans "Created At" %}</th>
+                <th scope="col" class="text-center">{% trans "Details" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -35,19 +28,24 @@
             <tr>
                 <th class="text-center align-middle">{{ page_obj.start_index|add:forloop.counter0 }}</th>
                 <td class="text-center align-middle">
-                    <button class="btn btn-light rounded-4 copy-text mt-1 mt-lg-0" value="{{ order.order_code }}">
-                        <img src="{% static 'icons/Copy.svg' %}" alt=""> <span class="copy-btn-text">{{ order.order_code }}</span>
-                    </button>
+                    {{ order.order_code }}
                 </td>
                 <td class="text-center align-middle">{{ order.quantity }} {% trans "Number" %}</td>
-                <td class="text-center align-middle">{{ order.amount }} {% trans "Toman" %}</td>
+                <td class="text-center align-middle">{{ order.amount|intcomma }} {% trans "Toman" %}</td>
                 <td class="text-center align-middle">
-                    <button class="btn btn-light rounded-4 copy-text mt-1 mt-lg-0 rounded-4" value="{{ order.link }}">
-                        <img src="{% static 'icons/Copy.svg' %}" alt="">
-                    </button>
+                    {% if order.service.link_type == 'instagram_profile' %}
+                    <a href="https://www.instagram.com/{{ order.link }}" target="_blank" class="btn btn-light rounded-4 mt-1 mt-lg-0">
+                        <img src="{% static 'icons/link.svg' %}" alt="">
+                    </a>
+                    {% elif 'https://www.instagram.com/' in order.link or 'https://instagram.com/' in order.link %}
                     <a href="{{ order.link }}" target="_blank" class="btn btn-light rounded-4 mt-1 mt-lg-0">
                         <img src="{% static 'icons/link.svg' %}" alt="">
                     </a>
+                    {% else %}
+                    <a href="{{ order.link }}" target="_blank" class="btn btn-light rounded-4 mt-1 mt-lg-0">
+                        <img src="{% static 'icons/link.svg' %}" alt="">
+                    </a>
+                    {% endif %}
                 </td>
                 {% if order.paid %}
                 <td class="text-center align-middle">{% trans order.status %}</td>
@@ -101,7 +99,30 @@
                 </div>
                 <!-- End of Modal -->
                 {% endif %}
-                <td class="text-center align-middle">{{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-warning rounded-4" data-bs-toggle="modal" data-bs-target="#orderDetails">
+                        <img src="{% static 'icons/details.svg' %}" alt="">
+                    </button>
+                    <div class="modal" id="orderDetails" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content rounded-4">
+                            <div class="modal-header border-0">
+                                <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+                                    <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
+                                </a>
+                            </div>
+                            <div class="modal-body pt-0">
+                                <h1 class="modal-title fs-3" id="orderDetailsLabel">جزییات سفارش</h1>
+                                <hr>
+                                <div class="text-start">
+                                    <p>{% trans "Service" %}: {{ order.service }}</p>
+                                    <p>{% trans "Created At" %}: {{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</p>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -113,20 +134,4 @@
     {% trans "No orders have been submitted yet" %}
 </div>
 {% endif %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-  let buttons = document.querySelectorAll(".copy-text");
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", function (event) {
-      event.preventDefault();
-      let value = this.getAttribute("value");
-      navigator.clipboard.writeText(value);
-      buttons.forEach(function (item) {
-        item.className = "btn btn-light rounded-4 copy-text";
-      });
-      this.className = "btn btn-warning rounded-4 copy-text";
-    });
-  }
-});
-</script>
 {% endblock %}

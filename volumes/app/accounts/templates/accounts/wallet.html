@@ -1,6 +1,7 @@
 {% extends "accounts/dashboard_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% block title %} {% trans 'Wallet' %} {% endblock %}
 {% block panelcontent %}
 <div class="row mt-4">
@@ -12,7 +13,7 @@
     <div class="col-lg-6 col-12">
         <p class="fw-bolder">
             <img src="{% static 'icons/wallet.svg' %}" alt="">
-            {% trans "Credit amount" %}: {{ request.user.balance }} {% trans "Toman" %}
+            {% trans "Credit amount" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}
         </p>
         <hr>
         <form action="" method="post" id="add-amount-form" novalidate>

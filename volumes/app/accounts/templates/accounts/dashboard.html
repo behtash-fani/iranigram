@@ -1,6 +1,7 @@
 {% extends "accounts/dashboard_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% block title %} {% trans 'User Dashboard' %} {% endblock %}
 {% block panelcontent %}
 <div class="row">
@@ -8,7 +9,7 @@
         <div class="card text-bg-warning mb-3 border-0 rounded-4">
             <div class="card-header">
                 <img src="{% static 'icons/wallet.svg' %}" alt="">
-                <span class="fw-semibold">{% trans "Credit" %}: {{ request.user.balance }} {% trans "Toman" %}</span>
+                <span class="fw-semibold">{% trans "Credit" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}</span>
             </div>
             <div>
                 <h6 class="card-title float-end m-2">

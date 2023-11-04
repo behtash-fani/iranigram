@@ -1,6 +1,7 @@
 {% extends "accounts/dashboard_base.html" %}
 {% load i18n %}
 {% load jalali_tags %}
+{% load humanize %}
 {% block title %}{% trans 'Transactions' %}{% endblock %}
 {% block panelcontent %}
     <p class="fw-semibold fs-3">{% trans "Transactions Report" %}</p>
@@ -25,8 +26,8 @@
                         <th scope="row" class="text-center">{{ page_obj.start_index|add:forloop.counter0 }}</th>
                         <td class="text-center">{% trans transaction.type %}</td>
                         <td class="text-center">{% trans transaction.payment_type %}</td>
-                        <td class="text-center">{{ transaction.price }} {% trans "Toman" %}</td>
-                        <td class="text-center">{{ transaction.balance }} {% trans "Toman" %}</td>
+                        <td class="text-center">{{ transaction.price|intcomma }} {% trans "Toman" %}</td>
+                        <td class="text-center">{{ transaction.balance|intcomma }} {% trans "Toman" %}</td>
                         <td class="text-center">{{ transaction.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
                         <td class="text-center">{{ transaction.order_code }}</td>
                     </tr>

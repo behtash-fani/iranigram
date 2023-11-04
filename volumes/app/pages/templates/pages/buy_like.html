@@ -117,7 +117,7 @@
                           <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
                           {% for package in packages %}
                             <option value="{{ package.id }}">
-                                تعداد : {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                                {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
                             </option>
                           {% endfor %}
                         </select>
