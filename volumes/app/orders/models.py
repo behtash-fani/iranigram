@@ -53,6 +53,11 @@ class Order(models.Model):
     class Meta:
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
+    
+    def save(self, *args, **kwargs):
+        if self.status == 'Completed':
+            self.remains = 0
+        super().save(*args, **kwargs)
 
 
 class QueuedOrder(models.Model):
