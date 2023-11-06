@@ -6,6 +6,18 @@
 {% block panelcontent %}
 <div class="row">
     <div class="col-md col-12">
+        <div class="card bg-warning-subtle mb-3 text-center border-0 p-4 rounded-4">
+            <span class="fs-4 fw-bold">خوش آمدید, {{request.user.full_name}}</span>
+        </div>
+    </div>
+    <div class="col-md col-12">
+        <div class="card bg-warning-subtle mb-3 text-center border-0 p-4 rounded-4">
+            <span class="fs-4 fw-bold">شماره تلفن : {{request.user.phone_number}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md col-12">
         <div class="card text-bg-warning mb-3 border-0 rounded-4">
             <div class="card-header">
                 <img src="{% static 'icons/wallet.svg' %}" alt="">
