@@ -9,8 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from transactions.models import Transactions as Trans
 from jalali_date import datetime2jalali
 from import_export.admin import ImportExportModelAdmin
-from orders.models import Order
-from django.db.models import Count
+from django.utils.html import format_html
 
 @admin.register(OTPCode)
 class OTPCodeAdmin(admin.ModelAdmin):
@@ -24,7 +23,7 @@ class OTPCodeAdmin(admin.ModelAdmin):
 class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('phone_number', 'full_name', 'balance','orders_count', 'is_block', 'is_active')
+    list_display = ('phone_number', 'full_name', 'balance','orders', 'orders_count', 'tickets', 'is_block', 'is_active')
     list_filter = ('is_admin',)
     search_fields = ('phone_number__icontains', 'full_name__icontains', 'email__icontains')
     fieldsets = (
@@ -53,6 +52,16 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     ordering = ('phone_number',)
     filter_horizontal = ()
     
+    def orders(self, obj):
+        return format_html('<a href="/admin/orders/order/?q=%s">سفارشات کاربر</a>' % obj.phone_number)
+
+    orders.short_description = 'سفارشات'
+
+    def tickets(self, obj):
+        return format_html('<a href="/admin/support/ticket/?q=%s">لیست تیکت ها</a>' % obj.phone_number)
+
+    tickets.short_description = 'تیکت ها'
+
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         if obj.status_change_wallet == "add_credit":

@@ -4,7 +4,6 @@ from django.utils.html import format_html
 from .models import Ticket, Response
 from django.utils.translation import gettext as _
 from jalali_date import datetime2jalali
-from orders.models import Order
 
 
 
