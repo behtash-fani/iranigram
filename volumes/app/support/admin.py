@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from .models import Ticket, Response
 from django.utils.translation import gettext as _
 from jalali_date import datetime2jalali
-
+from orders.models import Order
 
 
 
@@ -17,13 +17,19 @@ class ResponseInline(admin.TabularInline):
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     inlines = [ResponseInline]
-    list_display = ('id', 'subject', 'user', 'status', 'get_created_jalali', 'get_updated_jalali', 'response_count')
+    list_display = ('id', 'subject', 'user', 'status','order_link', 'get_created_jalali', 'get_updated_jalali', 'response_count')
     list_display_links = ('id', 'subject', 'user')
+    search_fields = ('user__phone_number', 'message__icontains')
     readonly_fields = ('get_created_jalali', 'get_updated_jalali')
     fields = ('user', 'subject', 'message', 'file', 'status', 'get_created_jalali', 'get_updated_jalali')
     ordering = ('-created_at',)
     autocomplete_fields = ['user']
 
+
+    def order_link(self, obj):
+        return format_html('<a href="/admin/orders/order/?q=%s">سفارشات کاربر</a>' % obj.user.phone_number)
+
+    order_link.short_description = 'سفارشات کاربر'
 
     @admin.display(description='تاریخ ایجاد', ordering='created_at')
     def get_created_jalali(self, obj):
