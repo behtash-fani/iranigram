@@ -1,71 +1,48 @@
-// dashboard menu
-const new_order = document.getElementsByClassName("new_order");
-const state_dashboard = document.getElementsByClassName("state_dashboard");
-const profile_dashboard = document.getElementsByClassName("profile_dashboard");
-const wallet_dashboard = document.getElementsByClassName("wallet_dashboard");
-const orders_list_dashboard = document.getElementsByClassName(
-  "orders_list_dashboard"
-);
-const transactions_dashboard = document.getElementsByClassName(
-  "transactions_dashboard"
-);
-const api_docs = document.getElementsByClassName("api_docs");
-const services = document.getElementsByClassName("services");
-const support_dashboard = document.getElementsByClassName("support_dashboard");
+// Define a mapping object for URLs and DOM elements
+const dashboardElements = {
+  "/dashboard/new-order/": document.getElementsByClassName("new_order"),
+  "/dashboard/": document.getElementsByClassName("state_dashboard"),
+  "/dashboard/profile/": document.getElementsByClassName("profile_dashboard"),
+  "/dashboard/wallet/": document.getElementsByClassName("wallet_dashboard"),
+  "/dashboard/orders/": document.getElementsByClassName("orders_list_dashboard"),
+  "/dashboard/transactions/": document.getElementsByClassName("transactions_dashboard"),
+  "/dashboard/api-docs/": document.getElementsByClassName("api_docs"),
+  "/dashboard/services/": document.getElementsByClassName("services"),
+  "/dashboard/support/": document.getElementsByClassName("support_dashboard"),
+};
 
-if (window.location.pathname === "/dashboard/new-order/") {
-  for (let i = 0; i < new_order.length; i++) {
-    new_order[i].classList.add("bg-warning");
-    new_order[i].classList.remove("bg-transparent");
-  }
-} else if (window.location.pathname === "/dashboard/") {
-  for (let i = 0; i < state_dashboard.length; i++) {
-    state_dashboard[i].classList.add("bg-warning");
-    state_dashboard[i].classList.remove("bg-transparent");
-  }
-} else if (window.location.pathname === "/dashboard/profile/") {
-  for (let i = 0; i < profile_dashboard.length; i++) {
-    profile_dashboard[i].classList.add("bg-warning");
-    profile_dashboard[i].classList.remove("bg-transparent");
-  }
-} else if (window.location.pathname === "/dashboard/wallet/") {
-  for (let i = 0; i < wallet_dashboard.length; i++) {
-    wallet_dashboard[i].classList.add("bg-warning");
-    wallet_dashboard[i].classList.remove("bg-transparent");
-  }
-} else if (window.location.pathname === "/dashboard/orders/") {
-  for (let i = 0; i < orders_list_dashboard.length; i++) {
-    orders_list_dashboard[i].classList.add("bg-warning");
-    orders_list_dashboard[i].classList.remove("bg-transparent");
-  }
-} else if (window.location.pathname === "/dashboard/transactions/") {
-  for (let i = 0; i < transactions_dashboard.length; i++) {
-    transactions_dashboard[i].classList.add("bg-warning");
-    transactions_dashboard[i].classList.remove("bg-transparent");
-  }
-}  else if ( window.location.pathname === "/dashboard/api-docs/" ) {
-  var body = document.body;
-  body.style.overflowX = "hidden";
-  body.style.overflowY = "scroll";
-  for (let i = 0; i < api_docs.length; i++) {
-    api_docs[i].classList.add("bg-warning");
-    api_docs[i].classList.remove("bg-transparent");
-  }
-} else if ( window.location.pathname === "/dashboard/services/"){
-  for (let i = 0; i < services.length; i++) {
-    services[i].classList.add("bg-warning");
-    services[i].classList.remove("bg-transparent");
-  }
-} else if (
-  window.location.pathname === "/dashboard/support/" ||
-  window.location.pathname.includes("/dashboard/ticket/") ||
-  window.location.pathname.includes("/dashboard/submit-ticket/")
-) {
-  for (let i = 0; i < support_dashboard.length; i++) {
-    support_dashboard[i].classList.add("bg-warning");
-    support_dashboard[i].classList.remove("bg-transparent");
+// Function to highlight and de-highlight elements based on the current URL
+function highlightDashboardElements() {
+  const currentPath = window.location.pathname;
+
+  for (const path in dashboardElements) {
+    const elements = dashboardElements[path];
+    if (currentPath === path) {
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.add("bg-warning");
+        elements[i].classList.remove("bg-transparent");
+      }
+    } else {
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.remove("bg-warning");
+        elements[i].classList.add("bg-transparent");
+      }
+    }
   }
 }
+
+// Check if the current URL is in the mapping and apply highlighting
+if (dashboardElements.hasOwnProperty(window.location.pathname)) {
+  highlightDashboardElements();
+} else if (window.location.pathname.includes("/dashboard/ticket/") || window.location.pathname.includes("/dashboard/submit-ticket/")) {
+  // Special case for the support dashboard
+  highlightDashboardElements();
+  const body = document.body;
+  body.style.overflowX = "hidden";
+  body.style.overflowY = "scroll";
+}
+
+
 // dashboard menu
 
 // show number that enter in field of charge wallet to persian letter
@@ -115,19 +92,16 @@ $("#id_service_type").change(function () {
 let service_info = "";
 let id_quantity = document.getElementById("id_quantity");
 
-$("#id_service").change(function () {
-  const serviceId = $(this).val();
-  const url = $("#new_order_form").attr("data-service-url");
+function updateServiceDetails(serviceId) {
+  const url = $("#new_order_form").data("service-url");
   let desc_box = document.getElementById("desc_box");
   let title_service = document.getElementById("title_service");
   let min_service = document.getElementById("min_service");
   let max_service = document.getElementById("max_service");
-  let price_per_unit_service = document.getElementById(
-    "price_per_unit_service"
-  );
+  let price_per_unit_service = document.getElementById("price_per_unit_service");
   let no_choice_product = document.getElementById("no-choice-product");
   let product_spec_box = document.getElementById("product-spec-box");
-  let desc_lines = [];
+
   $.ajax({
     url: url,
     data: {
@@ -145,8 +119,7 @@ $("#id_service").change(function () {
         document.getElementById("profile_link_label").classList = "d-none";
         document.getElementById("post_link_label").classList = "d-block";
         document.getElementById("telegram_link_label").classList = "d-none";
-      }
-      else if (data.service_detail.link_type === "telegram_link") {
+      } else if (data.service_detail.link_type === "telegram_link") {
         document.getElementById("profile_link_label").classList = "d-none";
         document.getElementById("post_link_label").classList = "d-none";
         document.getElementById("telegram_link_label").classList = "d-block";
@@ -169,7 +142,20 @@ $("#id_service").change(function () {
       price_per_unit_service.innerHTML = data.service_detail.amount;
     },
   });
+}
+
+// Call the function on page load with the initial value of #id_service
+$(document).ready(function () {
+  const initialServiceId = $("#id_service").val();
+  updateServiceDetails(initialServiceId);
 });
+
+// Bind the function to the change event of #id_service
+$("#id_service").change(function () {
+  const selectedServiceId = $(this).val();
+  updateServiceDetails(selectedServiceId);
+});
+
 
 let total_price = document.getElementById("total_price");
 let total_number = document.getElementById("total_number");
@@ -223,26 +209,26 @@ $(function () {
   });
 });
 
-if (window.location.pathname === "/dashboard/new-order/") {
-  window.onload = function () {
-    let service_type_select = document.getElementById("id_service_type");
-    let service_select = document.getElementById("id_service");
-    let id_link = document.getElementById("id_link");
-    let id_quantity = document.getElementById("id_quantity");
-    if (service_type_select) {
-      service_type_select.selectedIndex = 0;
-    }
-    if (service_select) {
-      service_select.selectedIndex = 0;
-    }
-    if (id_link) {
-      id_link.value = "";
-    }
-    if (id_quantity) {
-      id_quantity.value = "";
-    }
-  };
-}
+// if (window.location.pathname === "/dashboard/new-order/") {
+//   window.onload = function () {
+//     let service_type_select = document.getElementById("id_service_type");
+//     let service_select = document.getElementById("id_service");
+//     let id_link = document.getElementById("id_link");
+//     let id_quantity = document.getElementById("id_quantity");
+//     if (service_type_select) {
+//       service_type_select.selectedIndex = 0;
+//     }
+//     if (service_select) {
+//       service_select.selectedIndex = 0;
+//     }
+//     if (id_link) {
+//       id_link.value = "";
+//     }
+//     if (id_quantity) {
+//       id_quantity.value = "";
+//     }
+//   };
+// }
 
 function openPaymentModal() {
   const modal = document.getElementById("paymentModal");
