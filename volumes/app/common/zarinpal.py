@@ -69,7 +69,7 @@ def payment_verify(request):
     user = User.objects.get(phone_number=phone_number)
     if "order_id" in request.session:
         order_id = request.session["order_id"]
-    payment_type = request.session["payment_type"]
+    payment_purpose = request.session["payment_purpose"]
     transaction_detail = str(request.session["transaction_detail"][0])
     data = {
         "MerchantID": settings.MERCHANT,
@@ -83,7 +83,7 @@ def payment_verify(request):
     if req.status_code == 200:  # successful payment
         if req.json()["Status"] == 100:
             request.session["status"] = True
-            if payment_type == "pay_order_online":
+            if payment_purpose == "pay_order_online":
                 if "order_id" in request.session:
                     order_id = request.session["order_id"]
                     order = get_object_or_404(Order, id=order_id)
@@ -93,8 +93,6 @@ def payment_verify(request):
                     order.status = "Queued"
                     order.paid = True
                     order.save()
-                    print(phone_number)
-                    print(order_code)
                     send_submit_order_sms_task.delay(phone_number, order_code)
                     Transactions.objects.create(
                         user=user,
@@ -108,10 +106,10 @@ def payment_verify(request):
                         ip=request.META.get("REMOTE_ADDR"),
                     )
                 else:
-                    context = {"payment_type": "error"}
+                    context = {"payment_purpose": "error"}
                     return render(request, "accounts/callback_gateway.html", context)
                 return redirect("callback_gateway")
-            elif payment_type == "add_fund_wallet":
+            elif payment_purpose == "add_fund_wallet":
                 user.balance += amount
                 user.save()
                 Transactions.objects.create(
@@ -125,7 +123,7 @@ def payment_verify(request):
                     ip=request.META.get("REMOTE_ADDR"),
                 )
                 return redirect("callback_gateway")
-            elif payment_type == "pay_remain_price":
+            elif payment_purpose == "pay_remain_price":
                 total_order_price = request.session["total_order_price"]
                 order = get_object_or_404(Order, id=order_id)
                 order.paid = True

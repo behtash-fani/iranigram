@@ -319,7 +319,7 @@ class WalletView(LoginRequiredMixin, View):
             request.session["transaction_detail"] = transaction_detail
             request.session["phone_number"] = phone_number
             request.session["amount"] = amount
-            request.session["payment_type"] = "add_fund_wallet"
+            request.session["payment_purpose"] = "add_fund_wallet"
             return redirect("payment_request")
         else:
             # print(add_credit_form.errors.as_data())  # TODO change this print to logging

@@ -2,17 +2,17 @@
 {% load i18n %}
 {% load static %}
 {% block title %}
-{% if payment_type == 'add_fund_wallet' %}
+{% if payment_purpose == 'add_fund_wallet' %}
 {% trans 'Successful increase of wallet credit' %}
-{% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
+{% elif payment_purpose == 'pay_order_online' or payment_purpose == 'pay_remain_price' %}
 {% trans 'Successful order payment' %}
-{% elif payment_type == 'error' %}
+{% elif payment_purpose == 'error' %}
 {% trans 'Unsuccessful payment' %}
 {% endif %}
 {% endblock %}
 {% block content %}
 <div class="text-center mx-auto p-3">
-    {% if payment_type == 'add_fund_wallet' %}
+    {% if payment_purpose == 'add_fund_wallet' %}
     <img src="{% static 'image/callback_success.svg' %}" class="img-fluid" width="516px" height="420px"
         alt="پرداخت موفق خرید فالوور و لایک اینستاگرام">
     <div class="col-lg-3 col-12 mx-auto">
@@ -31,7 +31,7 @@
             <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ سیاه برای دکمه مشاهده کیف پول">
         </a>
     </div>
-    {% elif payment_type == 'pay_order_online' or payment_type == 'pay_remain_price' %}
+    {% elif payment_purpose == 'pay_order_online' or payment_purpose == 'pay_remain_price' %}
     <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
     <div class="col-lg-3 col-12 mx-auto">
         <div class="alert alert-light" role="alert">
@@ -54,7 +54,7 @@
                 width="24px" height="24px">
         </a>
     </div>
-    {% elif payment_type == 'error' %}
+    {% elif payment_purpose == 'error' %}
     <img src="{% static 'image/callback_error.svg' %}" class="img-fluid mt-4" width="516px" height="422px"
         alt="پرداخت ناموفق تراکنش خرید فالوور و لایک اینستاگرام">
     <div class="text-center col-md-6 col-lg-4 d-block mx-auto">

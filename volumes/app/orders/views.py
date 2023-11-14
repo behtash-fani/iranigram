@@ -61,7 +61,7 @@ class NewOrderView(LoginRequiredMixin, View):
                 request.session["phone_number"] = user.phone_number
                 request.session["order_id"] = order_item.id
                 request.session["amount"] = total_price
-                request.session["payment_type"] = "pay_order_online"
+                request.session["payment_purpose"] = "pay_order_online"
                 request.session["transaction_detail"] = transaction_detail
                 return redirect("payment_request")
             elif "credit_payment" in request.POST:
@@ -138,7 +138,7 @@ def pay_remain_price(request):
     request.session["phone_number"] = user.phone_number
     request.session["total_order_price"] = total_price
     request.session["amount"] = amount
-    request.session["payment_type"] = "pay_remain_price"
+    request.session["payment_purpose"] = "pay_remain_price"
     request.session["order_id"] = order.id
     transaction_detail = (_("Payment of the order deficit"),)
     request.session["transaction_detail"] = transaction_detail
@@ -155,7 +155,7 @@ def complete_order(request):
     request.session["phone_number"] = user.phone_number
     request.session["total_order_price"] = order.amount
     request.session["amount"] = amount
-    request.session["payment_type"] = "pay_remain_price"
+    request.session["payment_purpose"] = "pay_remain_price"
     request.session["order_id"] = order_id
     transaction_detail = (_("Online payment of the order fee"),)
     request.session["transaction_detail"] = transaction_detail
@@ -217,7 +217,6 @@ class TemplateNewOrder(View):
         quantity = Packages.objects.get(id=pkg_id).quantity
         order_form = self.form_class(request.POST or None)
         otp_form = self.otp_form_class(request.POST or None)
-        verify_otp_form = self.verify_otp_form_class(request.POST or None)
         if order_form.is_valid():
             if "online_payment" in request.POST:
                 cd = order_form.cleaned_data
@@ -240,7 +239,7 @@ class TemplateNewOrder(View):
                 request.session["phone_number"] = user.phone_number
                 request.session["order_id"] = order_item.id
                 request.session["amount"] = total_price
-                request.session["payment_type"] = "pay_order_online"
+                request.session["payment_purpose"] = "pay_order_online"
                 request.session["transaction_detail"] = transaction_detail
                 return redirect("payment_request")
             elif "credit_payment" in request.POST:
@@ -374,6 +373,6 @@ def send_to_payment(request):
     request.session["phone_number"] = phone_number
     request.session["order_id"] = order_item.id
     request.session["amount"] = amount
-    request.session["payment_type"] = "pay_order_online"
+    request.session["payment_purpose"] = "pay_order_online"
     request.session["transaction_detail"] = transaction_detail
     return redirect("payment_request")
