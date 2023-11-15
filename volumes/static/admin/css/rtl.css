@@ -240,26 +240,21 @@ form .form-row p.datetime {
 
 input[type='text'], input[type='number'], input[type='file'] {
     font-family: Vazirmatn !important;
-    padding: 10px !important;
     width: 500px !important;
-    height: 30px !important;
 }
 
 textarea
 {
     font-family: Vazirmatn !important;
-    padding: 10px !important;
     width: 500px !important;
     height: auto !important;
 }
 select {
     font-family: Vazirmatn !important;
-    padding: 10px !important;
     width: 500px !important;
     height: auto !important;
 }
 
 input[type="submit"]{
-    padding: 15px !important;
     font-family: Vazirmatn !important;
 }
