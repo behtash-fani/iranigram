@@ -26,7 +26,7 @@ Django==4.1.5
 django-admin-persian-fonts==0.2
 django-cache-url==3.4.4
 django-celery-beat==2.4.0
-django-ckeditor==6.5.1
+django-ckeditor-5==0.2.10
 django-hashid-field==3.3.7
 django-import-export==3.2.0
 django-jalali-date==1.0.1

@@ -26,7 +26,7 @@ urlpatterns = [
     path('callback-gateway/', callback_gateway, name='callback_gateway'),
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
-    path('ckeditor', include('ckeditor_uploader.urls')),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('send-verify-code/', send_otpcode_again, name='send_verify_code'),
     path('api/v1/', include('api.urls')),
     path(

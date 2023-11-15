@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 02:46+0330\n"
+"POT-Creation-Date: 2023-11-15 04:43+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -464,7 +464,7 @@ msgstr "ثانیه"
 msgid "Send Code Agian"
 msgstr "ارسال مجدد کد"
 
-#: accounts/templates/accounts/services.html:15 posts/models.py:29
+#: accounts/templates/accounts/services.html:15 posts/models.py:31
 #: service/models.py:41
 msgid "Title"
 msgstr "عنوان"
@@ -557,11 +557,11 @@ msgstr "درخواست تایید نشد . لطفا دوباره تلاش کنی
 msgid "The minimum amount that can be paid to increase credit is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتبار ۵۰۰ تومان است "
 
-#: accounts/views.py:318 common/zarinpal.py:123
+#: accounts/views.py:318 common/zarinpal.py:121
 msgid "Increase wallet credit"
 msgstr "افزایش اعتبار کیف پول"
 
-#: api/views.py:92 orders/views.py:85 orders/views.py:267
+#: api/views.py:92 orders/views.py:85 orders/views.py:266
 msgid "Deduct the amount for placing the order"
 msgstr "کسر مبلغ بابت ثبت سفارش"
 
@@ -573,7 +573,7 @@ msgstr ""
 "متاسفانه ارتباط با درگاه بانک برقرار نشد. تیم فنی در اسرع وقت این مشکل را "
 "برطرف میکند"
 
-#: common/zarinpal.py:107 common/zarinpal.py:124 common/zarinpal.py:149
+#: common/zarinpal.py:105 common/zarinpal.py:122 common/zarinpal.py:147
 #: orders/admin.py:36 orders/tasks.py:87 orders/tasks.py:108
 msgid "Zarinpal"
 msgstr "زرین پال"
@@ -696,7 +696,7 @@ msgid "Payment Method"
 msgstr "روش پرداخت"
 
 #: orders/models.py:41 orders/templates/orders/orders.html:20
-#: posts/models.py:36 support/models.py:22
+#: posts/models.py:37 support/models.py:22
 #: support/templates/support/support.html:27
 msgid "Status"
 msgstr "وضعیت"
@@ -722,13 +722,13 @@ msgid "Submit Now"
 msgstr "الان ثبت شود"
 
 #: orders/models.py:47 orders/templates/orders/orders.html:119
-#: posts/models.py:37 support/models.py:23 support/models.py:39
+#: posts/models.py:38 support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:29 transactions/models.py:32
 #: transactions/templates/transactions/transactions.html:19
 msgid "Created At"
 msgstr "تاریخ ایجاد"
 
-#: orders/models.py:48 posts/models.py:38 support/models.py:24
+#: orders/models.py:48 posts/models.py:39 support/models.py:24
 #: support/templates/support/support.html:30 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
@@ -853,16 +853,16 @@ msgstr "پرداخت نشده"
 msgid "For amounts less than 500 Tomans, please use a wallet"
 msgstr "برای مبالغ کمتر از ۵۰۰ تومان لطفا از کیف پول استفاده بفرمایید"
 
-#: orders/views.py:60 orders/views.py:160 orders/views.py:239
-#: orders/views.py:373
+#: orders/views.py:60 orders/views.py:160 orders/views.py:238
+#: orders/views.py:372
 msgid "Online payment of the order fee"
 msgstr "پرداخت آنلاین هزینه سفارش"
 
-#: orders/views.py:98 orders/views.py:280
+#: orders/views.py:98 orders/views.py:279
 msgid "Order created successfully, this is your order code:"
 msgstr "ثبت سفارش موفقیت آمیز انجام شد. کد سفارش شما: "
 
-#: orders/views.py:107 orders/views.py:289
+#: orders/views.py:107 orders/views.py:288
 msgid ""
 "Your balance amount is less than the order amount. Please use online payment"
 msgstr ""
@@ -872,47 +872,51 @@ msgstr ""
 msgid "Payment of the order deficit"
 msgstr "پرداخت مبلغ کسری سفارش"
 
-#: posts/models.py:19 posts/models.py:39
+#: posts/models.py:20 posts/models.py:40
 msgid "Category"
 msgstr "دسته بندی"
 
-#: posts/models.py:20
+#: posts/models.py:21
 msgid "Categories"
 msgstr "دسته بندی ها"
 
-#: posts/models.py:24
+#: posts/models.py:25
 msgid "Draft"
 msgstr "پیش نویس"
 
-#: posts/models.py:25
+#: posts/models.py:26
 msgid "Publish"
 msgstr "انتشار"
 
 #: posts/models.py:30
-msgid "Slug"
-msgstr "لینک"
-
-#: posts/models.py:31
 msgid "Author"
 msgstr "نویسنده"
 
 #: posts/models.py:32
+msgid "Slug"
+msgstr "لینک"
+
+#: posts/models.py:33
 msgid "Short Content"
 msgstr "خلاصه متن"
 
-#: posts/models.py:33
+#: posts/models.py:34
 msgid "Content"
 msgstr "محتوا"
 
-#: posts/models.py:34
+#: posts/models.py:35
 msgid "Read Time"
 msgstr "زمان مطالعه"
 
-#: posts/models.py:50
+#: posts/models.py:36
+msgid "Thumbnail"
+msgstr "عکس شاخص"
+
+#: posts/models.py:51
 msgid "Post"
 msgstr "پست"
 
-#: posts/models.py:51
+#: posts/models.py:52
 msgid "Posts"
 msgstr "پست ها"
 

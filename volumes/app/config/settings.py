@@ -31,8 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django_celery_beat",
     "jalali_date",
-    "ckeditor",
-    "ckeditor_uploader",
+    'django_ckeditor_5',
     "admin_reorder",
     "robots",
     "import_export",
@@ -219,4 +218,102 @@ REST_FRAMEWORK = {
         'user': '60/minute'
     },
     'EXCEPTION_HANDLER': 'api.custom_exception_handler.auth_exception_handler',
+}
+
+CKEDITOR_5_CUSTOM_CSS = '/static/django_ckeditor_5/src/override-django.css'
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "language": {"ui": "fa", "content": "fa"},
+        "contentLanguageDirection": "rtl",
+        "fontFamily": {
+            "options": [
+                'default',
+                'VazirMatn'
+            ]
+        },
+         "alignment": {
+            "options": ['left', 'right', 'center', 'justify']
+        },
+        "heading": {
+            "options": [
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
+                {
+                    "model": "heading4",
+                    "view": "h4",
+                    "title": "Heading 4",
+                    "class": "ck-heading_heading4",
+                },
+                {
+                    "model": "heading5",
+                    "view": "h5",
+                    "title": "Heading 5",
+                    "class": "ck-heading_heading5",
+                },
+                {
+                    "model": "heading6",
+                    "view": "h6",
+                    "title": "Heading 6",
+                    "class": "ck-heading_heading6",
+                },
+            ]
+        },
+        "toolbar": [
+            "undo", 
+            "redo",
+            "heading",
+            "alignment",
+            "fontSize",
+            "fontFamily",
+            "bold",
+            "italic",
+            "link",
+            "underline",
+            "mediaEmbed",
+            "|",
+            "outdent",
+            "indent",
+            "|",
+            "codeBlock",
+            "strikethrough",
+            "code",
+            "subscript",
+            "superscript",
+            "highlight",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "todoList",
+            "|",
+            "blockQuote",
+            "insertImage",
+            "|",
+            "fontColor",
+            "fontBackgroundColor",
+            "removeFormat",
+            "insertTable",
+            "sourceEditing",
+        ],
+    },
 }

@@ -242,3 +242,10 @@ input[type="number"] {
   margin-left: auto !important;
   margin-right: unset !important;
 }
+
+figure.image img {
+  border-radius: var(--bs-border-radius-xl)!important;
+}
+
+
+

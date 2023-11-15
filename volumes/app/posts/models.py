@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
-from ckeditor_uploader.fields import RichTextUploadingField
 import readtime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Category(models.Model):
     title = models.CharField(max_length=20, blank=True, null=True)
@@ -26,13 +26,13 @@ STATUS = (
 )
 
 class Post(models.Model):
+    author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts', verbose_name=_("Author"), default='1')
     title = models.CharField(max_length=200, unique=True, verbose_name=_("Title"), blank=True, null=True)
     slug = models.SlugField(max_length=900, unique=True, verbose_name=_("Slug"), blank=True, null=True, allow_unicode=True)
-    author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts', verbose_name=_("Author"), default='1')
-    short_content = models.TextField(max_length=170, verbose_name=_("Short Content"), blank=True, null=True)
-    content = RichTextUploadingField(verbose_name=_("Content"), blank=True, null=True)
+    short_content = CKEditor5Field(max_length=170, verbose_name=_("Short Content"), blank=True, null=True)
+    content = CKEditor5Field(verbose_name=_("Content"), blank=True, null=True)
     read_time = models.CharField(max_length=100, verbose_name=_("Read Time"), blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='blog/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='blog/', blank=True, null=True, verbose_name=_("Thumbnail"))
     status = models.IntegerField(choices=STATUS, default=0,verbose_name=_("Status"), blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'), blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'), blank=True, null=True)

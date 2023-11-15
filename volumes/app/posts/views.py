@@ -4,9 +4,7 @@ from django.views.generic.list import ListView
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from django.views.generic import DetailView
-
-
+from django.views.generic import DetailView, UpdateView
 
 class PostsList(ListView):
     model = Post

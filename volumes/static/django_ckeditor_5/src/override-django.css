@@ -1,0 +1,66 @@
+/** Todo list **/
+
+.ck .todo-list input {
+    padding: 0;
+}
+
+.ck .todo-list__checkmark:after {
+    height: 6px !important;
+}
+
+.ck .todo-list__checkmark {
+    padding: 0;
+}
+
+.ck.ck-content.ck-editor__editable {
+    min-height: 300px;
+}
+
+.ck h2 {
+    color: inherit;
+    background: inherit;
+}
+
+form .aligned .ck ul li {
+    list-style: inherit;
+}
+
+form .aligned .ck ul {
+    margin-left: 1.5em;
+    padding-left: inherit;
+}
+
+.ck-word-count {
+    display: flex;
+    margin-top: 10px;
+}
+
+.ck-word-count__words {
+    margin-right: 10px;
+}
+
+.ck.ck-editor {
+    position: relative;
+    width: 100%;
+}
+
+.ck-content .text-big {
+    font-size: 1.4em !important;
+    line-height: 2em !important;
+}
+
+.ck-editor__editable p {
+    font-size: 1.2em !important;
+}
+
+.ck-editor__editable {
+    max-height: 700px !important;
+}
+
+.field-short_content {
+    max-height: 200px !important;
+}
+
+.ck-editor__editable p {
+    font-family: Vazirmatn !important;
+}
