@@ -21,9 +21,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, logout, login
 from support.models import Ticket
-from common.mixins import LoginRequiredMixin
+from accounts.mixins import BlockCheckLoginRequiredMixin
 from common.generate_random_number import generate_random_number
-from common.is_block_user import is_block_user
 from datetime import datetime, timedelta
 from .tasks import (
     send_login_sms_task,
@@ -35,19 +34,11 @@ from rest_framework.authtoken.models import Token
 from service.models import Service
 
 
-class UserDashboardView(LoginRequiredMixin, View):
+class UserDashboardView(BlockCheckLoginRequiredMixin, View):
     template_name = "accounts/dashboard.html"
 
     def get(self, request):
         user = request.user
-        if is_block_user(user.phone_number):
-            messages.error(
-                request,
-                _("Your account has been blocked. To follow up on this issue, please contact support"),
-                "danger",
-            )
-            logout(request)
-            return redirect("accounts:user_login_otp")
         orders_count = Order.objects.filter(user=user).count()
         ticket_count = Ticket.objects.filter(user=user).count()
         context = {"orders_count": orders_count, "ticket_count": ticket_count}
@@ -69,12 +60,6 @@ class UserRegisterWithOTPView(View):
         register_form = self.form_class(request.POST)
         if register_form.is_valid():
             cd = register_form.cleaned_data
-            verification_code = generate_random_number(4, is_unique=False)
-            phone_number = cd["phone_number"]
-            send_register_sms_task.delay(phone_number, verification_code)
-            if OTPCode.objects.filter(phone_number=phone_number).exists():
-                OTPCode.objects.filter(phone_number=phone_number).delete()
-            OTPCode.objects.create(phone_number=phone_number, code=verification_code)
             request.session["phone_number"] = cd["phone_number"]
             messages.success(request, _("A one-time password has been sent"), "success")
             return redirect("accounts:user_register_verify")
@@ -184,17 +169,23 @@ def check_expire_time(request):
 
 @csrf_exempt
 def send_otpcode_again(request):
-    phone_number = request.session["phone_number"]
-    if OTPCode.objects.filter(phone_number=phone_number).exists():
-        OTPCode.objects.filter(phone_number=phone_number).delete() 
-    verification_code = generate_random_number(4, is_unique=False)
-    OTPCode.objects.create(
-        phone_number=phone_number,
-        code=verification_code,
-        expire_time=datetime.now() + timedelta(seconds=120),
-    )
-    send_login_sms_task.delay(phone_number, verification_code)
-    messages.success(request, _("A one-time password has been sent"), "success")
+    phone_number = request.session.get("phone_number")
+
+    if phone_number:
+        OTPCode.objects.filter(phone_number=phone_number).delete()
+
+        verification_code = generate_random_number(4, is_unique=False)
+        expire_time = datetime.now() + timedelta(seconds=120)
+
+        OTPCode.objects.create(
+            phone_number=phone_number,
+            code=verification_code,
+            expire_time=expire_time,
+        )
+
+        send_login_sms_task.delay(phone_number, verification_code)
+        messages.success(request, _("A one-time password has been sent"), "success")
+
     return redirect('accounts:user_login_verify')
 
 
@@ -237,7 +228,7 @@ class UserLogoutView(View):
         return redirect("pages:home")
 
 
-class EditProfileFormView(LoginRequiredMixin, View):
+class EditProfileFormView(BlockCheckLoginRequiredMixin, View):
     template_name = "accounts/profile.html"
 
     def get(self, request, *args, **kwargs):
@@ -293,7 +284,7 @@ class EditProfileFormView(LoginRequiredMixin, View):
             return redirect("accounts:user_profile")
 
 
-class WalletView(LoginRequiredMixin, View):
+class WalletView(BlockCheckLoginRequiredMixin, View):
     form_class = AddCreditForm
     template_name = "accounts/wallet.html"
 
@@ -359,17 +350,6 @@ def regenerate_token(request):
     Token.objects.create(user=user)
     messages.success(request, "Token has been replaced", "success")
     return redirect('accounts:api_docs')
-
-
-# class ServicesView(View):
-#     template_name = 'accounts/services.html'
-
-#     def get(self, request):
-#         services = Service.objects.filter(available_for_user=True).order_by("priority")
-#         context = {
-#             'services': services
-#         }
-#         return render(request, self.template_name, context)
 
 class ServicesView(ListView):
     model = Service

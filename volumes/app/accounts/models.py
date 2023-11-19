@@ -66,7 +66,6 @@ class User(AbstractBaseUser):
 @receiver(post_save, sender=User)
 def order_count(sender, instance, created, **kwargs):
     user_orders_count = instance.orders.all().count()
-    user_orders_count += 1
     user_instance = User.objects.filter(phone_number=instance.phone_number)
     user_instance.update(orders_count=user_orders_count)
     Token.objects.get_or_create(user=instance)

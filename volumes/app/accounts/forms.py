@@ -18,25 +18,29 @@ class UserCreationForm(forms.ModelForm):
         fields = ('phone_number',)
 
     def clean_password2(self):
-        cd = self.cleaned_data
-        password1 = cd["password1"]
-        password2 = cd["password2"]
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+
         if password1 and password2 and password1 != password2:
             raise ValidationError("Passwords don't match")
+
         return password2
 
     def clean_phone_number(self):
-        phone_number = self.cleaned_data['phone_number']
-        user = User.objects.filter(phone_number=phone_number).exists()
-        if user:
-            raise ValidationError('this phone number is already exist, please enter another phone number')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        if User.objects.filter(phone_number=phone_number).exists():
+            raise ValidationError('This phone number is already in use. Please enter another phone number')
+
         return phone_number
 
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+
         if commit:
             user.save()
+
         return user
 
 
@@ -49,95 +53,120 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegisterWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
+    phone_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}),
+        error_messages={'required': _('Phone Number field is required')},
+    )
 
     def clean_phone_number(self):
+        raw_phone_number = self.cleaned_data['phone_number']
+        formatted_phone_number = validate_phone_number(raw_phone_number)
 
-        if not self.cleaned_data['phone_number']:
-            raise ValidationError("Phone Number field is required.")
-
-        phone_number = validate_phone_number(self.cleaned_data['phone_number'])
-        if phone_number:
-            if User.objects.filter(phone_number=phone_number).exists():
+        if not formatted_phone_number or not raw_phone_number.isdigit():
+            raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
+        else:
+            if User.objects.filter(phone_number=formatted_phone_number).exists():
                 raise ValidationError(
                     _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
-            return phone_number
-        else:
-            raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
+            verification_code = generate_random_number(4, is_unique=False)
+            send_login_sms_task.delay(formatted_phone_number, verification_code)
 
+            OTPCode.objects.filter(phone_number=formatted_phone_number).delete()
+            OTPCode.objects.create(
+                phone_number=formatted_phone_number,
+                code=verification_code,
+                expire_time=datetime.now() + timedelta(seconds=120),
+            )
+            return formatted_phone_number
+            
 
 class LoginWithPasswordForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number'}))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'password'}))
-    
+    phone_number = forms.CharField(
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number'}),
+        error_messages={'required': _('Phone Number field is required')}
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'password'}),
+        error_messages={'required': _('Password field is required')}
+    )
 
     def clean_phone_number(self):
+        phone_number = validate_phone_number(self.cleaned_data['phone_number'])
 
-            if not self.cleaned_data['phone_number']:
-                raise ValidationError("Phone Number field is required.")
+        if phone_number:
+            user = User.objects.filter(phone_number=phone_number).first()
 
-            phone_number = validate_phone_number(self.cleaned_data['phone_number'])
+            if not user:
+                raise ValidationError(_("The phone number entered on the site is not registered. Please register first"))
 
-            if phone_number:
-                if not User.objects.filter(phone_number=phone_number).exists():
-                    raise ValidationError(
-                        _("The phone number entered on the site is not registered. Please register first"))
-                elif User.objects.get(phone_number=phone_number).is_block:
-                    raise ValidationError(_('Your account has been blocked. To follow up on this issue, please contact support'))
-                else:
-                    return phone_number
-            else:
-                raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
-            
+            if user.is_block:
+                raise ValidationError(_('Your account has been blocked. To follow up on this issue, please contact support'))
+
+            return phone_number
+
+        raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
+
     def clean_password(self):
         phone_number = validate_phone_number(self.cleaned_data['phone_number'])
         password = self.cleaned_data['password']
         user = get_object_or_404(User, phone_number=phone_number)
+
         if not user.has_usable_password():
             raise ValidationError(_("No password has been set for your phone number. Please enter a password in the forgot password section or use a one-time password to log in to your account"))
-        elif not user.check_password(password):
+
+        if not user.check_password(password):
             raise ValidationError(_("Incorrect password"))
+
         return password
     
 
 class LoginWithOTPForm(forms.Form):
-    phone_number = forms.CharField(widget=forms.NumberInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'phone number', 'autocomplete': 'off'}))
+    phone_number = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'dir': 'ltr',
+            'placeholder': 'Phone number',
+            'autocomplete': 'off'
+        }),
+        error_messages={'required': _('Phone Number field is required')}
+    )
 
     def clean_phone_number(self):
+        raw_phone_number = self.cleaned_data.get('phone_number')
+        formatted_phone_number = validate_phone_number(raw_phone_number)
 
-        if not self.cleaned_data['phone_number']:
-            raise ValidationError("Phone Number field is required.")
+        if not formatted_phone_number or not raw_phone_number.isdigit():
+            raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
 
-        phone_number = validate_phone_number(self.cleaned_data['phone_number'])
+        user = User.objects.filter(phone_number=formatted_phone_number).first()
+
+        if not user:
+            raise ValidationError(_("The phone number entered on the site is not registered. Please register first"))
+
+        if user.is_block:
+            raise ValidationError(_('Your account has been blocked. To follow up on this issue, please contact support'))
+
         verification_code = generate_random_number(4, is_unique=False)
-        send_login_sms_task.delay(phone_number, verification_code)
-        if OTPCode.objects.filter(phone_number=phone_number).exists():
-            OTPCode.objects.filter(phone_number=phone_number).delete()
+        send_login_sms_task.delay(formatted_phone_number, verification_code)
+
+        OTPCode.objects.filter(phone_number=formatted_phone_number).delete()
         OTPCode.objects.create(
-            phone_number=phone_number,
+            phone_number=formatted_phone_number,
             code=verification_code,
             expire_time=datetime.now() + timedelta(seconds=120),
         )
-        
-        if phone_number:
-            if not User.objects.filter(phone_number=phone_number).exists():
-                raise ValidationError(
-                    _("The phone number entered on the site is not registered. Please register first"))
-            elif User.objects.get(phone_number=phone_number).is_block:
-                raise ValidationError(_('Your account has been blocked. To follow up on this issue, please contact support'))
-            else:
-                return phone_number
-        else:
-            raise ValidationError(_("The phone number entered is incorrect. Please enter as in the example"))
+
+        return formatted_phone_number
         
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'OTP Code', 'autocomplete': 'off'}))
+        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'OTP Code', 'autocomplete': 'off'}),
+        error_messages={
+            'invalid': _('The entered code is incorrect'),
+            'required': _('Code field is required'),
+            }
+        )
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
@@ -145,12 +174,13 @@ class VerifyCodeForm(forms.Form):
 
     def clean_code(self, *args, **kwargs):
         cleaned_data = super().clean()
-        code = cleaned_data['code']
+        code = self.cleaned_data['code']
+        
+        if not code.isdigit():
+            raise ValidationError(_('The entered code is incorrect'))
         
         phone_number = self.request.session['phone_number']
         verification_code = OTPCode.objects.get(phone_number=phone_number)
-        if not code:
-            raise ValidationError("Code field is required.")
         
         if int(code) == int(verification_code.code):
             verification_code.delete()
@@ -176,12 +206,14 @@ class EditProfileForm(forms.Form):
 class AddCreditForm(forms.Form):
     amount = forms.CharField(widget=forms.NumberInput(
         attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'number',
-               'autocomplete': 'off'}))
+               'autocomplete': 'off'}),
+        error_messages={
+            'required': _('Amount field is required'),
+            }
+        )
     
     def clean_amount(self):
         amount = self.cleaned_data['amount']
-        if not amount:
-            raise ValidationError("amount field is required.")
         return amount
 
 class ChangePasswordForm(forms.Form):

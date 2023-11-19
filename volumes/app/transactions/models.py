@@ -19,7 +19,7 @@ PAYMENT_TYPE = (
 
 
 class Transactions(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name=_('User'))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'))
     type = models.CharField(max_length=30, choices=TYPE, blank=True, null=True, verbose_name=_('Type of transaction'))
     price = models.PositiveIntegerField(blank=True, verbose_name=_('Price'))
     balance = models.IntegerField(blank=True, null=True, verbose_name=_('Balance'))

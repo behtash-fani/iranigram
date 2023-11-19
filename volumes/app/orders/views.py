@@ -10,8 +10,6 @@ from django.utils.translation import gettext as _
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-import logging
-from common.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse
 from common.generate_random_number import generate_random_number
@@ -22,10 +20,9 @@ from accounts.tasks import send_login_sms_task
 from datetime import datetime, timedelta
 from accounts.models import OTPCode, User
 from django.contrib.auth import login
+from accounts.mixins import BlockCheckLoginRequiredMixin
 
-logger = logging.getLogger("django")
-
-class NewOrderView(LoginRequiredMixin, View):
+class NewOrderView(BlockCheckLoginRequiredMixin, View):
     template_name = "orders/new_order.html"
     form_class = OrderForm
 
@@ -110,12 +107,12 @@ class NewOrderView(LoginRequiredMixin, View):
                     )
                     return redirect("accounts:new_order")
         else:
-            logger.error(order_form.errors.as_data())
+            print(order_form.errors.as_data())
             context = {"order_form": order_form}
             return render(request, self.template_name, context)
 
 
-def pay_remain_price(request):
+def pay_remain_price(BlockCheckLoginRequiredMixin, request):
     service_type_id = request.POST.get("service_type")
     service_type = ServiceType.objects.get(id=service_type_id)
     service_id = request.POST.get("service")
@@ -163,7 +160,7 @@ def complete_order(request):
     return JsonResponse({"redirect": redirect_url})
 
 
-class OrdersListView(LoginRequiredMixin, ListView):
+class OrdersListView(BlockCheckLoginRequiredMixin, ListView):
     model = Order
     template_name = "orders/orders.html"
     context_object_name = "Orders"
@@ -189,7 +186,7 @@ class OrdersListView(LoginRequiredMixin, ListView):
         return context
 
 
-class TemplateNewOrder(View):
+class TemplateNewOrder(BlockCheckLoginRequiredMixin, View):
     template_name = "orders/buypage.html"
     form_class = TemplateNewOrderForm
     otp_form_class = LoginWithOTPForm
@@ -219,7 +216,6 @@ class TemplateNewOrder(View):
         otp_form = self.otp_form_class(request.POST or None)
         if order_form.is_valid():
             if "online_payment" in request.POST:
-                cd = order_form.cleaned_data
                 order_item = order_form.save(commit=False)
                 order_code = generate_random_number(8, is_unique=True)
                 user = request.user
