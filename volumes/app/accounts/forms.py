@@ -176,7 +176,7 @@ class VerifyCodeForm(forms.Form):
         cleaned_data = super().clean()
         code = self.cleaned_data['code']
         
-        if not code.isdigit():
+        if not str(code).isdigit():
             raise ValidationError(_('The entered code is incorrect'))
         
         phone_number = self.request.session['phone_number']
