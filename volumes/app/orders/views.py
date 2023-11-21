@@ -186,7 +186,7 @@ class OrdersListView(BlockCheckLoginRequiredMixin, ListView):
         return context
 
 
-class TemplateNewOrder(BlockCheckLoginRequiredMixin, View):
+class TemplateNewOrder(View):
     template_name = "orders/buypage.html"
     form_class = TemplateNewOrderForm
     otp_form_class = LoginWithOTPForm
