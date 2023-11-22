@@ -207,17 +207,10 @@ input[type="number"] {
   color: #5d6b81 !important;
 }
 
-.blog-post figure.image {
+.blog-post figure.image img {
   display: block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-figure {
-  margin: 0 0 1rem;
-  display: block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin: auto !important;
+  width: 400px !important;
 }
 
 .single-post a {
