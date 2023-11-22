@@ -70,6 +70,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: VazirCodeHack;
   src: url("../fonts/woff2/Vazir-Code-Hack.woff2") format("woff2");
@@ -177,24 +178,29 @@ input[type="number"] {
     height: 100% !important;
   }
 }
+
 @media (min-width: 992px) {
   .slide-img {
     width: 100%;
     height: 18vw;
     object-fit: cover;
   }
+
   .slide-halfimg {
     width: 100%;
     height: 8.8vw;
     object-fit: cover;
   }
+
   .post-img {
     width: 100%;
     height: 10vw;
     object-fit: cover;
   }
 }
-.blog-post p {
+
+.blog-post p,
+.blog-post li {
   line-height: 2em !important;
   font-size: 18px !important;
   text-align: justify !important;
@@ -205,13 +211,14 @@ input[type="number"] {
   text-decoration: none !important;
   color: #ffc107 !important;
 }
+
 .single-post img {
   max-width: 100%;
   height: auto;
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .show>.nav-link {
   color: #222628 !important;
   background-color: #ffca2d !important;
 }
@@ -238,14 +245,12 @@ input[type="number"] {
   background-repeat: no-repeat;
   background-size: contain;
 }
-.accordionAPI .accordion-button::after{
+
+.accordionAPI .accordion-button::after {
   margin-left: auto !important;
   margin-right: unset !important;
 }
 
 figure.image img {
-  border-radius: var(--bs-border-radius-xl)!important;
+  border-radius: var(--bs-border-radius-xl) !important;
 }
-
-
-
