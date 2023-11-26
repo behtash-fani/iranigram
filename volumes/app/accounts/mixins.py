@@ -8,6 +8,8 @@ from django.contrib.auth import logout
 class BlockCheckMixin:
     def dispatch(self, request, *args, **kwargs):
         user = request.user
+        if not user.is_authenticated:
+            return redirect("accounts:user_login_otp")
         if is_block_user(user.phone_number):
             messages.error(
                 request,

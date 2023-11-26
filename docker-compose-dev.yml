@@ -8,9 +8,9 @@ services:
         expose:
             - '8000'
         volumes:
-            -   type: 'bind'
-                source: './volumes/app'
-                target: '/app'
+            - type: 'bind'
+              source: './volumes/app'
+              target: '/app'
         env_file:
             - ./volumes/app/.env
         command: sh -c "python manage.py runserver 0.0.0.0:8000"
@@ -26,9 +26,9 @@ services:
         environment:
             - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
-            -   type: 'bind'
-                source: './volumes/dbdata'
-                target: '/var/lib/postgresql/data'
+            - type: 'bind'
+              source: './volumes/dbdata'
+              target: '/var/lib/postgresql/data'
     redis:
         image: redis:alpine
         container_name: 'redis'
@@ -59,12 +59,12 @@ services:
         ports:
             - "8000:80"
         volumes:
-            -   type: 'bind'
-                source: './volumes/app/media'
-                target: '/app/media'
+            - type: 'bind'
+              source: './volumes/app/media'
+              target: '/app/media'
 
-            -   type: 'bind'
-                source: './volumes/static'
-                target: '/app/static'
+            - type: 'bind'
+              source: './volumes/static'
+              target: '/app/static'
         env_file:
             - ./volumes/app/.env

@@ -1,7 +1,8 @@
-from pathlib import Path
 from datetime import timedelta
-import os
 from environs import Env
+from pathlib import Path
+import logging
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -315,5 +316,57 @@ CKEDITOR_5_CONFIGS = {
             "insertTable",
             "sourceEditing",
         ],
+    },
+}
+
+
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime:s} {filename} {lineno:d} {name} {funcName} {process:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime:s} {module} {filename} {lineno:d} {funcName} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console_handler': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'custom_handler': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_DIR, 'blogthedata.log'),
+            'mode': 'a',
+            'encoding': 'utf-8',
+            'formatter': 'simple',
+            'backupCount': 3,
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+        },
+        'custom_handler_detailed': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_DIR, 'blogthedata_detailed.log'),
+            'mode': 'a',
+            'formatter': 'verbose',
+            'backupCount': 3,
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_handler', 'custom_handler_detailed'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['custom_handler'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
     },
 }

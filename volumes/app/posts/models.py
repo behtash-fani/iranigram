@@ -57,3 +57,13 @@ class Post(models.Model):
 def check_read_time(sender, instance, created, **kwargs):
     read_time = readtime.of_text(str(instance.content))
     Post.objects.filter(id=instance.id).update(read_time=read_time.minutes)        
+
+
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=_("Blog Post"), related_name='comments')
+#     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.CASCADE)
+#     text = models.TextField(verbose_name=_("Text"))
+#     created_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
+
+#     def __str__(self):
+#         return f'{self.author.username} - {self.text[:50]}'

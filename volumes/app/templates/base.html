@@ -12,7 +12,7 @@
     {% endblock meta %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="icon" href="{% static 'image/favicon.png' %}" sizes="16x16" type="image/png">
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'image/apple-touch-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'image/apple-touch-icon-60x60.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'image/apple-touch-icon-72x72.png' %}">
@@ -27,12 +27,13 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X638RNZRH9"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-X638RNZRH9');
+    gtag('config', 'G-X638RNZRH9');
 </script>
+
 <body>
     {% include 'inc/navbar.html' %}
     {% include "inc/messages.html" %}
@@ -51,6 +52,7 @@
             toast.show();
         }
     });
-// end of snippet
+    // end of snippet
 </script>
+
 </html>
