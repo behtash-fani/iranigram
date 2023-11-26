@@ -8,6 +8,7 @@ from common.utils import send_otpcode_again
 from posts.sitemap import PostSitemap
 from pages.sitemap import PagesSitemap
 from django.contrib.sitemaps import views
+from django.views.generic import RedirectView
 
 
 sitemaps = {
@@ -18,6 +19,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('favicon.ico', RedirectView.as_view(url='/static/icons/favicon.ico')),
     path('', include('pages.urls', namespace='pages')),
     path('services/', include('service.urls', namespace='services')),
     path('blog/', include('posts.urls', namespace='posts')),
@@ -42,6 +44,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path("robots.txt",include('robots.urls')),
+    
 ]
 
 handler404 = 'pages.views.handling_404'
