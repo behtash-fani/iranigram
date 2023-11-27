@@ -147,7 +147,9 @@ function updateServiceDetails(serviceId) {
 // Call the function on page load with the initial value of #id_service
 $(document).ready(function () {
   const initialServiceId = $("#id_service").val();
-  updateServiceDetails(initialServiceId);
+  if (initialServiceId) {
+    updateServiceDetails(initialServiceId);
+  }
 });
 
 // Bind the function to the change event of #id_service

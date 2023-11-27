@@ -1,5 +1,8 @@
 from .models import Service
 from django.http import JsonResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def service_list(request):
@@ -10,7 +13,11 @@ def service_list(request):
 
 
 def get_description(request):
-    service_id = request.GET['serviceId']
-    service_detail = list(Service.objects.filter(id=service_id).values())[0]
-    context = {'service_detail': service_detail}
-    return JsonResponse(context)
+    try:
+        service_id = request.GET['serviceId']
+        service_detail = list(Service.objects.filter(id=service_id).values())[0]
+        context = {'service_detail': service_detail}
+        return JsonResponse(context)
+    except Exception as e:
+        logger.error(f"An error occurred in get_description view: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
