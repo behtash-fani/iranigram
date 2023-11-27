@@ -30,7 +30,7 @@ dbdata/
 /logs/
 
 # Static files
-/static/
+static/
 
 # Ignore data directory
 data/
