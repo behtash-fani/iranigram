@@ -67,7 +67,6 @@ $("#id_service_type").change(function () {
   const serviceTypeId = $(this).val();
   const url = $("#new_order_form").attr("data-services-url");
 
-  if (serviceTypeId) {
   $.ajax({
     url: url,
     data: {
@@ -87,7 +86,6 @@ $("#id_service_type").change(function () {
       });
     },
   });
-}
 });
 
 // function for show description of choice service
@@ -152,21 +150,19 @@ function updateServiceDetails(serviceId) {
 $(document).ready(function () {
   if( $('#id_service').val() && $("#id_service_type").val() ) {
     const initialServiceId = $("#id_service").val();
+    console.log("initialServiceId", initialServiceId);
     updateServiceDetails(initialServiceId);
   }
   $("#id_service").change(function () {
     if ( $(this).val() && $("#id_service_type").val()) {
       const selectedServiceId = $(this).val();
+      console.log("value", $("#id_service_type").val() )
       updateServiceDetails(selectedServiceId);
     }
   });
   $("#id_service_type").change(function () {
     if ( !$(this).val() ) {
       $("#id_service").val("");
-      let product_spec_box = document.getElementById("product-spec-box");
-      let no_choice_product = document.getElementById("no-choice-product");
-      product_spec_box.classList.add("d-none");
-      no_choice_product.classList.remove("d-none");
     }
   });
 });
