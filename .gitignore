@@ -27,10 +27,10 @@ pip-lock.txt
 dbdata/
 
 # Application logs
-/logs/
+volumes/app/logs
 
 # Static files
-static/
+volumes/app/static
 
 # Ignore data directory
 data/
