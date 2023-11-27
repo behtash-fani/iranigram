@@ -1,6 +1,6 @@
 # Django files
 *.pyc
-**__pycache__/
+__pycache__/
 *.pyo
 *.db
 *.sqlite3
@@ -9,9 +9,8 @@
 .env
 default.conf
 
-**/migrations/**
-migrations/
-!**/migrations
+# Django migrations
+**/migrations/*
 !**/migrations/__init__.py
 
 # Media files
@@ -20,13 +19,23 @@ media/
 # Dependencies
 pip-lock.txt
 
-data/
+# IDE and editor specific files
 .idea/
-.vscode
-dbdata
-/logs
+.vscode/
 
+# Database data
+dbdata/
 
+# Application logs
+/logs/
+
+# Static files
+/static/
+
+# Ignore data directory
+data/
+
+# Docker volumes
 volumes/app/accounts/migrations/__init__.py
 volumes/app/posts/migrations/__init__.py
 volumes/app/orders/migrations/__init__.py
@@ -34,4 +43,6 @@ volumes/app/service/migrations/__init__.py
 volumes/app/support/migrations/__init__.py
 volumes/app/transactions/migrations/__init__.py
 volumes/app/utils/total_users_file.json
+
+# Nginx configuration
 nginx/default.conf
