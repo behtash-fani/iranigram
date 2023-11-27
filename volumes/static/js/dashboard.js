@@ -105,7 +105,6 @@ function updateServiceDetails(serviceId) {
   let product_spec_box = document.getElementById("product-spec-box");
 
   if (serviceId){
-    console.log(serviceId);
     $.ajax({
       url: url,
       data: {
