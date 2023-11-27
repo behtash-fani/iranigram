@@ -363,7 +363,6 @@ if (complete_order_payment) {
         success: function (response) {
           if (response.redirect) {
             window.location.href = response.redirect;
-            console.log(response.redirect);
           }
         },
         error: function (error) {
