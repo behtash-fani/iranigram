@@ -6,10 +6,14 @@ logger = logging.getLogger(__name__)
 
 
 def service_list(request):
-    service_type_id = request.GET['serviceTypeId']
-    services = list(Service.objects.filter(service_type__id=service_type_id, available_for_user=True).order_by('priority').values())
-    context = {'services': services}
-    return JsonResponse(context)
+    try:
+        service_type_id = request.GET['serviceTypeId']
+        services = list(Service.objects.filter(service_type__id=service_type_id, available_for_user=True).order_by('priority').values())
+        context = {'services': services}
+        return JsonResponse(context)
+    except Exception as e:
+        logger.error(f"An error occurred in service_list view: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 def get_description(request):

@@ -67,6 +67,7 @@ $("#id_service_type").change(function () {
   const serviceTypeId = $(this).val();
   const url = $("#new_order_form").attr("data-services-url");
 
+  if (serviceTypeId) {
   $.ajax({
     url: url,
     data: {
@@ -86,6 +87,7 @@ $("#id_service_type").change(function () {
       });
     },
   });
+}
 });
 
 // function for show description of choice service
@@ -102,60 +104,72 @@ function updateServiceDetails(serviceId) {
   let no_choice_product = document.getElementById("no-choice-product");
   let product_spec_box = document.getElementById("product-spec-box");
 
-  $.ajax({
-    url: url,
-    data: {
-      serviceId: serviceId,
-    },
-    headers: {
-      "X-CSRFToken": csrf_token,
-    },
-    success: function (data) {
-      if (data.service_detail.link_type === "instagram_profile") {
-        document.getElementById("profile_link_label").classList = "d-block";
-        document.getElementById("post_link_label").classList = "d-none";
-        document.getElementById("telegram_link_label").classList = "d-none";
-      } else if (data.service_detail.link_type === "instagram_post_link") {
-        document.getElementById("profile_link_label").classList = "d-none";
-        document.getElementById("post_link_label").classList = "d-block";
-        document.getElementById("telegram_link_label").classList = "d-none";
-      } else if (data.service_detail.link_type === "telegram_link") {
-        document.getElementById("profile_link_label").classList = "d-none";
-        document.getElementById("post_link_label").classList = "d-none";
-        document.getElementById("telegram_link_label").classList = "d-block";
-      }
-      id_quantity.setAttribute("min", data.service_detail.min_order);
-      id_quantity.setAttribute("max", data.service_detail.max_order);
-      desc_box.innerHTML = "";
-      service_info = data.service_detail;
-      product_spec_box.classList.remove("d-none");
-      no_choice_product.classList.add("d-none");
-      let lines = data.service_detail.description.split("\n");
-      for (const linesKey in lines) {
-        const spec_line = document.createElement("p");
-        spec_line.innerHTML = lines[linesKey].trim();
-        desc_box.appendChild(spec_line);
-      }
-      title_service.innerHTML = data.service_detail.title;
-      min_service.innerHTML = data.service_detail.min_order;
-      max_service.innerHTML = data.service_detail.max_order;
-      price_per_unit_service.innerHTML = data.service_detail.amount;
-    },
-  });
+  if (serviceId){
+    console.log(serviceId);
+    $.ajax({
+      url: url,
+      data: {
+        serviceId: serviceId,
+      },
+      headers: {
+        "X-CSRFToken": csrf_token,
+      },
+      success: function (data) {
+        if (data.service_detail.link_type === "instagram_profile") {
+          document.getElementById("profile_link_label").classList = "d-block";
+          document.getElementById("post_link_label").classList = "d-none";
+          document.getElementById("telegram_link_label").classList = "d-none";
+        } else if (data.service_detail.link_type === "instagram_post_link") {
+          document.getElementById("profile_link_label").classList = "d-none";
+          document.getElementById("post_link_label").classList = "d-block";
+          document.getElementById("telegram_link_label").classList = "d-none";
+        } else if (data.service_detail.link_type === "telegram_link") {
+          document.getElementById("profile_link_label").classList = "d-none";
+          document.getElementById("post_link_label").classList = "d-none";
+          document.getElementById("telegram_link_label").classList = "d-block";
+        }
+        id_quantity.setAttribute("min", data.service_detail.min_order);
+        id_quantity.setAttribute("max", data.service_detail.max_order);
+        desc_box.innerHTML = "";
+        service_info = data.service_detail;
+        product_spec_box.classList.remove("d-none");
+        no_choice_product.classList.add("d-none");
+        let lines = data.service_detail.description.split("\n");
+        for (const linesKey in lines) {
+          const spec_line = document.createElement("p");
+          spec_line.innerHTML = lines[linesKey].trim();
+          desc_box.appendChild(spec_line);
+        }
+        title_service.innerHTML = data.service_detail.title;
+        min_service.innerHTML = data.service_detail.min_order;
+        max_service.innerHTML = data.service_detail.max_order;
+        price_per_unit_service.innerHTML = data.service_detail.amount;
+      },
+    });
+  }
+  
 }
 
-// Call the function on page load with the initial value of #id_service
 $(document).ready(function () {
-  const initialServiceId = $("#id_service").val();
-  if (initialServiceId) {
+  if( $('#id_service').val() && $("#id_service_type").val() ) {
+    const initialServiceId = $("#id_service").val();
     updateServiceDetails(initialServiceId);
   }
-});
-
-// Bind the function to the change event of #id_service
-$("#id_service").change(function () {
-  const selectedServiceId = $(this).val();
-  updateServiceDetails(selectedServiceId);
+  $("#id_service").change(function () {
+    if ( $(this).val() && $("#id_service_type").val()) {
+      const selectedServiceId = $(this).val();
+      updateServiceDetails(selectedServiceId);
+    }
+  });
+  $("#id_service_type").change(function () {
+    if ( !$(this).val() ) {
+      $("#id_service").val("");
+      let product_spec_box = document.getElementById("product-spec-box");
+      let no_choice_product = document.getElementById("no-choice-product");
+      product_spec_box.classList.add("d-none");
+      no_choice_product.classList.remove("d-none");
+    }
+  });
 });
 
 
