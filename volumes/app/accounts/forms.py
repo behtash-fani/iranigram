@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from common.valid_phone_number import validate_phone_number
 from django.shortcuts import get_object_or_404
 from common.generate_random_number import generate_random_number
-from accounts.tasks import send_login_sms_task
+from accounts.tasks import send_login_sms_task, send_register_sms_task
 from datetime import datetime, timedelta
 
 class UserCreationForm(forms.ModelForm):
@@ -69,7 +69,7 @@ class UserRegisterWithOTPForm(forms.Form):
                 raise ValidationError(
                     _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
             verification_code = generate_random_number(4, is_unique=False)
-            send_login_sms_task.delay(formatted_phone_number, verification_code)
+            send_register_sms_task.delay(formatted_phone_number, verification_code)
 
             OTPCode.objects.filter(phone_number=formatted_phone_number).delete()
             OTPCode.objects.create(
