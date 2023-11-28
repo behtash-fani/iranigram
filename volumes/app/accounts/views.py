@@ -44,11 +44,7 @@ class UserDashboardView(BlockCheckLoginRequiredMixin, View):
         context = {"orders_count": orders_count, "ticket_count": ticket_count}
         return render(request, self.template_name, context)
 
-from django.views.decorators.csrf import csrf_protect
-from django.utils.decorators import method_decorator
 
-
-@method_decorator(csrf_protect, name='dispatch')
 class UserRegisterWithOTPView(View):
     form_class = UserRegisterWithOTPForm
     template_name = "accounts/registration/register.html"
