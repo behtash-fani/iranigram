@@ -163,6 +163,10 @@ $(document).ready(function () {
   $("#id_service_type").change(function () {
     if ( !$(this).val() ) {
       $("#id_service").val("");
+      let no_choice_product = document.getElementById("no-choice-product");
+      let product_spec_box = document.getElementById("product-spec-box");
+      product_spec_box.classList.add("d-none");
+      no_choice_product.classList.remove("d-none");
     }
   });
 });
