@@ -14,7 +14,7 @@ default.conf
 !**/migrations/__init__.py
 
 # Media files
-media/
+volumes/app/media
 
 # Dependencies
 pip-lock.txt

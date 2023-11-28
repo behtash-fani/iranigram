@@ -33,25 +33,25 @@ services:
         image: redis:alpine
         container_name: 'redis'
         restart: always
-    celery:
-        build: ./app/
-        container_name: 'celery'
-        command: celery -A config worker --loglevel=info
-        volumes:
-            - type: 'bind'
-              source: './volumes/app'
-              target: '/app'
-        depends_on:
-            - db
-        restart: always
-    celery-beat:
-        build: ./app/
-        container_name: 'celery-beat'
-        command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-        volumes:
-            - type: 'bind'
-              source: './volumes/app'
-              target: '/app'
+    # celery:
+    #     build: ./app/
+    #     container_name: 'celery'
+    #     command: celery -A config worker --loglevel=info
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
+    #     depends_on:
+    #         - db
+    #     restart: always
+    # celery-beat:
+    #     build: ./app/
+    #     container_name: 'celery-beat'
+    #     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
     nginx:
         build: './nginx'
         container_name: 'nginx'
@@ -60,7 +60,7 @@ services:
             - "8000:80"
         volumes:
             - type: 'bind'
-              source: './volumes/app/media'
+              source: './volumes/media'
               target: '/app/media'
 
             - type: 'bind'

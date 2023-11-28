@@ -37,7 +37,7 @@ class Response(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, verbose_name=_('User'))
     message = models.TextField(verbose_name=_('Message'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
-    file = models.FileField(blank=True, null=True, verbose_name=_('File'))
+    file = models.FileField(upload_to='ticket/', blank=True, null=True, verbose_name=_('File'))
 
     def __str__(self):
         return self.ticket.subject
