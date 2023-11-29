@@ -70,12 +70,12 @@ class OrderForm(forms.ModelForm):
 
     def clean_link(self):
         link = self.cleaned_data["link"]
-        if link is None:  # if link field is empty raise error
+        if link is None:
             raise forms.ValidationError(_("Please enter a instagram public link/id"))
         if "@" in str(link):
             link = link.replace("@", '')
         if ' ' in str(link):
-            raise forms.ValidationError(_("There should be no space between the entered link/ID"))
+            link = str(link).replace(' ', '')
         return link
 
     def clean_quantity(self):
@@ -106,6 +106,6 @@ class TemplateNewOrderForm(forms.ModelForm):
         }
     def clean_link(self):
         link = self.cleaned_data["link"]
-        if link is None:  # if link field is empty raise error
+        if link is None:
             raise forms.ValidationError(_("Please enter a instagram public link/id"))
         return link
