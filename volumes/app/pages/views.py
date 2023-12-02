@@ -4,7 +4,7 @@ from django.views import View
 from seo.models import PagesSeo
 from posts.models import Post
 from service.models import Packages
-
+from comments.models import Comment
 
 def handling_404(request, exception):
     return render(request, 'pages/404.html', {})
@@ -45,6 +45,7 @@ class HomeView(View):
             ).order_by('priority')
             view_packages[tag] = packages
         posts = Post.objects.all()[0:4]
+        comments = Comment.objects.all()
         context = {
             'description_tag': description_tag,
             'keywords_tag': keywords_tag,
@@ -53,7 +54,8 @@ class HomeView(View):
             'flw_packages': flw_packages,
             'like_packages': like_packages,
             'view_packages': view_packages,
-            'posts': posts
+            'posts': posts,
+            'comments': comments,
         }
         return render(request, self.template_name, context)
 

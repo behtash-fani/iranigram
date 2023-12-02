@@ -15,7 +15,7 @@ SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 SUBMIT_AUTOMATIC_ORDERS = env.bool("SUBMIT_AUTOMATIC_ORDERS")
-
+AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework",
     'rest_framework.authtoken',
     # local apps
+    "comments.apps.CommentsConfig",
     "pages.apps.PagesConfig",
     "service.apps.ServiceConfig",
     "orders.apps.OrdersConfig",
@@ -64,13 +65,14 @@ MIDDLEWARE = [
 
 ADMIN_REORDER = (
     {"app": "accounts"},
-    {"app": "authtoken"},
     {"app": "orders"},
     {"app": "support"},
+    {"app": "comments"},
     {"app": "transactions"},
-    {"app": "service"},
-    {"app": "seo"},
     {"app": "posts"},
+    {"app": "service"},
+    {"app": "authtoken"},
+    {"app": "seo"},
     {"app": "robots"},
     {"app": "django_celery_beat"},
     {"app": "admin_persian"},
@@ -95,10 +97,10 @@ TEMPLATES = [
         },
     },
 ]
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.filesystem.Loader',
+#     'django.template.loaders.app_directories.Loader',
+# )
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {

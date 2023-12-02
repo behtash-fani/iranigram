@@ -24,6 +24,7 @@ urlpatterns = [
     path('services/', include('service.urls', namespace='services')),
     path('blog/', include('posts.urls', namespace='posts')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('comments/', include('comments.urls', namespace='comments')),
     path('dashboard/', include('accounts.urls', namespace='accounts')),
     path('callback-gateway/', callback_gateway, name='callback_gateway'),
     path('payment-request/', payment_request, name='payment_request'),
