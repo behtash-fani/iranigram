@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+<!-- Start Title Tag -->
+{% block title %}
+  {% if title_tag %}{{ title_tag }}{% endif %}
+{% endblock %}
+<!-- Start Title Tag -->
+{% block meta %}
+  <!-- Start Canonical Tag -->
+  {% if canonical_link %}
+    <link href="{{ canonical_link }}" rel="canonical" />
+  {% else %}
+    <link href="" rel="canonical" />
+  {% endif %}
+  <!-- End Canonical Tag -->
+  <meta content="all" name="robots" />
+  <meta content="fa" http-equiv="content-language" />
+  <!-- Start Description Tag -->
+  {% if description_tag %}
+    <meta content="{{ description_tag }}" name="description" />
+  {% else %}
+    <meta content="" name="description" />
+  {% endif %}
+  <!-- End Description Tag -->
+  <!-- Start Keywords Tag -->
+  {% if keywords_tag %}
+    <meta content="{{ keywords_tag }}" name="keywords" />
+  {% else %}
+    <meta content="" name="keywords" />
+  {% endif %}
+  <!-- End Keywords Tag -->
+  <!-- Start Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "مزیت‌های خرید فالوور اینستاگرام چیست؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "خرید فالوور اینستاگرام به شما مزایای فراوانی می دهد. از جمله می‌توان به افزایش شناخت شما در اینستاگرام، افزایش تعاملات و نفوذ در بازار مورد نظر اشاره کرد. همچنین، با افزایش دنبال‌کنندگان، می‌توانید محتوایتان را به تعداد بیشتری از افراد ارائه دهید و به جامعه‌ای بزرگ‌تر دسترسی پیدا کنید. این می‌تواند به رشد و موفقیت شما در اینستاگرام کمک کند."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "آیا خرید فالوور اینستاگرام به رشد کسب‌وکار من کمک می‌کند؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله، خرید فالوور اینستاگرام می‌تواند به رشد کسب‌وکار شما کمک کند. با افزایش تعداد دنبال‌کنندگان، شما می‌توانید محصولات یا خدمات خود را به تعداد بیشتری از افراد معرفی کنید و بیشترین نفوذ را در بازار داشته باشید. این امکان را به شما می‌دهد تا با مخاطبان بیشتری در تعامل باشید و معتبرتر به نظر بیایید."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "آیا خرید فالوور اینستاگرام می‌تواند ارتقاء اجتماعی من را تقویت کند؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله، خرید فالوور اینستاگرام می‌تواند به تقویت جایگاه اجتماعی شما کمک کند. با افزایش دنبال‌کنندگان، شما به عنوان یک شخص معتبر‌تر در اینستاگرام شناخته می‌شوید و این می‌تواند به شما افتخار و تشویق دیگران را به دنبال داشته باشد. این امر می‌تواند به افزایش اعتماد به نفس و موفقیت شما در زندگی اجتماعی کمک کند."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "آیا خرید فالوور اینستاگرام به افزایش تعاملات من در اینستاگرام کمک می‌کند؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله، خرید فالوور اینستاگرام می‌تواند به افزایش تعاملات شما در اینستاگرام کمک کند. با افزایش دنبال‌کنندگان، تعداد لایک‌ها، نظرات و بازنشرهای محتوای شما نیز افزایش می‌یابد. این امر می‌تواند محتوای شما را محبوب‌تر کند و بازخورد مثبت بیشتری از مخاطبانتان دریافت کنید."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "آیا خرید فالوور اینستاگرام به افزایش نفوذ در بازار کمک می‌کند؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بله، خرید فالوور اینستاگرام می‌تواند به افزایش نفوذ شما در بازار مورد نظر کمک کند. با افزایش تعداد دنبال‌کنندگان، شما به عنوان یک نماینده معتبرتر در صنعت یا بازار خود شناخته می‌شوید. این امر می‌تواند به جلب مشتریان جدید، افزایش فروش، و رشد کسب‌وکار شما منجر شود."
+          }
+        }
+      ]
+    }
+    </script>
+  <!-- End Schema -->
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row mb-5 mt-4">
+      <div class="col-lg-4 col-12 text-center">
+        <img src="{% static 'image/top_banner.webp' %}" class="img-fluid mt-4" alt="افزایش بازدید استوری" width="416px" height="409px" />
+      </div>
+      <div class="col-lg-8 col-12 mt-5">
+        <span class="fs-1 px-2 px-lg-0" style="font-size:50px !important;font-weight:900;"><span class="text-warning">ایرانی گرام،</span> خدمات بی‌نهایت اینستاگرام</span>
+        <h1 class="lh-lg fs-4 mt-2 px-2 px-lg-0">
+          <h4 class="text-muted py-3 lh-lg">
+            خرید فالوور با کیفیت، ارزان و واقعی اینستاگرام شامل پروفایل های ایرانی و همچنین فالوور فیک با بهترین قیمت قابل دریافت در آیفون و اندروید بدون نیاز به نصب نرم افزار.
+          </h4>
+          <h4 class="text-muted py-1 lh-lg">
+            کنار شما هستیم با برترین سرویس های سایت خرید فالوور اینستاگرام، خرید لایک، افزایش بازدید اینستاگرام و دیگر خدمات مارکتینگ در شبکه های اجتماعی. ایرانی گرام، معتبرترین برند بازاریابی شبکه اجتماعی و خرید فالوور اینستاگرام فارسی زبان.
+          </h4>
+        </h1>
+        <div class="row mt-4">
+        </div>
+      </div>
+    </div>
+    <div class="row my-5 rounded-4 bg-black text-white p-4 mx-1 mx-lg-0">
+      <div class="col-lg-3 col-12">
+        <p class="fs-1 fw-normal">ویژگی های</p>
+        <p style="font-size:50px !important;font-weight: 900;">ایرانی گرام</p>
+      </div>
+      <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+        <p>
+          <img src="{% static 'icons/medal-star.svg' %}" alt="بالاترین کیفیت خدمات" width="60px" height="60px" />
+        </p>
+
+        <span class="fs-5 fw-bold">بالاترین کیفیت خدمات</span><br />
+        <small class="mt-3">بالاترین و با کیفیت ترین خدمات را از ایرانی گرام بخواهید</small>
+      </div>
+      <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+        <p>
+          <img src="{% static 'icons/star.svg' %}" alt="سرعت بالا" width="60px" height="60px" />
+        </p>
+        <span class="fs-5 fw-bold">سرعت بالا</span><br />
+        <small class="mt-3">در سرعت و دقت ایرانی گرام همیشه در اولویت شما خواهد بود</small>
+      </div>
+      <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+        <p>
+          <img src="{% static 'icons/receipt-search.svg' %}" alt="مناسبت ترین تعرفه ها" width="60px" height="60px" />
+        </p>
+        <span class="fs-5 fw-bold">مناسبت ترین تعرفه ها</span><br />
+        <small class="mt-3">تعرفه های مناسب در کنار کیفیت فقط در ایرانی گرام معنی پیدا میکند</small>
+      </div>
+      <div class="col-lg-2 col-12 mt-2 mt-lg-0">
+        <p>
+          <img src="{% static 'icons/like-tag.svg' %}" alt="پشتیبانی ۲۴ ساعته" width="60px" height="60px" />
+        </p>
+        <span class="fs-5 fw-bold">پشتیبانی</span><br />
+        <small class="mt-3">پشتیبانی ایرانی گرام همیشه در کنار شما خواهد بود و حامی شماست</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/followers.webp' %}" class="img-fluid mt-1" alt="شروع خرید فالوور با کیفیت اینستاگرام" width="300px" height="386px" /><br />
+      </div>
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/flw_icon.webp' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px" height="107px" />
+          </div>
+          <div class="col-10">
+            <span class="fw-bold fs-4"> خرید فالوور اینستاگرام با انواع کیفیت</span><br/>
+            <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
+        </div>
+        {% for tag, packages in flw_packages.items %}
+          {% if packages %}
+            <div class="card mt-2 rounded-4">
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <h5 class="text-center">
+                    {{ packages.0.service }}
+                    <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                    {{ packages.0.service.features }}
+                  </h5>
+                  <div class="col-12 col-md-8 col-lg-6 text-center">
+                    <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                      <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                      {% for package in packages %}
+                        <option value="{{ package.id }}">
+                            {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                    <a href="" class="btn btn-warning rounded-4 py-2">
+                      ثبت سفارش
+                      <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid" alt="ایرانی گرام ضامن کیفیت خرید شما" width="118px" height="119px" />
+          </div>
+          <div class="col-10 pt-2">
+            <span class="fw-bold fs-4">خرید لایک با کیفیت اینستاگرام</span><br />
+            <small class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
+        </div>
+        {% for tag, packages in like_packages.items %}
+          {% if packages %}
+            <div class="card mt-2 rounded-4">
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <h5 class="text-center">
+                    {{ packages.0.service }}
+                    <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                    {{ packages.0.service.features }}
+                  </h5>
+                  <div class="col-12 col-md-8 col-lg-6 text-center">
+                    <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                      <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                      {% for package in packages %}
+                        <option value="{{ package.id }}">
+                            {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                    <a href="" class="btn btn-warning rounded-4 py-2">
+                      ثبت سفارش
+                      <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/likes.webp' %}" class="img-fluid" alt="شروع خرید لایک واقعی اینستاگرام" width="300px" height="440px" /><br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/view.png' %}" class="img-fluid mt-5" alt="شروع خرید فالوور با کیفیت اینستاگرام" width="300px" height="386px" /><br />
+      </div>
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/image-16 8.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px" height="107px" />
+          </div>
+          <div class="col-10">
+            <span class="fw-bold fs-4">بسته های بازدید پست، IGTV، استوری، Reel اینستاگرام</span><br />
+            <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
+        </div>
+        {% for tag, packages in view_packages.items %}
+          {% if packages %}
+            <div class="card mt-2 rounded-4">
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <h5 class="text-center">
+                    {{ packages.0.service }}
+                    <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                    {{ packages.0.service.features }}
+                  </h5>
+                  <div class="col-12 col-md-8 col-lg-6 text-center">
+                    <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                      <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                      {% for package in packages %}
+                        <option value="{{ package.id }}">
+                            {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                    <a href="" class="btn btn-warning rounded-4 py-2">
+                      ثبت سفارش
+                      <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-6 col-12 text-center">
+        <img src="{% static 'image/other_product.webp' %}" class="img-fluid" width="400px" height="293px" alt="محصولات دیگر" /><br />
+      </div>
+      <div class="col-lg-6 col-12">
+        <span class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</span><br />
+        <p class="my-4 fw-bold fs-1">و محصولات دیگر ...</p>
+        <p class="d-flex lh-md fs-5 mt-2 text-muted px-2 px-lg-0">با ورود به حساب کاربری خود در سایت ایرانی گرام، میتوانید در پنل اختصاصی که برای شما تهیه شده تمام محصولاتی که مرتبط با پلتفرم اینستاگرام هست را مشاهده کنید و تهیه بفرمایید. محصولاتی مانند بازدید پست اینستاگرام ، بازدید استوری اینستاگرام و بازدید ریل اینستاگرام</p>
+        <a href="{% url 'accounts:user_dashboard' %}" class="btn btn-warning btn-lg rounded-4 py-4">
+          ورود به پنل اختصاصی ایرانی گرام
+          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="پنل اختصاصی ایرانی گرام" width="24px" height="24px" />
+        </a>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-6 col-12">
+        <p class="mt-5 fs-1 fw-bold">سوالی دارید؟</p>
+        <p class="text-warning fs-3 fw-semibold">پشتیبانی ما در خدمت شما هستند</p>
+        <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
+        <a href="{% url 'accounts:submit_ticket' %}" class="btn btn-warning rounded-4 py-4">
+          ارتباط با پشتیبانی
+          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ" width="24px" height="24px" />
+        </a>
+      </div>
+      <div class="col-lg-6 col-12">
+        <img src="{% static 'image/support.webp' %}" class="img-fluid" width="450px" height="252px" alt="پشتیبانی ایرانی گرام" /><br />
+      </div>
+    </div>
+    {% if posts %}
+    <div class="mb-5 mt-2">
+      <p class="mt-5 fs-2 fw-bold">آخرین آموزش ها</p>
+      <div class="row row-cols-1 row-cols-md-4 g-4 mb-3">
+        {% for post in posts %}
+          <div class="col mt-lg-5 mt-md-3">
+            <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank" class="text-decoration-none">
+              <div class="card h-100 rounded-4 border border-0 shadow p-2">
+                {% if post.thumbnail %}
+                  <img src="{{ post.thumbnail.url }}" class="card-img-top rounded-4 h-md-100 post-img" width="290px" height="192px" alt="{{ post.title }}" />
+                {% endif %}
+                <div class="card-body">
+                  <h6 class="card-title fw-semibold custom-black lh-base">{{ post.title }}</h6>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="text-center">
+        <a href="{% url 'posts:posts_list' %}" class="btn btn-light btn-lg mt-4 rounded-4 py-4 shadow">
+          مشاهده تمامی آموزش ها
+          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ" width="24px" height="24px" />
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    {% include 'comments/comments_submit_list.html' %}
+  </div>
+  {% include 'inc/footer.html' %}
+  <script>
+    var pkg_selects = document.querySelectorAll(".pkg-select");
+    pkg_selects.forEach(function (select) {
+        select.addEventListener("change", function () {
+            pkg_id = select.value;
+            let parentElement = select.parentElement;
+            let submit_order_btn = parentElement.nextElementSibling.firstElementChild
+            submit_order_btn.href = "/orders/" + pkg_id + "/new-order/"
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-5 p-3">
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <span class="fw-bold fs-3">{% trans "Login to your account with password" %}</span>
+            <hr>
+            <small class="custom-black fw-bolder fs-5">
+                <img src="{% static 'icons/Info.svg' %}" alt="">
+                {%  trans 'Hints' %}:
+            </small><br>
+            <small class="text-black-50 fs-6 fw-bolder">
+                <img src="{% static 'icons/Accept.svg' %}" alt="">
+                {% trans 'Please set your keyboard to English mode' %}
+            </small><br>
+            <small class="text-black-50 fs-6 fw-bolder">
+                <img src="{% static 'icons/Accept.svg' %}" alt="">
+                {% trans 'Sample correct phone number: 09123456789' %}
+            </small><br>
+            <small class="text-black-50 fs-6 fw-bolder">
+                <img src="{% static 'icons/Accept.svg' %}" alt="">
+                {% trans 'If you have not set a password for yourself, first log in to your account with a one-time password and register a permanent password in the account details section.' %}
+            </small><br>
+            <hr>
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="form-floating mt-2">
+                    {{ login_form.phone_number }}
+                    <label for="{{ login_form.phone_number.id_for_label }}">{% trans 'Phone Number' %}:</label>
+                    {{ login_form.phone_number.errors }}
+                </div>
+                <div class="form-floating mt-2">
+                    {{ login_form.password }}
+                    <label for="{{ login_form.password.id_for_label }}">{% trans 'Password' %}:</label>
+                    {{ login_form.password.errors }}
+                </div>
+
+                <div class="row">
+                    <button type="submit" class="col-10 d-block mx-auto btn btn-warning btn-lg rounded-4 py-3 mt-4">
+                        <img src="{% static 'icons/login.svg' %}" alt="">
+                        {% trans 'Login' %}
+                    </button>
+                </div>
+            </form>
+            <hr>
+            <div class="mt-2 d-flex justify-content-around">
+                <div class="col-sm-6 col-lg-4 col-xl-6 mx-1">
+                    <a href="{% url 'accounts:user_register' %}" class="btn btn-light shadow-sm rounded-4 py-4 text-decoration-none text-black">
+                        {% trans "Not a member? " %} {% trans "Register" %}
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-4 col-xl-6">
+                    <a href="{% url 'accounts:user_login_otp' %}" class="btn btn-light shadow-sm rounded-4 py-4 float-end">
+                        <img src="{% static 'icons/lock.svg' %}" alt="">
+                        {% trans 'Login With OTP' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

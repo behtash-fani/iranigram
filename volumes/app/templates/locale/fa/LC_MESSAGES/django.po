@@ -1,0 +1,1234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-20 01:30+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/apps.py:8 accounts/models.py:63
+msgid "Users"
+msgstr "کاربران"
+
+#: accounts/forms.py:58 accounts/forms.py:86 accounts/forms.py:131
+msgid "Phone Number field is required"
+msgstr "ورود شماره تلفن لازم است"
+
+#: accounts/forms.py:66 accounts/forms.py:107 accounts/forms.py:139
+msgid "The phone number entered is incorrect. Please enter as in the example"
+msgstr "شماره تلفن وارد شده اشتباه است. لطفا مانند نمونه وارد کنید"
+
+#: accounts/forms.py:70
+msgid ""
+"The entered phone number is already registered on the site. Please enter "
+"another phone number or log in to your account with the entered phone number"
+msgstr ""
+"شماره تلفن وارد شده قبلا در سایت ثبت نام شده. لطفا شماره تلفن دیگری وارد "
+"کنید یا با شماره تلفن وارد شده، وارد حساب کاربری خود شوید"
+
+#: accounts/forms.py:90
+msgid "Password field is required"
+msgstr "ورود رمز عبور لازم است"
+
+#: accounts/forms.py:100 accounts/forms.py:144
+msgid ""
+"The phone number entered on the site is not registered. Please register first"
+msgstr "شماره تلفن وارد شده در سایت ثبت نام نشده. لطفا ابتدا ثبت نام بفرمایید"
+
+#: accounts/forms.py:103 accounts/forms.py:147 accounts/mixins.py:14
+msgid ""
+"Your account has been blocked. To follow up on this issue, please contact "
+"support"
+msgstr ""
+"حساب کاربری شما مسدود شده . برای پیگیری این موضوع لطفا با پشتیبانی تماس "
+"بگیرید"
+
+#: accounts/forms.py:115
+msgid ""
+"No password has been set for your phone number. Please enter a password in "
+"the forgot password section or use a one-time password to log in to your "
+"account"
+msgstr ""
+"برای شماره تلفن شما رمزعبوری قرار داده نشده. لطفا از بخش فراموشی پسورد یک "
+"رمز عبور قرار دهید یا برای ورود به حساب کاربری خود از ورود با رمز یکبار مصرف "
+"استفاده کنید"
+
+#: accounts/forms.py:118
+msgid "Incorrect password"
+msgstr "رمز عبور اشتباه است"
+
+#: accounts/forms.py:166 accounts/forms.py:180 accounts/forms.py:189
+msgid "The entered code is incorrect"
+msgstr "کد وارد شده اشتباه است"
+
+#: accounts/forms.py:167
+msgid "Code field is required"
+msgstr "ورود کد لازم است"
+
+#: accounts/forms.py:211
+msgid "Amount field is required"
+msgstr "ورود رقم برای افزایش اعتبار لازم است"
+
+#: accounts/forms.py:223 accounts/templates/accounts/profile.html:42
+msgid "Password Confirmation"
+msgstr "تکرار رمز عبور"
+
+#: accounts/models.py:12
+msgid "Add Credit"
+msgstr "افزایش اعتبار"
+
+#: accounts/models.py:13
+msgid "Reduce Credit"
+msgstr "کاهش اعتبار"
+
+#: accounts/models.py:18 accounts/models.py:75
+#: accounts/templates/accounts/registration/login_with_otp.html:37
+#: accounts/templates/accounts/registration/login_with_pass.html:31
+#: accounts/templates/accounts/registration/register.html:36
+#: orders/templates/orders/buypage.html:132
+#: orders/templates/orders/buypage.html:133
+#: orders/templates/orders/buypage.html:151
+msgid "Phone Number"
+msgstr "شماره تلفن"
+
+#: accounts/models.py:19 accounts/templates/accounts/profile.html:20
+msgid "Email"
+msgstr "ایمیل"
+
+#: accounts/models.py:20 accounts/views.py:254
+msgid "Guest User"
+msgstr "کاربر مهمان"
+
+#: accounts/models.py:21 accounts/templates/accounts/profile.html:15
+msgid "Full Name"
+msgstr "نام کامل"
+
+#: accounts/models.py:22 transactions/models.py:25
+msgid "Balance"
+msgstr "اعتبار"
+
+#: accounts/models.py:23
+msgid "Amount Change Wallet"
+msgstr "میزان تغییر کیف پول"
+
+#: accounts/models.py:26
+msgid "Status Change Wallet"
+msgstr "وضعیت تغییر"
+
+#: accounts/models.py:28
+msgid "Description Change Wallet"
+msgstr "توضیحات این تغییر"
+
+#: accounts/models.py:29
+msgid "Order Counts"
+msgstr "تعداد سفارش"
+
+#: accounts/models.py:30
+msgid "Block"
+msgstr "مسدود"
+
+#: accounts/models.py:31
+msgid "Active"
+msgstr "فعال"
+
+#: accounts/models.py:32
+msgid "Admin"
+msgstr "ادمین"
+
+#: accounts/models.py:62 orders/models.py:31 support/models.py:19
+#: support/models.py:37 transactions/models.py:22
+msgid "User"
+msgstr "کاربر"
+
+#: accounts/models.py:76
+msgid "Code"
+msgstr "کد"
+
+#: accounts/models.py:77
+msgid "Expire Time"
+msgstr "زمان انقضا"
+
+#: accounts/models.py:78
+msgid "Create At"
+msgstr "ثبت شده در"
+
+#: accounts/models.py:84
+msgid "OTPCode"
+msgstr "کد یکبار مصرف"
+
+#: accounts/models.py:85
+msgid "OTPCodes"
+msgstr "کدهای یکبار مصرف"
+
+#: accounts/templates/accounts/api_docs.html:4
+msgid "API Docs"
+msgstr "مستندات API"
+
+#: accounts/templates/accounts/callback_gateway.html:6
+msgid "Successful increase of wallet credit"
+msgstr "افزایش موفق اعتبار کیف پول"
+
+#: accounts/templates/accounts/callback_gateway.html:8
+msgid "Successful order payment"
+msgstr "پرداخت موفق سفارش"
+
+#: accounts/templates/accounts/callback_gateway.html:10
+msgid "Unsuccessful payment"
+msgstr "پرداخت ناموفق"
+
+#: accounts/templates/accounts/callback_gateway.html:21
+msgid "Your current wallet credit"
+msgstr "اعتبار فعلی کیف پول شما"
+
+#: accounts/templates/accounts/callback_gateway.html:22
+#: accounts/templates/accounts/dashboard.html:24
+#: accounts/templates/accounts/services.html:28
+#: accounts/templates/accounts/wallet.html:16
+#: accounts/templates/accounts/wallet.html:30
+#: orders/templates/orders/buypage.html:82
+#: orders/templates/orders/buypage.html:198
+#: orders/templates/orders/new_order.html:40
+#: orders/templates/orders/new_order.html:58
+#: orders/templates/orders/new_order.html:108
+#: orders/templates/orders/orders.html:34
+#: transactions/templates/transactions/transactions.html:29
+#: transactions/templates/transactions/transactions.html:30
+#: templates/inc/navbar.html:129
+msgid "Toman"
+msgstr "تومان"
+
+#: accounts/templates/accounts/callback_gateway.html:27
+msgid "Your wallet has been successfully topped up"
+msgstr "افزایش اعتبار کیف پول شما با موفقیت انجام شد"
+
+#: accounts/templates/accounts/callback_gateway.html:28
+msgid "You can now place an order using your wallet"
+msgstr "هم اکنون می توانید با استفاده از کیف پول خود ثبت سفارش انجام دهید"
+
+#: accounts/templates/accounts/callback_gateway.html:41 orders/models.py:35
+#: orders/templates/orders/orders.html:16 transactions/models.py:29
+#: transactions/templates/transactions/transactions.html:20
+msgid "Order Code"
+msgstr "کد سفارش"
+
+#: accounts/templates/accounts/dashboard.html:5 templates/inc/navbar.html:151
+msgid "User Dashboard"
+msgstr "داشبورد کاربری"
+
+#: accounts/templates/accounts/dashboard.html:24
+#: accounts/templates/accounts/wallet.html:23
+#: orders/templates/orders/buypage.html:82
+#: orders/templates/orders/new_order.html:58
+msgid "Credit"
+msgstr "اعتبار"
+
+#: accounts/templates/accounts/dashboard.html:29
+msgid "Increase Credit"
+msgstr "افزایش اعتبار"
+
+#: accounts/templates/accounts/dashboard.html:39
+msgid "Number Of Orders"
+msgstr "تعداد سفارش"
+
+#: accounts/templates/accounts/dashboard.html:39
+#: accounts/templates/accounts/dashboard.html:54
+#: accounts/templates/accounts/services.html:29
+#: accounts/templates/accounts/services.html:30
+#: orders/templates/orders/new_order.html:38
+#: orders/templates/orders/new_order.html:102
+#: orders/templates/orders/orders.html:33
+msgid "Number"
+msgstr "عدد"
+
+#: accounts/templates/accounts/dashboard.html:44
+msgid "Submit New Order"
+msgstr "ثبت سفارش جدید"
+
+#: accounts/templates/accounts/dashboard.html:54
+msgid "Number of Tickets"
+msgstr "تعداد تیکت"
+
+#: accounts/templates/accounts/dashboard.html:59
+#: support/templates/support/submit_ticket.html:4
+#: support/templates/support/submit_ticket.html:10
+#: support/templates/support/support.html:14
+msgid "Send New Ticket"
+msgstr "ارسال تیکت جدید"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:6
+#: accounts/templates/accounts/mobilescreen-menu.html:12
+msgid "Dashboard Menu"
+msgstr "منوی داشبورد"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:23
+#: accounts/templates/accounts/widescreen-menu.html:7
+msgid "Summary of the situation"
+msgstr "خلاصه وضعیت"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:30
+#: accounts/templates/accounts/widescreen-menu.html:14
+#: orders/templates/orders/new_order.html:5 templates/inc/navbar.html:143
+msgid "New Order"
+msgstr "سفارش جدید"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:37
+#: accounts/templates/accounts/wallet.html:5
+#: accounts/templates/accounts/widescreen-menu.html:21 orders/models.py:20
+msgid "Wallet"
+msgstr "کیف پول"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:44
+#: accounts/templates/accounts/widescreen-menu.html:28 orders/apps.py:8
+#: orders/models.py:56 orders/templates/orders/orders.html:6
+#: templates/inc/navbar.html:159
+msgid "Orders"
+msgstr "سفارش ها"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:52
+#: accounts/templates/accounts/profile.html:4
+#: accounts/templates/accounts/widescreen-menu.html:36
+msgid "Profile"
+msgstr "مشخصات حساب کاربری"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:59
+#: accounts/templates/accounts/widescreen-menu.html:43
+#: transactions/models.py:41
+#: transactions/templates/transactions/transactions.html:5
+msgid "Transactions"
+msgstr "تراکنش ها"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:66
+#: accounts/templates/accounts/widescreen-menu.html:50
+msgid "Api Docs"
+msgstr "مستندات API"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:73
+#: accounts/templates/accounts/services.html:6
+#: accounts/templates/accounts/services.html:8
+#: accounts/templates/accounts/widescreen-menu.html:57 service/apps.py:8
+#: service/models.py:59
+msgid "Services"
+msgstr "سرویس ها"
+
+#: accounts/templates/accounts/mobilescreen-menu.html:80
+#: accounts/templates/accounts/widescreen-menu.html:64
+#: support/templates/support/support.html:5
+#: support/templates/support/support.html:9
+msgid "Support"
+msgstr "پشتیبانی"
+
+#: accounts/templates/accounts/profile.html:9
+msgid "Change user profile"
+msgstr "به روز رسانی مشخصات کاربری"
+
+#: accounts/templates/accounts/profile.html:25
+msgid "Update Profile"
+msgstr "ثبت مشخصات جدید"
+
+#: accounts/templates/accounts/profile.html:31
+msgid "Change or submit a new password"
+msgstr "تغییر یا ثبت پسورد جدید"
+
+#: accounts/templates/accounts/profile.html:37
+#: accounts/templates/accounts/registration/login_with_pass.html:36
+msgid "Password"
+msgstr "رمز عبور"
+
+#: accounts/templates/accounts/profile.html:47
+msgid "Update Password"
+msgstr "ثبت رمز عبور"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:13
+msgid "Login to your account with OTP"
+msgstr "ورود به حساب کاربری با رمز یکبار مصرف"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:18
+#: accounts/templates/accounts/registration/login_with_pass.html:12
+#: accounts/templates/accounts/registration/register.html:17
+#: orders/templates/orders/buypage.html:114
+msgid "Hints"
+msgstr "نکات"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:22
+#: accounts/templates/accounts/registration/login_with_pass.html:16
+#: accounts/templates/accounts/registration/register.html:21
+#: orders/templates/orders/buypage.html:118
+msgid "Please set your keyboard to English mode"
+msgstr "لطفا کیبورد خود را در حالت انگلیسی قرار دهید"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:26
+#: accounts/templates/accounts/registration/login_with_pass.html:20
+#: accounts/templates/accounts/registration/register.html:25
+#: orders/templates/orders/buypage.html:122
+msgid "Sample correct phone number: 09123456789"
+msgstr "نمونه شماره تلفن صحیح: ۰۹۱۲۳۴۵۶۷۸۹"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:30
+#: accounts/templates/accounts/registration/register.html:29
+#: orders/templates/orders/buypage.html:126
+msgid "Please keep the phone in active mode because of the confirmation SMS"
+msgstr "به دلیل ارسال پیامک تایید، لطفا تلفن در حالت فعال نگه دارید"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:43
+#: accounts/templates/accounts/registration/register.html:41
+#: orders/templates/orders/buypage.html:140
+msgid "Send verification code"
+msgstr "ارسال کد تایید"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:52
+#: accounts/templates/accounts/registration/login_with_pass.html:51
+#: accounts/templates/accounts/registration/verify.html:50
+msgid "Not a member? "
+msgstr "عضو نیستید؟ "
+
+#: accounts/templates/accounts/registration/login_with_otp.html:52
+#: accounts/templates/accounts/registration/login_with_pass.html:51
+#: accounts/templates/accounts/registration/verify.html:50
+#: templates/inc/navbar.html:195
+msgid "Register"
+msgstr "ثبت نام"
+
+#: accounts/templates/accounts/registration/login_with_otp.html:58
+#: accounts/templates/accounts/registration/verify.html:56
+msgid "Login With Password"
+msgstr "ورود با رمز عبور"
+
+#: accounts/templates/accounts/registration/login_with_pass.html:8
+msgid "Login to your account with password"
+msgstr "ورود به حساب کاربری با رمز عبور"
+
+#: accounts/templates/accounts/registration/login_with_pass.html:24
+msgid ""
+"If you have not set a password for yourself, first log in to your account "
+"with a one-time password and register a permanent password in the account "
+"details section."
+msgstr ""
+"اگر تا به حال رمزعبوری برای خود تعیین نکردید، ابتدا با رمز یکبار مصرف وارد "
+"حساب کاربری خود شوید و در بخش مشخصات حساب کاربری، یک رمز عبور دائمی ثبت "
+"بفرمایید."
+
+#: accounts/templates/accounts/registration/login_with_pass.html:43
+#: accounts/templates/accounts/registration/register.html:46
+#: templates/inc/navbar.html:187
+msgid "Login"
+msgstr "ورود"
+
+#: accounts/templates/accounts/registration/login_with_pass.html:57
+msgid "Login With OTP"
+msgstr "ورود با رمز یکبار مصرف"
+
+#: accounts/templates/accounts/registration/register.html:12
+msgid "Register with phone number"
+msgstr "ثبت نام با شماره موبایل"
+
+#: accounts/templates/accounts/registration/register.html:13
+msgid ""
+"To receive the registration confirmation code, enter your mobile number and "
+"press the send code button"
+msgstr ""
+"برای دریافت کد تایید ثبت نام، شماره موبایل خود را وارد نمایید و دکمه ارسال "
+"کد را فشار دهید"
+
+#: accounts/templates/accounts/registration/register.html:46
+msgid "Do you have an account? "
+msgstr "حساب کاربری دارید؟ "
+
+#: accounts/templates/accounts/registration/verify.html:11
+msgid "Phone Number Verification"
+msgstr "تایید شماره تلفن"
+
+#: accounts/templates/accounts/registration/verify.html:13
+msgid "Enter the code sent to"
+msgstr "لطفا کد ارسال شده به شماره تلفن"
+
+#: accounts/templates/accounts/registration/verify.html:13
+msgid "in the field below"
+msgstr "را وارد کنید"
+
+#: accounts/templates/accounts/registration/verify.html:20
+#: orders/templates/orders/buypage.html:152
+msgid "OTP Code"
+msgstr "ورود کد"
+
+#: accounts/templates/accounts/registration/verify.html:26
+msgid "Verification and Login"
+msgstr "تایید و ورود به حساب کاربری"
+
+#: accounts/templates/accounts/registration/verify.html:32
+msgid "The validity period of the code sent"
+msgstr "مدت اعتبار کد ارسال شده"
+
+#: accounts/templates/accounts/registration/verify.html:34
+msgid "second"
+msgstr "ثانیه"
+
+#: accounts/templates/accounts/registration/verify.html:39
+msgid "Send Code Agian"
+msgstr "ارسال مجدد کد"
+
+#: accounts/templates/accounts/services.html:15 posts/models.py:30
+#: service/models.py:41
+msgid "Title"
+msgstr "عنوان"
+
+#: accounts/templates/accounts/services.html:16 service/models.py:40
+msgid "Service Code"
+msgstr "کد سرویس"
+
+#: accounts/templates/accounts/services.html:17 service/models.py:43
+msgid "Price For 1000 Site"
+msgstr "قیمت برای ۱۰۰۰ عدد در سایت"
+
+#: accounts/templates/accounts/services.html:18 service/models.py:45
+msgid "Min Order"
+msgstr "حداقل سفارش"
+
+#: accounts/templates/accounts/services.html:19 service/models.py:46
+msgid "Max Order"
+msgstr "حداکثر سفارش"
+
+#: accounts/templates/accounts/services.html:39
+#: orders/templates/orders/orders.html:134
+msgid "No orders have been submitted yet"
+msgstr "تا به الان هیچ سفارشی ثبت نشده"
+
+#: accounts/templates/accounts/wallet.html:10
+msgid "Increase the amount of credit"
+msgstr "افزایش میزان اعتبار کیف پول"
+
+#: accounts/templates/accounts/wallet.html:16
+msgid "Credit amount"
+msgstr "میزان اعتبار"
+
+#: accounts/templates/accounts/wallet.html:29
+msgid "Amount of credit entered"
+msgstr "میزان اعتبار وارد شده"
+
+#: accounts/templates/accounts/wallet.html:36
+#: orders/templates/orders/orders.html:76
+msgid "Pay"
+msgstr "پرداخت"
+
+#: accounts/templates/accounts/wallet.html:46
+msgid "Please put your keyboard in English mode"
+msgstr "لطفا کیبورد خود را در حالت انگلیسی قرار دهید"
+
+#: accounts/templates/accounts/wallet.html:50
+msgid "enter the amount of credit you want in Tomans"
+msgstr "میزان اعتبار مد نظر خود را به تومان وارد کنید"
+
+#: accounts/templates/accounts/wallet.html:54
+msgid "The minimum amount payable is 500 Tomans"
+msgstr "حداقل مبلغ قابل پرداخت ۵۰۰ تومان است"
+
+#: accounts/views.py:64 accounts/views.py:145 accounts/views.py:187
+msgid "A one-time password has been sent"
+msgstr "رمز یکبار مصرف ارسال شد"
+
+#: accounts/views.py:89
+msgid "Your registration was successful. Welcome to the iranigram family"
+msgstr "ثبت نام شما با موفقیت انجام شد. به خانواده ایرانی گرام خوش آمدید"
+
+#: accounts/views.py:119 accounts/views.py:216
+msgid "You have successfully logged into your account"
+msgstr "شما با موفقیت وارد حساب کاربری خود شدید"
+
+#: accounts/views.py:262
+msgid "your profile updated"
+msgstr "حساب کاربری شما به روز رسانی شد"
+
+#: accounts/views.py:266
+msgid "There was an error with your profile form"
+msgstr ""
+"متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
+
+#: accounts/views.py:275
+msgid "Your password has been saved"
+msgstr "رمز عبور شما با موفقیت ثبت شد"
+
+#: accounts/views.py:279
+msgid "There was an error with your password form"
+msgstr ""
+"متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
+
+#: accounts/views.py:283
+msgid "Invalid request"
+msgstr "درخواست تایید نشد . لطفا دوباره تلاش کنید یا با پشتیبانی تماس بگیرید"
+
+#: accounts/views.py:304
+msgid "The minimum amount that can be paid to increase credit is 500 Tomans"
+msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتبار ۵۰۰ تومان است "
+
+#: accounts/views.py:309 common/zarinpal.py:121
+msgid "Increase wallet credit"
+msgstr "افزایش اعتبار کیف پول"
+
+#: api/views.py:92 orders/views.py:82 orders/views.py:262
+msgid "Deduct the amount for placing the order"
+msgstr "کسر مبلغ بابت ثبت سفارش"
+
+#: common/zarinpal.py:40
+msgid ""
+"Unfortunately, the connection with the bank portal was not established. The "
+"technical team will fix this problem as soon as possible"
+msgstr ""
+"متاسفانه ارتباط با درگاه بانک برقرار نشد. تیم فنی در اسرع وقت این مشکل را "
+"برطرف میکند"
+
+#: common/zarinpal.py:105 common/zarinpal.py:122 common/zarinpal.py:147
+#: orders/admin.py:36 orders/tasks.py:87 orders/tasks.py:108
+msgid "Zarinpal"
+msgstr "زرین پال"
+
+#: orders/admin.py:34 orders/models.py:12 orders/tasks.py:85
+msgid "Canceled"
+msgstr "لغو شده"
+
+#: orders/forms.py:32 orders/forms.py:104
+msgid "Please enter a valid Instagram link"
+msgstr "لطفا یک لینک صحیح اینستاگرام وارد کنید"
+
+#: orders/forms.py:36
+msgid ""
+"Please select the number of orders you want according to the service limit"
+msgstr "لطفا تعداد سفارش مورد نظر خود را با توجه به محدودیت سرویس انتخاب کنید"
+
+#: orders/forms.py:62
+msgid "Please select the type of service"
+msgstr "لطفا نوع سرویس را انتخاب کنید"
+
+#: orders/forms.py:68
+msgid "Please select the service"
+msgstr "لطفا یک سرویس انتخاب کنید"
+
+#: orders/forms.py:74 orders/forms.py:110
+msgid "Please enter a instagram public link/id"
+msgstr "لطفا لینک/آی دی عمومی اینستاگرام وارد کنید"
+
+#: orders/forms.py:78
+msgid "There should be no space between the entered link/ID"
+msgstr "در بین لینک/آی دی وارد شده نباید فاصله وجود داشته باشد"
+
+#: orders/forms.py:84
+msgid "Please enter quantity of order"
+msgstr "لطفا تعداد مورد نظر برای سفارش را وارد کنید"
+
+#: orders/models.py:8
+msgid "Queued"
+msgstr "در صف انتظار"
+
+#: orders/models.py:9
+msgid "Pending"
+msgstr "در حال بررسی"
+
+#: orders/models.py:10
+msgid "Processing"
+msgstr "در حال پردازش"
+
+#: orders/models.py:11
+msgid "In progress"
+msgstr "در حال انجام"
+
+#: orders/models.py:13
+msgid "Completed"
+msgstr "کامل شده"
+
+#: orders/models.py:14 orders/tasks.py:106
+msgid "Partial"
+msgstr "ناتمام"
+
+#: orders/models.py:15
+msgid "Refunded"
+msgstr "برگشت مبلغ شده"
+
+#: orders/models.py:19 transactions/models.py:16
+msgid "online"
+msgstr "آنلاین"
+
+#: orders/models.py:24
+msgid "panel"
+msgstr ""
+
+#: orders/models.py:25
+msgid "packages"
+msgstr "پکیج"
+
+#: orders/models.py:26
+msgid "api"
+msgstr ""
+
+#: orders/models.py:32 service/models.py:9 service/models.py:15
+msgid "ServiceType"
+msgstr "نوع سرویس"
+
+#: orders/models.py:33 orders/templates/orders/orders.html:118
+#: service/models.py:58 service/models.py:81
+msgid "Service"
+msgstr "سرویس"
+
+#: orders/models.py:34
+msgid "Server Order Code"
+msgstr "کد سفارش سرور"
+
+#: orders/models.py:36 orders/templates/orders/orders.html:19
+msgid "Link"
+msgstr "لینک"
+
+#: orders/models.py:37 orders/templates/orders/new_order.html:33
+#: orders/templates/orders/orders.html:17 service/models.py:83
+msgid "Quantity"
+msgstr "تعداد"
+
+#: orders/models.py:38 service/models.py:85
+msgid "Amount"
+msgstr "قیمت نهایی قابل پرداخت"
+
+#: orders/models.py:39
+msgid "Wallet Paid Amount"
+msgstr "مبلغ پرداخت شده با کیف پول"
+
+#: orders/models.py:40
+msgid "Online Paid Amount"
+msgstr "مبلغ پرداخت شده به صورت آنلاین"
+
+#: orders/models.py:41
+msgid "Payment Method"
+msgstr "روش پرداخت"
+
+#: orders/models.py:42 orders/templates/orders/orders.html:20
+#: posts/models.py:36 support/models.py:22
+#: support/templates/support/support.html:27
+msgid "Status"
+msgstr "وضعیت"
+
+#: orders/models.py:43
+msgid "Start Count"
+msgstr "تعداد اولیه"
+
+#: orders/models.py:44 orders/templates/orders/orders.html:21
+msgid "Remains"
+msgstr "باقی مانده"
+
+#: orders/models.py:45
+msgid "Submit Order Method"
+msgstr "روش ثبت سفارش"
+
+#: orders/models.py:46 orders/templates/orders/orders.html:65
+msgid "Paid"
+msgstr "پرداخت شده"
+
+#: orders/models.py:47
+msgid "Submit Now"
+msgstr "الان ثبت شود"
+
+#: orders/models.py:48 orders/templates/orders/orders.html:119
+#: posts/models.py:37 support/models.py:23 support/models.py:39
+#: support/templates/support/support.html:29 transactions/models.py:32
+#: transactions/templates/transactions/transactions.html:19
+msgid "Created At"
+msgstr "تاریخ ایجاد"
+
+#: orders/models.py:49 posts/models.py:38 support/models.py:24
+#: support/templates/support/support.html:30 transactions/models.py:33
+msgid "Updated At"
+msgstr "تاریخ به روزرسانی"
+
+#: orders/models.py:55 orders/models.py:65
+msgid "Order"
+msgstr "سفارش"
+
+#: orders/models.py:71
+msgid "Queued Order"
+msgstr "سفارش در صف انتظار"
+
+#: orders/models.py:72
+msgid "Queued Orders"
+msgstr "سفارشهای در صف انتظار"
+
+#: orders/templates/orders/buypage.html:28
+#: orders/templates/orders/new_order.html:27
+msgid "Instagram Profile ID"
+msgstr "آی دی پروفایل عمومی اینستاگرام"
+
+#: orders/templates/orders/buypage.html:32
+#: orders/templates/orders/new_order.html:26
+msgid "Instagram Post/IGTV/Reel Link"
+msgstr "لینک پست / IGTV / ریل اینستاگرام"
+
+#: orders/templates/orders/buypage.html:71
+#: orders/templates/orders/buypage.html:91
+#: orders/templates/orders/new_order.html:46
+#: orders/templates/orders/new_order.html:75
+#: orders/templates/orders/orders.html:92
+msgid "Online Payment"
+msgstr "پرداخت آنلاین"
+
+#: orders/templates/orders/buypage.html:73
+#: orders/templates/orders/new_order.html:47
+#: orders/templates/orders/new_order.html:77
+#: orders/templates/orders/orders.html:94
+msgid "Payment with all bank cards"
+msgstr "پرداخت با تمامی کارتهای بانکی"
+
+#: orders/templates/orders/buypage.html:79
+#: orders/templates/orders/new_order.html:56
+msgid "Pay with Wallet"
+msgstr "پرداخت با کیف پول"
+
+#: orders/templates/orders/new_order.html:12
+msgid "Start Here"
+msgstr "از اینجا شروع کنید"
+
+#: orders/templates/orders/new_order.html:16
+msgid "Choose Service Type"
+msgstr "نوع سرویس را انتخاب کنید"
+
+#: orders/templates/orders/new_order.html:21
+msgid "Choose Service"
+msgstr "سرویس را انتخاب کنید"
+
+#: orders/templates/orders/new_order.html:28
+msgid "Telegram Link/ID"
+msgstr "لینک کانال تلگرام"
+
+#: orders/templates/orders/new_order.html:38
+msgid "The number of requests"
+msgstr "تعداد درخواستی"
+
+#: orders/templates/orders/new_order.html:40
+msgid "Final fee payable"
+msgstr "هزینه نهایی قابل پرداخت"
+
+#: orders/templates/orders/new_order.html:88
+msgid "Product Specifications"
+msgstr "مشخصات محصول"
+
+#: orders/templates/orders/new_order.html:90
+msgid "Please select a product"
+msgstr "یک محصول انتخاب کنید"
+
+#: orders/templates/orders/new_order.html:93
+msgid "Title of product"
+msgstr "عنوان محصول"
+
+#: orders/templates/orders/new_order.html:98
+msgid "Order range between"
+msgstr "محدوده ثبت سفارش"
+
+#: orders/templates/orders/new_order.html:100
+msgid "to"
+msgstr "تا"
+
+#: orders/templates/orders/new_order.html:106
+msgid "Price per 1"
+msgstr "قیمت به ازای ۱ عدد"
+
+#: orders/templates/orders/new_order.html:112 service/models.py:47
+msgid "Description"
+msgstr "توضیحات"
+
+#: orders/templates/orders/orders.html:8
+msgid "Orders Report"
+msgstr "گزارش سفارش ها"
+
+#: orders/templates/orders/orders.html:18 transactions/models.py:24
+#: transactions/templates/transactions/transactions.html:17
+msgid "Price"
+msgstr "مبلغ"
+
+#: orders/templates/orders/orders.html:22
+msgid "Paid Status"
+msgstr "وضعیت پرداخت"
+
+#: orders/templates/orders/orders.html:23
+#: support/templates/support/support.html:31 transactions/models.py:28
+msgid "Details"
+msgstr "جزییات"
+
+#: orders/templates/orders/orders.html:53
+msgid "Unpaid"
+msgstr "پرداخت نشده"
+
+#: orders/views.py:50
+msgid "For amounts less than 500 Tomans, please use a wallet"
+msgstr "برای مبالغ کمتر از ۵۰۰ تومان لطفا از کیف پول استفاده بفرمایید"
+
+#: orders/views.py:57 orders/views.py:157 orders/views.py:234
+#: orders/views.py:368
+msgid "Online payment of the order fee"
+msgstr "پرداخت آنلاین هزینه سفارش"
+
+#: orders/views.py:95 orders/views.py:275
+msgid "Order created successfully, this is your order code:"
+msgstr "ثبت سفارش موفقیت آمیز انجام شد. کد سفارش شما: "
+
+#: orders/views.py:104 orders/views.py:284
+msgid ""
+"Your balance amount is less than the order amount. Please use online payment"
+msgstr ""
+"مبلغ موجودی شما کمتر از مبلغ سفارش است. لطفا از پرداخت آنلاین استفاده کنید"
+
+#: orders/views.py:140
+msgid "Payment of the order deficit"
+msgstr "پرداخت مبلغ کسری سفارش"
+
+#: posts/models.py:19 posts/models.py:39
+msgid "Category"
+msgstr "دسته بندی"
+
+#: posts/models.py:20
+msgid "Categories"
+msgstr "دسته بندی ها"
+
+#: posts/models.py:24
+msgid "Draft"
+msgstr "پیش نویس"
+
+#: posts/models.py:25
+msgid "Publish"
+msgstr "انتشار"
+
+#: posts/models.py:29
+msgid "Author"
+msgstr "نویسنده"
+
+#: posts/models.py:31
+msgid "Slug"
+msgstr "لینک"
+
+#: posts/models.py:32
+msgid "Short Content"
+msgstr "خلاصه متن"
+
+#: posts/models.py:33
+msgid "Content"
+msgstr "محتوا"
+
+#: posts/models.py:34
+msgid "Read Time"
+msgstr "زمان مطالعه"
+
+#: posts/models.py:35
+msgid "Thumbnail"
+msgstr "عکس شاخص"
+
+#: posts/models.py:50
+msgid "Post"
+msgstr "پست"
+
+#: posts/models.py:51
+msgid "Posts"
+msgstr "پست ها"
+
+#: seo/models.py:8
+msgid "Which Page"
+msgstr "صفحه"
+
+#: seo/models.py:9
+msgid "Meta Description Tag"
+msgstr "تگ توضیحات متا"
+
+#: seo/models.py:10
+msgid "Meta Keywords Tag"
+msgstr ""
+
+#: seo/models.py:11
+msgid "Canonical Link"
+msgstr ""
+
+#: seo/models.py:12
+msgid "Title Tag"
+msgstr "تگ عنوان"
+
+#: seo/models.py:20
+msgid "SEO Setting"
+msgstr "تنظیم سئو"
+
+#: seo/models.py:21
+msgid "SEO Settings"
+msgstr "تنظیمات سئو"
+
+#: service/admin.py:11
+msgid "به روز رسانی سرویس ها"
+msgstr ""
+
+#: service/models.py:11
+msgid "Display priority"
+msgstr "اولویت نمایش"
+
+#: service/models.py:16
+msgid "ServiceTypes"
+msgstr "نوع سرویس ها"
+
+#: service/models.py:36
+msgid "Service Type"
+msgstr "نوع سرویس"
+
+#: service/models.py:37
+msgid "Link Type"
+msgstr "نوع لینک"
+
+#: service/models.py:38
+msgid "Server"
+msgstr "سرور"
+
+#: service/models.py:39
+msgid "Server Service Code"
+msgstr "کد سرویس متناظر"
+
+#: service/models.py:42
+msgid "Amount Per 1 Number"
+msgstr "قیمت به ازای هر ۱ عدد"
+
+#: service/models.py:44
+msgid "Price For 1000 Server"
+msgstr "قیمت برای ۱۰۰۰ عدد در سرویس"
+
+#: service/models.py:48 service/models.py:88
+msgid "Display Priority"
+msgstr "اولویت نمایش"
+
+#: service/models.py:49
+msgid "Available For User"
+msgstr "فعال برای کاربر"
+
+#: service/models.py:50
+msgid "Available For Package"
+msgstr "فعال برای پکیج"
+
+#: service/models.py:51
+msgid "Service Tag Name"
+msgstr "تگ پکیج سرویس"
+
+#: service/models.py:52
+msgid "Features"
+msgstr "خصوصیات"
+
+#: service/models.py:95
+msgid "Package"
+msgstr "پکیج"
+
+#: service/models.py:96
+msgid "Packages"
+msgstr "پکیج"
+
+#: support/admin.py:44 support/admin.py:53 support/models.py:47
+#: support/templates/support/support.html:28
+msgid "Responses"
+msgstr "پاسخ ها"
+
+#: support/models.py:10
+msgid "submitted"
+msgstr "ثبت شده"
+
+#: support/models.py:11
+msgid "closed"
+msgstr "بسته شده"
+
+#: support/models.py:12
+msgid "pending"
+msgstr "در دست انجام"
+
+#: support/models.py:13
+msgid "support answer"
+msgstr "پاسخ پشتیبان"
+
+#: support/models.py:14
+msgid "user answer"
+msgstr "پاسخ کاربر"
+
+#: support/models.py:20 support/templates/support/submit_ticket.html:24
+#: support/templates/support/support.html:25
+#: support/templates/support/ticket_detail.html:9
+msgid "Subject"
+msgstr "موضوع"
+
+#: support/models.py:21 support/models.py:38
+#: support/templates/support/submit_ticket.html:29
+#: support/templates/support/ticket_detail.html:10
+#: support/templates/support/ticket_detail.html:45
+msgid "Message"
+msgstr "متن"
+
+#: support/models.py:25 support/models.py:40
+msgid "File"
+msgstr "فایل"
+
+#: support/models.py:31 support/models.py:36
+msgid "Ticket"
+msgstr "تیکت"
+
+#: support/models.py:32
+msgid "Tickets"
+msgstr "تیکت"
+
+#: support/models.py:46
+msgid "Response"
+msgstr "پاسخ"
+
+#: support/templates/support/submit_ticket.html:16
+msgid "Ticket List"
+msgstr "لیست تیکت ها"
+
+#: support/templates/support/submit_ticket.html:33
+#: support/templates/support/ticket_detail.html:49
+msgid "Attached image"
+msgstr "عکس ضمیمه"
+
+#: support/templates/support/submit_ticket.html:39
+msgid "Submit New Ticket"
+msgstr "ثبت تیکت جدید"
+
+#: support/templates/support/support.html:26
+msgid "Ticket Code"
+msgstr "شماره تیکت"
+
+#: support/templates/support/support.html:58
+msgid "No tickets have been submitted yet"
+msgstr "تا به الان هیچ تیکتی ثبت نشده"
+
+#: support/templates/support/ticket_detail.html:4
+msgid "Ticket Details"
+msgstr "جزئیات تیکت"
+
+#: support/templates/support/ticket_detail.html:7
+msgid "Details of ticket number"
+msgstr "جزئیات تیکت شماره"
+
+#: support/templates/support/ticket_detail.html:23
+msgid "Support Team Answer"
+msgstr "پاسخ پشتیبان"
+
+#: support/templates/support/ticket_detail.html:25
+msgid "Your Answer"
+msgstr "پاسخ شما"
+
+#: support/templates/support/ticket_detail.html:40
+msgid "Add a Response"
+msgstr "ارسال پاسخ"
+
+#: support/templates/support/ticket_detail.html:55
+msgid "Submit Answer"
+msgstr "ثبت پاسخ"
+
+#: support/views.py:64
+msgid "Your support ticket was submitted successfully."
+msgstr "تیکت شما با موفقیت ثبت شد."
+
+#: support/views.py:82
+msgid "Your reply was submitted successfully."
+msgstr "پاسخ شما با موفقیت ثبت شد"
+
+#: transactions/models.py:6
+msgid "increase_ab_by_admin"
+msgstr "افزایش شارژ دستی مدیر"
+
+#: transactions/models.py:7
+msgid "decrease_ab_by_admin"
+msgstr "کاهش شارژ دستی مدیر"
+
+#: transactions/models.py:8
+msgid "payment_for_order"
+msgstr "هزینه سفارش"
+
+#: transactions/models.py:9
+msgid "add_fund"
+msgstr "افزایش اعتبار کیف پول"
+
+#: transactions/models.py:10
+msgid "return_canceled_order_fee"
+msgstr "برگشت هزینه سفارش کنسلی"
+
+#: transactions/models.py:11
+msgid "return_partial_order_fee"
+msgstr "برگشت مابقی هزینه سفارش ناتمام"
+
+#: transactions/models.py:15
+msgid "wallet"
+msgstr "کیف پول"
+
+#: transactions/models.py:17 transactions/models.py:30
+msgid "system"
+msgstr "سیستمی"
+
+#: transactions/models.py:23
+#: transactions/templates/transactions/transactions.html:15
+msgid "Type of transaction"
+msgstr "نوع تراکنش"
+
+#: transactions/models.py:27
+#: transactions/templates/transactions/transactions.html:16
+msgid "Payment Type"
+msgstr "نوع پرداخت"
+
+#: transactions/models.py:30
+msgid "Payment Gateway"
+msgstr "درگاه پرداخت"
+
+#: transactions/models.py:31
+msgid "Payment Ref"
+msgstr "کد پیگیری درگاه"
+
+#: transactions/models.py:34
+msgid "IP"
+msgstr "آی پی"
+
+#: transactions/models.py:40
+msgid "Transaction"
+msgstr "تراکنش"
+
+#: transactions/templates/transactions/transactions.html:7
+msgid "Transactions Report"
+msgstr "گزارش تراکنش ها"
+
+#: transactions/templates/transactions/transactions.html:18
+msgid "Account Balance"
+msgstr "مانده اعتبار"
+
+#: transactions/templates/transactions/transactions.html:40
+msgid "No transaction found yet"
+msgstr "تا به الان تراکنشی یافت نشد"
+
+#: templates/inc/navbar.html:28 templates/inc/navbar.html:80
+msgid "Home"
+msgstr "صفحه اصلی"
+
+#: templates/inc/navbar.html:34 templates/inc/navbar.html:87
+msgid "Mag"
+msgstr "مجله"
+
+#: templates/inc/navbar.html:41 templates/inc/navbar.html:102
+msgid "Buy Instagram Follower"
+msgstr "خرید فالوور اینستاگرام"
+
+#: templates/inc/navbar.html:48 templates/inc/navbar.html:110
+msgid "Buy Instagram Like"
+msgstr "خرید لایک اینستاگرام"
+
+#: templates/inc/navbar.html:55 templates/inc/navbar.html:118
+msgid "Buy Instagram View"
+msgstr "خرید بازدید اینستاگرام"
+
+#: templates/inc/navbar.html:95
+msgid "Instagram Products"
+msgstr "محصولات اینستاگرام"
+
+#: templates/inc/navbar.html:169
+msgid "Logout"
+msgstr "خروج"
+
+#: templates/inc/navbar.html:181
+msgid "Account"
+msgstr "حساب کاربری"

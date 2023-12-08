@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+<!-- Start Title Tag -->
+{% block title %}{% if title_tag %}{{title_tag}}{% endif %}{% endblock %}
+<!-- Start Title Tag -->
+{% block meta %}
+<!-- Start Canonical Tag -->
+{% if canonical_link %}
+<link href="{{canonical_link}}" rel="canonical">
+{% else %}
+<link href="" rel="canonical">
+{% endif %}
+<!-- End Canonical Tag -->
+<meta content="all" name="robots">
+<meta content="fa" http-equiv="content-language">
+<!-- Start Description Tag -->
+{% if description_tag %}
+<meta content="{{description_tag}}" name="description">
+{% else %}
+<meta content="" name="description">
+{% endif %}
+<!-- End Description Tag -->
+<!-- Start Keywords Tag -->
+{% if keywords_tag %}
+<meta content="{{keywords_tag}}" name="keywords">
+{% else %}
+<meta content="" name="keywords">
+{% endif %}
+<!-- End Keywords Tag -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "آیا خرید بازدید ویدیو برای پیج مخرب است؟",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "خیر! خرید بازدید برای ویدیوهای پیج اینستاگرام هم در الگوریتم های اینستاگرام و هم از لحاظ میزان ریچ تأثیر منفی در پیج شما نخواهد داشت و هرگز سبب بروز مشکل در پست یا پیج شما نخواهد شد."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "چگونه بازدید مطالب ویدیویی پیج خود را افزایش دهیم؟",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "جدا از روش های ارگانیک جذب بازدید و مخاطب در اینستاگرام شما به سادگی در ایرانی گرام قادر به سفارش هزاران بازدید بسیار باکیفیت برای مطالب خود می باشید."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "چطور خرید بازدید اینستاگرام مفید واقع می شود؟",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "اگر تمایل دارید علاوه بر افزایش عددی بازدید خود، همراه آن ریچ و ایمپرشن پست خود را نیز بصورت چشمگیری افزایش دهید، فقط کافی است از سرویس های بازدید ویدیویی که شامل ریچ هم می شوند خریداری کنید تا به دیده شدن بیشتر پستتان کمک کنید."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "چطور بهترین ارائه دهنده سرویس های اینستاگرام را انتخاب کنیم؟",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "بسیار ساده! ایرانی گرام را باز کنید، رَوان بودن سایت، کیفیت سایت و پنل کاملاً اختصاصی، سرعت انجام کار، کیفیت بالای محصولات و قدمت سایت را با رقبا مقایسه کنید. مطمئناً پاسخ درست را دریافت خواهید کرد."
+                }
+            }
+        ]
+    }
+</script>
+{% endblock meta %}
+{% block content %}
+<div class="container">
+    <div class="row mb-5 mt-4">
+        <div class="col-md-4 text-center">
+            <img alt="" class="img-fluid text-center" src="{% static 'image/view.png' %}">
+        </div>
+        <div class="col-md-8 mt-4">
+            <span><img src="{% static 'image/Group 33657.svg' %}"></span>
+            <span class="fs-1 fw-bold" style="font-size:50px !important;">
+                خرید انواع بازدید اینستاگرام
+                <img alt="" class="img-fluid float-end" src="{% static 'image/image-16 8.png' %}">
+            </span>
+            <p class="d-flex lh-lg fs-5 mt-4 text-warning">خرید بازدید پست، IGTV، استوری، Reel</p>
+            <p class="d-flex lh-lg fs-5 mt-1">بزرگترین تجارت در شبکه اجتماعی اینستاگرام بر پایه بازدید ویدیوها،
+                بازدید پست های اینستاگرام یا بازدید igtv ها می باشد، حتی بازدید استوری نیز در رده بندی تبلیغات تأثیر
+                بسیار بالاتری نسبت به لایک های یک پیج دارد. بزرگترین واینرهای اینستاگرام و فعالان این حوزه پیج خود
+                را با افزایش بازدید ویدیوها ارتقا می دهند و اکسپلور هم پر از ویدیوهای وایرال شده می باشد که صرفاً بر
+                پایه تعداد بازدید و ریچ به آنجا رسیده اند. داشتن بازدید بیشتر و خرید بازدید اینستاگرام مطمئناً در
+                ارتقا پیج شما و اعتبار آن به شما کمک خواهد کرد.</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-12">
+            <div class="row">
+              <div class="col-2">
+                <img src="{% static 'image/image-16 8.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px" height="107px" />
+              </div>
+              <div class="col-10">
+                <span class="fw-bold fs-4">بسته های بازدید پست، IGTV، استوری، Reel اینستاگرام</span><br />
+                <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+              </div>
+            </div>
+            {% for tag, packages in view_packages.items %}
+              {% if packages %}
+                <div class="card mt-2 rounded-4">
+                  <div class="card-body">
+                    <div class="row justify-content-center">
+                      <h5 class="text-center">
+                        {{ packages.0.service }}
+                        <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
+                        {{ packages.0.service.features }}
+                      </h5>
+                      <div class="col-12 col-md-8 col-lg-6 text-center">
+                        <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                          <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                          {% for package in packages %}
+                            <option value="{{ package.id }}">
+                                {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                        <a href="" class="btn btn-warning rounded-4 py-2">
+                          ثبت سفارش
+                          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        <div class="col text-center">
+            <img class="img-fluid" src="{% static 'image/view-banner.png' %}">
+        </div>
+    </div>
+    <p class="d-flex lh-lg fs-5 mt-5">خرید بازدید اینستاگرام از جمله روش هایی است که برای ارتقای پیج و رونق بخشیدن
+        به کسب و کار اینترنتی از آن استفاده می شود. در ادامه با اهمیت ارتقای پیج و روش های آن آشنا می شویم.<br><br>
+        با گسترش روز افزون شبکه های مجازی و رونق فعالیت های مختلف اینترنتی، بسیاری از کاربران این فضا ها از شبکه
+        هایی مثل اینستاگرام برای شروع کسب و کار و یا رونق دادن به حرفه ای که قبلا در آن فعالیت داشتند استفاده کردند.
+        امروزه اهمیت اینستاگرام و تبلیغات در آن برای رونق دادن به کسب و کار و یا شناساندن هنرها و مهارت ها بر کسی
+        پوشیده نیست و تعداد بسیاری از کاربران آن از پیج خودشان برای تبلیغات استفاده می کنند. اما مانند هر تبلیغات
+        دیگری، تبلیغات در اینستاگرام نیز روش ها و ترفند های مخصوص به خودش را دارد که بدون شناخت این اصول و روش ها
+        تبلیغات گسترده و موفقی در این فضا نخواهیم داشت. این ترفند ها شامل مواردی مثل افزایش تعداد لایک و بازدید پست
+        ها می باشد.<br>
+        بازدید اینستاگرام که با عنوان ویو در برنامه ی اینستاگرام مشخص می شود، تعداد مشاهده شدن فیلم های به اشتراک
+        گذاشته شده ی یک پیج است. در واقع تعداد ویو یا بازدید همان تعداد دفعاتی است که کاربر های مختلف فیلم یک پیج را
+        در صفحه ی شخص می بینند.</p>
+    <div class="row">
+        <p class="d-flex lh-lg fs-5 mt-4 text-warning">پاسخ به سوالات پر تکرار شما</p>
+        <p class="mt-2 align-middle fs-1 fw-bold">
+            <i class="bi bi-info-square text-warning"></i> سوالات پر تکرار
+        </p>
+        <div class="accordion" id="accordionFlushExample">
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button aria-controls="QA01" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#QA01" data-bs-toggle="collapse" type="button">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold"
+                              style="border-left: 1px solid #DFE2E6;line-height:20px">01</span>
+                        <span class="px-2 fw-bold">آیا خرید بازدید ویدیو برای پیج مخرب است؟</span>
+                    </button>
+                </h2>
+                <div aria-labelledby="QA01" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                     id="QA01">
+                    <div class="accordion-body lh-lg">خیر! خرید بازدید برای ویدیوهای پیج اینستاگرام هم در الگوریتم
+                        های اینستاگرام و هم از لحاظ میزان ریچ تأثیر منفی در پیج شما نخواهد داشت و هرگز سبب بروز مشکل
+                        در پست یا پیج شما نخواهد شد.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button aria-controls="QA02" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#QA02" data-bs-toggle="collapse" type="button">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold"
+                              style="border-left: 1px solid #DFE2E6;line-height:20px">02</span>
+                        <span class="px-2 fw-bold">چگونه بازدید مطالب ویدیویی پیج خود را افزایش دهیم؟</span>
+                    </button>
+                </h2>
+                <div aria-labelledby="QA02" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                     id="QA02">
+                    <div class="accordion-body lh-lg">جدا از روش های ارگانیک جذب بازدید و مخاطب در اینستاگرام شما به
+                        سادگی در ایرانی گرام قادر به سفارش هزاران بازدید بسیار باکیفیت برای مطالب خود می باشید.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button aria-controls="QA03" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#QA03" data-bs-toggle="collapse" type="button">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold"
+                              style="border-left: 1px solid #DFE2E6;line-height:20px">03</span>
+                        <span class="px-2 fw-bold">کیفیت بازدید اینستاگرام خریداری شده چگونه است؟</span>
+                    </button>
+                </h2>
+                <div aria-labelledby="QA03" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                     id="QA03">
+                    <div class="accordion-body lh-lg">در سایت ایرانی گرام از قویترین و بهترین سرویس های بازدید جهت
+                        رضایت مندی کاربران استفاده شده است. فروش ویو یا بازدید اینستاگرام با بهترین کیفیت و ارزان
+                        ترین قیمت به دوستان عزیز ارائه میگردد.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button aria-controls="QA04" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#QA04" data-bs-toggle="collapse" type="button">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold"
+                              style="border-left: 1px solid #DFE2E6;line-height:20px">04</span>
+                        <span class="px-2 fw-bold">چطور خرید بازدید اینستاگرام مفید واقع می شود؟</span>
+                    </button>
+                </h2>
+                <div aria-labelledby="QA04" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                     id="QA04">
+                    <div class="accordion-body lh-lg">اگر تمایل دارید علاوه بر افزایش عددی بازدید خود، همراه آن ریچ
+                        و ایمپرشن پست خود را نیز بصورت چشمگیری افزایش دهید، فقط کافی است از سرویس های بازدید ویدیویی
+                        که شامل ریچ هم می شوند خریداری کنید تا به دیده شدن بیشتر پستتان کمک کنید.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item my-1 py-1 rounded-3 border">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button aria-controls="QA05" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#QA05" data-bs-toggle="collapse" type="button">
+                        <span class="text-warning fs-3 px-2 align-middle fw-bold"
+                              style="border-left: 1px solid #DFE2E6;line-height:20px">05</span>
+                        <span class="px-2 fw-bold">چطور بهترین ارائه دهنده سرویس های اینستاگرام را انتخاب کنیم؟</span>
+                    </button>
+                </h2>
+                <div aria-labelledby="QA05" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                     id="QA05">
+                    <div class="accordion-body lh-lg">بسیار ساده! ایرانی گرام را باز کنید، رَوان بودن سایت، کیفیت
+                        سایت و پنل کاملاً اختصاصی، سرعت انجام کار، کیفیت بالای محصولات و قدمت سایت را با رقبا مقایسه
+                        کنید. مطمئناً پاسخ درست را دریافت خواهید کرد.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <h2 class="fw-bold">افزایش بازدید ویدیو/پست اینستاگرام چه فوایدی
+            دارد؟</h2>
+        <p class="d-flex lh-lg fs-6 mt-4">تعداد بازدید های یک پیج از جمله مواردی است که در بررسی یک پیج به آن
+            پرداخته می شود. یعنی اگر شخصی قصد داشته باشد که پیجی را بررسی و در صورت تمایل آن را دنبال کند، به تعداد
+            فالوور های پیج، تعداد لایک زیر پست ها و تعداد بازدید های ویدیو های پیج توجه خواهد کرد. بنابراین یکی از
+            روش های ارتقای یک پیج، افزایش تعداد بازدید های آن است و آسان ترین و سریع ترین روش افزایش تعداد ویو ها،
+            خرید بازدید اینستاگرام است. بنابراین برای تبلیغات بیشتر و بهبود بخشیدن به کسب و کارتان در اینستاگرام یا
+            افزایش محبوبیت در فضای مجازی، علاوه بر خرید لایک اینستاگرام و خرید فالوور اینستاگرام، یکی دیگر از
+            موثرترین پیشنهاد ها، خرید بازدید اینستاگرام برای ویدیوهایی است که در پیج تان به اشتراک می
+            گذارید.<br><br>
+            چرا خرید بازدید اینستاگرام و افزایش آن از این طریق بهتر از سایر روش ها است؟ در ادامه به این سوال پرداخته
+            می شود. اگر قصد دارید تعداد بیشتری از فالوور هایتان و یا بقیه ی کاربران اینستاگرام به پیج شما علاقه مند
+            شوند و تعداد بازدید ویدیوهایتان بیشتر شود، باید پست های ویدیویی خودتان را به شکلی جذاب تر تهیه کنید و
+            البته در زمان مناسب این ویدیو ها را منتشر کنید. ولی همانطور که می دانید تهیه ی فیلم های جذاب زحمت و
+            هزینه ی بیشتری می طلبد و تعیین زمان مناسب برای این کار و توجه به نکات دیگر، انرژی و زمان زیادی از شما می
+            گیرد.<br><br>
+            تأثیرات خرید بازدید اینستاگرام بر روی پیج شما<br>
+            خرید بازدید اینستاگرام به همراه خرید فالوور واقعی اینستاگرام کمک بسیاری برای شناخته شدن پیج شما و افزایش
+            تعداد فالوور هایتان می کند. در اینستاگرام، اهمیت هر پیج بر اساس معیار هایی مثل تعداد فالوور، تعداد لایک
+            پست ها و تعداد بازدید ویدیو های آن پیج سنجیده می شود. اگر تعداد فالوور شما زیاد باشد، هر فردی که به
+            پیجتان سر بزند، مجذوب تعداد زیاد فالوور هایتان خواهد شد و شروع به بررسی پست های شما میکند. پس از آن
+            تعداد لایک ها و بازدید های پست هایتان است که آن شخص را متقاعد می کند تا پیج شما را دنبال کند و اگر
+            تبلیغاتی در پیج دارید، به محصولات و خدمات شما علاقه مند شود.<br><br>
+            این نکته را نیز در نظر داشته باشید که مطابق با الگوریتم ها ی اینستاگرام، پست هایی که تعداد بازدید بالایی
+            داشته باشند، به تعداد نفرات بیشتری نیز پیشنهاد می شوند. بنابراین با خرید بازدید اینستاگرام، علاوه بر
+            اینکه تعداد بازدید های ویدیوی شما بیشتر می شود، از طرف دیگر خود اینستاگرام کمک خواهد کرد تا ویدیوی شما
+            به تعداد نفرات بیشتری نیز نمایش داده شود و از این طریق نیز تعداد فالوور شما بیشتر خواهد شد و این خود کمک
+            بسیاری برای رونق بخشیدن به پیج شما و گسترش دادن کسب و کارتان می کند.<br><br>
+            پس با خرید بازدید اینستاگرام، پیج تان را هرچه سریع تر ارتقا دهید و کسب و کارتان را رونق ببخشید.<br><br>
+        </p>
+    </div>
+    <div class="row my-5">
+        <div class="col-lg-6 col-12 text-center">
+            <img class="img-fluid" src="{% static 'image/support.webp' %}" width="500px"><br>
+        </div>  
+        <div class="col-lg-6 col-12">
+            <p class="mt-5 fs-1 fw-bold">سوالی دارید؟</p>
+            <p class="fw-bold text-warning">پشتیبانی ما در خدمت شما هستند </p>
+            <p>پشتیبانی ایرانی گرام همیشه با شما و در همه حال همراه شماست، سوالی دارید؟</p>
+            <a class="btn btn-warning rounded-4 py-4" href="{% url 'accounts:submit_ticket' %}">
+                ارتباط با پشتیبانی
+                <img alt="" src="{% static 'icons/Arrow-Left-Black.svg' %}">
+            </a>
+        </div>
+    </div>
+</div>
+{% include "inc/footer.html" %}
+<script>
+    var pkg_selects = document.querySelectorAll(".pkg-select");
+    pkg_selects.forEach(function (select) {
+        select.addEventListener("change", function () {
+            pkg_id = select.value;
+            let parentElement = select.parentElement;
+            let submit_order_btn = parentElement.nextElementSibling.firstElementChild
+            submit_order_btn.href = "/orders/" + pkg_id + "/new-order/"
+        });
+    });
+</script>
+{% endblock %}

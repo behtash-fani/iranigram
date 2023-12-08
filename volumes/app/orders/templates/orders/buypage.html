@@ -1,0 +1,411 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+<!-- Start Title Tag -->
+{% block title %}خرید {{pkg.quantity}} عدد {{pkg.service.service_type}}{% endblock %}
+<!-- Start Title Tag -->
+{% block content %}
+<div class="container">
+    <div class="row mb-4 mt-5">
+        <div class="col-12 col-lg-7">
+            <div class="card rounded-4">
+                <div class="card-body">
+                    <div class="text-white bg-black text-center p-4 rounded-4 mb-4">
+                        <h3>
+                            خرید {{pkg.quantity}} عدد {{pkg.service.service_type}}
+                        </h3>
+                        <small>از سرور: {{pkg.service}}</small>
+                    </div>
+                    <form method="post" class="mt-3">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{pkg.service.link_type}}" name="service_link_type">
+                        <input type="hidden" value="{{pkg.id}}" name="pkg_id">
+                        <div class="form-floating">
+                            {{ order_form.link }}
+                            {% if pkg.service.link_type == 'instagram_profile' %}
+                            <label for="id_link" id="profile_link_label">
+                                {% trans 'Instagram Profile ID' %}:
+                            </label>
+                            {% elif pkg.service.link_type == 'instagram_post_link' %}
+                            <label for="id_link" id="post_link_label">
+                                {% trans 'Instagram Post/IGTV/Reel Link' %}:
+                            </label>
+                            {% endif %}
+                            <ul class="errorlist d-none" id="link-error">
+                                <li></li>
+                            </ul>
+                            {{ order_form.link.errors }}
+                        </div>
+                        <!-- <div class="d-flex align-items-center gap-2">
+                            <div class="col-md-8">
+                                <div class="alert alert-warning text-center mt-2 mt-0" role="alert"
+                                    id="acc_status_alert">
+                                    <img src="" class="img-fluid rounded-5 d-none" id="profile_pic" width="64px">
+                                    <span id="alert-msg">برای بررسی اکانت خود قبل از خرید، آی دی پیج یا لینک را در فیلد
+                                        بالا وارد کنید و روی دکمه
+                                        بررسی کلیک کنید</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-grid gap-2 d-md-block text-center">
+                                {% if pkg.service.link_type == 'instagram_profile' %}
+                                <button class="btn btn-warning rounded-4 py-3 px-4 ms-1" type="button"
+                                    id="getInstaInfo">
+                                    <img src="{% static 'icons/Click.svg' %}" alt="">
+                                    بررسی آی دی پیج
+                                </button>
+                                {% else %}
+                                <button class="btn btn-warning rounded-4 py-3 px-4 ms-1" type="button"
+                                    id="getInstaInfo">
+                                    <img src="{% static 'icons/Click.svg' %}" alt="">
+                                    بررسی لینک
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div> -->
+                        <div class="d-flex justify-content-around mt-3">
+                            {% if request.user.is_authenticated %}
+                            <button type="submit" class="btn btn-warning rounded-4 me-1 py-3 px-4" name="online_payment">
+                                <span class="fs-6 fw-semibold">
+                                    <img src="{% static 'icons/card-tick.svg' %}" alt="">
+                                    {% trans 'Online Payment' %}
+                                </span><br>
+                                <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
+                            </button>
+                            <button type="submit" class="btn btn-warning rounded-4 py-3 px-4 ms-1 credit-payment-button"
+                                id="credit_payment" name="credit_payment" data-user-balance={{ request.user.balance }}>
+                                <span class="fs-6 fw-semibold">
+                                    <img src="{% static 'icons/wallet-check.svg' %}" alt="">
+                                    {% trans 'Pay with Wallet' %}
+                                </span><br>
+                                <small class="text-muted">
+                                    {% trans "Credit" %}: {{ request.user.balance }} {% trans "Toman" %}
+                                </small>
+                            </button>
+                            {% else %}
+                            <!-- Button trigger modal -->
+                            <button type="button" id="openMobileVerifyModal" class="btn btn-warning rounded-4 py-3"
+                                name="openMobileVerifyModal" data-bs-toggle="modal" data-bs-target="#mobileVerify">
+                                <span class="fs-6 fw-semibold">
+                                    <img src="{% static 'icons/card-tick.svg' %}" alt="">
+                                    {% trans 'Online Payment' %}
+                                </span><br>
+                                <small class="text-muted">تایید شماره موبایل و پرداخت</small>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal" id="mobileVerify" tabindex="-1" aria-labelledby="mobileVerifyLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="mobileVerifyLabel">تایید شماره موبایل</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="forms-alert"></div>
+                                            <div class="" id="phoneNumberForm">
+                                                <form action="" method="POST" novalidate>
+                                                    {% csrf_token %}
+                                                    <small class="custom-black fw-bolder fs-5">
+                                                        <img src="{% static 'icons/Info.svg' %}" alt="">
+                                                        {% trans 'Hints' %}:
+                                                    </small><br>
+                                                    <small class="text-black-50 fs-6 fw-bolder">
+                                                        <img src="{% static 'icons/Accept.svg' %}" alt="">
+                                                        {% trans 'Please set your keyboard to English mode' %}
+                                                    </small><br>
+                                                    <small class="text-black-50 fs-6 fw-bolder">
+                                                        <img src="{% static 'icons/Accept.svg' %}" alt="">
+                                                        {% trans 'Sample correct phone number: 09123456789' %}
+                                                    </small><br>
+                                                    <small class="text-black-50 fs-6 fw-bolder">
+                                                        <img src="{% static 'icons/Accept.svg' %}" alt="">
+                                                        {% trans 'Please keep the phone in active mode because of the confirmation SMS' %}
+                                                    </small><br>
+                                                    <hr>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" dir="ltr" name="phoneNumber"
+                                                            class="form-control" id="phoneNumber"
+                                                            placeholder="{% trans 'Phone Number' %}">
+                                                        <label for="phoneNumber">{% trans 'Phone Number' %}:</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <input type="hidden" value="" id="hold_phone_number">
+                                                        <button type="submit" id="getPhoneNumber" name="getPhoneNumber"
+                                                            class="col-10 d-block mx-auto btn btn-warning rounded-4 py-3 mt-3 fs-5">
+                                                            <img src="{% static 'icons/Send.svg' %}" alt="">
+                                                            {% trans 'Send verification code' %}
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="d-none" id="verifyOtpForm">
+                                                <form action="" method="POST" novalidate>
+                                                    {% csrf_token %}
+                                                    <div class="form-floating mb-3">
+                                                        <input type="number" dir="ltr" name="otpCode"
+                                                            class="form-control" id="otpCode"
+                                                            placeholder="{% trans 'Phone Number' %}">
+                                                        <label for="phoneNumber">{% trans 'OTP Code' %}:</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button type="submit" id="verifyPhoneNumber"
+                                                            name="verifyPhoneNumber"
+                                                            class="col-10 d-block mx-auto btn btn-warning rounded-4 py-3 mt-3 fs-5">
+                                                            <img src="{% static 'icons/Send.svg' %}" alt="">
+                                                            تایید شماره موبایل و پرداخت سفارش
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card rounded-4 mt-3">
+                <div class="card-body">
+                    <span class="fw-semibold text-muted">قابل پرداخت با تمامی کارت های عضو شتاب</span><br>
+                    <div class="mt-2 text-center">
+                        <img src="{% static 'icons/bank_logo/keshavarzi.svg' %}" class="me-5" alt="" width="32px"
+                            height="40px">
+                        <img src="{% static 'icons/bank_logo/mellat.svg' %}" alt="" class="me-5" alt="" width="32px"
+                            height="40px">
+                        <img src="{% static 'icons/bank_logo/melli.svg' %}" alt="" class="me-5" alt="" width="32px"
+                            height="40px">
+                        <img src="{% static 'icons/bank_logo/parsian.svg' %}" alt="" class="me-5" alt="" width="32px"
+                            height="40px">
+                        <img src="{% static 'icons/bank_logo/saman.svg' %}" alt="" class="me-5" alt="" width="32px"
+                            height="40px">
+                        <img src="{% static 'icons/bank_logo/sepah.svg' %}" alt="" class="me-5" alt="" width="32px"
+                            height="40px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5 mt-3 mt-lg-0">
+            <div class="card rounded-4 p-3 pb-0">
+                <div class="card-body">
+                    <h4 class="text-black-50 text-center">قیمت نهایی</h4>
+                    <h1 class="fw-bold text-center" style="font-size: 50px;">{{pkg.amount|intcomma}}</h1>
+                    <h5 class="text-center mt-1">{% trans 'Toman' %}</h5>
+                    <div class="row text-bg-light p-3 rounded-4 mb-2 mt-3">
+                        <small class="custom-black fw-bolder fs-5">
+                            <img src="{% static 'icons/Info.svg' %}" alt="">
+                            عمومی بودن پیج
+                        </small><br>
+                        <small class="text-black-50 fs-6">پیش از ثبت سفارش حتماً از عمومی بودن پیج خود اطمینان حاصل
+                            نمایید، در
+                            صورتی که پیج شما خصوصی باشد ، مجموعه ایرانی گرام هیچ مسئولیتی در قبال عدم انجام کار و حتی
+                            بازگشت وجه نخواهد داشت.</small>
+                        <small class="custom-black fw-bolder fs-5">
+                            <img src="{% static 'icons/Info.svg' %}" alt="">
+                            پیج تا اتمام سفارش باید عمومی بماند.
+                        </small>
+                        <small class="custom-black fw-bolder fs-5">
+                            <img src="{% static 'icons/Info.svg' %}" alt="">
+                            آیدی پیج را تا پایان سفارش و تحویل کامل آن، تغییر ندهید.
+                        </small>
+                    </div>
+                    <!-- <div class="row text-bg-light p-3 rounded-4">
+                        <div class="col-md-6 col-12">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-transparent border-0 py-2">
+                                    <img alt="ضمانت بازگشت وجه" height="24px"
+                                        src="{% static 'icons/card-receive.svg' %}" width="24px">
+                                    <span>ضمانت بازگشت وجه</span>
+                                </li>
+                                <li class="list-group-item bg-transparent border-0 py-2">
+                                    <img alt="بدون نیاز به فالوو کردن دیگران" height="24px"
+                                        src="{% static 'icons/people.svg' %}" width="24px">
+                                    بدون نیاز به فالوو کردن دیگران
+                                </li>
+                                <li class="list-group-item bg-transparent border-0 py-2">
+                                    <img alt="بدون نیاز به پسورد پیج" height="24px"
+                                        src="{% static 'icons/unlock.svg' %}" width="24px">
+                                    بدون نیاز به پسورد پیج
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-transparent border-0 py-2">
+                                    <img alt="شروع آنی پس از ثبت سفارش" height="24px"
+                                        src="{% static 'icons/timer-start.svg' %}" width="24px">
+                                    شروع آنی پس از ثبت سفارش
+                                </li>
+                                <li class="list-group-item bg-transparent border-0 py-2">
+                                    <img alt="دارای ریزش طبیعی" height="24px" src="{% static 'icons/trend-down.svg' %}"
+                                        width="24px">
+                                    دارای ریزش طبیعی
+                                </li>
+                            </ul>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-5 border-0 rounded-4" style="background-image: linear-gradient(to right, #ffbe08, #ffb605, #ffad05, #ffa506, #ff9c0a);">
+        <div class="card-body">
+            <div class="row p-4">
+                <div class="col-md-8">
+                    <img src="{% static 'icons/24-support-white.svg' %}" alt="" class="me-1" width="46px" height="46px">
+                <span class="fw-bold text-white fs-4">مشاوره رایگان</span><br>
+                <span class="text-white fw-bold">ساعت پشتیبانی: همه روزه از ساعت ۹ صبح تا ۱۰ شب (همیشه آنلاین)</span>
+                </div>
+                <div class="col-md-4 pt-3 text-center">
+                    <h1 class="fw-bold">09214541602</h1>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>
+{% include "inc/footer.html" %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#openMobileVerifyModal").click(function (e) {
+            var link = $("#id_link").val();
+            if (link.length === 0) {
+                $('#mobileVerify').modal('hide');
+                $("#link-error").removeClass('d-none');
+                $("#link-error").children("li").html('لطفا لینک/آی دی عمومی اینستاگرام وارد کنید');
+            }
+            else {
+                $("#link-error").addClass('d-none');
+                $('#mobileVerify').modal('show');
+            }
+        })
+        let csrf_token = $("[name=csrfmiddlewaretoken]").val();
+        let service_link_type = $("[name=service_link_type]").val();
+        $("#getInstaInfo").click(function () {
+            var link = $("#id_link").val();
+            if (link.length === 0) {
+                $("#link-error").removeClass('d-none');
+                $("#link-error").children("li").html('لطفا لینک/آی دی عمومی اینستاگرام وارد کنید');
+            }
+            else {
+                $("#link-error").addClass('d-none');
+                $('#getInstaInfo').removeClass('btn-success')
+                $('#getInstaInfo').addClass('btn-warning')
+                $('#getInstaInfo').html(`
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span role="status">در حال دریافت اطلاعات</span>
+            `)
+                $.ajax({
+                    url: "/orders/get-insta-info/",
+                    data: {
+                        link: link,
+                        service_link_type: service_link_type,
+                    },
+                    headers: {
+                        "X-CSRFToken": csrf_token,
+                    },
+                    success: function (data) {
+                        if (data.status == 'acc_available') {
+                            $("#profile_pic").removeClass('d-none');
+                            $("#profile_pic").attr('src', data.profile_pic)
+                            if (data.acc_privacy == 'acc_public') {
+                                $("#acc_status_alert").removeClass('alert-warning');
+                                $("#acc_status_alert").addClass('alert-success');
+                                $("#alert-msg").html('پیج شما عمومی است و می توانید خرید بفرمایید');
+                                $('#getInstaInfo').removeClass('btn-warning')
+                                $('#getInstaInfo').addClass('btn-success')
+                                $('#getInstaInfo').html(`
+                            <img src="{% static 'icons/Accept-White.svg' %}" alt="">
+                            دریافت شد
+                            `)
+                            }
+                            else {
+                                $('#getInstaInfo').addClass('btn-success')
+                                $('#getInstaInfo').html(`
+                            <img src="{% static 'icons/Accept-White.svg' %}" alt="">
+                            دریافت شد
+                            `)
+                                $("#acc_status_alert").removeClass('alert-warning');
+                                $("#acc_status_alert").addClass('alert-info');
+                                $('#getInstaInfo').removeClass('btn-warning');
+                                $('#getInstaInfo').addClass('btn-success');
+                                $("#alert-msg").html('پیج شما خصوصی است. ابتدا پیج خود را در حالت عمومی قرار دهید سپس اقدام به خرید بفرمایید');
+                            }
+                        }
+                        else {
+                            $("#getInstaInfo").html(`
+                            <img src="{% static 'icons/Click.svg' %}" alt="">
+                                    بررسی لینک
+                            `);
+                            $("#acc_status_alert").removeClass('alert alert-warning text-center mt-2');
+                            $("#acc_status_alert").addClass('alert alert-danger text-center mt-2');
+                            $('#acc_status_alert').html('آی دی پیج وارد شده اشتباه است. لطفا دوباره بررسی بفرمایید');
+                        }
+                    },
+                });
+            }
+
+        });
+        $('#getPhoneNumber').click(function (e) {
+            let phone_number = $("#phoneNumber").val();
+            var link = $("#id_link").val();
+            e.preventDefault();
+            $.ajax({
+                url: "/orders/get-phone-number/",
+                data: {
+                    phone_number: phone_number,
+                    link: link,
+                },
+                headers: {
+                    "X-CSRFToken": csrf_token,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#verifyOtpForm').removeClass('d-none')
+                        $('#phoneNumberForm').addClass('d-none')
+                        $('#forms-alert').html("کد یک بار مصرف با موفقیت ارسال شد")
+                        $('#forms-alert').addClass("alert alert-success")
+                        $("#hold_phone_number").val(data.phone_number)
+                    }
+                    else {
+                        alert('خطا در اعتبارسنجی فرم');
+                    }
+                }
+            })
+        })
+        $('#verifyPhoneNumber').click(function (e) {
+            let phone_number = $("#hold_phone_number").val();
+            let pkg_id = $("[name=pkg_id]").val();
+            let otpCode = $("#otpCode").val();
+            e.preventDefault();
+            $.ajax({
+                url: "/orders/verify-phonenumber-pay/",
+                data: {
+                    phone_number: phone_number,
+                    otpCode: otpCode,
+                },
+                headers: {
+                    "X-CSRFToken": csrf_token,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#forms-alert').html(data.alert)
+                        $('#forms-alert').addClass("alert alert-info")
+                        var pkgId = "pkg-id=" + encodeURIComponent(pkg_id)
+                        var redirectUrl = "{% url 'orders:send_to_payment' %}?" + pkgId;
+                        window.location.href = redirectUrl;
+                    }
+                    else {
+                        alert('خطا در اعتبارسنجی فرم');
+                    }
+                }
+            })
+        })
+    });
+</script>
+
+{% endblock content %}

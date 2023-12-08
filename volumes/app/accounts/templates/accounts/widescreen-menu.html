@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load static %}
+<div class="list-group mb-3">
+    <a href="{% url 'accounts:user_dashboard' %}"
+        class="list-group-item list-group-item-action border-0 rounded-4 bg-transparent border-bottom text-black state_dashboard">
+        <div class="d-flex w-100 justify-content-between border-0">
+            <span class="fs-5 fw-bolder">{% trans "Summary of the situation" %}</span>
+            <img src="{% static 'icons/Chart.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:new_order' %}"
+        class="list-group-item list-group-item-action border-0 rounded-4 bg-transparent border-bottom text-black new_order">
+        <div class="d-flex w-100 justify-content-between border-0">
+            <span class="fs-5 fw-bolder">{% trans "New Order" %}</span>
+            <img src="{% static 'icons/shop-add.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:user_wallet' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom wallet_dashboard">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Wallet" %}</span>
+            <img src="{% static 'icons/wallet.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:user_orders' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom orders_list_dashboard">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Orders" %}</span>
+            <img src="{% static 'icons/shopping-cart.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:user_profile' %}"
+        class="list-group-item list-group-item-action rounded-4 border-0 bg-transparent border-bottom text-black profile_dashboard"
+        aria-current="true">
+        <div class="d-flex w-100 justify-content-between border-0">
+            <span class="fs-5 fw-bolder">{% trans "Profile" %}</span>
+            <img src="{% static 'icons/user-edit.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:user_transactions' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom transactions_dashboard">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Transactions" %}</span>
+            <img src="{% static 'icons/math.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:api_docs' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom api_docs">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Api Docs" %}</span>
+            <img src="{% static 'icons/api_docs.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:services' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 border-bottom services">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Services" %}</span>
+            <img src="{% static 'icons/services.svg' %}" alt="">
+        </div>
+    </a>
+    <a href="{% url 'accounts:user_support' %}"
+        class="list-group-item list-group-item-action rounded-4 bg-transparent border-0 support_dashboard">
+        <div class="d-flex w-100 justify-content-between">
+            <span class="fs-5 fw-bolder">{% trans "Support" %}</span>
+            <img src="{% static 'icons/24-support.svg' %}" alt="">
+        </div>
+    </a>
+</div>
