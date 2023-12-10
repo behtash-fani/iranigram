@@ -135,43 +135,51 @@
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
   $(document).ready(function () {
-
-    function sendComment() {
-      var url = $('#comment-list-url').data('url');
-      var name = $('#name-field').val();
-      var phone_number = $('#phone-number-field').val();
-      var content = $('#content-field').val();
-      var page_id = $('#page-id').data('pageid');
-  
+    $('#send_comment').click(function (e) {
+      e.preventDefault()
+      var url = $('#comment-list-url').data('url')
+      var name = $('#name-field').val()
+      var phone_number = $('#phone-number-field').val()
+      var content = $('#content-field').val()
+      var page_id = $('#page-id').data('pageid')
+      var page_url = window.location.href;
       if (name === '' || phone_number === '' || content === '') {
-        showCommentAlert('لطفا همه فیلدها رو پر کن', 'alert-warning');
+        $('#comment-alert-box').removeClass('d-none')
+        $('#comment-alert-box').addClass('alert-warning')
+        $('#comment-alert-box').html('لطفا همه فیلدها رو پر کن');
         return false;
       }
-  
       $.ajax({
         url: url,
         data: {
           name: name,
           phone_number: phone_number,
           content: content,
-          page_id: page_id
+          page_id: page_id,
+          page_url: page_url
         },
         success: function (response_data) {
           if (response_data.success) {
-            showCommentAlert('ممنون بابت نظرت، نظر با ارزشت رو پیش خودمون نگه میداریم البته شاید برای بقیه هم به اشتراک گذاشتیم', 'alert-success');
-            clearCommentFields();
+            $('#comment-alert-box').removeClass('d-none')
+            $('#comment-alert-box').addClass('alert-success')
+            $('#comment-alert-box').html('ممنون بابت نظرت، نظر با ارزشت رو پیش خودمون نگه میداریم البته شاید برای بقیه هم به اشتراک گذاشتیم')
+            $('#name-field').val('')
+            $('#phone-number-field').val('')
+            $('#content-field').val('')
           }
         }
-      });
-    }
-  
-    function sendResponse() {
-      var response_url = $('#submit-response-url').data('url');
-      var comment_id = $('#comment-id').data('comment-id');
-      var response_name = $('#response-name-field').val();
-      var response_phone_number = $('#response-phone-number-field').val();
-      var response_content = $('#response-content-field').val();
-  
+      })
+    })
+  })
+  // code for send response to comment
+  $(document).ready(function () {
+    $('#send-response').click(function (e) {
+      e.preventDefault()
+      var response_url = $('#submit-response-url').data('url')
+      var comment_id = $('#comment-id').data('comment-id')
+      var response_name = $('#response-name-field').val()
+      var response_phone_number = $('#response-phone-number-field').val()
+      var response_content = $('#response-content-field').val()
       $.ajax({
         url: response_url,
         data: {
@@ -181,43 +189,17 @@
           content: response_content,
         },
         success: function (response_data) {
-          console.log(response_data);
+          console.log(response_data)
           if (response_data.success) {
-            showResponseAlert('از ارسال پاسخ به این نظر ممنونم. سعی میکنیم نظرت رو سریع با بقیه به اشتراک بگذاریم');
-            clearResponseFields();
+            $('#response-alert-box').removeClass('d-none')
+            $('#response-alert-box').addClass('alert-success')
+            $('#response-alert-box').html('از ارسال پاسخ به این نظر ممنونم. سعی میکنیم نظرت رو سریع با بقیه به اشتراک بگذاریم')
+            $('#response-name-field').val('')
+            $('#response-phone-number-field').val('')
+            $('#response-content-field').val('')
           }
         }
-      });
-    }
-  
-    function showCommentAlert(message, alertClass) {
-      $('#comment-alert-box').removeClass('d-none').addClass(alertClass).html(message);
-    }
-  
-    function clearCommentFields() {
-      $('#name-field').val('');
-      $('#phone-number-field').val('');
-      $('#content-field').val('');
-    }
-  
-    function showResponseAlert(message) {
-      $('#response-alert-box').removeClass('d-none').html(message);
-    }
-  
-    function clearResponseFields() {
-      $('#response-name-field').val('');
-      $('#response-phone-number-field').val('');
-      $('#response-content-field').val('');
-    }
-  
-    $('#send_comment').click(function (e) {
-      e.preventDefault();
-      sendComment();
-    });
-  
-    $('#send-response').click(function (e) {
-      e.preventDefault();
-      sendResponse();
-    });
-  });
+      })
+    })
+  })
 </script>

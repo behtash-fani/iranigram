@@ -30,6 +30,7 @@ class Comment(models.Model):
     name = models.CharField(max_length = 100, verbose_name=_('Name'), blank=True, null=True)
     content = models.TextField(verbose_name=_('Content'), blank=True, null=True)
     page_id = models.CharField(verbose_name=_('Page ID'), max_length= 50, blank=True, null=True)
+    page_url = models.CharField(verbose_name=_('Page URL'),max_length=2000, blank=True, null=True)
     status = models.CharField(max_length=30, choices=STATUS, verbose_name=_('Status'), blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'), blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'), blank=True, null=True)
@@ -38,12 +39,12 @@ class Comment(models.Model):
         return f'{self.phone_number}'
 
     class Meta:
-        verbose_name = _('Comment')
-        verbose_name_plural = _('Comments')
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')
 
 
 class Response(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name=_('Comment'))
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name=_('comment'))
     phone_number = models.CharField(max_length = 13, verbose_name=_('Phone Number'), blank=True, null=True)
     name = models.CharField(max_length = 100, verbose_name=_('Name'), blank=True, null=True)
     content = models.TextField(verbose_name=_('Content'), blank=True, null=True)
@@ -60,20 +61,3 @@ class Response(models.Model):
     
     def is_approved(self):
         return self.status == 'approved'
-
-
-# @receiver(post_save, sender=Response)
-# def change_ticket_status(sender, instance, created, **kwargs):
-#     if created:
-#         if instance.user.is_staff:
-#             instance.ticket.status = 'support answer'
-#             phone_number = instance.ticket.user.phone_number
-#             ticketCode = instance.ticket.id
-#             send_support_answer_ticket_sms_task.delay(phone_number, ticketCode)
-#             instance.ticket.save()
-#         else:
-#             instance.ticket.status = 'user answer'
-#             phone_number = instance.ticket.user.phone_number
-#             ticketCode = instance.ticket.id
-#             send_user_answer_ticket_sms_task.delay(phone_number, ticketCode)
-#             instance.ticket.save()

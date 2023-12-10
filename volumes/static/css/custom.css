@@ -217,6 +217,10 @@ input[type="number"] {
   color: #ffc107 !important;
 }
 
+.single-post #send_comment, .single-post #send-response{
+  color: #222628 !important;
+}
+
 .single-post img {
   max-width: 100%;
   height: auto;

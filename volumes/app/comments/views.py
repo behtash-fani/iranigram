@@ -11,6 +11,7 @@ def submit_comment(request):
     name = request.GET.get('name')
     content = request.GET.get('content')
     page_id = request.GET.get('page_id')
+    page_url = request.GET.get('page_url')
 
     try:
         # Create a new comment
@@ -19,6 +20,7 @@ def submit_comment(request):
             name=name,
             content=content,
             page_id=page_id,
+            page_url=page_url,
             status='not approved',
         )
 
@@ -69,34 +71,3 @@ def submit_response(request):
             'message': f'Error submitting comment: {str(e)}',
         }
     return JsonResponse(response_data)
-
-
-
-
-# class SubmitComment(View):
-#     template_name = 'comments/list.html'
-#     form_class = CommentForm
-
-#     def get(self, request, *args, **kwargs):
-#         comment_form = self.form_class()
-#         comments = Comment.objects.all()
-#         context = {
-#             'comment_form': comment_form,
-#             'comments': comments
-#             }
-#         return render(request, self.template_name, context)
-
-    # def post(self, request, *args, **kwargs):
-    #     ticket_form = self.form_class(request.POST, request.FILES)
-    #     if ticket_form.is_valid():
-    #         ticket = ticket_form.save(commit=False)
-    #         ticket.user = request.user
-    #         ticket.status = 'submitted'
-    #         ticket.save()
-    #         ticketCode = str(ticket.id)
-    #         phone_number = request.user.phone_number
-    #         messages.success(request, _('Your support ticket was submitted successfully.'), 'success')
-    #         return redirect('accounts:ticket_detail', ticket.id)
-    #     else:
-    #         context = {'ticket_form': ticket_form}
-    #         return render(request, self.template_name, context)

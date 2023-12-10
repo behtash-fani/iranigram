@@ -1,10 +1,13 @@
-from django.shortcuts import render
 from .models import Post
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView
+from comments.models import Comment
+
+
+
 
 class PostsList(ListView):
     model = Post
@@ -44,4 +47,8 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Posts'] = Post.objects.all()
+        slug = self.kwargs['slug']
+        post_id = Post.objects.filter(slug=slug).first().id
+        context["comments"] = Comment.objects.filter(status= 'approved', page_id=post_id)
+        context["page_id"] = post_id
         return context

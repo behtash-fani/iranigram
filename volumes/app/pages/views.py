@@ -84,6 +84,7 @@ class FollowerView(View):
                 service__service_tag=tag,
             ).order_by('priority')
             flw_packages[tag] = packages
+        comments = Comment.objects.filter(page_id="follower", status="approved")
 
         context = {
             'description_tag': description_tag,
@@ -92,6 +93,8 @@ class FollowerView(View):
             'canonical_link': canonical_link,
             'title_tag': title_tag,
             'flw_packages': flw_packages,
+            'comments': comments,
+            'page_id': 'follower'
         }
         return render(request, self.template_name, context)
 
@@ -112,12 +115,16 @@ class LikeView(View):
                 service__service_tag=tag,
             ).order_by('priority')
             like_packages[tag] = packages
+        comments = Comment.objects.filter(page_id="like", status="approved")
+
         context = {
             'description_tag': description_tag,
             'keywords_tag': keywords_tag,
             'title_tag': title_tag,
             'canonical_link': canonical_link,
             'like_packages': like_packages,
+            'comments': comments,
+            'page_id': 'like'
         }
         return render(request, self.template_name, context)
 
@@ -141,11 +148,15 @@ class ViewView(View):
                 service__service_tag=tag,
             ).order_by('priority')
             view_packages[tag] = packages
+        comments = Comment.objects.filter(page_id="view", status="approved")
+
         context = {
             'description_tag': description_tag,
             'keywords_tag': keywords_tag,
             'title_tag': title_tag,
             'canonical_link': canonical_link,
             'view_packages': view_packages,
+            'comments': comments,
+            'page_id': 'view'
         }
         return render(request, self.template_name, context)

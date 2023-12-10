@@ -30,6 +30,7 @@
             <div class="mt-2 blog-post px-2">
                 <p class="lh-base">{{post.content|safe}}</p>
             </div>
+            {% include 'comments/comments_submit_list.html' %}
         </div>
         <div class="col-md-4 col-12">
             <div class="row">
@@ -66,9 +67,9 @@
                     <img src="{% static 'image/buy_follower.png' %}" class="img-fluid rounded-4" alt="">
                 </a>
             </div>
-            
         </div>
     </div>
+    
 </div>
 {% include "inc/footer.html" %}
 {% endblock %}
