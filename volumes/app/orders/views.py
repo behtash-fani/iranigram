@@ -247,7 +247,7 @@ class TemplateNewOrder(View):
                 unit_price = Service.objects.get(id=service.id).amount
                 total_price = int(unit_price) * int(pkg.quantity)
                 order_item.amount = total_price
-                if user.balance > total_price:
+                if user.balance >= total_price:
                     user.balance -= total_price
                     user.save()
                     order_item.payment_method = "wallet"

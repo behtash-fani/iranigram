@@ -15,14 +15,20 @@
             <img src="{{post.thumbnail.url}}" class="img-fluid rounded-4" alt="{{post.title}}" width="1000px" height="500px">
             {% endif %}
             <div class="col d-flex">
-                <div class="shadow-sm text-black rounded-4 mt-2 mx-1 p-2">
-                    <img src="{% static 'icons/Folder.svg' %}" alt="..." class="text-black-50">
-                    <span class="p-0 m-0 fw-semibold" style="color:#9AA2AE">{{post.category}}</span>
+                <div class="shadow-sm rounded-4 mt-2 mx-1 p-2">
+                    <img src="{% static 'icons/category.svg' %}" alt="...">
+                    <span class="p-0 m-0 fw-semibold">{{post.category}}</span>
                 </div>
-                <div class="shadow-sm text-black rounded-4 mt-2 mx-1 p-2">
-                    <img src="{% static 'icons/timer.svg' %}" alt="..." class="text-black-50">
-                    <span class="fw-semibold" style="color:#9AA2AE">زمان مطالعه: {{post.read_time}} دقیقه</span>
+                <div class="shadow-sm rounded-4 mt-2 mx-1 p-2">
+                    <img src="{% static 'icons/timer.svg' %}" alt="...">
+                    <span class="fw-semibold">زمان مطالعه: {{post.read_time}} دقیقه</span>
                 </div>
+                {% if request.user.is_authenticated and request.user.is_admin %}
+                <a href="{{edit_url}}" class="shadow-sm rounded-4 mt-2 mx-1 p-2">
+                    <img src="{% static 'icons/edit.svg' %}" alt="...">
+                    <span class="fw-semibold" style="color: #212529;">ویرایش مطالب</span>
+                </a>
+                {% endif %}
             </div>
             <div class="mt-5 px-2">
                 <h3 class="fw-semibold">{{post.title}}</h3>
@@ -52,7 +58,7 @@
                     <div class="text-black rounded-4 pt-2 d-flex justify-content-end">
                         <img src="{% static 'icons/timer.svg' %}" alt="..." class="text-black-50">
                         <small class="fw-semibold pt-1 px-1" style="color:#9AA2AE">زمان مطالعه: {{post.read_time}} دقیقه</small>
-                    </div>
+                    </div>    
                 </div>
             </div>
             {% endfor %}

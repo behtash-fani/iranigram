@@ -5,8 +5,7 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.views.generic import DetailView
 from comments.models import Comment
-
-
+from django.conf import settings
 
 
 class PostsList(ListView):
@@ -51,4 +50,5 @@ class PostDetailView(DetailView):
         post_id = Post.objects.filter(slug=slug).first().id
         context["comments"] = Comment.objects.filter(status= 'approved', page_id=post_id)
         context["page_id"] = post_id
+        context["edit_url"] = f'{settings.SITE_URL}/admin/posts/post/{post_id}/change/'
         return context
