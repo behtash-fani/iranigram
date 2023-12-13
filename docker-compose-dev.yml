@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+    app:
+        build: './app'
+        container_name: 'app'
+        restart: 'always'
+        expose:
+            - '8000'
+        volumes:
+            - type: 'bind'
+              source: './volumes/app'
+              target: '/app'
+        env_file:
+            - ./volumes/app/.env
+        command: sh -c "python manage.py runserver 0.0.0.0:8000"
+        depends_on:
+            - db
+            - nginx
+    db:
+        image: postgres:14
+        container_name: 'iranigramdb'
+        restart: 'always'
+        expose:
+            - '5432'
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        volumes:
+            - type: 'bind'
+              source: './volumes/dbdata'
+              target: '/var/lib/postgresql/data'
+    redis:
+        image: redis:alpine
+        container_name: 'redis'
+        restart: always
+    # celery:
+    #     build: ./app/
+    #     container_name: 'celery'
+    #     command: celery -A config worker --loglevel=info
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
+    #     depends_on:
+    #         - db
+    #     restart: always
+    # celery-beat:
+    #     build: ./app/
+    #     container_name: 'celery-beat'
+    #     command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    #     volumes:
+    #         - type: 'bind'
+    #           source: './volumes/app'
+    #           target: '/app'
+    nginx:
+        build: './nginx'
+        container_name: 'nginx'
+        restart: 'always'
+        ports:
+            - "8000:80"
+        volumes:
+            - type: 'bind'
+              source: './volumes/app/media'
+              target: '/app/media'
+
+            - type: 'bind'
+              source: './volumes/static'
+              target: '/app/static'
+        env_file:
+            - ./volumes/app/.env

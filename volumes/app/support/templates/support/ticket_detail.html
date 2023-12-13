@@ -1,0 +1,58 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans 'Ticket Details' %}{% endblock %}
+{% block panelcontent %}
+    <span class="fs-4 fw-semibold">
+        <i class="bi bi-chat-left-quote"></i> {% trans "Details of ticket number" %}: {{ ticket.id }}</span>
+    <hr>
+    <h6>{% trans "Subject" %} : {{ ticket.subject }}</h6>
+    <p>{% trans "Message" %}: <br>{{ ticket.message|linebreaks }}</p>
+    {% if ticket.file %}
+        <div class="alert alert-secondary" role="alert">
+            <a href="{{ ticket.file.url }}" target="_blank">
+                <img src="{{ ticket.file.url }}" width="100px" class="rounded" alt="">
+            </a>
+        </div>
+    {% endif %}
+    <hr>
+    {% for response in responses %}
+        <div class="ps-4">
+            {% if response.user.phone_number == '09302521022' %}
+                <small class="badge rounded-pill text-bg-dark"><i
+                        class="bi bi-headset"></i> {% trans "Support Team Answer" %}</small>
+            {% else %}
+                <small class="badge rounded-pill text-bg-warning"><i class="bi bi-person"></i> {% trans "Your Answer" %}
+                </small>
+            {% endif %}
+            <p class="pt-1">{{ response.message|linebreaks }}</p>
+            {% if response.file %}
+                <div class="alert alert-secondary" role="alert">
+                    <a href="{{ response.file.url }}" target="_blank">
+                        <img src="{{ response.file.url }}" width="75px" class="rounded">
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+
+    <h5><i class="bi bi-send-plus"></i> {% trans "Add a Response" %}</h5>
+    <form action="" method="post" class="mt-3" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-floating mt-2">
+            {{ response_form.message }}
+            <label for="id_message">{% trans 'Message' %}: </label>
+            {{ response_form.message.errors }}
+        </div>
+        <div class="mt-2">
+            <label for="id_file" class="form-label">{% trans 'Attached image' %}: </label>
+            {{ response_form.file }}
+            {{ response_form.file.errors }}
+        </div>
+        <button class="btn btn-warning rounded-4 py-3 px-4 mt-2" type="submit">
+            <img src="{% static 'icons/Submit.svg' %}" alt="">
+            {% trans 'Submit Answer' %}
+        </button>
+    </form>
+{% endblock panelcontent %}

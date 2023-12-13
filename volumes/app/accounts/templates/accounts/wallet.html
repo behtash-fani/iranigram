@@ -1,0 +1,59 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} {% trans 'Wallet' %} {% endblock %}
+{% block panelcontent %}
+<div class="row mt-4">
+    <p class="fw-semibold fs-3">
+        <img src="{% static 'icons/wallet-add.svg' %}" alt="">
+        {% trans "Increase the amount of credit" %}
+    </p>
+    <hr>
+    <div class="col-lg-6 col-12">
+        <p class="fw-bolder">
+            <img src="{% static 'icons/wallet.svg' %}" alt="">
+            {% trans "Credit amount" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}
+        </p>
+        <hr>
+        <form action="" method="post" id="add-amount-form" novalidate>
+            {% csrf_token %}
+            <div class="form-floating mt-2">
+                {{ add_credit_form.amount }}
+                <label for="id_amount">{% trans 'Credit' %}:</label>
+                {{ add_credit_form.amount.errors }}
+            </div>
+            <div class="d-flex justify-content-between">
+
+                <span class="mt-2">
+                    {% trans "Amount of credit entered" %} :
+                    <span id="letter_price" class="mt-2 fw-semibold"></span> {% trans 'Toman' %}
+                </span>
+
+            </div>
+            <button class="btn btn-warning rounded-4 px-3 py-3 mt-2" type="submit">
+                <img src="{% static 'icons/wallet-add.svg' %}" alt="">
+                {% trans 'Pay' %}
+            </button>
+        </form>
+    </div>
+    <div class="col-lg-6 col-12 mt-lg-2 mt-sm-4">
+        <small class="custom-black fw-bolder fs-5">
+            <img src="{% static 'icons/Info.svg' %}" alt="">
+            نکات:</small><br>
+        <small class="text-black-50 fs-6 fw-bolder">
+            <img src="{% static 'icons/Accept.svg' %}" alt="">
+            {% trans "Please put your keyboard in English mode" %}
+        </small><br>
+        <small class="text-black-50 fs-6 fw-bolder">
+            <img src="{% static 'icons/Accept.svg' %}" alt="">
+            {% trans 'enter the amount of credit you want in Tomans' %}
+        </small><br>
+        <small class="text-black-50 fs-6 fw-bolder">
+            <img src="{% static 'icons/Accept.svg' %}" alt="">
+            {% trans 'The minimum amount payable is 500 Tomans' %}
+        </small><br>
+    </div>
+</div>
+
+{% endblock panelcontent %}

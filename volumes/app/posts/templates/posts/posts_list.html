@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}خرید فالوور واقعی اینستاگرام فوری ایرانی{% endblock %}
+{% block meta %}
+<meta name="description"
+    content="خرید فالوور واقعی اینستاگرام با ارسال فوری از ایرانی گرام فالوور ارزان فعال ایرانی بخرید شامل خرید فالوور بدون ریزش اینستاگرام ارزان قیمت همراه فالوور رایگان">
+<meta name="keywords" content="خرید فالوور اینستاگرام">
+<meta content="خرید فالوور اینستاگرام فوری واقعی ایرانی  | ایرانی گرام" property="og:title">
+<meta
+    content="خرید فالوور اینستاگرام واقعی و فوری از ایرانی گرام فالوور ارزان فعال ایرانی بخرید شامل خرید فالوور بدون ریزش اینستاگرام ارزان قیمت همراه فالوور رایگان."
+    property="og:description">
+
+<meta content="{{site_url}}" property="og:url">
+<meta content="Iranigram" property="og:site_name">
+{% endblock meta %}
+{% block content %}
+<div class="text-center p-5">
+    <p class="fs-1 fw-bold" style="font-size:50px !important;">
+        مجله آموزشی <span class="text-warning">ایرانی گرام</span>
+    </p>
+    <span class="fs-4 p-3 fw-bolder">آموزش رایگان اینستاگرام</span>
+</div>
+
+<div class="container mb-5">
+    <div class="row"> <!-- start newest posts -->
+        <div class="col-md col-12">
+            {% for post in slider_posts|slice:":1" %}
+            <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank">
+                <div class="card rounded-4 border border-0">
+                    {% if post.thumbnail %}
+                    <div class="border border-0">
+                        <img src="{{post.thumbnail.url}}" class="img-fluid rounded-4 h-md-100 slide-img" alt="...">
+                        {% endif %}
+                        <div class="card-img-overlay h-100 d-flex flex-column justify-content-end rounded-4"
+                            style="height: 10px; background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4))">
+                            <h6 class="card-title text-white fw-bolder">{{post.title}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-md col-12">
+                    {% for post in slider_posts|slice:"1:2" %}
+                    <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank">
+                        <div class="card rounded-4 border border-0 mb-3">
+                            {% if post.thumbnail %}
+                            <div class="border border-0">
+                                <img src="{{post.thumbnail.url}}" class="img-fluid rounded-4 h-md-100 slide-img"
+                                    alt="...">
+                                {% endif %}
+                                <div class="card-img-overlay h-100 d-flex flex-column justify-content-end rounded-4"
+                                    style="height: 10px; background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))">
+                                    <h6 class="card-title text-white fw-bolder">{{post.title}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="col-md col-12">
+                    {% for post in slider_posts|slice:"2:4" %}
+                    <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank">
+                    <div class="card rounded-4 border border-0 mb-2">
+                        {% if post.thumbnail %}
+                        <div class="border border-0">
+                            <img src="{{post.thumbnail.url}}" class="img-fluid rounded-4 h-md-100 slide-halfimg"
+                                alt="..." style="">
+                            {% endif %}
+                            <div class="card-img-overlay h-100 d-flex flex-column justify-content-end rounded-4"
+                                style="height: 10px; background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))">
+                                <h6 class="card-title text-white fw-bolder">{{post.title}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div> <!-- end of newest posts -->
+    <div class="row mt-5">
+        <div class="col d-flex">
+            <img src="{% static 'icons/notebook-dynamic-color.png' %}" alt="..." width="100em">
+            <span class="fw-bold">
+                <p class="p-0 m-0" style="font-size: 30px;">مقالات ایرانی گرام</p>
+                <small class="text-black-50">جدیدترین مقالات در مورد اینستاگرام</small>
+            </span>
+
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-4 g-lg-5">
+        {% for post in Posts %}
+        <div class="col mt-lg-5 mt-md-3">
+            <a href="{% url 'posts:post_detail' slug=post.slug %}" target="_blank" class="text-decoration-none">
+            <div class="card h-100 rounded-4 border border-0 shadow p-2">
+                {% if post.thumbnail %}
+                <img src="{{post.thumbnail.url}}" class="card-img-top rounded-4 h-md-100 post-img" alt="...">
+                {% endif %}
+                <div class="card-body">
+                    <h6 class="card-title fw-semibold custom-black lh-base">{{post.title}}</h6>
+                    <small class="card-text custom-black">{{ post.short_content}}</small>
+                </div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% include "inc/pagination.html" %}
+{% include "inc/footer.html" %}
+{% endblock %}

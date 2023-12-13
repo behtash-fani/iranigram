@@ -1,0 +1,43 @@
+{% extends "accounts/dashboard_base.html" %}
+{% load i18n %}
+{% load jalali_tags %}
+{% load humanize %}
+{% block title %}{% trans 'Transactions' %}{% endblock %}
+{% block panelcontent %}
+    <p class="fw-semibold fs-3">{% trans "Transactions Report" %}</p>
+    <hr>
+    {% if Transactions %}
+        <div class="table-responsive">
+            <table class="table caption-top table-hover">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">{% trans "Type of transaction" %}</th>
+                    <th scope="col" class="text-center">{% trans "Payment Type" %}</th>
+                    <th scope="col" class="text-center">{% trans "Price" %}</th>
+                    <th scope="col" class="text-center">{% trans "Account Balance" %}</th>
+                    <th scope="col" class="text-center">{% trans "Created At" %}</th>
+                    <th scope="col" class="text-center">{% trans "Order Code" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for transaction in Transactions %}
+                    <tr>
+                        <th scope="row" class="text-center">{{ page_obj.start_index|add:forloop.counter0 }}</th>
+                        <td class="text-center">{% trans transaction.type %}</td>
+                        <td class="text-center">{% trans transaction.payment_type %}</td>
+                        <td class="text-center">{{ transaction.price|intcomma }} {% trans "Toman" %}</td>
+                        <td class="text-center">{{ transaction.balance|intcomma }} {% trans "Toman" %}</td>
+                        <td class="text-center">{{ transaction.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</td>
+                        <td class="text-center">{{ transaction.order_code }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-light" role="alert">
+            {% trans "No transaction found yet" %}
+        </div>
+    {% endif %}
+{% endblock panelcontent %}

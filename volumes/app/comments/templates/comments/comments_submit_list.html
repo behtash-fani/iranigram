@@ -1,0 +1,149 @@
+{% load static %}
+{% load response_count %}
+<div class="row mt-5">
+	<div class="col d-flex">
+		<img src="{% static 'icons/comments.svg' %}" alt="..." width="100em" />
+		<span class="fw-bold ms-2">
+			<p class="p-0 mt-3 ms-0" style="font-size: 30px;">نظر خودت رو در قالب چند کلمه به ما بگو</p>
+			<small class="text-black-50">نظرت برای ما خیلی مهمه برای بهتر کردن خدماتمون</small>
+		</span>
+	</div>
+</div>
+
+{% for comment in comments %}
+<div class="card my-3 border-0 rounded-4 shadow">
+	<div class="card-header border-0">
+		<img src="{% static 'icons/user.svg' %}" alt="نام نظردهنده" width="24px" height="24px" /> {{ comment.name }}
+	</div>
+	<div class="card-body">
+		<blockquote class="blockquote mb-0">
+			<p>
+				<img src="{% static 'icons/comment-text.svg' %}" alt="متن نظر" width="24px" height="24px" />
+				{{ comment.content|linebreaks }}
+			</p>
+		</blockquote>
+	</div>
+	<div class="accordion px-lg-5 pb-lg-3" id="commentResponses">
+		<div class="accordion-item my-1 py-0 rounded-3 border-0">
+			<h2 class="accordion-header" id="flush-headingOne">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+					data-bs-target="#Responses{{ comment.id }}" aria-expanded="false" aria-controls="Responses">
+					<span class="text-warning fs-3 px-2 align-middle fw-bold"
+						style="border-left: 1px solid #DFE2E6;line-height:20px"><img
+							src="{% static 'icons/comment-reply.svg' %}" alt="پاسخ به نظر" width="24px"
+							height="24px" /></span>
+					<span class="px-2 fw-bold">پاسخ ها ({{ comment|response_count }})</span>
+				</button>
+			</h2>
+			<div id="Responses{{ comment.id }}" class="accordion-collapse collapse"
+				aria-labelledby="Responses{{ comment.id }}" data-bs-parent="#Responses{{ comment.id }}">
+				<div class="accordion-body lh-lg">
+					{% for response in comment.response_set.all %}
+					{% if response.is_approved %}
+					<div>
+						<div class="card my-3 border-0 rounded-4">
+							<div class="card-header border-0">
+								<img src="{% static 'icons/user.svg' %}" alt="نام نظردهنده" width="24px"
+									height="24px" /> {{ response.name }}
+							</div>
+							<div class="card-body">
+								<blockquote class="blockquote mb-0">
+									<p>
+										<img src="{% static 'icons/comment-text.svg' %}" alt="متن نظر" width="24px"
+											height="24px" /> {{ response.content|linebreaks }}
+									</p>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+					<hr />
+					<!-- send responses form -->
+					<div class="row mt-2">
+						<div class="col d-flex">
+							<img src="{% static 'icons/response_to_comment.svg' %}" alt="..." width="70em" />
+							<span class="fw-bold ms-2">
+								<p class="p-0 mt-1 ms-0 mb-0" style="font-size: 20px;">با فرم زیر میتونی به نظر بالا
+									جواب بدی</p>
+								<small class="text-muted">خوشحال میشیم نظر تو رو هم بدونیم</small>
+							</span>
+						</div>
+					</div>
+					<div class="px-lg-5">
+						<div class="card my-3 border-0 rounded-4">
+							<div class="alert d-none" id="response-alert-box" role="alert"></div>
+							<form method="post" action="{% url 'pages:home' %}">
+								{% csrf_token %}
+								<input type="hidden" data-url="{% url 'comments:submit_response' %}"
+									id="submit-response-url" />
+								<input type="hidden" data-comment-id="{{ comment.id }}" id="comment-id" />
+								<div class="row g-2">
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="response-name-field"
+												placeholder="نام شما" />
+											<label for="floatingInputGrid">نام شما</label>
+										</div>
+									</div>
+									<div class="col-md">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="response-phone-number-field"
+												placeholder="شماره تلفن" />
+											<label for="floatingInputGrid">شماره تلفن</label>
+										</div>
+									</div>
+									<div class="form-floating">
+										<textarea class="form-control" id="response-content-field"
+											placeholder="Leave a comment here" style="height: 100px"></textarea>
+										<label for="floatingTextarea2">نظر خود را بنویسید</label>
+									</div>
+								</div>
+								<a id="send-response" class="btn btn-warning rounded-4 py-4 mt-2"
+									onclick="sendResponse()">
+									ارسال پاسخ
+									<img src="{% static 'icons/Send.svg' %}" alt="فلش سمت چپ" width="24px"
+										height="24px" />
+								</a>
+							</form>
+						</div>
+					</div>
+					<!-- send responses form -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+<!-- send comment form -->
+<div class="my-4">
+	<div class="alert alert-success d-none" id="comment-alert-box" role="alert"></div>
+	<form method="post" action="{% url 'pages:home' %}">
+		{% csrf_token %}
+		<input type="hidden" data-url="{% url 'comments:comments_list' %}" id="comment-list-url" />
+		<input type="hidden" data-pageid="{{ page_id }}" id="page-id" />
+		<div class="row g-2">
+			<div class="col-md">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="name-field" placeholder="نام شما" />
+					<label for="floatingInputGrid">نام شما</label>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="phone-number-field" placeholder="شماره تلفن" />
+					<label for="floatingInputGrid">شماره تلفن</label>
+				</div>
+			</div>
+			<div class="form-floating">
+				<textarea class="form-control" id="content-field" placeholder="Leave a comment here"
+					style="height: 100px"></textarea>
+				<label for="floatingTextarea2">نظر خود را بنویسید</label>
+			</div>
+		</div>
+		<a id="send_comment" class="btn btn-warning rounded-4 py-4 mt-2" onclick="sendComment()">
+			ارسال نظر
+			<img src="{% static 'icons/Send.svg' %}" alt="فلش سمت چپ" width="24px" height="24px" />
+		</a>
+	</form>
+</div>
