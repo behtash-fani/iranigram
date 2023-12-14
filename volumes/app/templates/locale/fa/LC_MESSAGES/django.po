@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 19:10+0330\n"
+"POT-Creation-Date: 2023-12-14 15:57+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgstr "کاهش اعتبار"
 #: accounts/templates/accounts/registration/login_with_otp.html:37
 #: accounts/templates/accounts/registration/login_with_pass.html:31
 #: accounts/templates/accounts/registration/register.html:36
-#: comments/models.py:29 comments/models.py:47
+#: comments/models.py:29 comments/models.py:48
 #: orders/templates/orders/buypage.html:132
 #: orders/templates/orders/buypage.html:133
 #: orders/templates/orders/buypage.html:151
@@ -580,7 +580,7 @@ msgstr "افزایش اعتبار کیف پول"
 msgid "Deduct the amount for placing the order"
 msgstr "کسر مبلغ بابت ثبت سفارش"
 
-#: comments/admin.py:32 comments/admin.py:41 comments/models.py:59
+#: comments/admin.py:32 comments/admin.py:41 comments/models.py:60
 #: support/admin.py:44 support/admin.py:53 support/models.py:47
 #: support/templates/support/support.html:28
 msgid "Responses"
@@ -594,11 +594,11 @@ msgstr "تایید نشده"
 msgid "Approved"
 msgstr "تایید شده"
 
-#: comments/models.py:30 comments/models.py:48
+#: comments/models.py:30 comments/models.py:49
 msgid "Name"
 msgstr "نام"
 
-#: comments/models.py:31 comments/models.py:49 posts/models.py:33
+#: comments/models.py:31 comments/models.py:50 posts/models.py:33
 msgid "Content"
 msgstr "محتوا"
 
@@ -606,13 +606,19 @@ msgstr "محتوا"
 msgid "Page ID"
 msgstr "شناسه صفحه"
 
-#: comments/models.py:33 comments/models.py:50 orders/models.py:42
+#: comments/models.py:33
+#, fuzzy
+#| msgid "Page ID"
+msgid "Page URL"
+msgstr "شناسه صفحه"
+
+#: comments/models.py:34 comments/models.py:51 orders/models.py:42
 #: orders/templates/orders/orders.html:20 posts/models.py:36
 #: support/models.py:22 support/templates/support/support.html:27
 msgid "Status"
 msgstr "وضعیت"
 
-#: comments/models.py:34 comments/models.py:51 orders/models.py:48
+#: comments/models.py:35 comments/models.py:52 orders/models.py:48
 #: orders/templates/orders/orders.html:119 posts/models.py:37
 #: support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:29 transactions/models.py:32
@@ -620,21 +626,21 @@ msgstr "وضعیت"
 msgid "Created At"
 msgstr "تاریخ ایجاد"
 
-#: comments/models.py:35 comments/models.py:52 orders/models.py:49
+#: comments/models.py:36 comments/models.py:53 orders/models.py:49
 #: posts/models.py:38 support/models.py:24
 #: support/templates/support/support.html:30 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
 
-#: comments/models.py:41 comments/models.py:46
+#: comments/models.py:42 comments/models.py:47
 msgid "comment"
 msgstr "نظر"
 
-#: comments/models.py:42
+#: comments/models.py:43
 msgid "comments"
 msgstr "نظرات"
 
-#: comments/models.py:58 support/models.py:46
+#: comments/models.py:59 support/models.py:46
 msgid "Response"
 msgstr "پاسخ"
 
@@ -1056,6 +1062,22 @@ msgstr "پکیج"
 #: service/models.py:96
 msgid "Packages"
 msgstr "پکیج"
+
+#: setting/models.py:5
+msgid "Automatic Orders Submission"
+msgstr "ثبت خودکار سفارش در سرور"
+
+#: setting/models.py:6
+msgid "Max Amount Auto Submit"
+msgstr "حداکثر قیمت برای ثبت خودکار"
+
+#: setting/models.py:9
+msgid "Setting"
+msgstr "تنظیمات"
+
+#: setting/models.py:10
+msgid "Settings"
+msgstr "تنظیمات"
 
 #: support/models.py:10
 msgid "submitted"

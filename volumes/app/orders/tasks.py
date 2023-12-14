@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import User
 from django.conf import settings
 from common.send_sms import send_submit_order_sms, send_cancel_order_sms
-
+from setting.models import Setting
 
 @shared_task()
 def send_submit_order_sms_task(phone_number, order_code):
@@ -25,31 +25,30 @@ def send_cancel_order_sms_task(phone_number, order_code):
     except ValueError as exp:
         print("Error", exp)
 
-
 @shared_task()
 def submit_order_task():
     orders = Order.objects.filter(status="Queued", paid=True)
+    setting = Setting.objects.all().first()
     for order in orders:
-        if settings.SUBMIT_AUTOMATIC_ORDERS == True or order.submit_now == True:
-            if order.service is not None:
-                order_id = order.id
-                order = Order.objects.get(id=order_id)
-                service = order.service.server_service_code
-                link = order.link
-                quantity = order.quantity
-                order_server = order.service.server
-                if order_server == "parsifollower":
-                    order_manager = Parsifollower()
-                elif order_server == "berlia":
-                    order_manager = Berlia()
-                try:
-                    submitted_order = order_manager.submit_order(service, link, quantity)
-                    if "order" in submitted_order:
-                        order.status = "Pending"
-                        order.server_order_code = submitted_order["order"]
-                        order.save()
-                except ValueError as exp:
-                    print(exp)
+        if setting.auto_orders_submission and order.amount < setting.max_amount_auto_submit and order.service is not None:
+            order_id = order.id
+            order = Order.objects.get(id=order_id)
+            service = order.service.server_service_code
+            link = order.link
+            quantity = order.quantity
+            order_server = order.service.server
+            if order_server == "parsifollower":
+                order_manager = Parsifollower()
+            elif order_server == "berlia":
+                order_manager = Berlia()
+            try:
+                submitted_order = order_manager.submit_order(service, link, quantity)
+                if "order" in submitted_order:
+                    order.status = "Pending"
+                    order.server_order_code = submitted_order["order"]
+                    order.save()
+            except ValueError as exp:
+                print(exp)
     return "Ok!"
 
 

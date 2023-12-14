@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "posts.apps.PostsConfig",
     "seo.apps.SeoConfig",
     "api.apps.ApiConfig",
+    "setting.apps.SettingConfig",
 ]
 SITE_ID = 1
 
@@ -63,6 +64,8 @@ MIDDLEWARE = [
 ]
 
 ADMIN_REORDER = (
+    {"app": "setting"},
+    {"app": "django_celery_beat"},
     {"app": "accounts"},
     {"app": "orders"},
     {"app": "support"},
@@ -73,7 +76,6 @@ ADMIN_REORDER = (
     {"app": "authtoken"},
     {"app": "seo"},
     {"app": "robots"},
-    {"app": "django_celery_beat"},
     {"app": "admin_persian"},
     {"app": "sites"},
 )

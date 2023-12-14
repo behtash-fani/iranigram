@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function sendComment() {
     var urlElement = document.getElementById('comment-list-url');
 		var url = urlElement.getAttribute('data-url');
@@ -77,3 +78,6 @@ function sendResponse() {
 
 		xhr.send();
 }
+=======
+
+>>>>>>> e5f4946 (start setting app for hold config of website)
