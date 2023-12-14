@@ -64,8 +64,6 @@ MIDDLEWARE = [
 ]
 
 ADMIN_REORDER = (
-    {"app": "setting"},
-    {"app": "django_celery_beat"},
     {"app": "accounts"},
     {"app": "orders"},
     {"app": "support"},
@@ -73,8 +71,10 @@ ADMIN_REORDER = (
     {"app": "transactions"},
     {"app": "posts"},
     {"app": "service"},
-    {"app": "authtoken"},
     {"app": "seo"},
+    {"app": "setting"},
+    {"app": "django_celery_beat"},
+    {"app": "authtoken"},
     {"app": "robots"},
     {"app": "admin_persian"},
     {"app": "sites"},
@@ -98,10 +98,7 @@ TEMPLATES = [
         },
     },
 ]
-# TEMPLATE_LOADERS = (
-#     'django.template.loaders.filesystem.Loader',
-#     'django.template.loaders.app_directories.Loader',
-# )
+
 WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
@@ -234,7 +231,7 @@ CKEDITOR_5_CONFIGS = {
                 'VazirMatn'
             ]
         },
-         "alignment": {
+        "alignment": {
             "options": ['left', 'right', 'center', 'justify']
         },
         "heading": {
@@ -283,7 +280,7 @@ CKEDITOR_5_CONFIGS = {
             ]
         },
         "toolbar": [
-            "undo", 
+            "undo",
             "redo",
             "heading",
             "alignment",
