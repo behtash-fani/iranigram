@@ -10,6 +10,7 @@ from django.conf import settings
 from common.send_sms import send_submit_order_sms, send_cancel_order_sms
 from setting.models import Setting
 
+
 @shared_task()
 def send_submit_order_sms_task(phone_number, order_code):
     try:
@@ -25,12 +26,13 @@ def send_cancel_order_sms_task(phone_number, order_code):
     except ValueError as exp:
         print("Error", exp)
 
+
 @shared_task()
 def submit_order_task():
     orders = Order.objects.filter(status="Queued", paid=True)
     setting = Setting.objects.all().first()
     for order in orders:
-        if setting.auto_orders_submission and order.amount < setting.max_amount_auto_submit and order.service is not None:
+        if (setting.auto_orders_submission and order.amount < setting.max_amount_auto_submit and order.service is not None) or order.submit_now:
             order_id = order.id
             order = Order.objects.get(id=order_id)
             service = order.service.server_service_code
@@ -42,7 +44,8 @@ def submit_order_task():
             elif order_server == "berlia":
                 order_manager = Berlia()
             try:
-                submitted_order = order_manager.submit_order(service, link, quantity)
+                submitted_order = order_manager.submit_order(
+                    service, link, quantity)
                 if "order" in submitted_order:
                     order.status = "Pending"
                     order.server_order_code = submitted_order["order"]
@@ -54,7 +57,8 @@ def submit_order_task():
 
 @shared_task()
 def order_status_task():
-    orders = Order.objects.filter(Q(status="Pending") | Q(status="Processing") | Q(status="In progress")).exclude(service__isnull=True)
+    orders = Order.objects.filter(Q(status="Pending") | Q(status="Processing") | Q(
+        status="In progress")).exclude(service__isnull=True)
     for order in orders:
         order_id = order.id
         order = Order.objects.get(id=order_id)
@@ -70,7 +74,8 @@ def order_status_task():
                 order.status = order_status["status"]
                 if order_status["status"] == "Canceled":
                     if User.objects.filter(phone_number=order.user.phone_number).exists():
-                        user = User.objects.filter(phone_number=order.user.phone_number).first()
+                        user = User.objects.filter(
+                            phone_number=order.user.phone_number).first()
                         user.balance += order.amount
                         user.save()
                         order.status = "Canceled"
@@ -90,8 +95,10 @@ def order_status_task():
                         )
                 if order_status["status"] == "Partial":
                     if User.objects.filter(phone_number=order.user.phone_number).exists():
-                        user = User.objects.filter(phone_number=order.user.phone_number).first()
-                        remain_amount = int(order_status["remains"])*int(order.service.amount)
+                        user = User.objects.filter(
+                            phone_number=order.user.phone_number).first()
+                        remain_amount = int(
+                            order_status["remains"])*int(order.service.amount)
                         user.balance += remain_amount
                         user.save()
                         order.status = "Partial"
