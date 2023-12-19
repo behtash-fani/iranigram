@@ -6,8 +6,10 @@ from posts.models import Post
 from service.models import Packages
 from comments.models import Comment, Response
 
+
 def handling_404(request, exception):
     return render(request, 'pages/404.html', {})
+
 
 class HomeView(View):
     template_name = "pages/home.html"
@@ -45,7 +47,8 @@ class HomeView(View):
             ).order_by('priority')
             view_packages[tag] = packages
         posts = Post.objects.all()[0:4]
-        comments = Comment.objects.filter(page_id="home", status="approved")
+        comments = Comment.objects.filter(
+            page_id="home", status="approved").order_by('-created_at')
 
         context = {
             'description_tag': description_tag,
@@ -84,7 +87,8 @@ class FollowerView(View):
                 service__service_tag=tag,
             ).order_by('priority')
             flw_packages[tag] = packages
-        comments = Comment.objects.filter(page_id="follower", status="approved")
+        comments = Comment.objects.filter(
+            page_id="follower", status="approved").order_by('-created_at')
 
         context = {
             'description_tag': description_tag,
@@ -103,10 +107,12 @@ class LikeView(View):
     template_name = "pages/buy_like.html"
 
     def get(self, request):
-        description_tag = PagesSeo.objects.filter(page='buy_like')[0].description_tag
+        description_tag = PagesSeo.objects.filter(page='buy_like')[
+            0].description_tag
         keywords_tag = PagesSeo.objects.filter(page='buy_like')[0].keywords_tag
         title_tag = PagesSeo.objects.filter(page='buy_like')[0].title_tag
-        canonical_link = PagesSeo.objects.filter(page='buy_like')[0].canonical_link
+        canonical_link = PagesSeo.objects.filter(page='buy_like')[
+            0].canonical_link
         like_service_tags = ['like1', 'like2', 'like3']
         like_packages = {}
         for tag in like_service_tags:
@@ -139,7 +145,7 @@ class ViewView(View):
         title_tag = PagesSeo.objects.filter(page='buy_view')[0].title_tag
         canonical_link = PagesSeo.objects.filter(page='buy_view')[
             0].canonical_link
-        
+
         view_service_tags = ['view1', 'view2', 'sview']
         view_packages = {}
         for tag in view_service_tags:
@@ -148,7 +154,8 @@ class ViewView(View):
                 service__service_tag=tag,
             ).order_by('priority')
             view_packages[tag] = packages
-        comments = Comment.objects.filter(page_id="view", status="approved")
+        comments = Comment.objects.filter(
+            page_id="view", status="approved").order_by('-created_at')
 
         context = {
             'description_tag': description_tag,

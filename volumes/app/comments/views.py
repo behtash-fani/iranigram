@@ -8,7 +8,6 @@ def submit_comment(request):
     content = request.GET.get('content')
     page_id = request.GET.get('page_id')
     page_url = request.GET.get('page_url')
-    print(phone)
     try:
         # Create a new comment
         comment = Comment.objects.create(
@@ -42,7 +41,6 @@ def submit_response(request):
     comment_id = request.GET.get('comment_id')
     name = request.GET.get('name')
     content = request.GET.get('content')
-    print(phone)
     try:
         # Create a new response
         comment = Comment.objects.get(id=comment_id)

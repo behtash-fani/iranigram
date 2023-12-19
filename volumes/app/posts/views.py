@@ -36,19 +36,19 @@ class PostsList(ListView):
         return context
 
 
-
 class PostDetailView(DetailView):
     model = Post
     context_object_name = 'post'
     template_name = 'posts/post_detail.html'
     slug_field = 'slug'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Posts'] = Post.objects.all()
         slug = self.kwargs['slug']
         post_id = Post.objects.filter(slug=slug).first().id
-        context["comments"] = Comment.objects.filter(status= 'approved', page_id=post_id)
+        context["comments"] = Comment.objects.filter(
+            status='approved', page_id=post_id).order_by('-created_at')
         context["page_id"] = post_id
         context["edit_url"] = f'{settings.SITE_URL}/admin/posts/post/{post_id}/change/'
         return context
