@@ -95,7 +95,8 @@ class TemplateNewOrderForm(forms.ModelForm):
                     "class": "form-control text-left",
                     "dir": "ltr",
                     "autocomplete": "off",
-                    "placeholder":"Enter Instagram Public Link/ID "
+                    "placeholder":"Enter Instagram Public Link/ID ",
+                    "aria-describedby":"basic-addon4"
                 }
             ), 
         }

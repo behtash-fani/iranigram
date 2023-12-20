@@ -94,46 +94,73 @@
     <div class="row mt-5">
         <div class="col-lg-6 col-12">
             <div class="row">
-              <div class="col-2">
-                <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid" alt="ایرانی گرام ضامن کیفیت خرید شما" width="118px" height="119px" />
-              </div>
-              <div class="col-10 pt-2">
-                <span class="fw-bold fs-4">خرید لایک با کیفیت اینستاگرام</span><br />
-                <small class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
-              </div>
+                <div class="col-2">
+                    <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid"
+                        alt="ایرانی گرام ضامن کیفیت خرید شما" width="118px" height="119px" />
+                </div>
+                <div class="col-10 pt-2">
+                    <span class="fw-bold fs-4">خرید لایک با کیفیت اینستاگرام</span><br />
+                    <small class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+                </div>
             </div>
             {% for tag, packages in like_packages.items %}
-              {% if packages %}
-                <div class="card mt-2 rounded-4">
-                  <div class="card-body">
+            {% if packages %}
+            <div class="card mt-2 border-0">
+                <div class="card-body">
                     <div class="row justify-content-center">
-                      <h5 class="text-center">
-                        {{ packages.0.service }}
-                        <img src="{% static 'icons/Feature.svg' %}" width="24px" height="24px" />
-                        {{ packages.0.service.features }}
-                      </h5>
-                      <div class="col-12 col-md-8 col-lg-6 text-center">
-                        <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
-                          <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
-                          {% for package in packages %}
-                            <option value="{{ package.id }}">
-                                {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
-                            </option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
-                        <a href="" class="btn btn-warning rounded-4 py-2">
-                          ثبت سفارش
-                          <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
-                        </a>
-                      </div>
+                        <h5 class="text-center">
+                            {{ packages.0.service }}
+                            <!-- Start Like Desc Modal -->
+                            <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal"
+                                data-bs-target="#{{tag}}"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
+                                مشخصات
+                            </button>
+                            <div class="modal" id="{{tag}}" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content rounded-4">
+                                        <div class="modal-header border-0">
+                                            مشخصات سرور {{ packages.0.service }}
+                                            <a type="button" class="text-start" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                                <img src="{% static 'icons/close-circle.svg' %}"
+                                                    alt="بستن منوی اصلی ورود به صفحات">
+                                            </a>
+                                        </div>
+                                        <div class="modal-body" style="text-align: right !important;">
+                                            {{ packages.0.service.description|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Like Desc Modal -->
+                        </h5>
+                        <div class="col-12 col-md-8 col-lg-6 text-center">
+                            <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                                <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                                {% for package in packages %}
+                                <option value="{{ package.id }}">
+                                    {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                            <a href="" class="btn btn-warning rounded-4 py-2">
+                                ثبت سفارش
+                                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px"
+                                    height="24px" />
+                            </a>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              {% endif %}
+            </div>
+            {% endif %}
+            <hr>
             {% endfor %}
-          </div>
+        </div>
         <div class="col-lg-6 col-12 text-center mt-4">
             <img src="{% static 'image/Design@2x 1.png' %}" class="img-fluid" width="400px" height="433px"
                 alt="شروع خرید لایک اینستاگرام">

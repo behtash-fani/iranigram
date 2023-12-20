@@ -49,7 +49,6 @@ class Service(models.Model):
     available_for_user = models.BooleanField(default=True, verbose_name=_("Available For User"))
     available_for_package = models.BooleanField(default=False, verbose_name=_("Available For Package"))
     service_tag = models.CharField(max_length=50, verbose_name=_("Service Tag Name"), blank=True, null=True)
-    features = models.CharField(max_length=1000, verbose_name=_('Features'), blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.title}"

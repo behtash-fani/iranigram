@@ -11,7 +11,7 @@
 </div>
 
 {% for comment in comments %}
-<div class="card my-3 border-0 rounded-4 shadow">
+<div class="card my-3 border-0">
 	<div class="card-header border-0">
 		<img src="{% static 'icons/user.svg' %}" alt="نام نظردهنده" width="24px" height="24px" /> {{ comment.name }}
 	</div>
@@ -114,6 +114,7 @@
 		</div>
 	</div>
 </div>
+<hr>
 {% endfor %}
 <!-- send comment form -->
 <div class="my-4">
