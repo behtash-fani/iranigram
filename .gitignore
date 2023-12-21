@@ -46,3 +46,4 @@ volumes/app/utils/total_users_file.json
 
 # Nginx configuration
 nginx/default.conf
+docker-compose-dev.yml

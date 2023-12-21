@@ -50,5 +50,6 @@ class PostDetailView(DetailView):
         context["comments"] = Comment.objects.filter(
             status='approved', page_id=post_id).order_by('-created_at')
         context["page_id"] = post_id
+        context["canonical"] = f'{settings.SITE_URL}/blog/{slug}/'
         context["edit_url"] = f'{settings.SITE_URL}/admin/posts/post/{post_id}/change/'
         return context

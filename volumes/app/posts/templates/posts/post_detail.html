@@ -6,7 +6,7 @@
 {% block title %}{{post.title}}{% endblock %}
 {% block meta %}
 <meta name="description" content="{{post.short_content}}">
-<link rel="canonical" href="{% url 'posts:post_detail' %}">
+<link rel="canonical" href="{{canonical}}">
 {% endblock meta %}
 {% block content %}
 <div class="container my-5">
