@@ -26,6 +26,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             flw_packages[tag] = packages
 
@@ -35,6 +36,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             like_packages[tag] = packages
 
@@ -44,6 +46,7 @@ class HomeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             view_packages[tag] = packages
         posts = Post.objects.all()[0:4]
@@ -85,6 +88,7 @@ class FollowerView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             flw_packages[tag] = packages
         comments = Comment.objects.filter(
@@ -119,6 +123,7 @@ class LikeView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             like_packages[tag] = packages
         comments = Comment.objects.filter(page_id="like", status="approved")
@@ -152,6 +157,7 @@ class ViewView(View):
             packages = Packages.objects.filter(
                 service__available_for_package=True,
                 service__service_tag=tag,
+                enable=True
             ).order_by('priority')
             view_packages[tag] = packages
         comments = Comment.objects.filter(

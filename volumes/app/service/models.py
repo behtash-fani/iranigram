@@ -85,6 +85,8 @@ class Packages(models.Model):
     )
     priority = models.IntegerField(
         _("Display Priority"), blank=True, null=True)
+    enable = models.BooleanField(default=True, verbose_name=_("Enable"))
+    
     
 
     def __str__(self) -> str:

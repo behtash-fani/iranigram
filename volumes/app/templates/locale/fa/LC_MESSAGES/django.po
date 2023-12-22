@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-20 15:21+0330\n"
+"POT-Creation-Date: 2023-12-22 13:43+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1050,11 +1050,15 @@ msgstr "فعال برای پکیج"
 msgid "Service Tag Name"
 msgstr "تگ پکیج سرویس"
 
-#: service/models.py:94
+#: service/models.py:88
+msgid "Enable"
+msgstr "فعال"
+
+#: service/models.py:96
 msgid "Package"
 msgstr "پکیج"
 
-#: service/models.py:95
+#: service/models.py:97
 msgid "Packages"
 msgstr "پکیج"
 
