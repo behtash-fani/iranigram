@@ -100,10 +100,10 @@
                 <!-- End of Modal -->
                 {% endif %}
                 <td class="text-center align-middle">
-                    <button type="button" class="btn btn-warning rounded-4" data-bs-toggle="modal" data-bs-target="#orderDetails">
+                    <button type="button" class="btn btn-warning rounded-4" data-bs-toggle="modal" data-bs-target="#{{ order.id }}">
                         <img src="{% static 'icons/details.svg' %}" alt="">
                     </button>
-                    <div class="modal" id="orderDetails" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
+                    <div class="modal" id="{{ order.id }}" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content rounded-4">
                             <div class="modal-header border-0">
