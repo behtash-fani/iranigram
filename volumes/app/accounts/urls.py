@@ -10,7 +10,7 @@ from support.views import SupportView
 app_name = 'accounts'
 urlpatterns = [
     path('', views.UserDashboardView.as_view(), name='user_dashboard'),
-    path('register/', views.UserRegisterWithOTPView.as_view(), name='user_register'),
+    path('register', views.UserRegisterWithOTPView.as_view(), name='user_register'),
     path('verify-register/', views.UserRegisterVerifyCodeView.as_view(),name='user_register_verify'),
     path('logout/', views.UserLogoutView.as_view(), name='user_logout'),
     path('login-pass/', views.UserLoginWithPassView.as_view(),name='user_login_pass'),

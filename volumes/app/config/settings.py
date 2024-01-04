@@ -13,6 +13,7 @@ DEBUG = env.bool('DEBUG')
 SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
+CSRF_COOKIE_SECURE = True
 AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
