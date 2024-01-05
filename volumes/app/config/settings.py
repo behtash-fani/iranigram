@@ -13,7 +13,6 @@ DEBUG = env.bool('DEBUG')
 SITE_URL = env("DJANGO_SITE_URL")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
-CSRF_COOKIE_SECURE = True
 AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
@@ -139,7 +138,7 @@ LOCALE_PATHS = (BASE_DIR / "templates/locale/",)
 
 STATIC_URL = '/static/'
 if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / "static/"]
+    STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static')
 
 MEDIA_URL = '/media/'

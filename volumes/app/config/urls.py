@@ -18,7 +18,7 @@ sitemaps = {
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('igadmini/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(url='/static/icons/favicon.ico')),
     path('', include('pages.urls', namespace='pages')),
     path('services/', include('service.urls', namespace='services')),
