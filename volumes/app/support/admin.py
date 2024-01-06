@@ -25,7 +25,7 @@ class TicketAdmin(admin.ModelAdmin):
 
 
     def order_link(self, obj):
-        return format_html('<a href="/admin/orders/order/?q=%s">سفارشات کاربر</a>' % obj.user.phone_number)
+        return format_html('<a href="/igadmini/orders/order/?q=%s">سفارشات کاربر</a>' % obj.user.phone_number)
 
     order_link.short_description = 'سفارشات کاربر'
 

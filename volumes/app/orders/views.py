@@ -316,8 +316,7 @@ def get_phone_number(request):
     request.session["phone_number"] = phone_number
     verification_code = generate_random_number(4, is_unique=False)
     send_login_sms_task.delay(phone_number, verification_code)
-    if OTPCode.objects.filter(phone_number=phone_number).exists():
-        OTPCode.objects.filter(phone_number=phone_number).delete()
+    OTPCode.objects.filter(phone_number=phone_number).delete()
     OTPCode.objects.create(
             phone_number=phone_number,
             code=verification_code,

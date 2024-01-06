@@ -14,8 +14,7 @@ def send_otpcode_again(request):
     request.session["phone_number"] = phone_number
     request.session["link"] = link
     verification_code = generate_random_number(4, is_unique=False)
-    if OTPCode.objects.filter(phone_number=phone_number).exists():
-        OTPCode.objects.get(phone_number=phone_number).delete()
+    OTPCode.objects.filter(phone_number=phone_number).delete()
     OTPCode.objects.create(
                 phone_number=phone_number,
                 code=verification_code,

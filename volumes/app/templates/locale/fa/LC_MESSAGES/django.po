@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-22 13:43+0330\n"
+"POT-Creation-Date: 2024-01-06 04:16+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,7 @@ msgstr ""
 msgid "Users"
 msgstr "کاربران"
 
-#: accounts/forms.py:58 accounts/forms.py:86 accounts/forms.py:131
-msgid "Phone Number field is required"
-msgstr "ورود شماره تلفن لازم است"
-
-#: accounts/forms.py:66 accounts/forms.py:107 accounts/forms.py:139
-msgid "The phone number entered is incorrect. Please enter as in the example"
-msgstr "شماره تلفن وارد شده اشتباه است. لطفا مانند نمونه وارد کنید"
-
-#: accounts/forms.py:70
+#: accounts/forms.py:36 accounts/forms.py:75
 msgid ""
 "The entered phone number is already registered on the site. Please enter "
 "another phone number or log in to your account with the entered phone number"
@@ -38,16 +30,24 @@ msgstr ""
 "شماره تلفن وارد شده قبلا در سایت ثبت نام شده. لطفا شماره تلفن دیگری وارد "
 "کنید یا با شماره تلفن وارد شده، وارد حساب کاربری خود شوید"
 
-#: accounts/forms.py:90
+#: accounts/forms.py:62 accounts/forms.py:94 accounts/forms.py:146
+msgid "Phone Number field is required"
+msgstr "ورود شماره تلفن لازم است"
+
+#: accounts/forms.py:71 accounts/forms.py:107 accounts/forms.py:155
+msgid "The phone number entered is incorrect. Please enter as in the example"
+msgstr "شماره تلفن وارد شده اشتباه است. لطفا مانند نمونه وارد کنید"
+
+#: accounts/forms.py:99
 msgid "Password field is required"
 msgstr "ورود رمز عبور لازم است"
 
-#: accounts/forms.py:100 accounts/forms.py:144
+#: accounts/forms.py:113 accounts/forms.py:161
 msgid ""
 "The phone number entered on the site is not registered. Please register first"
 msgstr "شماره تلفن وارد شده در سایت ثبت نام نشده. لطفا ابتدا ثبت نام بفرمایید"
 
-#: accounts/forms.py:103 accounts/forms.py:147 accounts/mixins.py:17
+#: accounts/forms.py:117 accounts/forms.py:165 accounts/mixins.py:17
 msgid ""
 "Your account has been blocked. To follow up on this issue, please contact "
 "support"
@@ -55,7 +55,7 @@ msgstr ""
 "حساب کاربری شما مسدود شده . برای پیگیری این موضوع لطفا با پشتیبانی تماس "
 "بگیرید"
 
-#: accounts/forms.py:115
+#: accounts/forms.py:130
 msgid ""
 "No password has been set for your phone number. Please enter a password in "
 "the forgot password section or use a one-time password to log in to your "
@@ -65,23 +65,23 @@ msgstr ""
 "رمز عبور قرار دهید یا برای ورود به حساب کاربری خود از ورود با رمز یکبار مصرف "
 "استفاده کنید"
 
-#: accounts/forms.py:118
+#: accounts/forms.py:133
 msgid "Incorrect password"
 msgstr "رمز عبور اشتباه است"
 
-#: accounts/forms.py:166 accounts/forms.py:180 accounts/forms.py:189
+#: accounts/forms.py:184 accounts/forms.py:198 accounts/forms.py:207
 msgid "The entered code is incorrect"
 msgstr "کد وارد شده اشتباه است"
 
-#: accounts/forms.py:167
+#: accounts/forms.py:185
 msgid "Code field is required"
 msgstr "ورود کد لازم است"
 
-#: accounts/forms.py:211
+#: accounts/forms.py:229
 msgid "Amount field is required"
 msgstr "ورود رقم برای افزایش اعتبار لازم است"
 
-#: accounts/forms.py:223 accounts/templates/accounts/profile.html:42
+#: accounts/forms.py:242 accounts/templates/accounts/profile.html:42
 msgid "Password Confirmation"
 msgstr "تکرار رمز عبور"
 
@@ -108,7 +108,7 @@ msgstr "شماره تلفن"
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/models.py:20 accounts/views.py:254
+#: accounts/models.py:20 accounts/views.py:262
 msgid "Guest User"
 msgstr "کاربر مهمان"
 
@@ -533,45 +533,45 @@ msgstr "میزان اعتبار مد نظر خود را به تومان وارد
 msgid "The minimum amount payable is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت ۵۰۰ تومان است"
 
-#: accounts/views.py:64 accounts/views.py:145 accounts/views.py:187
+#: accounts/views.py:69 accounts/views.py:153 accounts/views.py:195
 msgid "A one-time password has been sent"
 msgstr "رمز یکبار مصرف ارسال شد"
 
-#: accounts/views.py:89
+#: accounts/views.py:94
 msgid "Your registration was successful. Welcome to the iranigram family"
 msgstr "ثبت نام شما با موفقیت انجام شد. به خانواده ایرانی گرام خوش آمدید"
 
-#: accounts/views.py:119 accounts/views.py:216
+#: accounts/views.py:125 accounts/views.py:224
 msgid "You have successfully logged into your account"
 msgstr "شما با موفقیت وارد حساب کاربری خود شدید"
 
-#: accounts/views.py:262
+#: accounts/views.py:270
 msgid "your profile updated"
 msgstr "حساب کاربری شما به روز رسانی شد"
 
-#: accounts/views.py:266
+#: accounts/views.py:274
 msgid "There was an error with your profile form"
 msgstr ""
 "متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:275
+#: accounts/views.py:283
 msgid "Your password has been saved"
 msgstr "رمز عبور شما با موفقیت ثبت شد"
 
-#: accounts/views.py:279
+#: accounts/views.py:287
 msgid "There was an error with your password form"
 msgstr ""
 "متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:283
+#: accounts/views.py:291
 msgid "Invalid request"
 msgstr "درخواست تایید نشد . لطفا دوباره تلاش کنید یا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:304
+#: accounts/views.py:312
 msgid "The minimum amount that can be paid to increase credit is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتبار ۵۰۰ تومان است "
 
-#: accounts/views.py:309 common/zarinpal.py:121
+#: accounts/views.py:317 common/zarinpal.py:121
 msgid "Increase wallet credit"
 msgstr "افزایش اعتبار کیف پول"
 
@@ -908,7 +908,7 @@ msgid "For amounts less than 500 Tomans, please use a wallet"
 msgstr "برای مبالغ کمتر از ۵۰۰ تومان لطفا از کیف پول استفاده بفرمایید"
 
 #: orders/views.py:57 orders/views.py:157 orders/views.py:234
-#: orders/views.py:368
+#: orders/views.py:367
 msgid "Online payment of the order fee"
 msgstr "پرداخت آنلاین هزینه سفارش"
 
@@ -1277,6 +1277,10 @@ msgstr "خروج"
 #: templates/inc/navbar.html:181
 msgid "Account"
 msgstr "حساب کاربری"
+
+#~ msgid ""
+#~ "This phone number is already in use. Please enter another phone number"
+#~ msgstr "شماره تلفن وارد شده تکراری است . لطفا شماره تلفن دیگری وارد کنید"
 
 #~ msgid "Comment"
 #~ msgstr "نظر"

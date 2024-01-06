@@ -60,12 +60,12 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     filter_horizontal = ()
 
     def orders(self, obj):
-        return format_html('<a href="/admin/orders/order/?q=%s">سفارشات کاربر</a>' % obj.phone_number)
+        return format_html('<a href="/igadmini/orders/order/?q=%s">سفارشات کاربر</a>' % obj.phone_number)
 
     orders.short_description = 'سفارشات'
 
     def tickets(self, obj):
-        return format_html('<a href="/admin/support/ticket/?q=%s">لیست تیکت ها</a>' % obj.phone_number)
+        return format_html('<a href="/igadmini/support/ticket/?q=%s">لیست تیکت ها</a>' % obj.phone_number)
 
     tickets.short_description = 'تیکت ها'
 

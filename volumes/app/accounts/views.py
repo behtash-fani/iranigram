@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from .forms import (
     VerifyCodeForm,
     LoginWithPasswordForm,
@@ -32,6 +33,10 @@ from .tasks import (
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from service.models import Service
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserDashboardView(BlockCheckLoginRequiredMixin, View):
@@ -107,19 +112,22 @@ class UserLoginWithPassView(View):
     def post(self, request):
         login_form = self.form_class(request.POST)
         if login_form.is_valid():
-            cd = login_form.cleaned_data
-            user = authenticate(
-                username=cd["phone_number"],
-                password=cd["password"],
-            )
-            if user is not None:
-                login(request, user)
-                messages.success(
-                    request,
-                    _("You have successfully logged into your account"),
-                    "success",
+            try:
+                cd = login_form.cleaned_data
+                user = authenticate(
+                    username=cd["phone_number"],
+                    password=cd["password"],
                 )
-                return redirect("accounts:user_dashboard")
+                if user is not None:
+                    login(request, user)
+                    messages.success(
+                        request,
+                        _("You have successfully logged into your account"),
+                        "success",
+                    )
+                    return redirect("accounts:user_dashboard")
+            except ValidationError as e:
+                logger.error(f"ValidationError in login view: {str(e)}")
         else:
             context = {"login_form": login_form}
             return render(request, self.template_name, context)
