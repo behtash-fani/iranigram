@@ -62,16 +62,22 @@ class Service(models.Model):
             order_manager = Parsifollower()
         elif self.server == "berlia":
             order_manager = Berlia()
+        else:
+            return
         service_code = self.server_service_code
         service_data = order_manager.get_service_data(service_code)
-        rate = int(float(service_data["rate"]))
-        self.price_1000_server = rate
-        self.price_1000_site = int(self.amount) * 1000
-        # update pkgs amount
-        pkgs = Packages.objects.filter(service=self)
-        for pkg in pkgs:
-            pkg.amount = int(self.amount)*int(pkg.quantity)
-            pkg.save()
+        if service_data:
+            rate = int(float(service_data.get("rate", 0)))
+            self.price_1000_server = rate
+            self.price_1000_site = int(self.amount) * 1000
+            pkgs = Packages.objects.filter(service=self)
+            for pkg in pkgs:
+                pkg.amount = int(self.amount) * int(pkg.quantity)
+                pkg.save()
+        else:
+            print(service_code)
+            self.available_for_user = False
+            self.available_for_package = False
         super().save(*args, **kwargs)
 
 
