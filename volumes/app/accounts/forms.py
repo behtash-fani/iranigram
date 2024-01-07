@@ -74,15 +74,13 @@ class UserRegisterWithOTPForm(forms.Form):
                 raise ValidationError(
                     _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
             verification_code = generate_random_number(4, is_unique=False)
-            send_register_sms_task.delay(
-                formatted_phone_number, verification_code)
-
+            send_register_sms_task.delay(formatted_phone_number, verification_code)
             OTPCode.objects.filter(
                 phone_number=formatted_phone_number).delete()
             OTPCode.objects.create(
                 phone_number=formatted_phone_number,
                 code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=120),
+                expire_time=datetime.now() + timedelta(seconds=20),
             )
             return formatted_phone_number
 
@@ -171,7 +169,7 @@ class LoginWithOTPForm(forms.Form):
         OTPCode.objects.create(
             phone_number=formatted_phone_number,
             code=verification_code,
-            expire_time=datetime.now() + timedelta(seconds=120),
+            expire_time=datetime.now() + timedelta(seconds=20),
         )
 
         return formatted_phone_number

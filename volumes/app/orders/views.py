@@ -21,6 +21,7 @@ from datetime import datetime, timedelta
 from accounts.models import OTPCode, User
 from django.contrib.auth import login
 from accounts.mixins import BlockCheckLoginRequiredMixin
+from common.valid_phone_number import validate_phone_number
 
 class NewOrderView(BlockCheckLoginRequiredMixin, View):
     template_name = "orders/new_order.html"
@@ -316,9 +317,13 @@ def get_phone_number(request):
     request.session["phone_number"] = phone_number
     verification_code = generate_random_number(4, is_unique=False)
     send_login_sms_task.delay(phone_number, verification_code)
+    formatted_phone_number = validate_phone_number(phone_number)
+    if not formatted_phone_number or not phone_number.isdigit():
+            context = {'success': False}
+            return JsonResponse(context)
     OTPCode.objects.filter(phone_number=phone_number).delete()
     OTPCode.objects.create(
-            phone_number=phone_number,
+            phone_number=formatted_phone_number,
             code=verification_code,
             expire_time=datetime.now() + timedelta(seconds=120),
         )
