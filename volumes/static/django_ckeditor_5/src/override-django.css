@@ -64,3 +64,8 @@ form .aligned .ck ul {
 .ck-editor__editable p {
     font-family: Vazirmatn !important;
 }
+
+.ck.ck-editor__main>.ck-editor__editable
+{
+    background: #333 !important;
+}

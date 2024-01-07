@@ -34,10 +34,10 @@ class Post(models.Model):
     read_time = models.CharField(max_length=100, verbose_name=_("Read Time"), blank=True, null=True)
     thumbnail = models.ImageField(upload_to='blog/', blank=True, null=True, verbose_name=_("Thumbnail"))
     status = models.IntegerField(choices=STATUS, default=0,verbose_name=_("Status"), blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'), blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'), blank=True, null=True)
     category = models.ForeignKey(Category,verbose_name=_('Category'), blank=True, null=True, on_delete= models.DO_NOTHING)
-    status = models.CharField(max_length= 20, blank=True, null=True, choices=STATUS)
+    status = models.CharField(max_length= 20, verbose_name=_('Status'), blank=True, null=True, choices=STATUS)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
+    updated_at = models.DateTimeField(verbose_name=_('Updated At'))
     
 
     class Meta:
