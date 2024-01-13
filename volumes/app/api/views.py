@@ -1,16 +1,17 @@
-from orders.models import Order
-from .serializers import OrderSerializer
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from service.models import Service
-from common.generate_random_number import generate_random_number
-from transactions.models import Transactions as Trans
-from django.utils.translation import gettext as _
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import UserRateThrottle
+from transactions.models import Transactions as Trans
+from django.utils.translation import gettext as _
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import OrderSerializer
+from common.otp_manager import OTPManager
+from service.models import Service
+from rest_framework import status
+from orders.models import Order
 
+otp_manager = OTPManager()
 
 class StatusOrderView(APIView):
     serializer_class = OrderSerializer
@@ -71,7 +72,7 @@ class AddOrderView(APIView):
             return Response({'message': 'Your balance is less than the order amount'}, status=status.HTTP_200_OK)
 
         #Create the order
-        order_code = generate_random_number(8, is_unique=True)
+        order_code = otp_manager.generate_random_number(8, is_unique=True)
         user.balance -= total_price
         user.save()
         order_item = Order.objects.create(

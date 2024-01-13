@@ -111,6 +111,12 @@ ul.errorlist {
   --bs-alert-border-color: var(--bs-danger-border-subtle);
 }
 
+.alert
+{
+  padding: 5px !important;
+  margin-top: 3px !important;
+}
+
 .errorlist li {
   list-style: none;
 }
@@ -215,10 +221,6 @@ input[type="number"] {
 .single-post a {
   text-decoration: none !important;
   color: #ffc107 !important;
-}
-
-.single-post #send_comment, .single-post #send-response{
-  color: #222628 !important;
 }
 
 .single-post img {

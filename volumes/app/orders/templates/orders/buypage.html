@@ -47,6 +47,7 @@
                     </div>
                     <form method="post" class="mt-3">
                         {% csrf_token %}
+                        {% include "inc/messages.html" %}
                         <input type="hidden" value="{{pkg.service.link_type}}" name="service_link_type">
                         <input type="hidden" value="{{pkg.id}}" name="pkg_id">
                         <div class="form-floating">
@@ -132,12 +133,14 @@
                             <div class="modal" id="mobileVerify" tabindex="-1" aria-labelledby="mobileVerifyLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
+                                    <div class="modal-content rounded-4">
+                                        <div class="modal-header border-0">
                                             <h1 class="modal-title fs-5" id="mobileVerifyLabel">تایید شماره موبایل</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            <a type="button" class="text-start" data-bs-dismiss="modal"
                                                 aria-label="Close">
-                                            </button>
+                                                <img src="{% static 'icons/close-circle.svg' %}"
+                                                    alt="بستن منوی اصلی ورود به صفحات">
+                                            </a>
                                         </div>
                                         <div class="modal-body">
                                             <div id="forms-alert"></div>
@@ -180,10 +183,23 @@
                                             <div class="d-none" id="verifyOtpForm">
                                                 <form action="" method="POST" novalidate>
                                                     {% csrf_token %}
-                                                    <div class="form-floating mb-3">
+                                                    <div class="form-floating mb-2">
                                                         <input type="number" dir="ltr" name="otpCode"
                                                             class="form-control" id="otpCode"
-                                                            placeholder="{% trans 'Phone Number' %}">
+                                                            placeholder="{% trans 'Phone Number' %}" 
+                                                            aria-describedby="ExpireCodeCounter">
+                                                            <div id="ExpireCodeCounter" class="form-text">
+                                                                <span class="mt-3 rounded-4 py-2" id="counter_box">
+                                                                    {% trans 'The validity period of the code sent' %}:
+                                                                    <span id="expire_counter">60</span>
+                                                                    {% trans 'second' %}
+                                                                </span>
+                                                                <a class="btn btn-dark btn-sm mt-1 shadow-sm rounded-4 d-none" 
+                                                                id="send_otpcode_again" onclick="sendCodeAgain()">
+                                                                    <img src="{% static 'icons/refresh-white.svg' %}" alt="" />
+                                                                    {% trans 'Send Code Again' %}
+                                                                </a>
+                                                            </div>
                                                         <label for="phoneNumber">{% trans 'OTP Code' %}:</label>
                                                     </div>
                                                     <div class="row">
@@ -307,6 +323,7 @@
 {% include "inc/footer.html" %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let csrf_token = $("[name=csrfmiddlewaretoken]").val();
     $(document).ready(function () {
         $("#openMobileVerifyModal").click(function (e) {
             var link = $("#id_link").val();
@@ -320,7 +337,6 @@
                 $('#mobileVerify').modal('show');
             }
         })
-        let csrf_token = $("[name=csrfmiddlewaretoken]").val();
         let service_link_type = $("[name=service_link_type]").val();
         $("#getInstaInfo").click(function () {
             var link = $("#id_link").val();
@@ -404,10 +420,14 @@
                     if (data.success) {
                         $('#verifyOtpForm').removeClass('d-none')
                         $('#phoneNumberForm').addClass('d-none')
-                        $('#forms-alert').html("کد یک بار مصرف با موفقیت ارسال شد")
+                        $('#forms-alert').html("کد یک بار مصرف ارسال شد")
                         $('#forms-alert').removeClass("alert alert-danger")
                         $('#forms-alert').addClass("alert alert-success")
                         $("#hold_phone_number").val(data.phone_number)
+                        checkExpireTime(phone_number);
+                        intervalId = setInterval(function () {
+                            checkExpireTime(phone_number);
+                        }, 1000);
                     }
                     else {
                         $('#forms-alert').html("شماره تلفن وارد شده اشتباه است. لطفا مانند نمونه وارد کنید")
@@ -421,6 +441,7 @@
             let phone_number = $("#hold_phone_number").val();
             let pkg_id = $("[name=pkg_id]").val();
             let otpCode = $("#otpCode").val();
+            let intervalId;
             e.preventDefault();
             $.ajax({
                 url: "/orders/verify-phonenumber-pay/",
@@ -433,19 +454,60 @@
                 },
                 success: function (data) {
                     if (data.success) {
-                        $('#forms-alert').html(data.alert)
+                        $('#forms-alert').removeClass("d-none").addClass("d-block")
+                        $('#forms-alert').html("شماره موبایل شما تایید شد. در حال ارسال به درگاه بانکی ...")
                         $('#forms-alert').addClass("alert alert-info")
                         var pkgId = "pkg-id=" + encodeURIComponent(pkg_id)
                         var redirectUrl = "{% url 'orders:send_to_payment' %}?" + pkgId;
                         window.location.href = redirectUrl;
                     }
                     else {
-                        alert('خطا در اعتبارسنجی فرم');
+                        $('#forms-alert').html("لطفا کد صحیح ارسال شده را وارد کنید")
+                        $('#forms-alert').addClass("alert alert-danger")
                     }
                 }
             })
         })
     });
+    function checkExpireTime(phone_number) {
+        $.ajax({
+            url: "/dashboard/check-expire-time/",
+            data: {phone_number: phone_number},
+            headers: {"X-CSRFToken": csrf_token},
+            success: function (data) {
+                if (data.remain_time >= 0) {
+                    $('#expire_counter').html(data.remain_time)
+                }
+                else {
+                    clearInterval(intervalId);
+                    $('#counter_box').addClass('d-none');
+                    $('#send_otpcode_again').removeClass('d-none');
+                    $('#forms-alert').addClass("d-none")
+                }
+            },
+            error: function (error) {
+                clearInterval(intervalId);
+            }
+        });
+    }
+    function sendCodeAgain(){
+        phone_number = $("#hold_phone_number").val()
+        $.ajax({
+            url: "/dashboard/send-otpcode-again/",
+            data: {phone_number: phone_number},
+            headers: {"X-CSRFToken": csrf_token},
+            success: function (data) {
+                $('#counter_box').removeClass('d-none');
+                $('#send_otpcode_again').addClass('d-none');
+                $('#forms-alert').removeClass("d-none")
+                $('#forms-alert').html("کد یک بار مصرف ارسال شد")
+                checkExpireTime(phone_number);
+                intervalId = setInterval(function () {
+                    checkExpireTime(phone_number);
+                }, 1000);
+            }
+        })
+    }
 </script>
 
 {% endblock content %}

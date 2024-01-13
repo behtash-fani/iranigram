@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from common.zarinpal import payment_verify, payment_request
 from common.callback_gateway import callback_gateway
-from common.utils import send_otpcode_again
 from posts.sitemap import PostSitemap
 from pages.sitemap import PagesSitemap
 from django.contrib.sitemaps import views
@@ -30,7 +29,6 @@ urlpatterns = [
     path('payment-request/', payment_request, name='payment_request'),
     path('payment-verify/', payment_verify, name='payment_verify'),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
-    path('send-verify-code/', send_otpcode_again, name='send_verify_code'),
     path('api/v1/', include('api.urls')),
     path(
         "sitemap.xml",

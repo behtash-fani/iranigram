@@ -1,13 +1,12 @@
 from django import forms
-from .models import OTPCode, User
+from .models import User
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
-from common.valid_phone_number import validate_phone_number
 from django.shortcuts import get_object_or_404
-from common.generate_random_number import generate_random_number
-from accounts.tasks import send_login_sms_task, send_register_sms_task
-from datetime import datetime, timedelta
+from common.otp_manager import OTPManager
+
+otp_manager = OTPManager()
 
 
 class UserCreationForm(forms.ModelForm):
@@ -33,7 +32,7 @@ class UserCreationForm(forms.ModelForm):
 
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError(
-                    _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
+                _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
 
         return phone_number
 
@@ -63,26 +62,19 @@ class UserRegisterWithOTPForm(forms.Form):
     )
 
     def clean_phone_number(self):
-        raw_phone_number = self.cleaned_data['phone_number']
-        formatted_phone_number = validate_phone_number(raw_phone_number)
+        raw_phone_number = self.cleaned_data.get('phone_number')
+        validated_phone_number = otp_manager.validate_phone_number(
+            raw_phone_number)
 
-        if not formatted_phone_number or not raw_phone_number.isdigit():
+        if not validated_phone_number:
             raise ValidationError(
                 _("The phone number entered is incorrect. Please enter as in the example"))
-        else:
-            if User.objects.filter(phone_number=formatted_phone_number).exists():
-                raise ValidationError(
-                    _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
-            verification_code = generate_random_number(4, is_unique=False)
-            send_register_sms_task.delay(formatted_phone_number, verification_code)
-            OTPCode.objects.filter(
-                phone_number=formatted_phone_number).delete()
-            OTPCode.objects.create(
-                phone_number=formatted_phone_number,
-                code=verification_code,
-                expire_time=datetime.now() + timedelta(seconds=20),
-            )
-            return formatted_phone_number
+
+        if User.objects.filter(phone_number=validated_phone_number).exists():
+            raise ValidationError(
+                _("The entered phone number is already registered on the site. Please enter another phone number or log in to your account with the entered phone number"))
+        otp_manager.register_with_otp(raw_phone_number)
+        return validated_phone_number
 
 
 class LoginWithPasswordForm(forms.Form):
@@ -98,13 +90,15 @@ class LoginWithPasswordForm(forms.Form):
     )
 
     def clean_phone_number(self):
-        phone_number = validate_phone_number(self.cleaned_data['phone_number'])
+        raw_phone_number = self.cleaned_data['phone_number']
+        validated_phone_number = otp_manager.validate_phone_number(
+            raw_phone_number)
 
-        if not phone_number:
+        if not validated_phone_number:
             raise ValidationError(
                 _("The phone number entered is incorrect. Please enter as in the example"))
 
-        user = User.objects.filter(phone_number=phone_number).first()
+        user = User.objects.filter(phone_number=validated_phone_number).first()
 
         if not user:
             raise ValidationError(
@@ -114,7 +108,7 @@ class LoginWithPasswordForm(forms.Form):
             raise ValidationError(
                 _('Your account has been blocked. To follow up on this issue, please contact support'))
 
-        return phone_number
+        return validated_phone_number
 
     def clean_password(self):
         phone_number = self.cleaned_data.get('phone_number', None)
@@ -139,20 +133,20 @@ class LoginWithOTPForm(forms.Form):
             'class': 'form-control',
             'dir': 'ltr',
             'placeholder': 'Phone number',
-            'autocomplete': 'off'
         }),
         error_messages={'required': _('Phone Number field is required')}
     )
 
     def clean_phone_number(self):
         raw_phone_number = self.cleaned_data.get('phone_number')
-        formatted_phone_number = validate_phone_number(raw_phone_number)
+        validated_phone_number = otp_manager.validate_phone_number(
+            raw_phone_number)
 
-        if not formatted_phone_number or not raw_phone_number.isdigit():
+        if not validated_phone_number:
             raise ValidationError(
                 _("The phone number entered is incorrect. Please enter as in the example"))
 
-        user = User.objects.filter(phone_number=formatted_phone_number).first()
+        user = User.objects.filter(phone_number=validated_phone_number).first()
 
         if not user:
             raise ValidationError(
@@ -162,22 +156,19 @@ class LoginWithOTPForm(forms.Form):
             raise ValidationError(
                 _('Your account has been blocked. To follow up on this issue, please contact support'))
 
-        verification_code = generate_random_number(4, is_unique=False)
-        send_login_sms_task.delay(formatted_phone_number, verification_code)
-
-        OTPCode.objects.filter(phone_number=formatted_phone_number).delete()
-        OTPCode.objects.create(
-            phone_number=formatted_phone_number,
-            code=verification_code,
-            expire_time=datetime.now() + timedelta(seconds=20),
-        )
-
-        return formatted_phone_number
+        otp_manager.login_with_otp(raw_phone_number)
+        return validated_phone_number
 
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField(widget=forms.TextInput(
-        attrs={'class': 'form-control', 'dir': 'ltr', 'placeholder': 'OTP Code', 'autocomplete': 'off'}),
+        attrs={
+            'class': 'form-control', 
+            'dir': 'ltr', 
+            'placeholder': 'OTP Code', 
+            'autocomplete': 'off',
+            'aria-describedby': "ExpireCodeCounter"
+            }),
         error_messages={
             'invalid': _('The entered code is incorrect'),
             'required': _('Code field is required'),
@@ -188,18 +179,14 @@ class VerifyCodeForm(forms.Form):
         self.request = kwargs.pop('request', None)
         super(VerifyCodeForm, self).__init__(*args, **kwargs)
 
-    def clean_code(self, *args, **kwargs):
-        cleaned_data = super().clean()
+    def clean_code(self):
         code = self.cleaned_data['code']
 
         if not str(code).isdigit():
             raise ValidationError(_('The entered code is incorrect'))
 
         phone_number = self.request.session['phone_number']
-        verification_code = OTPCode.objects.get(phone_number=phone_number)
-
-        if int(code) == int(verification_code.code):
-            verification_code.delete()
+        if otp_manager.verify_otpcode(phone_number, code):
             return code
         else:
             raise ValidationError(_('The entered code is incorrect'))

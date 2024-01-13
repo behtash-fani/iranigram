@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.views import View
-from .models import OTPCode, User
+from .models import User
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
@@ -23,19 +23,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, logout, login
 from support.models import Ticket
 from accounts.mixins import BlockCheckLoginRequiredMixin
-from common.generate_random_number import generate_random_number
-from datetime import datetime, timedelta
-from .tasks import (
-    send_login_sms_task,
-    send_register_sms_task,
-    send_register_success_sms_task,
-)
+from .tasks import send_register_success_sms_task
+from common.otp_manager import OTPManager
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 from service.models import Service
 import logging
 
 
+otp_manager = OTPManager()
 logger = logging.getLogger(__name__)
 
 
@@ -53,6 +49,7 @@ class UserDashboardView(BlockCheckLoginRequiredMixin, View):
 class UserRegisterWithOTPView(View):
     form_class = UserRegisterWithOTPForm
     template_name = "accounts/registration/register.html"
+    success_message = _("A one-time password has been sent")
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -66,20 +63,26 @@ class UserRegisterWithOTPView(View):
         if register_form.is_valid():
             cd = register_form.cleaned_data
             request.session["phone_number"] = cd["phone_number"]
-            messages.success(request, _("A one-time password has been sent"), "success")
+            messages.success(request, self.success_message, "success")
             return redirect("accounts:user_register_verify")
-        else:
-            context = {"register_form": register_form}
-            return render(request, self.template_name, context)
+
+        context = {"register_form": register_form}
+        return render(request, self.template_name, context)
 
 
 class UserRegisterVerifyCodeView(View):
     form_class = VerifyCodeForm
     template_name = "accounts/registration/verify.html"
+    success_message = _(
+        "Your registration was successful. Welcome to the iranigram family")
 
     def get(self, request):
+        phone_number = self.request.session["phone_number"]
         verify_form = self.form_class
-        context = {"verify_form": verify_form}
+        context = {
+            "verify_form": verify_form,
+            "phone_number": phone_number,
+        }
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -87,22 +90,22 @@ class UserRegisterVerifyCodeView(View):
         verify_form = self.form_class(request.POST, request=self.request)
         if verify_form.is_valid():
             user = User.objects.create_user(phone_number)
-            send_register_success_sms_task.delay(phone_number)
+            # send_register_success_sms_task.delay(phone_number)
             login(request, user)
-            messages.success(
-                request,
-                _("Your registration was successful. Welcome to the iranigram family"),
-                "success",
-            )
+            messages.success(request, self.success_message, "success")
             return redirect("accounts:new_order")
-        else:
-            context = {"verify_form": verify_form}
-            return render(request, self.template_name, context)
+
+        context = {
+            "verify_form": verify_form,
+            "phone_number": phone_number,
+        }
+        return render(request, self.template_name, context)
 
 
 class UserLoginWithPassView(View):
     form_class = LoginWithPasswordForm
     template_name = "accounts/registration/login_with_pass.html"
+    success_message = _("You have successfully logged into your account"),
 
     def get(self, request):
         login_form = self.form_class
@@ -120,11 +123,7 @@ class UserLoginWithPassView(View):
                 )
                 if user is not None:
                     login(request, user)
-                    messages.success(
-                        request,
-                        _("You have successfully logged into your account"),
-                        "success",
-                    )
+                    messages.success(request, self.success_message, "success")
                     return redirect("accounts:user_dashboard")
             except ValidationError as e:
                 logger.error(f"ValidationError in login view: {str(e)}")
@@ -136,6 +135,7 @@ class UserLoginWithPassView(View):
 class UserLoginWithOTPView(View):
     form_class = LoginWithOTPForm
     template_name = "accounts/registration/login_with_otp.html"
+    success_message = _("A one-time password has been sent")
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -150,7 +150,7 @@ class UserLoginWithOTPView(View):
             cd = otp_login_form.cleaned_data
             phone_number = cd["phone_number"]
             request.session["phone_number"] = phone_number
-            messages.success(request, _("A one-time password has been sent"), "success")
+            messages.success(request, self.success_message, "success")
             return redirect("accounts:user_login_verify")
         else:
             context = {"otp_login_form": otp_login_form}
@@ -159,74 +159,57 @@ class UserLoginWithOTPView(View):
 
 @csrf_exempt
 def check_expire_time(request):
-    if request.method == "POST":
-        phone_number = request.POST.get("phone_number")
-        if OTPCode.objects.filter(phone_number=phone_number).exists():
-            otpcode = OTPCode.objects.filter(phone_number=phone_number)[0]
-            otp_expiry_time = otpcode.expire_time
-            if otp_expiry_time is not None:
-                current_time = datetime.now().time()
-                if current_time <= otp_expiry_time:
-                    return JsonResponse({"msg": "True"})  # hanooz zaman baghi hast
-                else:
-                    if otpcode:
-                        otpcode.delete()
-                        request.session["phone_number"] = phone_number
-                    return JsonResponse({"msg": 'False'})  # zaman tamoom shod
+    phone_number = request.GET.get("phone_number")
+    request.session["phone_number"] = phone_number
+    try:
+        remain_time = otp_manager.check_expire_time(phone_number)
+        if remain_time is not None:
+            return JsonResponse({"msg": "True", 'remain_time': remain_time})
+        else:
+            return JsonResponse({"msg": 'False', 'error': 'OTP not found or has expired'})
+
+    except Exception as e:
+        return JsonResponse({"msg": 'False', 'error': f'Error: {str(e)}'}, status=200)
 
 
 @csrf_exempt
 def send_otpcode_again(request):
-    phone_number = request.session.get("phone_number")
-
-    if phone_number:
-        OTPCode.objects.filter(phone_number=phone_number).delete()
-
-        verification_code = generate_random_number(4, is_unique=False)
-        expire_time = datetime.now() + timedelta(seconds=120)
-
-        OTPCode.objects.create(
-            phone_number=phone_number,
-            code=verification_code,
-            expire_time=expire_time,
-        )
-
-        send_login_sms_task.delay(phone_number, verification_code)
-        messages.success(request, _("A one-time password has been sent"), "success")
-
-    return redirect('accounts:user_login_verify')
+    phone_number = request.GET.get("phone_number")
+    otp_manager.login_with_otp(phone_number)
+    messages.success(request, _("A one-time password has been sent"), "success")
+    return JsonResponse({"status": True})
 
 
 class UserLoginVerifyCodeView(View):
     form_class = VerifyCodeForm
+    template_name = "accounts/registration/verify.html"
+    success_message = _("You have successfully logged into your account")
 
     def get(self, request):
         phone_number = self.request.session["phone_number"]
-        otp_code = OTPCode.objects.get(phone_number=phone_number)
-        expire_time = otp_code.expire_time
         if request.user.is_authenticated:
             return redirect("pages:home")
         verify_form = self.form_class
-        context = {"verify_form": verify_form, "phone_number": phone_number, 'expire_time': expire_time}
-        return render(request, "accounts/registration/verify.html", context)
+        context = {
+            "verify_form": verify_form,
+            "phone_number": phone_number,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         phone_number = self.request.session["phone_number"]
         verify_form = self.form_class(request.POST, request=self.request)
-        otp_code = OTPCode.objects.get(phone_number=phone_number)
-        expire_time = otp_code.expire_time
         if verify_form.is_valid():
             user = User.objects.get(phone_number=phone_number)
             if user is not None:
                 login(request, user)
-                messages.success(
-                    request,
-                    _("You have successfully logged into your account"),
-                    "success",
-                )
+                messages.success(request, self.success_message, "success")
                 return redirect("accounts:user_dashboard")
 
-        context = {"verify_form": verify_form, "phone_number": phone_number, 'expire_time': expire_time}
+        context = {
+            "verify_form": verify_form,
+            "phone_number": phone_number,
+        }
         return render(request, "accounts/registration/verify.html", context)
 
 
@@ -270,9 +253,7 @@ class EditProfileFormView(BlockCheckLoginRequiredMixin, View):
                 messages.success(request, _("your profile updated"), "success")
                 return redirect("accounts:user_profile")
             else:
-                messages.error(
-                    request, _("There was an error with your profile form"), "error"
-                )
+                messages.error(request, _("There was an error with your profile form"), "danger")
                 return redirect("accounts:user_profile")
         elif "change_password" in request.POST:
             if change_password_form.is_valid():
@@ -280,15 +261,18 @@ class EditProfileFormView(BlockCheckLoginRequiredMixin, View):
                 user = request.user
                 user.set_password(cd["password2"])
                 user.save()
-                messages.success(request, _("Your password has been saved"), "success")
+                messages.success(request, _(
+                    "Your password has been saved"), "success")
                 return redirect("accounts:user_profile")
             else:
                 messages.error(
-                    request, _("There was an error with your password form"), "error"
+                    request, 
+                    _("There was an error with your password form"), 
+                    "danger"
                 )
                 return redirect("accounts:user_profile")
         else:
-            messages.error(request, _("Invalid request"), "error")
+            messages.error(request, _("Invalid request"), "danger")
             return redirect("accounts:user_profile")
 
 
@@ -322,9 +306,9 @@ class WalletView(BlockCheckLoginRequiredMixin, View):
             return redirect("payment_request")
         else:
             # print(add_credit_form.errors.as_data())  # TODO change this print to logging
-            # return redirect('accounts:user_wallet')
             context = {"add_credit_form": add_credit_form}
             return render(request, self.template_name, context)
+
 
 class ApiDocsView(View):
     template_name = 'accounts/api_docs.html'
@@ -346,18 +330,18 @@ class ApiDocsView(View):
         return render(request, self.template_name, context)
 
 
-
 def regenerate_token(request):
     user = request.user
     try:
         token = Token.objects.get(user=user)
-        token.delete() 
+        token.delete()
     except Token.DoesNotExist:
         pass
 
     Token.objects.create(user=user)
     messages.success(request, "Token has been replaced", "success")
     return redirect('accounts:api_docs')
+
 
 class ServicesView(ListView):
     model = Service

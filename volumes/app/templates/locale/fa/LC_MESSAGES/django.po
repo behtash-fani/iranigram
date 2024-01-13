@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 04:16+0330\n"
+"POT-Creation-Date: 2024-01-13 02:30+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Users"
 msgstr "کاربران"
 
-#: accounts/forms.py:36 accounts/forms.py:75
+#: accounts/forms.py:35 accounts/forms.py:75
 msgid ""
 "The entered phone number is already registered on the site. Please enter "
 "another phone number or log in to your account with the entered phone number"
@@ -30,24 +30,24 @@ msgstr ""
 "شماره تلفن وارد شده قبلا در سایت ثبت نام شده. لطفا شماره تلفن دیگری وارد "
 "کنید یا با شماره تلفن وارد شده، وارد حساب کاربری خود شوید"
 
-#: accounts/forms.py:62 accounts/forms.py:94 accounts/forms.py:146
+#: accounts/forms.py:61 accounts/forms.py:84 accounts/forms.py:137
 msgid "Phone Number field is required"
 msgstr "ورود شماره تلفن لازم است"
 
-#: accounts/forms.py:71 accounts/forms.py:107 accounts/forms.py:155
+#: accounts/forms.py:71 accounts/forms.py:99 accounts/forms.py:147
 msgid "The phone number entered is incorrect. Please enter as in the example"
 msgstr "شماره تلفن وارد شده اشتباه است. لطفا مانند نمونه وارد کنید"
 
-#: accounts/forms.py:99
+#: accounts/forms.py:89
 msgid "Password field is required"
 msgstr "ورود رمز عبور لازم است"
 
-#: accounts/forms.py:113 accounts/forms.py:161
+#: accounts/forms.py:105 accounts/forms.py:153
 msgid ""
 "The phone number entered on the site is not registered. Please register first"
 msgstr "شماره تلفن وارد شده در سایت ثبت نام نشده. لطفا ابتدا ثبت نام بفرمایید"
 
-#: accounts/forms.py:117 accounts/forms.py:165 accounts/mixins.py:17
+#: accounts/forms.py:109 accounts/forms.py:157 accounts/mixins.py:17
 msgid ""
 "Your account has been blocked. To follow up on this issue, please contact "
 "support"
@@ -55,7 +55,7 @@ msgstr ""
 "حساب کاربری شما مسدود شده . برای پیگیری این موضوع لطفا با پشتیبانی تماس "
 "بگیرید"
 
-#: accounts/forms.py:130
+#: accounts/forms.py:122
 msgid ""
 "No password has been set for your phone number. Please enter a password in "
 "the forgot password section or use a one-time password to log in to your "
@@ -65,23 +65,23 @@ msgstr ""
 "رمز عبور قرار دهید یا برای ورود به حساب کاربری خود از ورود با رمز یکبار مصرف "
 "استفاده کنید"
 
-#: accounts/forms.py:133
+#: accounts/forms.py:125
 msgid "Incorrect password"
 msgstr "رمز عبور اشتباه است"
 
-#: accounts/forms.py:184 accounts/forms.py:198 accounts/forms.py:207
+#: accounts/forms.py:173 accounts/forms.py:186 accounts/forms.py:192
 msgid "The entered code is incorrect"
 msgstr "کد وارد شده اشتباه است"
 
-#: accounts/forms.py:185
+#: accounts/forms.py:174
 msgid "Code field is required"
 msgstr "ورود کد لازم است"
 
-#: accounts/forms.py:229
+#: accounts/forms.py:214
 msgid "Amount field is required"
 msgstr "ورود رقم برای افزایش اعتبار لازم است"
 
-#: accounts/forms.py:242 accounts/templates/accounts/profile.html:42
+#: accounts/forms.py:227 accounts/templates/accounts/profile.html:42
 msgid "Password Confirmation"
 msgstr "تکرار رمز عبور"
 
@@ -98,9 +98,9 @@ msgstr "کاهش اعتبار"
 #: accounts/templates/accounts/registration/login_with_pass.html:31
 #: accounts/templates/accounts/registration/register.html:36
 #: comments/models.py:13 comments/models.py:41
+#: orders/templates/orders/buypage.html:167
 #: orders/templates/orders/buypage.html:168
-#: orders/templates/orders/buypage.html:169
-#: orders/templates/orders/buypage.html:187
+#: orders/templates/orders/buypage.html:186
 msgid "Phone Number"
 msgstr "شماره تلفن"
 
@@ -108,7 +108,7 @@ msgstr "شماره تلفن"
 msgid "Email"
 msgstr "ایمیل"
 
-#: accounts/models.py:20 accounts/views.py:262
+#: accounts/models.py:20 accounts/views.py:245
 msgid "Guest User"
 msgstr "کاربر مهمان"
 
@@ -199,7 +199,7 @@ msgstr "اعتبار فعلی کیف پول شما"
 #: accounts/templates/accounts/wallet.html:16
 #: accounts/templates/accounts/wallet.html:30
 #: orders/templates/orders/buypage.html:117
-#: orders/templates/orders/buypage.html:234
+#: orders/templates/orders/buypage.html:246
 #: orders/templates/orders/new_order.html:40
 #: orders/templates/orders/new_order.html:58
 #: orders/templates/orders/new_order.html:108
@@ -212,7 +212,7 @@ msgstr "تومان"
 
 #: accounts/templates/accounts/callback_gateway.html:27
 msgid "Your wallet has been successfully topped up"
-msgstr "افزایش اعتبار کیف پول شما با موفقیت انجام شد"
+msgstr "افزایش اعتبار کیف پول شما انجام شد"
 
 #: accounts/templates/accounts/callback_gateway.html:28
 msgid "You can now place an order using your wallet"
@@ -378,30 +378,31 @@ msgstr "نمونه شماره تلفن صحیح: ۰۹۱۲۳۴۵۶۷۸۹"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:30
 #: accounts/templates/accounts/registration/register.html:29
+#: orders/templates/orders/buypage.html:161
 msgid "Please keep the phone in active mode because of the confirmation SMS"
 msgstr "به دلیل ارسال پیامک تایید، لطفا تلفن در حالت فعال نگه دارید"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:43
 #: accounts/templates/accounts/registration/register.html:41
-#: orders/templates/orders/buypage.html:176
+#: orders/templates/orders/buypage.html:175
 msgid "Send verification code"
 msgstr "ارسال کد تایید"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:52
 #: accounts/templates/accounts/registration/login_with_pass.html:51
-#: accounts/templates/accounts/registration/verify.html:50
+#: accounts/templates/accounts/registration/verify.html:47
 msgid "Not a member? "
 msgstr "عضو نیستید؟ "
 
 #: accounts/templates/accounts/registration/login_with_otp.html:52
 #: accounts/templates/accounts/registration/login_with_pass.html:51
-#: accounts/templates/accounts/registration/verify.html:50
+#: accounts/templates/accounts/registration/verify.html:47
 #: templates/inc/navbar.html:195
 msgid "Register"
 msgstr "ثبت نام"
 
 #: accounts/templates/accounts/registration/login_with_otp.html:58
-#: accounts/templates/accounts/registration/verify.html:56
+#: accounts/templates/accounts/registration/verify.html:52
 msgid "Login With Password"
 msgstr "ورود با رمز عبور"
 
@@ -445,38 +446,41 @@ msgstr ""
 msgid "Do you have an account? "
 msgstr "حساب کاربری دارید؟ "
 
-#: accounts/templates/accounts/registration/verify.html:11
+#: accounts/templates/accounts/registration/verify.html:12
 msgid "Phone Number Verification"
 msgstr "تایید شماره تلفن"
 
-#: accounts/templates/accounts/registration/verify.html:13
+#: accounts/templates/accounts/registration/verify.html:14
 msgid "Enter the code sent to"
 msgstr "لطفا کد ارسال شده به شماره تلفن"
 
-#: accounts/templates/accounts/registration/verify.html:13
+#: accounts/templates/accounts/registration/verify.html:14
 msgid "in the field below"
 msgstr "را وارد کنید"
 
-#: accounts/templates/accounts/registration/verify.html:20
-#: orders/templates/orders/buypage.html:188
-msgid "OTP Code"
-msgstr "ورود کد"
-
-#: accounts/templates/accounts/registration/verify.html:26
-msgid "Verification and Login"
-msgstr "تایید و ورود به حساب کاربری"
-
-#: accounts/templates/accounts/registration/verify.html:32
+#: accounts/templates/accounts/registration/verify.html:25
+#: orders/templates/orders/buypage.html:190
 msgid "The validity period of the code sent"
 msgstr "مدت اعتبار کد ارسال شده"
 
-#: accounts/templates/accounts/registration/verify.html:34
+#: accounts/templates/accounts/registration/verify.html:27
+#: orders/templates/orders/buypage.html:192
 msgid "second"
 msgstr "ثانیه"
 
-#: accounts/templates/accounts/registration/verify.html:39
-msgid "Send Code Agian"
+#: accounts/templates/accounts/registration/verify.html:31
+#: orders/templates/orders/buypage.html:197
+msgid "Send Code Again"
 msgstr "ارسال مجدد کد"
+
+#: accounts/templates/accounts/registration/verify.html:34
+#: orders/templates/orders/buypage.html:200
+msgid "OTP Code"
+msgstr "ورود کد"
+
+#: accounts/templates/accounts/registration/verify.html:39
+msgid "Verification and Login"
+msgstr "تایید و ورود به حساب کاربری"
 
 #: accounts/templates/accounts/services.html:15 posts/models.py:30
 #: service/models.py:41
@@ -533,49 +537,49 @@ msgstr "میزان اعتبار مد نظر خود را به تومان وارد
 msgid "The minimum amount payable is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت ۵۰۰ تومان است"
 
-#: accounts/views.py:69 accounts/views.py:153 accounts/views.py:195
+#: accounts/views.py:52 accounts/views.py:138 accounts/views.py:179
 msgid "A one-time password has been sent"
 msgstr "رمز یکبار مصرف ارسال شد"
 
-#: accounts/views.py:94
+#: accounts/views.py:77
 msgid "Your registration was successful. Welcome to the iranigram family"
-msgstr "ثبت نام شما با موفقیت انجام شد. به خانواده ایرانی گرام خوش آمدید"
+msgstr "ثبت نام شما انجام شد. به خانواده ایرانی گرام خوش آمدید"
 
-#: accounts/views.py:125 accounts/views.py:224
+#: accounts/views.py:108 accounts/views.py:186
 msgid "You have successfully logged into your account"
-msgstr "شما با موفقیت وارد حساب کاربری خود شدید"
+msgstr "شما وارد حساب کاربری خود شدید"
 
-#: accounts/views.py:270
+#: accounts/views.py:253
 msgid "your profile updated"
 msgstr "حساب کاربری شما به روز رسانی شد"
 
-#: accounts/views.py:274
+#: accounts/views.py:258
 msgid "There was an error with your profile form"
 msgstr ""
 "متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:283
+#: accounts/views.py:268
 msgid "Your password has been saved"
-msgstr "رمز عبور شما با موفقیت ثبت شد"
+msgstr "رمز عبور شما ثبت شد"
 
-#: accounts/views.py:287
+#: accounts/views.py:273
 msgid "There was an error with your password form"
 msgstr ""
 "متاسفانه ثبت فرم درخواستی با مشکل مواجه شد. لطفا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:291
+#: accounts/views.py:277
 msgid "Invalid request"
 msgstr "درخواست تایید نشد . لطفا دوباره تلاش کنید یا با پشتیبانی تماس بگیرید"
 
-#: accounts/views.py:312
+#: accounts/views.py:298
 msgid "The minimum amount that can be paid to increase credit is 500 Tomans"
 msgstr "حداقل مبلغ قابل پرداخت برای افزایش اعتبار ۵۰۰ تومان است "
 
-#: accounts/views.py:317 common/zarinpal.py:121
+#: accounts/views.py:303 common/zarinpal.py:121
 msgid "Increase wallet credit"
 msgstr "افزایش اعتبار کیف پول"
 
-#: api/views.py:92 orders/views.py:82 orders/views.py:262
+#: api/views.py:92 orders/views.py:90 orders/views.py:273
 msgid "Deduct the amount for placing the order"
 msgstr "کسر مبلغ بابت ثبت سفارش"
 
@@ -612,13 +616,13 @@ msgid "Page URL"
 msgstr "شناسه صفحه"
 
 #: comments/models.py:23 comments/models.py:47 orders/models.py:42
-#: orders/templates/orders/orders.html:20 posts/models.py:36
+#: orders/templates/orders/orders.html:20 posts/models.py:36 posts/models.py:38
 #: support/models.py:22 support/templates/support/support.html:27
 msgid "Status"
 msgstr "وضعیت"
 
 #: comments/models.py:25 comments/models.py:49 orders/models.py:48
-#: orders/templates/orders/orders.html:119 posts/models.py:37
+#: orders/templates/orders/orders.html:119 posts/models.py:39
 #: support/models.py:23 support/models.py:39
 #: support/templates/support/support.html:29 transactions/models.py:32
 #: transactions/templates/transactions/transactions.html:19
@@ -626,7 +630,7 @@ msgid "Created At"
 msgstr "تاریخ ایجاد"
 
 #: comments/models.py:27 comments/models.py:51 orders/models.py:49
-#: posts/models.py:38 support/models.py:24
+#: posts/models.py:40 support/models.py:24
 #: support/templates/support/support.html:30 transactions/models.py:33
 msgid "Updated At"
 msgstr "تاریخ به روزرسانی"
@@ -734,7 +738,7 @@ msgid "ServiceType"
 msgstr "نوع سرویس"
 
 #: orders/models.py:33 orders/templates/orders/orders.html:118
-#: service/models.py:57 service/models.py:80
+#: service/models.py:57 service/models.py:86
 msgid "Service"
 msgstr "سرویس"
 
@@ -747,11 +751,11 @@ msgid "Link"
 msgstr "لینک"
 
 #: orders/models.py:37 orders/templates/orders/new_order.html:33
-#: orders/templates/orders/orders.html:17 service/models.py:82
+#: orders/templates/orders/orders.html:17 service/models.py:88
 msgid "Quantity"
 msgstr "تعداد"
 
-#: orders/models.py:38 service/models.py:84
+#: orders/models.py:38 service/models.py:90
 msgid "Amount"
 msgstr "قیمت نهایی قابل پرداخت"
 
@@ -903,30 +907,30 @@ msgstr "جزییات"
 msgid "Unpaid"
 msgstr "پرداخت نشده"
 
-#: orders/views.py:50
+#: orders/views.py:56
 msgid "For amounts less than 500 Tomans, please use a wallet"
 msgstr "برای مبالغ کمتر از ۵۰۰ تومان لطفا از کیف پول استفاده بفرمایید"
 
-#: orders/views.py:57 orders/views.py:157 orders/views.py:234
-#: orders/views.py:367
+#: orders/views.py:63 orders/views.py:165 orders/views.py:243
+#: orders/views.py:374
 msgid "Online payment of the order fee"
 msgstr "پرداخت آنلاین هزینه سفارش"
 
-#: orders/views.py:95 orders/views.py:275
+#: orders/views.py:103 orders/views.py:286
 msgid "Order created successfully, this is your order code:"
 msgstr "ثبت سفارش موفقیت آمیز انجام شد. کد سفارش شما: "
 
-#: orders/views.py:104 orders/views.py:284
+#: orders/views.py:112 orders/views.py:295
 msgid ""
 "Your balance amount is less than the order amount. Please use online payment"
 msgstr ""
 "مبلغ موجودی شما کمتر از مبلغ سفارش است. لطفا از پرداخت آنلاین استفاده کنید"
 
-#: orders/views.py:140
+#: orders/views.py:148
 msgid "Payment of the order deficit"
 msgstr "پرداخت مبلغ کسری سفارش"
 
-#: posts/models.py:19 posts/models.py:39
+#: posts/models.py:19 posts/models.py:37
 msgid "Category"
 msgstr "دسته بندی"
 
@@ -1034,7 +1038,7 @@ msgstr "قیمت به ازای هر ۱ عدد"
 msgid "Price For 1000 Server"
 msgstr "قیمت برای ۱۰۰۰ عدد در سرویس"
 
-#: service/models.py:48 service/models.py:87
+#: service/models.py:48 service/models.py:93
 msgid "Display Priority"
 msgstr "اولویت نمایش"
 
@@ -1050,15 +1054,15 @@ msgstr "فعال برای پکیج"
 msgid "Service Tag Name"
 msgstr "تگ پکیج سرویس"
 
-#: service/models.py:88
+#: service/models.py:94
 msgid "Enable"
 msgstr "فعال"
 
-#: service/models.py:96
+#: service/models.py:102
 msgid "Package"
 msgstr "پکیج"
 
-#: service/models.py:97
+#: service/models.py:103
 msgid "Packages"
 msgstr "پکیج"
 
@@ -1170,11 +1174,11 @@ msgstr "ثبت پاسخ"
 
 #: support/views.py:64
 msgid "Your support ticket was submitted successfully."
-msgstr "تیکت شما با موفقیت ثبت شد."
+msgstr "تیکت شما ثبت شد."
 
 #: support/views.py:82
 msgid "Your reply was submitted successfully."
-msgstr "پاسخ شما با موفقیت ثبت شد"
+msgstr "پاسخ شما ثبت شد"
 
 #: transactions/models.py:6
 msgid "increase_ab_by_admin"

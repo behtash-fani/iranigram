@@ -3,120 +3,109 @@
 {% load static %}
 
 {% block title %}
-تایید شماره تلفن
+  تایید شماره تلفن
 {% endblock %}
 {% block content %}
-<div class="d-flex justify-content-center mt-5 p-3">
+  <div class="d-flex justify-content-center mt-5 p-3">
     <div class="col-sm-6 col-lg-4 col-xl-3">
-        <p class="fw-bold fs-3">{% trans "Phone Number Verification" %}</p>
-        <span class="text-muted">
-            {% trans "Enter the code sent to" %} {{phone_number}} {% trans "in the field below" %}
-        </span>
-        <hr>
-        <form action="" method="POST" novalidate>
-            {% csrf_token %}
-            <div class="form-floating mt-2">
-                {{ verify_form.code }}
-                <label for="{{ verify_form.code.id_for_label }}">{% trans 'OTP Code' %}:</label>
-                {{ verify_form.code.errors }}
-            </div>
-            <div class="row">
-                <button type="submit" class="col-10 d-block mx-auto btn btn-warning btn-lg rounded-4 py-3 mt-3">
-                    <img src="{% static 'icons/login.svg' %}" alt="">
-                    {% trans "Verification and Login" %}
-                </button>
-            </div>
-            <div class="row">
-                <div class="col d-flex justify-content-end">
-                    <p class="text-end mt-3 rounded-4 py-2" id="counter_box">
-                        {% trans 'The validity period of the code sent' %}:
-                        <span id="counter">120</span>
-                        {% trans 'second' %}
-                    </p>
-                    <a href="{% url 'accounts:send_otpcode_again' %}"
-                        class="btn btn-dark mt-3 shadow-sm rounded-4 py-2 d-none" id="send_otpcode_again">
-                        <img src="{% static 'icons/refresh-white.svg' %}" alt="">
-                        {% trans 'Send Code Agian' %}
-                    </a>
-                </div>
-            </div>
-            <input type="hidden" id="phone_number" data-phone="{{phone_number}}">
-        </form>
-        <hr>
-        <div class="mt-2 d-flex justify-content-around">
-            <div class="col-sm-6 col-lg-6 col-xl-6">
-                <a href="{% url 'accounts:user_register' %}"
-                    class="btn btn-light shadow-sm rounded-3 text-black text-decoration-none rounded-4 py-2">
-                    {% trans "Not a member? " %} {% trans "Register" %}
-                </a>
-            </div>
-            <div class="col-sm-6 col-lg-6 col-xl-6">
-                <a href="{% url 'accounts:user_login_pass' %}" class="btn btn-light shadow-sm rounded-4 py-2 float-end">
-                    <img src="{% static 'icons/lock.svg' %}" alt="">
-                    {% trans 'Login With Password' %}
-                </a>
-            </div>
+      <p class="fw-bold fs-3">
+        {% trans 'Phone Number Verification' %}
+      </p>
+      <span class="text-muted">{% trans 'Enter the code sent to' %} {{ phone_number }} {% trans 'in the field below' %}</span>
+      <hr />
+      <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% include "inc/messages.html" %}
+        <div class="alert d-none" role="alert"></div>
+        <div class="form-floating mt-2">
+          {{ verify_form.code }}
+          {{ verify_form.code.errors }}
+          <div id="ExpireCodeCounter" class="form-text">
+            <span class="mt-3 rounded-4 py-2" id="counter_box">
+              {% trans 'The validity period of the code sent' %}:
+              <span id="expire_counter">60</span>
+              {% trans 'second' %}
+            </span>
+            <a class="btn btn-dark btn-sm mt-1 shadow-sm rounded-4 d-none" id="send_otpcode_again" onclick="sendCodeAgain()">
+              <img src="{% static 'icons/refresh-white.svg' %}" alt="" />
+              {% trans 'Send Code Again' %}
+            </a>
+          </div>
+          <label for="{{ verify_form.code.id_for_label }}">{% trans 'OTP Code' %}:</label>
+        </div>
+        <div class="row">
+          <button type="submit" class="col-10 d-block mx-auto btn btn-warning btn-lg rounded-4 py-3 mt-3">
+            <img src="{% static 'icons/login.svg' %}" alt="" />
+            {% trans 'Verification and Login' %}
+          </button>
+        </div>
+        <input type="hidden" id="phone_number" data-phone="{{ phone_number }}" />
+      </form>
+      <hr />
+      <div class="mt-2 d-flex justify-content-around">
+        <div class="col-sm-6 col-lg-6 col-xl-6">
+            <a href="{% url 'accounts:user_register' %}"
+               class="btn btn-light shadow-sm rounded-3 text-black text-decoration-none rounded-4 py-4">
+                {% trans "Not a member? " %} {% trans "Register" %}
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-6 col-xl-6">
+            <a href="{% url 'accounts:user_login_pass' %}" class="btn btn-light shadow-sm rounded-4 py-4 float-end">
+                <img src="{% static 'icons/lock.svg' %}" alt="">
+                {% trans 'Login With Password' %}
+            </a>
         </div>
     </div>
-</div>
-<script>
-    let csrf_token = document.querySelector("[name=csrfmiddlewaretoken]").value;
-    let counter = getCounterValueFromStorage() || 120;
-    let intervalId;
-    let phone_number = document.querySelector("#phone_number");
-    let phone = phone_number ? phone_number.getAttribute("data-phone") : null;
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    let csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+    let phone_number = document.querySelector('#phone_number').getAttribute('data-phone')
+    let intervalId
 
-    window.onload = function () {
-        startCounter();
-    };
-
-    function startCounter() {
-        intervalId = setInterval(decrementCounter, 1000);
-    }
-
-    function decrementCounter() {
-        counter--;
-        if (document.getElementById("counter")) {
-            document.getElementById("counter").innerHTML = counter;
+    function checkExpireTime(phone_number) {
+      $.ajax({
+        url: '/dashboard/check-expire-time/',
+        data: { phone_number: phone_number },
+        headers: { 'X-CSRFToken': csrf_token },
+        success: function (data) {
+          if (data.remain_time >= 0) {
+            $('#expire_counter').html(data.remain_time)
+          } else {
+            clearInterval(intervalId)
+            $('#counter_box').addClass('d-none')
+            $('#send_otpcode_again').removeClass('d-none').removeClass('d-block')
+          }
+        },
+        error: function (error) {
+          clearInterval(intervalId)
         }
-        if (counter === 0) {
-            clearInterval(intervalId);
-            document.getElementById("counter_box").className = "d-none";
-            document.getElementById("send_otpcode_again").classList.remove("d-none");
-            document.getElementById("send_otpcode_again").classList.remove("d-block");
-            removeCounterValueFromStorage();
-
-            // Send AJAX request
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "/dashboard/check-expire-time/");
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("X-CSRFToken", csrf_token);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        console.log(JSON.parse(xhr.responseText).msg);
-                    } else {
-                        console.log(xhr.status);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify({ phone_number: phone }));
-        } else {
-            storeCounterValueInStorage(counter);
+      })
+    }
+    
+    $(document).ready(function () {
+      checkExpireTime(phone_number)
+      intervalId = setInterval(function () {
+        checkExpireTime(phone_number)
+      }, 1000)
+    })
+    function sendCodeAgain() {
+      $("#id_code").val("")
+      $.ajax({
+        url: '/dashboard/send-otpcode-again/',
+        data: { phone_number: phone_number },
+        headers: { 'X-CSRFToken': csrf_token },
+        success: function (data) {
+          $('#counter_box').removeClass('d-none')
+          $('#send_otpcode_again').addClass('d-none')
+          window.location.href = location.href
+          checkExpireTime(phone_number)
+          intervalId = setInterval(function () {
+            checkExpireTime(phone_number)
+          }, 1000)
         }
+      })
     }
-
-    function getCounterValueFromStorage() {
-        return localStorage.getItem("counter");
-    }
-
-    function storeCounterValueInStorage(counter) {
-        localStorage.setItem("counter", counter);
-    }
-
-    function removeCounterValueFromStorage() {
-        localStorage.removeItem("counter");
-    }
-
-</script>
-{% endblock content %}
+  </script>
+{% endblock %}

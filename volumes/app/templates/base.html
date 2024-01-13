@@ -24,36 +24,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'image/apple-touch-icon-180x180.png' %}">
     <link rel="icon" type="image/png" sizes="192x192" href="{% static 'image/x192-android.png' %}">
 </head>
-<!-- Google tag (gtag.js) -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-X638RNZRH9"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-X638RNZRH9');
-</script> -->
-
 <body>
     {% include 'inc/navbar.html' %}
-    {% include "inc/messages.html" %}
     {% block content %}
     {% endblock %}
 </body>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/comments.js' %}"></script>
-<script>
-    // this code enable toast message
-    document.addEventListener('DOMContentLoaded', function () {
-        var toastElements = document.querySelectorAll('.toast');
-        for (var i = 0; i < toastElements.length; i++) {
-            var toast = new bootstrap.Toast(toastElements[i], {
-                delay: 10000
-            });
-            toast.show();
-        }
-    });
-    // end of snippet
-</script>
-
 </html>
