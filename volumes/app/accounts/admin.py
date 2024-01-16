@@ -45,7 +45,7 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
         ),
         (
             'Permissions', {'fields': (
-                'is_block', 'is_admin', 'is_active', 'last_login')}
+                'is_block', 'is_admin', 'is_active','is_superuser', 'last_login', 'groups', 'user_permissions')}
         ),
     )
 
@@ -57,7 +57,7 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
     )
     search_fields = ('phone_number',)
     ordering = ('phone_number',)
-    filter_horizontal = ()
+    filter_horizontal = ('groups', 'user_permissions')
 
     def orders(self, obj):
         return format_html('<a href="/igadmini/orders/order/?q=%s">سفارشات کاربر</a>' % obj.phone_number)
@@ -103,4 +103,3 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
-admin.site.unregister(Group)

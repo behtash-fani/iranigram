@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
@@ -14,7 +14,7 @@ STATUS_CHANGE_WALLET = (
 )
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20, unique=True, verbose_name=_('Phone Number'))
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True, verbose_name=_('Email'))
     full_name = models.CharField(default=_('Guest User'), max_length=255, blank=True, null=True,
@@ -40,19 +40,10 @@ class User(AbstractBaseUser):
     def __str__(self):
         return str(self.phone_number)
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
-
     @property
     def is_staff(self):
         return self.is_admin
-
-    @property
-    def is_superuser(self):
-        return self.is_admin
+    
         
     def add_credit(self, amount):
         self.balance += amount
