@@ -4,6 +4,7 @@ from orders.forms import OrderForm, TemplateNewOrderForm
 from common.instagram.insta_info import InstagramAccInfo
 from transactions.models import Transactions as Trans
 from django.views.decorators.csrf import csrf_exempt
+from orders.tasks import send_submit_order_sms_task
 from django.core.paginator import PageNotAnInteger
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
@@ -26,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 
 class CustomerMixin:
-    def process_customer(self, request, order_form, use_wallet, submit_order_method, quantity=None, service=None):
+    def process_customer(self, request, order_form, use_wallet, submit_order_method, quantity=None, service=None, pkg_id=None):
         cd = order_form.cleaned_data
         user = request.user
         order_item = order_form.save(commit=False)
@@ -61,6 +62,8 @@ class CustomerMixin:
                 if status:
                     messages.success(request, _(
                         "Order created successfully, this is your order code:") + f"{order_code}", "success",)
+                    if pkg_id is not None:
+                        return redirect(self.success_redirect_url, pkg_id)
                     return redirect(self.success_redirect_url)
             elif user.balance < amount:
                 online_amount = amount - user.balance
@@ -137,7 +140,8 @@ class TemplateNewOrder(CustomerMixin, View):
                 order_form.cleaned_data["use_wallet"],
                 submit_order_method="packages",
                 quantity=quantity,
-                service=service
+                service=service,
+                pkg_id=pkg_id
             )
         else:
             logger.error(order_form.errors.as_data())
@@ -158,6 +162,7 @@ def finish_payment(request, payment_method=None, trans_type=None):
         order.status = "Queued"
         order.payment_method = payment_method
         order.save()
+        send_submit_order_sms_task.delay(user.phone_number, order.order_code)
         price, transaction_detail = 0, ""
         if payment_method == "wallet":
             price = order.wallet_paid_amount

@@ -92,6 +92,7 @@ def payment_verify(request):
                     payment_method="online",
                     trans_type="payment_for_order"
                 )
+                send_submit_order_sms_task.delay(user.phone_number, order.order_code)
                 return redirect("callback_gateway")
             else:
                 context = {"payment_purpose": "error"}
