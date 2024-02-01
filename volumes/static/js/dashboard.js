@@ -226,99 +226,6 @@ $(function () {
   });
 });
 
-// if (window.location.pathname === "/dashboard/new-order/") {
-//   window.onload = function () {
-//     let service_type_select = document.getElementById("id_service_type");
-//     let service_select = document.getElementById("id_service");
-//     let id_link = document.getElementById("id_link");
-//     let id_quantity = document.getElementById("id_quantity");
-//     if (service_type_select) {
-//       service_type_select.selectedIndex = 0;
-//     }
-//     if (service_select) {
-//       service_select.selectedIndex = 0;
-//     }
-//     if (id_link) {
-//       id_link.value = "";
-//     }
-//     if (id_quantity) {
-//       id_quantity.value = "";
-//     }
-//   };
-// }
-
-function openPaymentModal() {
-  const modal = document.getElementById("paymentModal");
-  const payment_modal = new bootstrap.Modal(modal);
-  payment_modal.show();
-}
-
-let credit_payment = document.getElementById("credit_payment");
-if (credit_payment) {
-  credit_payment.addEventListener("click", (e) => {
-    let price_per_unit_service = document.getElementById(
-      "price_per_unit_service"
-    );
-    let order_quantity = document.getElementById("id_quantity");
-    let user_balance = parseInt(
-      credit_payment.getAttribute("data-user-balance").replace(",", "")
-    );
-    let total_amount = parseInt(
-      order_quantity.value * price_per_unit_service.textContent
-    );
-    let remain_price = 0;
-    if (total_amount > user_balance) {
-      e.preventDefault();
-      openPaymentModal();
-      remain_price = total_amount - user_balance;
-      if (remain_price < 500) {
-        document.getElementById("modal_body").innerHTML = `
-			با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
-        remain_price = 500;
-      } else {
-        document.getElementById("modal_body").innerHTML = `
-			مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
-          user_balance
-        )} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
-      }
-    } else {
-    }
-    let modal_pay_button = document.getElementById("modal_pay_button");
-    modal_pay_button.addEventListener("click", (e) => {
-      let data = {
-        service_type: $("#id_service_type").val(),
-        service: $("#id_service").val(),
-        link: $("#id_link").val(),
-        order_quantity: $("#id_quantity").val(),
-        remain_price: remain_price,
-      };
-      $.ajax({
-        url: "/orders/pay-remain-price/",
-        dataType: "json",
-        method: "POST",
-        data: data,
-        headers: {
-          "X-CSRFToken": csrf_token,
-        },
-        success: function (response) {
-          if (response.redirect) {
-            window.location.href = response.redirect;
-          }
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
-    });
-  });
-}
-
-function openCompletePaymentModal() {
-  const modal = document.getElementById("completepaymentModal");
-  const payment_modal = new bootstrap.Modal(modal);
-  payment_modal.show();
-}
-
 let complete_order_payment = document.getElementById("complete-order-payment");
 if (complete_order_payment) {
   complete_order_payment.addEventListener("click", (e) => {
@@ -331,50 +238,26 @@ if (complete_order_payment) {
     let order_id = parseInt(
       complete_order_payment.getAttribute("data-order-id")
     );
-    let remain_price = 0;
-    if (total_amount > user_balance) {
-      e.preventDefault();
-      openCompletePaymentModal();
-      remain_price = total_amount - user_balance;
-      if (remain_price < 500) {
-        document.getElementById(
-          "modal_body"
-        ).innerHTML = `با توجه به اینکه حداقل مبلغ قابل پرداخت در درگاه بانکی ۵۰۰ تومان است، آیا میخواهید که مبلغ ۵۰۰ تومان را پرداخت کنید و مبلغ باقی مانده در پایان سفارش به اعتبار شما اضافه شود؟`;
-        remain_price = 500;
-      } else {
-        document.getElementById(
-          "modal_body"
-        ).innerHTML = `مبلغ قابل پرداخت برای این سفارش ${total_amount} تومان و اعتبار کیف پول شما ${parseInt(
-          user_balance
-        )} تومان هست. آیا میخواهید ${remain_price} تومان باقی مانده را آنلاین پرداخت کنید ؟ `;
-      }
-    } else {
-    }
-    let complete_order_button = document.getElementById(
-      "complete-order-button"
-    );
-    complete_order_button.addEventListener("click", (e) => {
-      let data = {
-        order_id: order_id,
-        remain_price: remain_price,
-      };
-      $.ajax({
-        url: "/orders/complete-order-payment/",
-        dataType: "json",
-        method: "POST",
-        data: data,
-        headers: {
-          "X-CSRFToken": csrf_token,
-        },
-        success: function (response) {
-          if (response.redirect) {
-            window.location.href = response.redirect;
-          }
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
+    let data = {
+      order_id: order_id,
+      amount: total_amount,
+    };
+    $.ajax({
+      url: "/orders/complete-order-payment/",
+      dataType: "json",
+      method: "POST",
+      data: data,
+      headers: {
+        "X-CSRFToken": csrf_token,
+      },
+      success: function (response) {
+        if (response.redirect) {
+          window.location.href = response.redirect;
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      },
     });
   });
 }

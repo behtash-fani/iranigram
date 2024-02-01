@@ -3,7 +3,6 @@ from . import views
 
 app_name = 'orders'
 urlpatterns = [
-    path('pay-remain-price/', views.pay_remain_price, name='pay_remain_price'),
     path('complete-order-payment/', views.complete_order, name='complete_order'),
     path('<str:pkg_id>/new-order/', views.TemplateNewOrder.as_view(), name='new_order'),
     path('get-insta-info/', views.get_insta_info, name='get_insta_info'),

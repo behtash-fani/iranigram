@@ -1,10 +1,10 @@
+from support.views import ticket_detail, admin_ticket_detail
+from orders.views import OrdersListView, PayView
+from transactions.views import TransactionsView
+from support.views import SubmitTicket
+from support.views import SupportView
 from django.urls import path
 from . import views
-from support.views import ticket_detail, admin_ticket_detail
-from support.views import SubmitTicket
-from transactions.views import TransactionsView
-from orders.views import OrdersListView, NewOrderView
-from support.views import SupportView
 
 
 app_name = 'accounts'
@@ -17,7 +17,7 @@ urlpatterns = [
     path('login-otp/', views.UserLoginWithOTPView.as_view(), name='user_login_otp'),
     path('verify-login/', views.UserLoginVerifyCodeView.as_view(),name='user_login_verify'),
     path('send-otpcode-again/', views.send_otpcode_again,name='send_otpcode_again'),
-    path('new-order/', NewOrderView.as_view(), name='new_order'),
+    path('new-order/', PayView.as_view(), name='new_order'),
     path('profile/', views.EditProfileFormView.as_view(), name='user_profile'),
     path('orders/', OrdersListView.as_view(), name='user_orders'),
     path('wallet/', views.WalletView.as_view(), name='user_wallet'),

@@ -3,11 +3,13 @@ from orders.models import Order
 from service.models import Service, ServiceType
 from django.utils.translation import gettext as _
 
+
 class OrderForm(forms.ModelForm):
+    use_wallet = forms.BooleanField(required=False,initial=False,label='use wallet')
     class Meta:
         model = Order
         ordering = ["priority"]
-        fields = ["service_type", "service", "link", "quantity"]
+        fields = ["service_type", "service", "link", "quantity", 'use_wallet']
         widgets = {
             "service_type": forms.Select(attrs={"class": "form-select"}),
             "service": forms.Select(attrs={"class": "form-select"}),
@@ -26,6 +28,7 @@ class OrderForm(forms.ModelForm):
                     "autocomplete": "off",
                 }
             ),
+            "use_wallet": forms.CheckboxInput(attrs={"class": "form-check-input", "dir":"ltr"})
         }
         error_messages = {
             "link": {
@@ -71,7 +74,8 @@ class OrderForm(forms.ModelForm):
     def clean_link(self):
         link = self.cleaned_data["link"]
         if link is None:
-            raise forms.ValidationError(_("Please enter a instagram public link/id"))
+            raise forms.ValidationError(
+                _("Please enter a instagram public link/id"))
         if "@" in str(link):
             link = link.replace("@", '')
         if ' ' in str(link):
@@ -83,30 +87,33 @@ class OrderForm(forms.ModelForm):
         if quantity is None:
             raise forms.ValidationError(_("Please enter quantity of order"))
         return quantity
-    
+
 
 class TemplateNewOrderForm(forms.ModelForm):
+    use_wallet = forms.BooleanField(required=False,initial=False,label='use wallet')
     class Meta:
         model = Order
-        fields = ["link"]
+        fields = ["link", "use_wallet"]
         widgets = {
-         "link": forms.TextInput(
+            "link": forms.TextInput(
                 attrs={
                     "class": "form-control text-left",
                     "dir": "ltr",
                     "autocomplete": "off",
-                    "placeholder":"Enter Instagram Public Link/ID ",
-                    "aria-describedby":"basic-addon4"
+                    "placeholder": "Enter Instagram Public Link/ID ",
+                    "aria-describedby": "basic-addon4"
                 }
-            ), 
+            ),
         }
         error_messages = {
             "link": {
                 "required": _("Please enter a valid Instagram link"),
             },
         }
+
     def clean_link(self):
         link = self.cleaned_data["link"]
         if link is None:
-            raise forms.ValidationError(_("Please enter a instagram public link/id"))
+            raise forms.ValidationError(
+                _("Please enter a instagram public link/id"))
         return link

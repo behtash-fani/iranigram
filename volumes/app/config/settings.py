@@ -17,7 +17,6 @@ AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 INSTALLED_APPS = [
-    "admin_persian",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -75,7 +74,6 @@ ADMIN_REORDER = (
     {"app": "django_celery_beat"},
     {"app": "authtoken"},
     {"app": "robots"},
-    {"app": "admin_persian"},
     {"app": "sites"},
 )
 

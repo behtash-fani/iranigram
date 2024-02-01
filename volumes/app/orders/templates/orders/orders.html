@@ -34,7 +34,8 @@
                 <td class="text-center align-middle">{{ order.amount|intcomma }} {% trans "Toman" %}</td>
                 <td class="text-center align-middle">
                     {% if order.service.link_type == 'instagram_profile' %}
-                    <a href="https://www.instagram.com/{{ order.link }}" target="_blank" class="btn btn-light rounded-4 mt-1 mt-lg-0">
+                    <a href="https://www.instagram.com/{{ order.link }}" target="_blank"
+                        class="btn btn-light rounded-4 mt-1 mt-lg-0">
                         <img src="{% static 'icons/link.svg' %}" alt="">
                     </a>
                     {% elif 'https://www.instagram.com/' in order.link or 'https://instagram.com/' in order.link %}
@@ -66,62 +67,40 @@
                 </td>
                 {% else %}
                 <td class="text-center align-middle">
-                    <button 
-                        class="btn btn-warning rounded-4 py-1"
-                        id="complete-order-payment"
-                        data-user-balance={{ request.user.balance }}
-                        data-total-amount={{ order.amount }}
-                        data-order-id={{ order.id }}>
+                    <button class="btn btn-warning rounded-4 py-1" id="complete-order-payment" 
+                    data-user-balance={{request.user.balance }} data-total-amount={{ order.amount }} data-order-id={{ order.id }}>
                         <img src="{% static 'icons/card-tick.svg' %}" alt="">
                         {% trans 'Pay' %}
                     </button>
                 </td>
-                <!-- Modal -->
-                <div class="modal fade" id="completepaymentModal" data-bs-backdrop="static" tabindex="-1"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true" name="paymentModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="modal_body"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-warning rounded-4 py-3" id="complete-order-button">
-                                    <span class="fs-6 fw-semibold">
-                                        <img src="{% static 'icons/card-tick.svg' %}" alt=""> {% trans 'Online Payment' %}
-                                    </span><br>
-                                    <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
-                                </button>
+                {% endif %}
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-warning rounded-4" data-bs-toggle="modal"
+                        data-bs-target="#{{ order.id }}">
+                        <img src="{% static 'icons/details.svg' %}" alt="">
+                    </button>
+                    <div class="modal" id="{{ order.id }}" tabindex="-1" aria-labelledby="orderDetailsLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded-4">
+                                <div class="modal-header border-0">
+                                    <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+                                        <img src="{% static 'icons/close-circle.svg' %}"
+                                            alt="بستن منوی اصلی ورود به صفحات">
+                                    </a>
+                                </div>
+                                <div class="modal-body pt-0">
+                                    <h1 class="modal-title fs-3" id="orderDetailsLabel">جزییات سفارش</h1>
+                                    <hr>
+                                    <div class="text-start">
+                                        <p>{% trans "Service" %}: {{ order.service }}</p>
+                                        <p>{% trans "Created At" %}: {{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End of Modal -->
-                {% endif %}
-                <td class="text-center align-middle">
-                    <button type="button" class="btn btn-warning rounded-4" data-bs-toggle="modal" data-bs-target="#{{ order.id }}">
-                        <img src="{% static 'icons/details.svg' %}" alt="">
-                    </button>
-                    <div class="modal" id="{{ order.id }}" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content rounded-4">
-                            <div class="modal-header border-0">
-                                <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
-                                    <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
-                                </a>
-                            </div>
-                            <div class="modal-body pt-0">
-                                <h1 class="modal-title fs-3" id="orderDetailsLabel">جزییات سفارش</h1>
-                                <hr>
-                                <div class="text-start">
-                                    <p>{% trans "Service" %}: {{ order.service }}</p>
-                                    <p>{% trans "Created At" %}: {{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}</p>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                 </td>
             </tr>
             {% endfor %}

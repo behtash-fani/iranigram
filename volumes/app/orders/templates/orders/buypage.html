@@ -98,29 +98,34 @@
                                 {% endif %}
                             </div>
                         </div> -->
-                        <div class="d-flex justify-content-around mt-3">
-                            {% if request.user.is_authenticated %}
-                            <button type="submit" class="btn btn-warning rounded-4 me-1 py-3 px-4"
-                                name="online_payment">
-                                <span class="fs-6 fw-semibold">
-                                    <img src="{% static 'icons/card-tick.svg' %}" alt="">
-                                    {% trans 'Online Payment' %}
-                                </span><br>
-                                <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
-                            </button>
-                            <button type="submit" class="btn btn-warning rounded-4 py-3 px-4 ms-1 credit-payment-button"
-                                id="credit_payment" name="credit_payment" data-user-balance={{ request.user.balance }}>
-                                <span class="fs-6 fw-semibold">
-                                    <img src="{% static 'icons/wallet-check.svg' %}" alt="">
-                                    {% trans 'Pay with Wallet' %}
-                                </span><br>
-                                <small class="text-muted">
-                                    {% trans "Credit" %}: {{ request.user.balance }} {% trans "Toman" %}
-                                </small>
-                            </button>
-                            {% else %}
+                        
+                        {% if request.user.is_authenticated %}
+                            <div class="card border-0 bg-light p-2 mt-2">
+                                <div class="form-check mt-3 my-2 float-start p-0 g">
+                                    {{ order_form.use_wallet }}
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        استفاده از موجودی کیف پول - <small class="text-muted">{% trans "Credit" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}</small>
+                                    </label>
+                                    <div id="passwordHelpBlock" class="form-text">
+                                        با انتخاب این گزینه، اگر موجودی کیف پول شما کافی باشد، مبلغ از کیف پول کسر شده و مابقی به درگاه بانکی ارسال می‌شود.
+                                    </div>
+                                    {{ order_form.use_wallet.errors }}
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-around mt-2">
+                                <button type="submit" class="btn btn-warning rounded-4 me-1 py-3 px-4"
+                                    name="online_payment">
+                                    <span class="fs-6 fw-semibold">
+                                        <img src="{% static 'icons/card-tick.svg' %}" alt="">
+                                        {% trans 'Online Payment' %}
+                                    </span><br>
+                                    <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
+                                </button>
+                            </div>
+                        {% else %}
                             <!-- Button trigger modal -->
-                            <button type="button" id="openMobileVerifyModal" class="btn btn-warning rounded-4 py-3"
+                            <div class="d-flex justify-content-around mt-2">
+                                <button type="button" id="openMobileVerifyModal" class="btn btn-warning rounded-4 py-3"
                                 name="openMobileVerifyModal" data-bs-toggle="modal" data-bs-target="#mobileVerify">
                                 <span class="fs-6 fw-semibold">
                                     <img src="{% static 'icons/card-tick.svg' %}" alt="">
@@ -128,7 +133,7 @@
                                 </span><br>
                                 <small class="text-muted">تایید شماره موبایل و پرداخت</small>
                             </button>
-
+                            </div>
                             <!-- Modal -->
                             <div class="modal" id="mobileVerify" tabindex="-1" aria-labelledby="mobileVerifyLabel"
                                 aria-hidden="true">
@@ -216,8 +221,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -265,40 +269,6 @@
                             آیدی پیج را تا پایان سفارش و تحویل کامل آن، تغییر ندهید.
                         </small>
                     </div>
-                    <!-- <div class="row text-bg-light p-3 rounded-4">
-                        <div class="col-md-6 col-12">
-                            <ul class="list-group">
-                                <li class="list-group-item bg-transparent border-0 py-2">
-                                    <img alt="ضمانت بازگشت وجه" height="24px"
-                                        src="{% static 'icons/card-receive.svg' %}" width="24px">
-                                    <span>ضمانت بازگشت وجه</span>
-                                </li>
-                                <li class="list-group-item bg-transparent border-0 py-2">
-                                    <img alt="بدون نیاز به فالوو کردن دیگران" height="24px"
-                                        src="{% static 'icons/people.svg' %}" width="24px">
-                                    بدون نیاز به فالوو کردن دیگران
-                                </li>
-                                <li class="list-group-item bg-transparent border-0 py-2">
-                                    <img alt="بدون نیاز به پسورد پیج" height="24px"
-                                        src="{% static 'icons/unlock.svg' %}" width="24px">
-                                    بدون نیاز به پسورد پیج
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <ul class="list-group">
-                                <li class="list-group-item bg-transparent border-0 py-2">
-                                    <img alt="شروع آنی پس از ثبت سفارش" height="24px"
-                                        src="{% static 'icons/timer-start.svg' %}" width="24px">
-                                    شروع آنی پس از ثبت سفارش
-                                </li>
-                                <li class="list-group-item bg-transparent border-0 py-2">
-                                    <img alt="دارای ریزش طبیعی" height="24px" src="{% static 'icons/trend-down.svg' %}"
-                                        width="24px">
-                                    دارای ریزش طبیعی
-                                </li>
-                            </ul>
-                        </div> -->
                 </div>
             </div>
         </div>

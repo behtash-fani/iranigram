@@ -4,7 +4,7 @@
 {% block title %}
 {% if payment_purpose == 'add_fund_wallet' %}
 {% trans 'Successful increase of wallet credit' %}
-{% elif payment_purpose == 'pay_order_online' or payment_purpose == 'pay_remain_price' %}
+{% elif payment_purpose == 'pay_order_online'%}
 {% trans 'Successful order payment' %}
 {% elif payment_purpose == 'error' %}
 {% trans 'Unsuccessful payment' %}
@@ -31,7 +31,7 @@
             <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="فلش سمت چپ سیاه برای دکمه مشاهده کیف پول">
         </a>
     </div>
-    {% elif payment_purpose == 'pay_order_online' or payment_purpose == 'pay_remain_price' %}
+    {% elif payment_purpose == 'pay_order_online' %}
     <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
     <div class="col-lg-3 col-12 mx-auto">
         <div class="alert alert-light" role="alert">

@@ -1,26 +1,22 @@
 from django.utils.translation import gettext_lazy as _
 from orders.tasks import send_submit_order_sms_task
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from transactions.models import Transactions
+from orders.views import finish_payment
 from django.contrib import messages
 from django.conf import settings
-from accounts.models import User
-from orders.models import Order
 import requests
 import json
-
+from orders.models import Order
 
 def payment_request(request):
     phone = request.session["phone_number"]
-    amount = request.session["amount"]
-    transaction_detail = str(request.session["transaction_detail"][0])
+    amount_payable = request.session["amount_payable"]
     CallbackURL = f"{settings.SITE_URL}/payment-verify/"
-    description = transaction_detail
+    description = str(_("Online payment of the order fee"))
     req_data = {
         "MerchantID": settings.MERCHANT,
-        "Amount": amount,
+        "Amount": amount_payable,
         "CallbackURL": CallbackURL,
         "Description": description,
         "Mobile": f"{phone}",
@@ -63,92 +59,45 @@ def payment_request(request):
 
 
 def payment_verify(request):
-    authority = request.GET["Authority"]
-    amount = request.session["amount"]
-    phone_number = request.session["phone_number"]
-    user = User.objects.get(phone_number=phone_number)
-    if "order_id" in request.session:
-        order_id = request.session["order_id"]
-    payment_purpose = request.session["payment_purpose"]
-    transaction_detail = str(request.session["transaction_detail"][0])
+    authority = request.GET.get("Authority")
+    online_paid_amount = request.session.get("amount_payable")
+    payment_purpose = request.session.get("payment_purpose")
+
+    if not authority or not online_paid_amount or not payment_purpose:
+        # Handle missing parameters as needed
+        context = {"payment_purpose": "error"}
+        return render(request, "accounts/callback_gateway.html", context)
+
     data = {
         "MerchantID": settings.MERCHANT,
-        "Amount": amount,
+        "Amount": online_paid_amount,
         "Authority": authority,
     }
     data = json.dumps(data)
-    headers = {"accept": "application/json", "content-type": "application/json'"}
+    headers = {"accept": "application/json", "content-type": "application/json"}
     req = requests.post(settings.ZP_API_VERIFY, data=data, headers=headers)
 
     if req.status_code == 200:  # successful payment
         if req.json()["Status"] == 100:
             request.session["status"] = True
             if payment_purpose == "pay_order_online":
-                if "order_id" in request.session:
+                user = request.user
+                if "use_wallet_status" in request.session and request.session["use_wallet_status"]:
                     order_id = request.session["order_id"]
-                    order = get_object_or_404(Order, id=order_id)
-                    order.wallet_paid_amount = 0
-                    order_code = order.order_code
-                    order.online_paid_amount = amount
-                    order.status = "Queued"
-                    order.paid = True
-                    order.save()
-                    send_submit_order_sms_task.delay(phone_number, order_code)
-                    Transactions.objects.create(
-                        user=user,
-                        type="payment_for_order",
-                        price=amount,
-                        balance=user.balance,
-                        payment_type="online",
-                        details=transaction_detail,
-                        order_code=order_code,
-                        payment_gateway=_("Zarinpal"),
-                        ip=request.META.get("REMOTE_ADDR"),
-                    )
-                else:
-                    context = {"payment_purpose": "error"}
-                    return render(request, "accounts/callback_gateway.html", context)
-                return redirect("callback_gateway")
-            elif payment_purpose == "add_fund_wallet":
-                user.balance += amount
-                user.save()
-                Transactions.objects.create(
-                    user=user,
-                    type="add_fund",
-                    price=amount,
-                    balance=user.balance,
-                    payment_type="online",
-                    details=_("Increase wallet credit"),
-                    payment_gateway=_("Zarinpal"),
-                    ip=request.META.get("REMOTE_ADDR"),
+                    order = Order.objects.get(id=order_id)
+                    user.balance = (online_paid_amount+user.balance) - order.amount
+                    user.save()
+                finish_payment(
+                    request,
+                    payment_method="online",
+                    trans_type="payment_for_order"
                 )
                 return redirect("callback_gateway")
-            elif payment_purpose == "pay_remain_price":
-                total_order_price = request.session["total_order_price"]
-                order = get_object_or_404(Order, id=order_id)
-                order.paid = True
-                total_amount = user.balance + amount
-                order.wallet_paid_amount = user.balance
-                user.balance = 0
-                remain_amount = total_amount - total_order_price
-                user.balance += remain_amount
-                order.online_paid_amount = amount - remain_amount
-                order.status = "Queued"
-                user.save()
-                order.save()
-                Transactions.objects.create(
-                    user=user,
-                    type="payment_for_order",
-                    price=amount,
-                    balance=user.balance,
-                    payment_type="online",
-                    details=transaction_detail,
-                    order_code=order.order_code,
-                    payment_gateway=_("Zarinpal"),
-                    ip=request.META.get("REMOTE_ADDR"),
-                )
-                return redirect("callback_gateway")
+            else:
+                context = {"payment_purpose": "error"}
+                return render(request, "accounts/callback_gateway.html", context)
         else:
             request.session["status"] = False
             return redirect("callback_gateway")
-    return req
+
+    return redirect("callback_gateway")

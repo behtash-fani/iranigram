@@ -33,6 +33,18 @@
                 <label for="id_quantity">{% trans 'Quantity' %}:</label>
                 {{ order_form.quantity.errors }}
             </div>
+            <div class="card border-0 bg-light p-2 mt-2">
+                <div class="form-check mt-3 my-2 float-start p-0 g">
+                    {{ order_form.use_wallet }}
+                    <label class="form-check-label" for="flexCheckDefault">
+                        استفاده از موجودی کیف پول - <small class="text-muted">{% trans "Credit" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}</small>
+                    </label>
+                    <div id="passwordHelpBlock" class="form-text">
+                        با انتخاب این گزینه، اگر موجودی کیف پول شما کافی باشد، مبلغ از کیف پول کسر شده و مابقی به درگاه بانکی ارسال می‌شود.
+                      </div>
+                    {{ order_form.use_wallet.errors }}
+                </div>
+            </div>
             <div class="input-group mt-2">
                 <div class="form-floating alert alert-warning" role="alert">
                     <span>{% trans "The number of requests" %}:&nbsp;<span id="total_number">--</span>&nbsp;{% trans "Number" %}</span>
@@ -41,50 +53,15 @@
                 </div>
             </div>
             <div class="d-flex justify-content-around">
-                <button type="submit" class="btn btn-warning rounded-4 me-1" name="online_payment">
+                <button type="submit" class="btn btn-warning btn-lg rounded-4 me-1" name="online_payment">
                     <span class="fs-6 fw-semibold">
                         <img src="{% static 'icons/card-tick.svg' %}" alt=""> {% trans 'Online Payment' %}</span><br>
                     <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
                 </button>
-                <button 
-                    type="submit" 
-                    class="btn btn-warning rounded-4 py-3 ms-1 credit-payment-button"
-                    id="credit_payment"
-                    name="credit_payment"
-                    data-user-balance={{ request.user.balance }}>
-                    <span class="fs-6 fw-semibold">
-                        <img src="{% static 'icons/wallet-check.svg' %}" alt=""> {% trans 'Pay with Wallet' %}
-                    </span><br>
-                    <small class="text-muted">{% trans "Credit" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}</small>
-                </button>
-
-                <!-- Modal -->
-                <div class="modal" id="paymentModal" data-bs-backdrop="static" tabindex="-1"
-                    aria-labelledby="paymentModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content rounded-4">
-                            <div class="modal-header border-0">
-                                <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
-                                    <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
-                                </a>
-                            </div>
-                            <div class="modal-body border-0" id="modal_body"></div>
-                            <div class="modal-footer border-0 justify-content-center">
-                                <button type="button" class="btn btn-warning rounded-4 py-3" id="modal_pay_button">
-                                    <span class="fs-6 fw-semibold">
-                                        <img src="{% static 'icons/card-tick.svg' %}" alt=""> {% trans 'Online Payment' %}
-                                    </span><br>
-                                    <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Modal -->
             </div>
         </form>
     </div>
-    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+    <div class="col-lg-6 col-12 mt-2 mt-lg-0">
         <p class="fw-bold"><img src="{% static 'icons/Info.svg' %}" alt=""> {% trans 'Product Specifications' %}</p>
         <div class="alert alert-light text-center d-block bg-transparent border-2" id="no-choice-product" role="alert">
             <small>{% trans "Please select a product" %}</small>
