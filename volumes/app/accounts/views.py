@@ -301,7 +301,7 @@ class WalletView(BlockCheckLoginRequiredMixin, View):
             transaction_detail = (_("Increase wallet credit"),)
             request.session["transaction_detail"] = transaction_detail
             request.session["phone_number"] = phone_number
-            request.session["amount"] = amount
+            request.session["amount_payable"] = amount
             request.session["payment_purpose"] = "add_fund_wallet"
             return redirect("payment_request")
         else:

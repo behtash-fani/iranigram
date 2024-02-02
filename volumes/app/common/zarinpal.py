@@ -8,6 +8,7 @@ from django.conf import settings
 import requests
 import json
 from orders.models import Order
+from transactions.models import Transactions as Trans
 
 def payment_request(request):
     phone = request.session["phone_number"]
@@ -80,8 +81,8 @@ def payment_verify(request):
     if req.status_code == 200:  # successful payment
         if req.json()["Status"] == 100:
             request.session["status"] = True
+            user = request.user
             if payment_purpose == "pay_order_online":
-                user = request.user
                 if "use_wallet_status" in request.session and request.session["use_wallet_status"]:
                     order_id = request.session["order_id"]
                     order = Order.objects.get(id=order_id)
@@ -94,6 +95,18 @@ def payment_verify(request):
                 )
                 send_submit_order_sms_task.delay(user.phone_number, order.order_code)
                 return redirect("callback_gateway")
+            elif payment_purpose == "add_fund_wallet":
+                user.balance += online_paid_amount
+                user.save()
+                Trans.objects.create(user=user,
+                                            type="add_fund",
+                                            price=online_paid_amount,
+                                            balance=user.balance,
+                                            payment_type="online",
+                                            details=_('Increase wallet credit'),
+                                            payment_gateway=_('Zarinpal'),
+                                            ip=request.META.get('REMOTE_ADDR'))
+                return redirect('callback_gateway')
             else:
                 context = {"payment_purpose": "error"}
                 return render(request, "accounts/callback_gateway.html", context)
