@@ -1,14 +1,13 @@
 from django.utils.translation import gettext_lazy as _
-from orders.tasks import send_submit_order_sms_task
+from transactions.models import Transactions as Trans
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from orders.views import finish_payment
 from django.contrib import messages
 from django.conf import settings
+from orders.models import Order
 import requests
 import json
-from orders.models import Order
-from transactions.models import Transactions as Trans
 
 def payment_request(request):
     phone = request.session["phone_number"]
@@ -93,7 +92,6 @@ def payment_verify(request):
                     payment_method="online",
                     trans_type="payment_for_order"
                 )
-                send_submit_order_sms_task.delay(user.phone_number, order.order_code)
                 return redirect("callback_gateway")
             elif payment_purpose == "add_fund_wallet":
                 user.balance += online_paid_amount

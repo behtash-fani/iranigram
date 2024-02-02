@@ -162,7 +162,6 @@ def finish_payment(request, payment_method=None, trans_type=None):
         order.status = "Queued"
         order.payment_method = payment_method
         order.save()
-        send_submit_order_sms_task.delay(user.phone_number, order.order_code)
         price, transaction_detail = 0, ""
         if payment_method == "wallet":
             price = order.wallet_paid_amount
@@ -173,6 +172,7 @@ def finish_payment(request, payment_method=None, trans_type=None):
             else:
                 price = order.online_paid_amount
             transaction_detail = _("Online payment of the order fee")
+        send_submit_order_sms_task.delay(user.phone_number, order.order_code)
         Trans.objects.create(
             user=user,
             type=trans_type,
