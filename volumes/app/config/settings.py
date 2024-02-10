@@ -196,12 +196,12 @@ CELERY_RESULT_EXPIRES = timedelta(hours=2)
 CELERY_TIMEZONE = TIME_ZONE
 
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://redis:6379',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': 'redis://redis:6379',
+#     }
+# }
 
 
 LOGOUT_REDIRECT_URL = "pages:home"

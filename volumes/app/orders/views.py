@@ -21,6 +21,8 @@ from django.urls import reverse
 from orders.models import Order
 from django.views import View
 import logging
+from django.contrib.auth.models import AnonymousUser
+
 
 otp_manager = OTPManager()
 logger = logging.getLogger(__name__)
@@ -29,7 +31,9 @@ logger = logging.getLogger(__name__)
 class CustomerMixin:
     def process_customer(self, request, order_form, use_wallet, submit_order_method, quantity=None, service=None, pkg_id=None):
         cd = order_form.cleaned_data
-        user = request.user._wrapped if hasattr(request.user, '_wrapped') else request.user
+        user = request.user
+        if isinstance(user, AnonymousUser):
+            return redirect("accounts:user_login_otp")
         order_item = order_form.save(commit=False)
         order_code = otp_manager.generate_random_number(8, is_unique=True)
         if service is not None:
