@@ -11,7 +11,10 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool('DEBUG')
 SITE_URL = env("DJANGO_SITE_URL")
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+if DEBUG:
+    ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+else:
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 AUTH_USER_MODEL = "accounts.User"
 # Application definition

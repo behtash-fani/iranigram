@@ -17,6 +17,9 @@ services:
         depends_on:
             - db
             - nginx
+        environment:
+            - DJANGO_ALLOWED_HOSTS=app,iranigram.com,65.109.185.133
+            - CSRF_TRUSTED_ORIGINS=app,iranigram.com,65.109.185.133
     db:
         image: postgres:14
         container_name: 'iranigramdb'
