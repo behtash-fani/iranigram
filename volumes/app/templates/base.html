@@ -12,6 +12,7 @@
     {% endblock meta %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <meta name="keywords" content="394-523-6645">
     <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'image/apple-touch-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'image/apple-touch-icon-60x60.png' %}">
@@ -23,6 +24,15 @@
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'image/apple-touch-icon-152x152.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'image/apple-touch-icon-180x180.png' %}">
     <link rel="icon" type="image/png" sizes="192x192" href="{% static 'image/x192-android.png' %}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VS3HC1T9MM"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VS3HC1T9MM');
+    </script>
 </head>
 <body>
     {% include 'inc/navbar.html' %}

@@ -32,8 +32,6 @@ class CustomerMixin:
     def process_customer(self, request, order_form, use_wallet, submit_order_method, quantity=None, service=None, pkg_id=None):
         cd = order_form.cleaned_data
         user = request.user
-        if isinstance(user, AnonymousUser):
-            return redirect("accounts:user_login_otp")
         order_item = order_form.save(commit=False)
         order_code = otp_manager.generate_random_number(8, is_unique=True)
         if service is not None:
