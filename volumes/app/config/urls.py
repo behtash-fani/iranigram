@@ -8,6 +8,7 @@ from posts.sitemap import PostSitemap
 from pages.sitemap import PagesSitemap
 from django.contrib.sitemaps import views
 from django.views.generic import RedirectView
+from django.views.generic.base import TemplateView
 
 
 sitemaps = {
@@ -42,7 +43,7 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
-    path("robots.txt",include('robots.urls')),
+    path("robots.txt/", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     
 ]
 
