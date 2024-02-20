@@ -1,5 +1,9 @@
 /* GLOBAL */
 
+body {
+    font-family: Vazirmatn !important;
+}
+
 th {
     text-align: right;
 }
