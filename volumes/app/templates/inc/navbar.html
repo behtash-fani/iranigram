@@ -137,33 +137,39 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end rounded-4">
                     <li>
-                        <a href="{% url 'accounts:new_order' %}" class="btn dropdown-item py-2">
-                            <img src="{% static 'icons/shop-add.svg' %}" width="24px" height="24px"
-                                alt="دکمه ورود به صفحه خرید">
-                            {% trans 'New Order' %}
-                        </a>
-                    <li>
-                        <hr class="dropdown-divider">
-                    <li>
-                        <a href="{% url 'accounts:user_dashboard' %}" class="btn dropdown-item py-2">
+                        <a href="{% url 'accounts:user_dashboard' %}" class="btn dropdown-item py-1">
                             <img src="{% static 'icons/Canvas-Menu.svg' %}" width="24px" height="24px"
                                 alt="ورود به صفحه داشبورد کاربر">
                             {% trans 'User Dashboard' %}
                         </a>
+                    </li>
+                    <hr class="dropdown-divider">
                     <li>
-                        <hr class="dropdown-divider">
+                        <a href="{% url 'accounts:new_order' %}" class="btn dropdown-item py-1">
+                            <img src="{% static 'icons/shop-add.svg' %}" width="24px" height="24px"
+                                alt="دکمه ورود به صفحه خرید">
+                            {% trans 'New Order' %}
+                        </a>
+                    </li>
+                    <hr class="dropdown-divider">
                     <li>
-                        <a href="{% url 'accounts:user_orders' %}" class="btn dropdown-item py-2">
+                        <a href="{% url 'accounts:user_orders' %}" class="btn dropdown-item py-1">
                             <img src="{% static 'icons/shopping-cart.svg' %}" width="24px" height="24px"
                                 alt="ورود به صفحه سفارشات">
                             {% trans 'Orders' %}
                         </a>
                     </li>
+                    <hr class="dropdown-divider">
                     <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                        <a href="{% url 'accounts:notifications' %}" class="btn dropdown-item py-1">
+                            <img src="{% static 'icons/notification.svg' %}" width="24px" height="24px"
+                                alt="دکمه ورود به پیام ها">
+                            {% trans 'Notification' %}
+                        </a>
                     <li>
-                        <a href="{% url 'accounts:user_logout' %}" class="btn dropdown-item text-danger py-2">
+                    <hr class="dropdown-divider">
+                    <li>
+                        <a href="{% url 'accounts:user_logout' %}" class="btn dropdown-item text-danger py-1">
                             <img src="{% static 'icons/logout.svg' %}" width="24px" height="24px"
                                 alt="خروج از حساب کاربری">
                             {% trans 'Logout' %}

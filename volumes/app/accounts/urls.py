@@ -3,6 +3,7 @@ from orders.views import OrdersListView, PayView
 from transactions.views import TransactionsView
 from support.views import SubmitTicket
 from support.views import SupportView
+from notification.views import NotificationListView
 from django.urls import path
 from . import views
 
@@ -20,6 +21,7 @@ urlpatterns = [
     path('new-order/', PayView.as_view(), name='new_order'),
     path('profile/', views.EditProfileFormView.as_view(), name='user_profile'),
     path('orders/', OrdersListView.as_view(), name='user_orders'),
+    path('notification/', NotificationListView.as_view(), name='notifications'),
     path('wallet/', views.WalletView.as_view(), name='user_wallet'),
     path('transactions/', TransactionsView.as_view(), name='user_transactions'),
     path('support/', SupportView.as_view(), name='user_support'),

@@ -79,32 +79,79 @@
         }
       ]
     }
-    </script>
+</script>
 <!-- End Schema -->
 {% endblock %}
 {% block content %}
 <div class="container">
   <div class="row mb-5 mt-4">
-    <div class="col-lg-4 col-12 text-center">
-      <img src="{% static 'image/top_banner.webp' %}" class="img-fluid mt-4" alt="افزایش بازدید استوری" width="416px"
-        height="409px" />
-    </div>
-    <div class="col-lg-8 col-12 mt-5">
+    <div class="col-lg-12 col-12 mt-5 text-center">
       <span class="fs-1 px-2 px-lg-0" style="font-size:50px !important;font-weight:900;"><span
-          class="text-warning">ایرانی گرام،</span> خدمات بی‌نهایت اینستاگرام</span>
-      <h1 class="lh-lg fs-4 mt-2 px-2 px-lg-0">
-        <h4 class="text-muted py-3 lh-lg">
-          خرید فالوور با کیفیت، ارزان و واقعی اینستاگرام شامل پروفایل های ایرانی و همچنین فالوور فیک با بهترین قیمت قابل
-          دریافت در آیفون و اندروید بدون نیاز به نصب نرم افزار.
-        </h4>
-        <h4 class="text-muted py-1 lh-lg">
-          کنار شما هستیم با برترین سرویس های سایت خرید فالوور اینستاگرام، خرید لایک، افزایش بازدید اینستاگرام و دیگر
+          class="text-warning text-center">ایرانی گرام،</span> خدمات بی‌نهایت اینستاگرام</span>
+      <h1 class="text-muted lh-lg fs-4 mt-2 px-2 px-lg-0">
+        کنار شما هستیم با برترین سرویس های سایت خرید فالوور اینستاگرام، خرید لایک، افزایش بازدید اینستاگرام و دیگر
           خدمات مارکتینگ در شبکه های اجتماعی. ایرانی گرام، معتبرترین برند بازاریابی شبکه اجتماعی و خرید فالوور
           اینستاگرام فارسی زبان.
-        </h4>
       </h1>
-      <div class="row mt-4">
+      <div id="product-scroll" class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card border-0 h-100">
+            <img src="{% static 'image/top_icon_follower.webp' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <a class="btn btn-warning shadow-sm rounded-4 py-4 text-decoration-none text-black"
+                href="#scrollFollower">
+                <img src="{% static 'icons/follower-btn.svg' %}" width="24px" height="24px"
+                  alt="صفحه ورود به خرید فالوور اینستاگرام">
+                <span>خرید فالوور اینستاگرام</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card border-0 h-100">
+            <img src="{% static 'image/top_icon_like.webp' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <a class="btn btn-warning shadow-sm rounded-4 py-4 text-decoration-none mx-2" href="#scrollLike">
+                <img src="{% static 'icons/like-dark.svg' %}" width="24px" height="24px"
+                  alt="صفحه ورود به خرید فالوور اینستاگرام">
+                <span>خرید لایک اینستاگرام</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card border-0 h-100">
+            <img src="{% static 'image/top_icon_view.webp' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <a class="btn btn-warning shadow-sm rounded-4 py-4 text-decoration-none text-black" href="#scrollView">
+                <img src="{% static 'icons/view-dark.svg' %}" width="24px" height="24px"
+                  alt="صفحه ورود به خرید فالوور اینستاگرام">
+                <span>خرید بازدید( ویو ) اینستاگرام</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+
+
+      <nav class="navbar bg-transparent">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+
+          </li>
+          <li class="nav-item">
+
+          </li>
+          <li class="nav-item">
+
+
+          </li>
+        </ul>
+      </nav>
+
+
     </div>
   </div>
   <div class="row my-5 rounded-4 bg-black text-white p-4 mx-1 mx-lg-0">
@@ -142,219 +189,224 @@
       <small class="mt-3">پشتیبانی ایرانی گرام همیشه در کنار شما خواهد بود و حامی شماست</small>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
-      <img src="{% static 'image/followers.webp' %}" class="img-fluid mt-1" alt="شروع خرید فالوور با کیفیت اینستاگرام"
-        width="300px" height="386px" /><br />
-    </div>
-    <div class="col-lg-6 col-12">
-      <div class="row">
-        <div class="col-2">
-          <img src="{% static 'image/flw_icon.webp' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px"
-            height="107px" />
-        </div>
-        <div class="col-10">
-          <span class="fw-bold fs-4"> خرید فالوور اینستاگرام با انواع کیفیت</span><br />
-          <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
-        </div>
+  <!-- start scroll spy -->
+  <div data-bs-spy="scroll" data-bs-target="#product-scroll" tabindex="0">
+    <div class="row">
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/followers.webp' %}" class="img-fluid mt-1" alt="شروع خرید فالوور با کیفیت اینستاگرام"
+          width="300px" height="386px" /><br />
       </div>
-      {% for tag, packages in flw_packages.items %}
-      {% if packages %}
-      <div class="card mt-2 border-0">
-        <div class="card-body">
-          <div class="row justify-content-center">
-            <h5 class="text-center">
-              <span>{{ packages.0.service }}</span>
-              <!-- Start Follower Desc Modal -->
-              <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal" data-bs-target="#{{ tag }}"
-                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
-                مشخصات
-              </button>
-              <div class="modal" id="{{ tag }}" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-4">
-                    <div class="modal-header border-0">
-                      مشخصات سرور {{ packages.0.service }}
-                      <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/flw_icon.webp' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px"
+              height="107px" />
+          </div>
+          <div class="col-10" id="scrollFollower">
+            <span class="fw-bold fs-4"> خرید فالوور اینستاگرام با انواع کیفیت</span><br />
+            <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
+        </div>
+        {% for tag, packages in flw_packages.items %}
+        {% if packages %}
+        <div class="card mt-2 border-0">
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <h5 class="text-center">
+                <span>{{ packages.0.service }}</span>
+                <!-- Start Follower Desc Modal -->
+                <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal"
+                  data-bs-target="#{{ tag }}"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
+                  مشخصات
+                </button>
+                <div class="modal" id="{{ tag }}" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                      <div class="modal-header border-0">
+                        مشخصات سرور {{ packages.0.service }}
+                        <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
                           <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
-                      </a>
-                  </div>
-                    <div class="modal-body" style="text-align: right !important;">
-                      {{ packages.0.service.description|linebreaks }}
+                        </a>
+                      </div>
+                      <div class="modal-body" style="text-align: right !important;">
+                        {{ packages.0.service.description|linebreaks }}
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- End Follower Desc Modal -->
+              </h5>
+              <div class="col-12 col-md-8 col-lg-6 text-center">
+                <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                  <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                  {% for package in packages %}
+                  <option value="{{ package.id }}">
+                    {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                  </option>
+                  {% endfor %}
+                </select>
               </div>
-              <!-- End Follower Desc Modal -->
-            </h5>
-            <div class="col-12 col-md-8 col-lg-6 text-center">
-              <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
-                <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
-                {% for package in packages %}
-                <option value="{{ package.id }}">
-                  {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
-                </option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
-              <a class="btn btn-warning rounded-4 py-2">
-                ثبت سفارش
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
-              </a>
+              <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                <a class="btn btn-warning rounded-4 py-2">
+                  ثبت سفارش
+                  <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        {% endif %}
+        <hr>
+        {% endfor %}
       </div>
-      {% endif %}
-      <hr>
-      {% endfor %}
     </div>
-  </div>
-  <div class="row my-5">
-    <div class="col-lg-6 col-12">
-      <div class="row">
-        <div class="col-2">
-          <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid" alt="ایرانی گرام ضامن کیفیت خرید شما"
-            width="118px" height="119px" />
+    <div class="row my-5" id="scrollLike">
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/like_icon.webp' %}" class="mb-3 img-fluid" alt="ایرانی گرام ضامن کیفیت خرید شما"
+              width="118px" height="119px" />
+          </div>
+          <div class="col-10 pt-2">
+            <span class="fw-bold fs-4">خرید لایک با کیفیت اینستاگرام</span><br />
+            <small class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
         </div>
-        <div class="col-10 pt-2">
-          <span class="fw-bold fs-4">خرید لایک با کیفیت اینستاگرام</span><br />
-          <small class="text-warning">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
-        </div>
-      </div>
-      {% for tag, packages in like_packages.items %}
-      {% if packages %}
-      <div class="card mt-2 border-0">
-        <div class="card-body">
-          <div class="row justify-content-center">
-            <h5 class="text-center">
-              {{ packages.0.service }}
-              <!-- Start Like Desc Modal -->
-              <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal" data-bs-target="#{{tag}}"
-                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
-                مشخصات
-              </button>
-              <div class="modal" id="{{tag}}" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-4">
-                    <div class="modal-header border-0">
-                      مشخصات سرور {{ packages.0.service }}
-                      <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+        {% for tag, packages in like_packages.items %}
+        {% if packages %}
+        <div class="card mt-2 border-0">
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <h5 class="text-center">
+                {{ packages.0.service }}
+                <!-- Start Like Desc Modal -->
+                <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal"
+                  data-bs-target="#{{tag}}"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
+                  مشخصات
+                </button>
+                <div class="modal" id="{{tag}}" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                      <div class="modal-header border-0">
+                        مشخصات سرور {{ packages.0.service }}
+                        <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
                           <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
-                      </a>
-                  </div>
-                    <div class="modal-body" style="text-align: right !important;">
-                      {{ packages.0.service.description|linebreaks }}
+                        </a>
+                      </div>
+                      <div class="modal-body" style="text-align: right !important;">
+                        {{ packages.0.service.description|linebreaks }}
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- End Like Desc Modal -->
+              </h5>
+              <div class="col-12 col-md-8 col-lg-6 text-center">
+                <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                  <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                  {% for package in packages %}
+                  <option value="{{ package.id }}">
+                    {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                  </option>
+                  {% endfor %}
+                </select>
               </div>
-              <!-- End Like Desc Modal -->
-            </h5>
-            <div class="col-12 col-md-8 col-lg-6 text-center">
-              <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
-                <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
-                {% for package in packages %}
-                <option value="{{ package.id }}">
-                  {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
-                </option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
-              <a class="btn btn-warning rounded-4 py-2">
-                ثبت سفارش
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
-              </a>
+              <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                <a class="btn btn-warning rounded-4 py-2">
+                  ثبت سفارش
+                  <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        {% endif %}
+        <hr>
+        {% endfor %}
       </div>
-      {% endif %}
-      <hr>
-      {% endfor %}
-    </div>
-    <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
-      <img src="{% static 'image/likes.webp' %}" class="img-fluid" alt="شروع خرید لایک واقعی اینستاگرام" width="300px"
-        height="440px" /><br />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
-      <img src="{% static 'image/view.png' %}" class="img-fluid mt-5" alt="شروع خرید فالوور با کیفیت اینستاگرام"
-        width="300px" height="386px" /><br />
-    </div>
-    <div class="col-lg-6 col-12">
-      <div class="row">
-        <div class="col-2">
-          <img src="{% static 'image/image-16 8.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px"
-            height="107px" />
-        </div>
-        <div class="col-10">
-          <span class="fw-bold fs-4">بسته های بازدید پست، IGTV، استوری، Reel اینستاگرام</span><br />
-          <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
-        </div>
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/likes.webp' %}" class="img-fluid" alt="شروع خرید لایک واقعی اینستاگرام" width="300px"
+          height="440px" /><br />
       </div>
-      {% for tag, packages in view_packages.items %}
-      {% if packages %}
-      <div class="card mt-2 border-0">
-        <div class="card-body">
-          <div class="row justify-content-center">
-            <h5 class="text-center">
-              {{ packages.0.service }}
-              <!-- Start View Desc Modal -->
-              <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal" data-bs-target="#{{tag}}"
-                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
-                مشخصات
-              </button>
-              <div class="modal" id="{{tag}}" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-4">
-                    <div class="modal-header border-0">
-                      مشخصات سرور {{ packages.0.service }}
-                      <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-12 text-center mt-lg-5 mt-0">
+        <img src="{% static 'image/view.png' %}" class="img-fluid mt-5" alt="شروع خرید فالوور با کیفیت اینستاگرام"
+          width="300px" height="386px" /><br />
+      </div>
+      <div class="col-lg-6 col-12">
+        <div class="row">
+          <div class="col-2">
+            <img src="{% static 'image/image-16 8.png' %}" class="mb-3 img-fluid mt-4 mt-lg-0" width="126px"
+              height="107px" />
+          </div>
+          <div class="col-10" id="scrollView">
+            <span class="fw-bold fs-4">بسته های بازدید پست، IGTV، استوری، Reel اینستاگرام</span><br />
+            <small class="text-warning fw-semibold">ایرانی گرام، ضامن کیفیت سرویس ها میباشد</small>
+          </div>
+        </div>
+        {% for tag, packages in view_packages.items %}
+        {% if packages %}
+        <div class="card mt-2 border-0">
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <h5 class="text-center">
+                {{ packages.0.service }}
+                <!-- Start View Desc Modal -->
+                <button type="button" class="btn bg-warning-subtle rounded-4" data-bs-toggle="modal"
+                  data-bs-target="#{{tag}}"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                  <img src="{% static 'icons/info.svg' %}" width="24px" height="24px" />
+                  مشخصات
+                </button>
+                <div class="modal" id="{{tag}}" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4">
+                      <div class="modal-header border-0">
+                        مشخصات سرور {{ packages.0.service }}
+                        <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
                           <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
-                      </a>
-                  </div>
-                    <div class="modal-body" style="text-align: right !important;">
-                      {{ packages.0.service.description|linebreaks }}
+                        </a>
+                      </div>
+                      <div class="modal-body" style="text-align: right !important;">
+                        {{ packages.0.service.description|linebreaks }}
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- End View Desc Modal -->
+              </h5>
+              <div class="col-12 col-md-8 col-lg-6 text-center">
+                <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
+                  <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
+                  {% for package in packages %}
+                  <option value="{{ package.id }}">
+                    {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
+                  </option>
+                  {% endfor %}
+                </select>
               </div>
-              <!-- End View Desc Modal -->
-            </h5>
-            <div class="col-12 col-md-8 col-lg-6 text-center">
-              <select class="pkg-select form-select rounded-4 py-2" aria-label="Default select">
-                <option value="" selected>بسته مورد نظر را انتخاب کنید</option>
-                {% for package in packages %}
-                <option value="{{ package.id }}">
-                  {{ package.quantity }} عدد -- {{ package.amount|intcomma }} تومان
-                </option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
-              <a class="btn btn-warning rounded-4 py-2">
-                ثبت سفارش
-                <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
-              </a>
+              <div class="col-12 col-lg-6 text-lg-end mt-lg-0 mt-2 text-center">
+                <a class="btn btn-warning rounded-4 py-2">
+                  ثبت سفارش
+                  <img src="{% static 'icons/Arrow-Left-Black.svg' %}" alt="خرید فالوور" width="24px" height="24px" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        {% endif %}
+        <hr>
+        {% endfor %}
       </div>
-      {% endif %}
-      <hr>
-      {% endfor %}
     </div>
   </div>
+  <!-- end of scroll spy -->
   <div class="row my-5">
     <div class="col-lg-6 col-12 text-center">
       <img src="{% static 'image/other_product.webp' %}" class="img-fluid" width="400px" height="293px"
@@ -428,5 +480,9 @@
       submit_order_btn.href = "/orders/" + pkg_id + "/new-order/"
     });
   });
+  const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+    target: '#product-scroll'
+  })
+
 </script>
 {% endblock %}

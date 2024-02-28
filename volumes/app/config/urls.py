@@ -9,7 +9,7 @@ from pages.sitemap import PagesSitemap
 from django.contrib.sitemaps import views
 from django.views.generic import RedirectView
 from django.views.generic.base import TemplateView
-
+from django.views.generic import RedirectView
 
 sitemaps = {
     'posts': PostSitemap,
@@ -45,6 +45,7 @@ urlpatterns = [
     ),
     path("robots.txt/", TemplateView.as_view(template_name="robots.txt",
          content_type="text/plain")),
+    # path('iranian-instagram-followers/', lambda request: redirect('/', permanent=True)),
 
 ]
 

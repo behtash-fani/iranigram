@@ -265,3 +265,14 @@ input[type="number"] {
 figure.image img {
   border-radius: var(--bs-border-radius-xl) !important;
 }
+
+
+#scrollUp {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  cursor: pointer; 
+  transition: opacity 0.5s ease;
+}

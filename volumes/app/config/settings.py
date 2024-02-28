@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "seo.apps.SeoConfig",
     "api.apps.ApiConfig",
     "setting.apps.SettingConfig",
+    "notification.apps.NotificationConfig",
 ]
 SITE_ID = 1
 
@@ -65,6 +66,7 @@ MIDDLEWARE = [
 
 ADMIN_REORDER = (
     {"app": "accounts"},
+    {"app": "notification"},
     {"app": "orders"},
     {"app": "support"},
     {"app": "comments"},

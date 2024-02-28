@@ -34,10 +34,14 @@
   gtag('config', 'G-X638RNZRH9');
 </script>
 <body>
+  <a onclick="goToTop()" id="scrollUp" title="Go to top" class="btn btn-warning py-2 rounded-4">
+    <img src="{% static 'icons/Arrow-Up-Black.svg' %}" alt="رفتن به بالا" width="24px" height="24px" />
+  </a>
     {% include 'inc/navbar.html' %}
     {% block content %}
     {% endblock %}
 </body>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/comments.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
 </html>
