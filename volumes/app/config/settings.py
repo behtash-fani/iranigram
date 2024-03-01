@@ -14,11 +14,11 @@ SITE_URL = env("DJANGO_SITE_URL")
 if DEBUG:
     ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 else:
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
+    ALLOWED_HOSTS = ["app","iranigram.com","www.iranigram.com","65.109.185.133"]
+    CSRF_TRUSTED_ORIGINS = ["https://app","https://iranigram.com","https://www.iranigram.com","https://65.109.185.133"]
 AUTH_USER_MODEL = "accounts.User"
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
