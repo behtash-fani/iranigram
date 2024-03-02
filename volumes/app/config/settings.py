@@ -4,20 +4,13 @@ from decouple import config
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-# for environment variables
-# env = Env()
-# env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config('DEBUG', default=False, cast=bool)
-SITE_URL = config('SITE_URL', cast=lambda v: [s.strip() for s in v.split(',')])
+SITE_URL = config('SITE_URL')
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
-# if DEBUG:
-#     ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
-# else:
-#     ALLOWED_HOSTS = ["app","iranigram.com","www.iranigram.com","65.109.185.133"]
-#     CSRF_TRUSTED_ORIGINS = ["https://app","https://iranigram.com","https://www.iranigram.com","https://65.109.185.133"]
 AUTH_USER_MODEL = "accounts.User"
 
 # Application definition
