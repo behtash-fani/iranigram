@@ -1,15 +1,12 @@
 import requests
-from environs import Env
+from decouple import config
 import json
 
-# for environment variables
-env = Env()
-env.read_env()
 
 class Parsifollower: # Parsifollower order manager
     def __init__(self):
-        self.endpoint = env("PARSIFOLLOWER_ENDPOINT")
-        self.api_key = env("PARSIFOLLOWER_API_KEY")
+        self.endpoint = config("PARSIFOLLOWER_ENDPOINT")
+        self.api_key = config("PARSIFOLLOWER_API_KEY")
 
     def submit_order(self, service, link, quantity):
         params = {

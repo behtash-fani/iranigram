@@ -1,21 +1,23 @@
 from datetime import timedelta
-from environs import Env
 from pathlib import Path
+from decouple import config
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 # for environment variables
-env = Env()
-env.read_env(os.path.join(BASE_DIR, '.env'))
+# env = Env()
+# env.read_env(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = env("SECRET_KEY")
-DEBUG = env.bool('DEBUG')
-SITE_URL = env("DJANGO_SITE_URL")
-if DEBUG:
-    ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
-else:
-    ALLOWED_HOSTS = ["app","iranigram.com","www.iranigram.com","65.109.185.133"]
-    CSRF_TRUSTED_ORIGINS = ["https://app","https://iranigram.com","https://www.iranigram.com","https://65.109.185.133"]
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config('DEBUG', default=False, cast=bool)
+SITE_URL = config('SITE_URL', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=lambda v: [s.strip() for s in v.split(',')])
+# if DEBUG:
+#     ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+# else:
+#     ALLOWED_HOSTS = ["app","iranigram.com","www.iranigram.com","65.109.185.133"]
+#     CSRF_TRUSTED_ORIGINS = ["https://app","https://iranigram.com","https://www.iranigram.com","https://65.109.185.133"]
 AUTH_USER_MODEL = "accounts.User"
 
 # Application definition
@@ -104,9 +106,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
         'HOST': 'db',
         'PORT': '5432',
     }
@@ -176,8 +178,8 @@ THOUSAND_SEPARATOR = ','
 NUMBER_GROUPING = 3
 
 # Zarinpal configuration
-SANDBOX = env.bool("ZARINPAL_SANDBOX")
-MERCHANT = env("ZARINPAL_MERCHANT_ID")
+SANDBOX = config("ZARINPAL_SANDBOX", default=False, cast=bool)
+MERCHANT = config("ZARINPAL_MERCHANT_ID")
 
 if SANDBOX:
     sandbox = "sandbox"

@@ -1,17 +1,12 @@
 from django.core.cache import cache
 import requests
-from environs import Env
+from decouple import config
 import json
-
-# for environment variables
-env = Env()
-env.read_env()
-
 
 def store_token_sms():
     url = "http://RestfulSms.com/api/Token"
     payload = json.dumps(
-        {"UserApiKey": env("SMS_PANEL_API_KEY"), "SecretKey": env("SMS_PANEL_SECRET_KEY")}
+        {"UserApiKey": config("SMS_PANEL_API_KEY"), "SecretKey": config("SMS_PANEL_SECRET_KEY")}
     )
     headers = {"Content-Type": "application/json"}
     response = requests.request("POST", url, headers=headers, data=payload)

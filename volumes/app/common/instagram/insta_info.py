@@ -1,13 +1,10 @@
 from instagpy import InstaGPy, config
 from django.conf import settings
-from environs import Env
+from decouple import config
 from ensta import Guest
 import requests
 import json
 import os
-
-env = Env()
-env.read_env()
 
 
 class InstagramAccInfo:
@@ -17,8 +14,8 @@ class InstagramAccInfo:
     def get_username_from_link(self, link):
         insta = InstaGPy()
         config.SESSION_DIRECTORY = "Insta Saved Sessions"
-        username = env("INSTAGRAM_USER1")
-        password = env("INSTAGRAM_PASS1")
+        username = config("INSTAGRAM_USER1")
+        password = config("INSTAGRAM_PASS1")
         insta.login(username, password)
         insta.logged_in()
         post_url = str(link)

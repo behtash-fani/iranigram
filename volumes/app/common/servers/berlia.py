@@ -1,15 +1,12 @@
 import requests
-from environs import Env
+from decouple import config
 import json
 
-# for environment variables
-env = Env()
-env.read_env()
 
 class Berlia: # Parsifollower order manager
     def __init__(self):
-        self.endpoint = env("BERLIA_ENDPOINT")
-        self.api_key = env("BERLIA_API_KEY")
+        self.endpoint = config("BERLIA_ENDPOINT")
+        self.api_key = config("BERLIA_API_KEY")
 
     def submit_order(self, service, link, quantity):
         params = {
