@@ -81,7 +81,7 @@ class OTPManager:
     def verify_otpcode(phone_number, code):
         try:
             verification_code = OTPCode.objects.get(phone_number=phone_number)
-            if code and verification_code.code and int(code) == int(verification_code.code):
+            if int(code) == int(verification_code.code):
                 verification_code.delete()
                 return True
             else:
