@@ -81,13 +81,14 @@ class OTPManager:
     def verify_otpcode(phone_number, code):
         try:
             verification_code = OTPCode.objects.get(phone_number=phone_number)
-            if int(code) == int(verification_code.code):
+            if code and verification_code.code and int(code) == int(verification_code.code):
                 verification_code.delete()
                 return True
             else:
                 return False
         except ObjectDoesNotExist:
             return False
+
 
     @staticmethod
     def check_expire_time(phone_number):
