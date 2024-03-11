@@ -45,7 +45,7 @@ class UserAdmin(ImportExportModelAdmin, ModelAdminJalaliMixin, BaseUserAdmin):
         ),
         (
             'Permissions', {'fields': (
-                'is_block', 'is_admin', 'is_active', 'is_superuser', 'last_login', 'user_permissions')}
+                'is_block', 'is_admin', 'is_active', 'is_superuser', 'last_login',)}
         ),
     )
 

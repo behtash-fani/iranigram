@@ -3,7 +3,7 @@ from decouple import config
 import json
 
 
-class Berlia: # Parsifollower order manager
+class Berlia: # Berlia order manager
     def __init__(self):
         self.endpoint = config("BERLIA_ENDPOINT")
         self.api_key = config("BERLIA_API_KEY")
@@ -37,8 +37,11 @@ class Berlia: # Parsifollower order manager
             "key": self.api_key,
             "action": "services",
         }
-        r = requests.post(self.endpoint, params=params)
-        for item in json.loads(r.content):
-            if item['service'] == str(service_code):
-                response = item
-        return response
+        try:
+            r = requests.get(self.endpoint, params=params)
+            r.raise_for_status()
+            data = r.json()
+            service_data = next((item for item in data if item.get('service') == str(service_code)), None)
+            return service_data
+        except requests.RequestException as e:
+            return None
