@@ -16,10 +16,12 @@
     <img src="{% static 'image/callback_success.svg' %}" class="img-fluid" width="516px" height="420px"
         alt="پرداخت موفق خرید فالوور و لایک اینستاگرام">
     <div class="col-lg-3 col-12 mx-auto">
-        <div class="alert alert-light" role="alert">
-            <div class="row">
-                <div class="col-8 fw-bold fs-6 text-start">{% trans 'Your current wallet credit' %}</div>
-                <div class="col-4 fw-bold text-warning fs-6 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
+        <div class="card rounded-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8 text-start fw-bold fs-5">{% trans 'Your current wallet credit' %}</div>
+                    <div class="col-4 fw-bold fs-5 text-end">{{ user_balance }} {% trans 'Toman' %}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -34,14 +36,12 @@
     {% elif payment_purpose == 'pay_order_online' %}
     <img src="{% static 'image/callback_success.png' %}" class="img-fluid" alt="...">
     <div class="col-lg-3 col-12 mx-auto">
-        <div class="alert alert-light" role="alert">
-            <div class="row">
-                <div class="col-8 fs-6 text-start">
-                    <a class="copy-text btn btn-light rounded-4 text-decoration-none" value="{{ order_code }}">
-                        <img src="{% static 'icons/Copy.svg' %}" alt=""> {% trans "Order Code" %}
-                    </a>
+        <div class="card rounded-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8 text-start fw-bold fs-5">{% trans "Order Code" %}</div>
+                    <div class="col-4 fw-bold fs-5 text-end">{{ order_code }}</div>
                 </div>
-                <div class="col-4 fw-bold text-warning fs-6 text-end pt-2">{{ order_code }}</div>
             </div>
         </div>
     </div>
@@ -59,8 +59,8 @@
         alt="پرداخت ناموفق تراکنش خرید فالوور و لایک اینستاگرام">
     <div class="text-center col-md-6 col-lg-4 d-block mx-auto">
         <p class="fs-3 mt-5 fw-bold fw-bolder">پرداخت شما با شکست مواجه شد</p>
-        <p class="fs-6 mt-3 text-black-50">پرداخت شما با شکست مواجه شد و خرید شما در سامانه ایرانی گرام ثبت
-            نگردید
+        <p class="fs-5 mt-3 text-muted">پرداخت شما با شکست مواجه شد و خرید شما در سامانه ایرانی گرام ثبت
+            نشد
             اگر مبلغی
             از حساب شما کسر شده است طی 72 ساعت به حساب شما بازگشت خواهد شد و اگر پرداخت برای ایرانی گرام انجام
             شده باشد مبلغ به حساب کیف پول شما واریز میشود</p>

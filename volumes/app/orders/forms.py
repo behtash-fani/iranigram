@@ -5,11 +5,16 @@ from django.utils.translation import gettext as _
 
 
 class OrderForm(forms.ModelForm):
-    use_wallet = forms.BooleanField(required=False,initial=False,label='use wallet')
+    use_wallet = forms.BooleanField(
+        required=False, initial=False, label='use wallet', widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": "Use Wallet"}))
+    discount = forms.CharField(required=False, label='discount', widget=forms.TextInput(
+        attrs={"class": "form-control text-left", "dir": "ltr", "autocomplete": "off", "placeholder":"Discount", "style": "font-family:VazirCodeHack"}))
+
     class Meta:
         model = Order
         ordering = ["priority"]
-        fields = ["service_type", "service", "link", "quantity", 'use_wallet']
+        fields = ["service_type", "service", "link",
+                  "quantity", "discount", "use_wallet"]
         widgets = {
             "service_type": forms.Select(attrs={"class": "form-select"}),
             "service": forms.Select(attrs={"class": "form-select"}),
@@ -18,6 +23,8 @@ class OrderForm(forms.ModelForm):
                     "class": "form-control text-left",
                     "dir": "ltr",
                     "autocomplete": "off",
+                    "placeholder":"link",
+                    "style": "font-family:VazirCodeHack"
                 }
             ),
             "quantity": forms.TextInput(
@@ -26,9 +33,9 @@ class OrderForm(forms.ModelForm):
                     "dir": "ltr",
                     "type": "number",
                     "autocomplete": "off",
+                    "placeholder":"quantity"
                 }
-            ),
-            "use_wallet": forms.CheckboxInput(attrs={"class": "form-check-input", "dir":"ltr"})
+            )
         }
         error_messages = {
             "link": {
@@ -90,10 +97,16 @@ class OrderForm(forms.ModelForm):
 
 
 class TemplateNewOrderForm(forms.ModelForm):
-    use_wallet = forms.BooleanField(required=False,initial=False,label='use wallet')
+    acceptـtheـrules = forms.BooleanField(
+        error_messages={'required': _("Please read and check the rules before placing an order")},required=True, initial=False, label='accept the rules', widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-2",}))
+    use_wallet = forms.BooleanField(
+        required=False, initial=False, label='use wallet', widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": "Use Wallet"}))
+    discount = forms.CharField(required=False, label='discount', widget=forms.TextInput(
+        attrs={"class": "form-control text-left", "dir": "ltr", "autocomplete": "off", "placeholder":"Discount", "style": "font-family:VazirCodeHack"}))
+
     class Meta:
         model = Order
-        fields = ["link", "use_wallet"]
+        fields = ["link", "discount", "use_wallet", 'acceptـtheـrules']
         widgets = {
             "link": forms.TextInput(
                 attrs={
@@ -101,7 +114,8 @@ class TemplateNewOrderForm(forms.ModelForm):
                     "dir": "ltr",
                     "autocomplete": "off",
                     "placeholder": "Enter Instagram Public Link/ID ",
-                    "aria-describedby": "basic-addon4"
+                    "aria-describedby": "basic-addon4",
+                    "style": "font-family:VazirCodeHack"
                 }
             ),
         }

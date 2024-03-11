@@ -6,6 +6,7 @@ const dashboardElements = {
   "/dashboard/wallet/": document.getElementsByClassName("wallet_dashboard"),
   "/dashboard/orders/": document.getElementsByClassName("orders_list_dashboard"),
   "/dashboard/transactions/": document.getElementsByClassName("transactions_dashboard"),
+  "/dashboard/notification/": document.getElementsByClassName("notifications_dashboard"),
   "/dashboard/api-docs/": document.getElementsByClassName("api_docs"),
   "/dashboard/services/": document.getElementsByClassName("services"),
   "/dashboard/support/": document.getElementsByClassName("support_dashboard"),
@@ -67,28 +68,104 @@ $("#id_service_type").change(function () {
   const serviceTypeId = $(this).val();
   const url = $("#new_order_form").attr("data-services-url");
 
-  if(serviceTypeId){
-  $.ajax({
-    url: url,
-    data: {
-      serviceTypeId: serviceTypeId,
-    },
-    headers: {
-      "X-CSRFToken": csrf_token,
-    },
-    success: function (data) {
-      service_selection.innerHTML =
-        "<option value='' selected>---------</option>";
-      data.services.map((item) => {
-        const option = document.createElement("option");
-        option.textContent = item.title;
-        option.setAttribute("value", item.id);
-        service_selection.appendChild(option);
-      });
-    },
-  });
-}
+  if (serviceTypeId) {
+    $.ajax({
+      url: url,
+      data: {
+        serviceTypeId: serviceTypeId,
+      },
+      headers: {
+        "X-CSRFToken": csrf_token,
+      },
+      success: function (data) {
+        service_selection.innerHTML =
+          "<option value='' selected>---------</option>";
+        data.services.map((item) => {
+          const option = document.createElement("option");
+          option.textContent = item.title;
+          option.setAttribute("value", item.id);
+          service_selection.appendChild(option);
+        });
+      },
+    });
+  }
 });
+
+
+
+// check and submit discount code in new order dashboard
+let discount_btn = document.getElementById("dashbord_check_discount")
+discount_btn.addEventListener("click", (event) => {
+  event.preventDefault()
+  let discount_code = document.getElementById("id_discount").value
+  let service_selection = document.getElementById("id_service");
+  let quantity = document.getElementById("id_quantity");
+  let discount_info_box = document.getElementById("discount-info-text");
+  url = "/orders/check-discount-code/"
+  if (discount_code.trim() === "") {
+    discount_info_box.classList.add("errorlist")
+    discount_info_box.innerHTML = `<li>لطفا کد تخفیف را وارد کنید</li>`
+  }
+  else if (service_selection.value == '') {
+    discount_info_box.classList.add("errorlist")
+    discount_info_box.innerHTML = `<li>لطفا ابتدا سرویس  مورد نظر را انتخاب کنید<li>`
+  }
+  else {
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: {
+        discount_code: discount_code,
+        service_id: service_selection.value,
+        order_quantity: quantity.value
+      },
+      headers: {
+        "X-CSRFToken": csrf_token,
+      },
+      success: function (data) {
+        if (data.code_available) {
+          if (data.service_match) {
+            discount_btn.classList = 'btn btn-success mt-2'
+            discount_btn.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.75 11.9999L10.58 14.8299L16.25 9.16992" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            کد صحیح
+            `
+            if (quantity.value.trim() === "") {
+              discount_info_box.classList.add('infolist')
+              discount_info_box.innerHTML = "تعداد مورد نظر را وارد کنید"
+            }
+            else {
+              document.getElementById("withoutDiscount").classList = "d-none"
+              document.getElementById("withDiscount").classList = "d-block"
+              document.getElementById('product_amount').innerHTML = data.product_amount
+              document.getElementById('payable_amount').innerHTML = data.payable_amount
+              document.getElementById('user_benefit').innerHTML = data.user_benefit
+              document.getElementById('id_service_type').setAttribute('readonly', '');
+              document.getElementById('id_service').setAttribute('readonly', '');
+              document.getElementById('id_link').setAttribute('readonly', '');
+              quantity.setAttribute('readonly', '');
+              discount_info_box.classList.add("d-none");
+              document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
+            }
+          }
+          else {
+            discount_info_box.classList.add("errorlist")
+            let service_name = $("#id_service option:selected").text()
+            discount_info_box.innerHTML = `کد تخفیف <span>${discount_code}</span> مربوط به سرویس <span>${service_name}</span> نیست`
+          }
+        }
+        else {
+          discount_info_box.classList.add("errorlist")
+          discount_info_box.innerHTML = `کد وارد شده صحیح نیست`
+        }
+      }
+    })
+  }
+})
+
 
 // function for show description of choice service
 let service_info = "";
@@ -104,7 +181,7 @@ function updateServiceDetails(serviceId) {
   let no_choice_product = document.getElementById("no-choice-product");
   let product_spec_box = document.getElementById("product-spec-box");
 
-  if (serviceId){
+  if (serviceId) {
     $.ajax({
       url: url,
       data: {
@@ -142,32 +219,51 @@ function updateServiceDetails(serviceId) {
         title_service.innerHTML = data.service_detail.title;
         min_service.innerHTML = data.service_detail.min_order;
         max_service.innerHTML = data.service_detail.max_order;
+        document.getElementById("minimum_quantity").innerHTML = data.service_detail.min_order
+        document.getElementById("maximum_quantity").innerHTML = data.service_detail.max_order
         price_per_unit_service.innerHTML = data.service_detail.amount;
       },
     });
   }
-  
+
+}
+
+function reset_fields() {
+  $('#id_link').val("");
+  $('#id_link').removeAttr("readonly");
+  $('#id_quantity').val("");
+  $('#id_quantity').removeAttr("readonly");
+  $('#id_discount').val("");
+  $("#dashbord_check_password").attr('class', 'btn btn-warning mt-2');
+  $("#dashbord_check_password").html("بررسی کد تخفیف");
+  $("#withoutDiscount").attr('class', 'd-block');
+  $("#withDiscount").attr('class', 'd-none');
+  $('#total_number').val("--");
+  $('#total_price').val("--");
+  $('#maximum_quantity').html("--");
+  $('#minimum_quantity').html("--");
 }
 
 $(document).ready(function () {
-  if( $('#id_service').val() && $("#id_service_type").val() ) {
+  if ($('#id_service').val() && $("#id_service_type").val()) {
     const initialServiceId = $("#id_service").val();
     updateServiceDetails(initialServiceId);
   }
   $("#id_service").change(function () {
-    if ( $(this).val() && $("#id_service_type").val()) {
+    reset_fields()
+    if ($(this).val() && $("#id_service_type").val()) {
       const selectedServiceId = $(this).val();
       updateServiceDetails(selectedServiceId);
     }
   });
   $("#id_service_type").change(function () {
-    $("#id_service").val("");
-      let no_choice_product = document.getElementById("no-choice-product");
-      let product_spec_box = document.getElementById("product-spec-box");
-      product_spec_box.classList.add("d-none");
-      no_choice_product.classList.remove("d-none");
+    reset_fields()
+    let no_choice_product = document.getElementById("no-choice-product");
+    let product_spec_box = document.getElementById("product-spec-box");
+    product_spec_box.classList.add("d-none");
+    no_choice_product.classList.remove("d-none");
 
-    if ( !$(this).val()) {
+    if (!$(this).val()) {
       $("#id_service").val("");
     }
   });
@@ -188,23 +284,19 @@ if (id_quantity) {
         if (parseInt(event.target.value) > max) {
           event.target.value = max;
           total_price.innerHTML = "";
-          total_price.textContent = Num2persian(parseInt(product_amount * max));
+          total_price.textContent = parseInt(product_amount * max);
           total_number.innerHTML = "";
-          total_number.textContent = Num2persian(max.toString());
+          total_number.textContent = max.toString();
         } else {
-          total_price.textContent = Num2persian(
-            parseInt(product_amount * quantity)
-          );
-          total_number.textContent = Num2persian(quantity.toString());
+          total_price.textContent = parseInt(product_amount * quantity)
+          total_number.textContent = quantity.toString();
         }
         if (parseInt(event.target.value) < min) {
-          total_price.textContent = Num2persian(parseInt(product_amount * min));
-          total_number.textContent = Num2persian(min.toString());
+          total_price.textContent = parseInt(product_amount * min);
+          total_number.textContent = min.toString();
         } else {
-          total_price.textContent = Num2persian(
-            parseInt(product_amount * quantity)
-          );
-          total_number.textContent = Num2persian(quantity.toString());
+          total_price.textContent = parseInt(product_amount * quantity)
+          total_number.textContent = quantity.toString();
         }
       } else if (event.target.value === "") {
         total_price.textContent = "--";
@@ -236,7 +328,7 @@ if (complete_order_payment) {
       complete_order_payment.getAttribute("data-total-amount")
     );
     let order_id = parseInt(
-      complete_order_payment.getAttribute("data-order-id")
+      complete_order_payment.getAttribute("data-order-id")--
     );
     let data = {
       order_id: order_id,
@@ -261,3 +353,11 @@ if (complete_order_payment) {
     });
   });
 }
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var quantity_field = document.getElementById('id_quantity');
+//   quantity_field.addEventListener('focus', function() {
+//     document.getElementById("id_discount").value = ""
+//   });
+// });

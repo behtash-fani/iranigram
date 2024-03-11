@@ -1,11 +1,9 @@
 from django.contrib import admin
-from .models import Order, QueuedOrder
+from .models import Order, QueuedOrder, Discount
 from django.urls import reverse
 from django.utils.html import format_html
 from jalali_date import datetime2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
-from django.db.models import Q
-from django.contrib import messages
 from transactions.models import Transactions
 from django.utils.translation import gettext_lazy as _
 from accounts.models import User
@@ -15,9 +13,11 @@ from accounts.models import User
 def make_complete_order(modeladmin, request, queryset):
     queryset.update(status="Completed")
 
+
 @admin.action(description="الان ثبت شود")
 def enable_submit_now(modeladmin, request, queryset):
     queryset.update(submit_now=True)
+
 
 @admin.action(description="لغو سفارش")
 def cancel_order(modeladmin, request, queryset):
@@ -27,15 +27,15 @@ def cancel_order(modeladmin, request, queryset):
         user.balance = user.balance + order.amount
         user.save()
         Transactions.objects.create(
-                user=order.user,
-                type="return_canceled_order_fee",
-                price=order.amount,
-                balance=user.balance,
-                details=_("Canceled"),
-                order_code=order.order_code,
-                payment_gateway=_('Zarinpal'),
-                ip=request.META.get('REMOTE_ADDR'),
-            )
+            user=order.user,
+            type="return_canceled_order_fee",
+            price=order.amount,
+            balance=user.balance,
+            details=_("Canceled"),
+            order_code=order.order_code,
+            payment_gateway=_('Zarinpal'),
+            ip=request.META.get('REMOTE_ADDR'),
+        )
 
 
 @admin.register(Order)
@@ -54,7 +54,8 @@ class OrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         "get_created_jalali",
     ]
     list_display_links = ("id", "order_code", "user_link")
-    search_fields = ("id", "user__phone_number__icontains", "order_code", "link__icontains", "server_order_code","service__title__icontains")
+    search_fields = ("id", "user__phone_number__icontains", "order_code",
+                     "link__icontains", "server_order_code", "service__title__icontains")
     autocomplete_fields = ["user"]
     actions = [make_complete_order, enable_submit_now, cancel_order]
 
@@ -135,3 +136,17 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     @admin.display(description="تاریخ ایجاد", ordering="created_at")
     def get_created_jalali(self, obj):
         return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
+
+
+@admin.register(Discount)
+class DiscountAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
+    list_display = ["name", "code", "service",
+                    "value", "is_active", "get_start_date_jalali", "get_end_date_jalali"]
+
+    @admin.display(description="زمان شروع", ordering="start_date")
+    def get_start_date_jalali(self, obj):
+        return datetime2jalali(obj.start_date).strftime("%Y/%m/%d")
+
+    @admin.display(description="زمان پایان", ordering="end_date")
+    def get_end_date_jalali(self, obj):
+        return datetime2jalali(obj.end_date).strftime("%Y/%m/%d")

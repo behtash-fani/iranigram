@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 import os
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
+
 
 def category_icon_path(instance, filename):
     # This function generates the file path where category icons will be stored
@@ -22,6 +27,7 @@ class Notification(models.Model):
     category = models.ForeignKey(NotificationCategory, on_delete=models.CASCADE, related_name='notifications', verbose_name=_('Category'))
     title = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Title'))
     detail = models.TextField(blank=True, null=True, verbose_name=_('Detail'))
+    readers = models.ManyToManyField(User, blank=True, related_name='read_notifications')
     is_active = models.BooleanField(default=True, verbose_name=_('Is Active'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Updated At'))

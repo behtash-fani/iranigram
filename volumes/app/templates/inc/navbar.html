@@ -61,7 +61,8 @@
                         <span class="fw-bold fs-4">مشاوره رایگان</span><br>
                         <small class="fw-bold">ساعت پشتیبانی: همه روزه از ساعت ۹ صبح تا ۱۰ شب</small>
                         <div class="d-block">
-                            <a href="https://t.me/iranigram_helpcenter" class="btn btn-warning btn-lg mt-2 rounded-4 py-4">
+                            <a href="https://t.me/iranigram_helpcenter"
+                                class="btn btn-warning btn-lg mt-2 rounded-4 py-4">
                                 <img src="{% static 'icons/Send.svg' %}" width="24px" height="24px"
                                     alt="ارسال پیام به پشتیبانی تلگرامی ایرانی گرام"> پشتیبانی
                                 تلگرام
@@ -129,11 +130,18 @@
                 {{ request.user.balance|intcomma }} {% trans "Toman" %}
             </a>
             <div class="btn-group mx-lg-2">
-                <button type="button" class="btn dropdown-toggle rounded-4 py-3 px-3 border-1 border border-secondary"
+                <button type="button"
+                    class="btn dropdown-toggle rounded-4 py-3 px-3 border-1 border border-secondary position-relative"
                     data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                     <img src="{% static 'icons/Profile.svg' %}" width="24px" height="24px"
                         alt="دکمه بازشدن منوی داشبورد کاربر">
                     <span class="d-none d-md-inline">{{ request.user.full_name }}</span>
+                    {% if unread_notification_count > 0 %}
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                        <span class="visually-hidden">{{ unread_notification_count }}</span>
+                    </span>
+                    {% endif %}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end rounded-4">
                     <li>
@@ -161,13 +169,16 @@
                     </li>
                     <hr class="dropdown-divider">
                     <li>
-                        <a href="{% url 'accounts:notifications' %}" class="btn dropdown-item py-1">
+                        <a href="{% url 'accounts:notification_list' %}" class="btn dropdown-item py-1">
                             <img src="{% static 'icons/notification.svg' %}" width="24px" height="24px"
                                 alt="دکمه ورود به پیام ها">
                             {% trans 'Notification' %}
+                            {% if unread_notification_count > 0 %}
+                            <span class="badge text-bg-warning">{{ unread_notification_count }}</span>
+                            {% endif %}
                         </a>
                     <li>
-                    <hr class="dropdown-divider">
+                        <hr class="dropdown-divider">
                     <li>
                         <a href="{% url 'accounts:user_logout' %}" class="btn dropdown-item text-danger py-1">
                             <img src="{% static 'icons/logout.svg' %}" width="24px" height="24px"

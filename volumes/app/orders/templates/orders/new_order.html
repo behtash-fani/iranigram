@@ -4,93 +4,213 @@
 {% load humanize %}
 {% block title %} {% trans 'New Order' %} {% endblock %}
 {% block panelcontent %}
-<div class="row mt-4">
-    <div class="col-lg-6 col-12">
-        <form action="" method="POST" id="new_order_form" data-services-url="{% url 'services:service_list' %}"
-            data-service-url="{% url 'services:service_desc' %}" novalidate>
+<form action="" method="POST" id="new_order_form" data-services-url="{% url 'services:service_list' %}"
+    data-service-url="{% url 'services:service_desc' %}" novalidate>
+    <div class="row mt-4">
+        <div class="col-lg-7 col-12">
             {% csrf_token %}
-            <p class="fw-bold"><img src="{% static 'icons/StartHere.svg' %}" alt=""> {% trans 'Start Here' %}</p>
+            <p class="fw-bold"><img src="{% static 'icons/StartHere.svg' %}" alt=""> 
+                {% trans 'Start Here' %}
+            </p>
             {{ form.non_field_errors }}
+            <!-- selecting service type -->
             <div class="form-floating mt-2">
                 {{ order_form.service_type }}
-                <label for="{{ order_form.Service_type.id_for_label }}">{% trans 'Choose Service Type' %}:</label>
+                <label for="id_service_type">
+                    {% trans 'Choose Service Type' %}:
+                </label>
                 {{ order_form.service_type.errors }}
             </div>
-            <div class="form-floating mt-2">
-                {{ order_form.service }}
-                <label for="{{ order_form.service.id_for_label }}">{% trans 'Choose Service' %}:</label>
-                {{ order_form.service.errors }}
+            <!-- selecting service -->
+            <div class="input-group">
+                <div class="form-floating mt-2">
+                    {{ order_form.service }}
+                    <label for="{{ order_form.service.id_for_label }}">
+                        {% trans 'Choose Service' %}:
+                    </label>
+                </div>
+                <!-- start section of product specifications -->
+                <button class="btn bg-warning-subtle mt-2 rounded-end" type="button" data-bs-toggle="modal"
+                    data-bs-target="#neworder-desc-box">
+                    <img src="{% static 'icons/Info.svg' %}" alt="">
+                    مشخصات
+                </button>
+                <div class="modal" id="neworder-desc-box" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content rounded-4">
+                            <div class="modal-header border-0">
+                                <span><img src="{% static 'icons/Info.svg' %}" alt="">
+                                    {% trans 'Product Specifications' %}</span>
+                                <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
+                                    <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
+                                </a>
+                            </div>
+                            <div class="modal-body" style="text-align: right !important;">
+                                <div class="alert alert-light text-center d-block bg-transparent border-2"
+                                    id="no-choice-product" role="alert">
+                                    <small>{% trans "Please select a product" %}</small>
+                                </div>
+                                <div class="card p-3 border-0 d-none bg-transparent" id="product-spec-box">
+                                    <div class="col">{% trans "Title of product" %}:
+                                        <span id="title_service" class="fw-bold"></span>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <span class="fs-6">{% trans "Order range between" %}</span>
+                                        <span id="min_service" class="fw-bold"></span>
+                                        <span>{% trans "to" %}</span>
+                                        <span id="max_service" class="fw-bold"></span>
+                                        <span>{% trans "Number" %}</span>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        {% trans "Price per 1" %}:
+                                        <span id="price_per_unit_service" class="fw-bold"></span>
+                                        {% trans "Toman" %}
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <label for="desc_box" class="form-label">
+                                            {% trans "Description" %}: 
+                                        </label>
+                                        <div id="desc_box" class="fw-bold"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end section of product specifications -->
             </div>
+            {{ order_form.service.errors }}
+            <!-- enter link of order -->
             <div class="form-floating mt-2">
                 {{ order_form.link }}
-                <label for="{{ id_link }}" class="d-none" id="post_link_label">{% trans 'Instagram Post/IGTV/Reel Link' %}:</label>
-                <label for="{{ id_link }}" class="d-block" id="profile_link_label">{% trans 'Instagram Profile ID' %}:</label>
-                <label for="{{ id_link }}" class="d-none" id="telegram_link_label">{% trans 'Telegram Link/ID' %}:</label>
+                <label for="{{ id_link }}" class="d-none" id="post_link_label">
+                    {% trans 'Instagram Post/IGTV/Reel Link'%}:
+                </label>
+                <label for="{{ id_link }}" class="d-block" id="profile_link_label">
+                    {% trans 'Instagram Profile ID'%}:
+                </label>
+                <label for="{{ id_link }}" class="d-none" id="telegram_link_label">
+                    {% trans 'Telegram Link/ID' %}:
+                </label>
                 {{ order_form.link.errors }}
             </div>
-            <div class="form-floating mt-2">
-                {{ order_form.quantity }}
-                <label for="id_quantity">{% trans 'Quantity' %}:</label>
-                {{ order_form.quantity.errors }}
+            <!-- enter quantity of order -->
+            <div class="input-group mt-2">
+                <span class="input-group-text" id="maximum_quantity">--</span>
+                <span class="form-floating" id="new_order_quantity">
+                    {{ order_form.quantity }}
+                    <label for="id_quantity">{% trans 'Quantity' %}:</label>
+                </span>
+                <span class="input-group-text" id="minimum_quantity">--</span>
             </div>
-            <div class="card border-0 bg-light p-2 mt-2">
-                <div class="form-check mt-3 my-2 float-start p-0 g">
+            {{ order_form.quantity.errors }}
+            <!-- enter dicount code if exist -->
+            <div class="input-group">
+                <div class="form-floating mt-2">
+                    {{ order_form.discount }}
+                    <label for="id_discount">{% trans 'Discount' %}:</label>
+                    {{ order_form.discount.errors }}
+                </div>
+                <button class="btn btn-warning mt-2" type="button" id="dashbord_check_discount">بررسی کد تخفیف</button>
+            </div>
+            <div class="form-text" id="discount_desc"></div>
+            <ul id="discount-info-text"></ul>
+            <!-- show quantity of order and final payable amount in number and farsi -->
+        </div>
+        <div class="col-lg-5 col-12 mt-2 mt-lg-0">
+            <p class="fw-bold"><img src="{% static 'icons/StartHere.svg' %}" alt=""> تکمیل خرید</p>
+            <div class="row px-3">
+                <span>
+                    <div class="row pb-2">
+                        <div class="col">
+                            <small>تعداد درخواستی:&nbsp;</small>
+                        </div>
+                        <div class="col text-end">
+                            <small id="total_number">--</small>&nbsp;<small>
+                                {% trans "Number" %}
+                            </small>
+                        </div>
+                    </div>
+                </span>
+                <hr>
+                <span class="d-block" id="withoutDiscount">
+                    <div class="row pb-2">
+                        <div class="col">
+                            <small>قابل پرداخت:&nbsp;</small>
+                        </div>
+                        <div class="col text-end">
+                            <small id="total_price">--</small>&nbsp;<small>
+                                {% trans "Toman" %}
+                            </small>
+                        </div>
+                    </div>
+                </span>
+                <span class="d-none" id="withDiscount">
+                    <div class="row pb-2">
+                        <div class="col">
+                            <small>قیمت محصول:&nbsp;</small>
+                        </div>
+                        <div class="col text-end">
+                            <small id="product_amount">--</small>&nbsp;<small>{% trans "Toman" %}</small>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col">
+                            <small>مبلغ قابل پرداخت:&nbsp;</small>
+                        </div>
+                        <div class="col text-end">
+                            <small id="payable_amount">--</small>&nbsp;<small>{% trans "Toman" %}</small>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col">
+                            <small class="text-danger fw-bold" style="font-size: 16px !important;">سود شما از
+                                خرید:&nbsp;</small>
+                        </div>
+                        <div class="col text-end">
+                            <small id="user_benefit" class="text-danger fw-bold"
+                                style="font-size: 16px !important;">--</small>&nbsp;<small
+                                class="text-danger fw-bold" style="font-size: 16px !important;">
+                                {% trans "Toman" %}
+                            </small>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <br>
+            <!-- check use wallet if wallet have credit -->
+            <div class="card border-0 bg-light p-2">
+                <div class="form-check float-start">
                     {{ order_form.use_wallet }}
                     <label class="form-check-label" for="flexCheckDefault">
-                        استفاده از موجودی کیف پول - <small class="text-muted">{% trans "Credit" %}: {{ request.user.balance|intcomma }} {% trans "Toman" %}</small>
+                        <span>استفاده از موجودی کیف پول - </span>
+                        <small class="text-muted">
+                            {% trans "Credit" %}: {{request.user.balance|intcomma }} {% trans "Toman" %}
+                        </small>
                     </label>
-                    <div id="passwordHelpBlock" class="form-text">
-                        با انتخاب این گزینه، اگر موجودی کیف پول شما کافی باشد، مبلغ از کیف پول کسر شده و مابقی به درگاه بانکی ارسال می‌شود.
-                      </div>
+                    <a tabindex="0" 
+                    role="button" 
+                    data-bs-toggle="popover" 
+                    data-bs-trigger="focus" 
+                    data-bs-content="با انتخاب این گزینه، اگر کیف پول شما موجودی داشته باشد، مبلغ از کیف پول کسر شده و مابقی به درگاه
+                      بانکی ارسال می‌شود.">
+                      <img src="{% static 'icons/Info.svg'%}" alt="">
+                    </a>
                     {{ order_form.use_wallet.errors }}
                 </div>
             </div>
-            <div class="input-group mt-2">
-                <div class="form-floating alert alert-warning" role="alert">
-                    <span>{% trans "The number of requests" %}:&nbsp;<span id="total_number">--</span>&nbsp;{% trans "Number" %}</span>
-                    <hr>
-                    <span>{% trans "Final fee payable" %}:&nbsp;<span id="total_price">--</span>&nbsp;{% trans "Toman" %}</span>
-                </div>
-            </div>
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around mt-2 mb-3">
                 <button type="submit" class="btn btn-warning btn-lg rounded-4 me-1" name="online_payment">
                     <span class="fs-6 fw-semibold">
                         <img src="{% static 'icons/card-tick.svg' %}" alt=""> {% trans 'Online Payment' %}</span><br>
                     <small class="text-muted">{% trans "Payment with all bank cards" %}</small>
                 </button>
             </div>
-        </form>
-    </div>
-    <div class="col-lg-6 col-12 mt-2 mt-lg-0">
-        <p class="fw-bold"><img src="{% static 'icons/Info.svg' %}" alt=""> {% trans 'Product Specifications' %}</p>
-        <div class="alert alert-light text-center d-block bg-transparent border-2" id="no-choice-product" role="alert">
-            <small>{% trans "Please select a product" %}</small>
-        </div>
-        <div class="card p-3 border-0 d-none bg-transparent" id="product-spec-box">
-            <div class="col">{% trans "Title of product" %}:
-                <span id="title_service" class="fw-bold"></span>
-            </div>
-            <hr>
-            <div>
-                <span class="fs-6">{% trans "Order range between" %}</span>
-                <span id="min_service" class="fw-bold"></span>
-                <span>{% trans "to" %}</span>
-                <span id="max_service" class="fw-bold"></span>
-                <span>{% trans "Number" %}</span>
-            </div>
-            <hr>
-            <div>
-                {% trans "Price per 1" %}:
-                <span id="price_per_unit_service" class="fw-bold"></span>
-                {% trans "Toman" %}
-            </div>
-            <hr>
-            <div class="row">
-                <label for="desc_box" class="form-label">{% trans "Description" %}: </label>
-                <div id="desc_box" class="fw-bold"></div>
-            </div>
         </div>
     </div>
-</div>
-
+</form>
 {% endblock panelcontent %}

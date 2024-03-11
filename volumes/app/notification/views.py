@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Notification
 from django.views.generic import ListView
 from django.core.paginator import EmptyPage
@@ -29,3 +29,9 @@ class NotificationListView(ListView):
             orders = paginator.page(paginator.num_pages)
         context["Orders"] = orders
         return context
+
+def make_notification_as_read(request, pk):
+    notification = get_object_or_404(Notification, pk=pk)
+    user = request.user
+    notification.readers.add(user)
+    return redirect('accounts:notification_list')

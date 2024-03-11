@@ -75,7 +75,6 @@ class Service(models.Model):
                 pkg.amount = int(self.amount) * int(pkg.quantity)
                 pkg.save()
         else:
-            print(service_code)
             self.available_for_user = False
             self.available_for_package = False
         super().save(*args, **kwargs)
