@@ -10,7 +10,7 @@ from django.views import View
 
 def is_blocked_user(phone_number):
     user = User.objects.filter(phone_number=phone_number).first()
-    return user and user.is_blocked
+    return user and user.is_block
 
 
 class BlockCheckMixin:
