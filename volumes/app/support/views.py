@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from .tasks import send_submit_ticket_sms_task
-from common.mixins import LoginRequiredMixin
+from accounts.mixins import LoginRequiredMixin
 
 
 

@@ -3,7 +3,7 @@ from .models import Transactions
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from common.mixins import LoginRequiredMixin
+from accounts.mixins import LoginRequiredMixin
 
 
 class TransactionsView(LoginRequiredMixin, ListView):
