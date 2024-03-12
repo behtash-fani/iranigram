@@ -11,35 +11,70 @@ from django.shortcuts import render, redirect
 from django.core.paginator import EmptyPage
 from django.core.paginator import Paginator
 from django.views.generic import ListView
+from orders.models import Order, Discount
 from common.otp_manager import OTPManager
 from django.contrib.auth import login
 from django.http import JsonResponse
-from service.models import Packages
+from service.models import Packages, Service
 from django.contrib import messages
 from accounts.models import User
 from django.urls import reverse
-from orders.models import Order, Discount
 from django.views import View
-from service.models import Service
 import logging
 import json
-from django.contrib.auth.models import AnonymousUser
 
 
 otp_manager = OTPManager()
 logger = logging.getLogger(__name__)
 
 
+
+
 @csrf_exempt
-def check_discount_code(request):
+def buypage_discount(request):
     discount_code = request.POST.get("discount_code")
     service_id = request.POST.get("service_id")
+    pkg_id = request.POST.get("pkg_id")
     service_amount = Service.objects.get(id=service_id).amount
-    if request.POST.get("pkg_id"):
-        pkg_id = request.POST.get("pkg_id")
-        order_quantity = Packages.objects.get(id=pkg_id).quantity
-    else:
-        order_quantity = request.POST.get("order_quantity")
+    order_quantity = Packages.objects.get(id=pkg_id).quantity
+    product_amount = int(order_quantity) * int(service_amount)
+    discount_code_status = Discount.objects.filter(code=discount_code).exists()
+    if discount_code_status:
+        code_info = Discount.objects.get(code=discount_code)
+        if int(code_info.service.id) == int(service_id):
+            payable_amount = product_amount * (1 - (code_info.value/100))
+            request.session["with_discount_amount"] = payable_amount
+            user_benefit = product_amount - payable_amount
+            user = request.user
+            code_info.users.add(user)
+            discount_code_info = {
+                'service': code_info.service.id,
+                'value': code_info.value,
+            }
+            return JsonResponse(
+                {
+                    'code_available': True,
+                    'service_match': True,
+                    'product_amount': product_amount,
+                    'payable_amount': payable_amount,
+                    'user_benefit': user_benefit,
+                    'discount_code_info': json.dumps(discount_code_info)
+                })
+        else:
+            return JsonResponse(
+                {'code_available': True,
+                 'service_match': False})
+    return JsonResponse({
+        'code_available': False
+    })
+
+
+@csrf_exempt
+def dashboard_discount(request):
+    discount_code = request.POST.get("discount_code")
+    service_id = request.POST.get("service_id")
+    order_quantity = request.POST.get("order_quantity")
+    service_amount = Service.objects.get(id=service_id).amount
     product_amount = int(order_quantity) * int(service_amount)
     discount_code_status = Discount.objects.filter(code=discount_code).exists()
     if discount_code_status:

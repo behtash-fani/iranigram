@@ -9,5 +9,6 @@ urlpatterns = [
     path('get-phone-number/', views.get_phone_number, name='get_phone_number'),
     path('verify-phonenumber-pay/', views.verify_phonenumber_pay, name='verify_phonenumber_pay'),
     path('to-gateways/', views.send_to_payment, name='send_to_payment'),
-    path('check-discount-code/', views.check_discount_code, name='check_discount_code'),
+    path('buypage-discount/', views.buypage_discount, name='buypage_discount'),
+    path('dashboard-discount/', views.dashboard_discount, name='dashboard_discount'),
     ]

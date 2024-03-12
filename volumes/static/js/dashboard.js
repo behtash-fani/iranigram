@@ -101,7 +101,7 @@ discount_btn.addEventListener("click", (event) => {
   let service_selection = document.getElementById("id_service");
   let quantity = document.getElementById("id_quantity");
   let discount_info_box = document.getElementById("discount-info-text");
-  url = "/orders/check-discount-code/"
+  url = "/orders/dashboard-discount/"
   if (discount_code.trim() === "") {
     discount_info_box.classList.add("errorlist")
     discount_info_box.innerHTML = `<li>لطفا کد تخفیف را وارد کنید</li>`
@@ -109,6 +109,10 @@ discount_btn.addEventListener("click", (event) => {
   else if (service_selection.value == '') {
     discount_info_box.classList.add("errorlist")
     discount_info_box.innerHTML = `<li>لطفا ابتدا سرویس  مورد نظر را انتخاب کنید<li>`
+  }
+  else if (quantity.value.trim() === "") {
+    discount_info_box.classList.add('errorlist')
+    discount_info_box.innerHTML = "تعداد مورد نظر را وارد کنید"
   }
   else {
     $.ajax({
@@ -133,23 +137,18 @@ discount_btn.addEventListener("click", (event) => {
             </svg>
             کد صحیح
             `
-            if (quantity.value.trim() === "") {
-              discount_info_box.classList.add('infolist')
-              discount_info_box.innerHTML = "تعداد مورد نظر را وارد کنید"
-            }
-            else {
-              document.getElementById("withoutDiscount").classList = "d-none"
-              document.getElementById("withDiscount").classList = "d-block"
-              document.getElementById('product_amount').innerHTML = data.product_amount
-              document.getElementById('payable_amount').innerHTML = data.payable_amount
-              document.getElementById('user_benefit').innerHTML = data.user_benefit
-              document.getElementById('id_service_type').setAttribute('readonly', '');
-              document.getElementById('id_service').setAttribute('readonly', '');
-              document.getElementById('id_link').setAttribute('readonly', '');
-              quantity.setAttribute('readonly', '');
-              discount_info_box.classList.add("d-none");
-              document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
-            }
+            
+            document.getElementById("withoutDiscount").classList = "d-none"
+            document.getElementById("withDiscount").classList = "d-block"
+            document.getElementById('product_amount').innerHTML = data.product_amount
+            document.getElementById('payable_amount').innerHTML = data.payable_amount
+            document.getElementById('user_benefit').innerHTML = data.user_benefit
+            document.getElementById('id_service_type').setAttribute('readonly', '');
+            document.getElementById('id_service').setAttribute('readonly', '');
+            document.getElementById('id_link').setAttribute('readonly', '');
+            quantity.setAttribute('readonly', '');
+            discount_info_box.classList.add("d-none");
+            document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
           }
           else {
             discount_info_box.classList.add("errorlist")
