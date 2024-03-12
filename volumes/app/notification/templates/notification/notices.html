@@ -15,7 +15,7 @@
       <img src="/media/{{notice.category.icon}}" alt="" width="24px">
       <div class="ms-2 me-auto">
         <h6 class="fw-bold">{{notice.title}}</h6>
-        <small class="text-muted">{{notice.detail}}</small>
+        <span class="fw-bold text-muted">{{notice.detail|safe|linebreaks}}</span>
       </div>
       {% if request.user not in notice.readers.all %}
       <a href="{% url 'accounts:make_as_read' notice.pk %}" class="btn btn-sm btn-warning rounded-4">
