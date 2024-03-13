@@ -142,6 +142,7 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 class DiscountAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ["name", "code", "service",
                     "value", "is_active", "get_start_date_jalali", "get_end_date_jalali"]
+    autocomplete_fields = ["users"]
 
     @admin.display(description="زمان شروع", ordering="start_date")
     def get_start_date_jalali(self, obj):

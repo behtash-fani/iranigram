@@ -9,9 +9,10 @@ class NotificationCategoryAdmin(admin.ModelAdmin):
     search_fields = ('title', 'slug',)
 
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'notice_category', 'get_created_jalali', 'get_updated_jalali',)
+    list_display = ('title', 'notice_category', 'is_active', 'get_created_jalali', 'get_updated_jalali',)
     list_filter = ('category', 'created_at', 'updated_at', )
     search_fields = ('title', 'detail', 'category__title',)
+    autocomplete_fields = ["readers"]
     
     @admin.display(description="تاریخ ایجاد", ordering="created_at")
     def get_created_jalali(self, obj):
