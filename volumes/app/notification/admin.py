@@ -4,28 +4,33 @@ from jalali_date.admin import ModelAdminJalaliMixin
 from jalali_date import datetime2jalali
 from django.utils.html import format_html
 
+
 class NotificationCategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug',)
+    list_display = ('id', 'title', 'slug',)
     search_fields = ('title', 'slug',)
 
+
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'notice_category', 'is_active', 'get_created_jalali', 'get_updated_jalali',)
+    list_display = ('id', 'title', 'category', 'is_active',
+                    'user', 'get_created_jalali', 'get_updated_jalali',)
     list_filter = ('category', 'created_at', 'updated_at', )
+    list_display_links = ('id', 'title')
     search_fields = ('title', 'detail', 'category__title',)
-    autocomplete_fields = ["readers"]
-    
+    autocomplete_fields = ["readers", 'user']
+
     @admin.display(description="تاریخ ایجاد", ordering="created_at")
     def get_created_jalali(self, obj):
         return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
-    
+
     @admin.display(description="تاریخ به روزرسانی", ordering="updated_at")
     def get_updated_jalali(self, obj):
         return datetime2jalali(obj.updated_at).strftime("%Y/%m/%d - %H:%M")
-    
-    def notice_category(self, obj):
-        return format_html('<a href="/igadmini/notification/notificationcategory/%s/change/">دسته بندی</a>' % obj.category.id)
-    
-    notice_category.short_description = 'دسته بندی'
+
+    # def notice_category(self, obj):
+    #     return format_html('<a href="/igadmini/notification/notificationcategory/%s/change/">دسته بندی</a>' % obj.category.id)
+
+    # notice_category.short_description = 'دسته بندی'
+
 
 admin.site.register(NotificationCategory, NotificationCategoryAdmin)
 admin.site.register(Notification, NotificationAdmin)

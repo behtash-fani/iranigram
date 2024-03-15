@@ -23,7 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, logout, login
 from support.models import Ticket
 from accounts.mixins import BlockCheckLoginRequiredMixin
-from .tasks import send_register_success_sms_task
+# from .tasks import send_register_success_sms_task
 from common.otp_manager import OTPManager
 from django.conf import settings
 from rest_framework.authtoken.models import Token

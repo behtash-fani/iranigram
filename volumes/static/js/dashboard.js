@@ -1,7 +1,7 @@
 // Define a mapping object for URLs and DOM elements
 const dashboardElements = {
   "/dashboard/new-order/": document.getElementsByClassName("new_order"),
-  "/dashboard/": document.getElementsByClassName("state_dashboard"),
+  "/dashboard/state/": document.getElementsByClassName("state_dashboard"),
   "/dashboard/profile/": document.getElementsByClassName("profile_dashboard"),
   "/dashboard/wallet/": document.getElementsByClassName("wallet_dashboard"),
   "/dashboard/orders/": document.getElementsByClassName("orders_list_dashboard"),
@@ -18,7 +18,7 @@ function highlightDashboardElements() {
 
   for (const path in dashboardElements) {
     const elements = dashboardElements[path];
-    if (currentPath === path) {
+    if (currentPath.startsWith(path)) {
       for (let i = 0; i < elements.length; i++) {
         elements[i].classList.add("bg-warning");
         elements[i].classList.remove("bg-transparent");
@@ -31,20 +31,7 @@ function highlightDashboardElements() {
     }
   }
 }
-
-// Check if the current URL is in the mapping and apply highlighting
-if (dashboardElements.hasOwnProperty(window.location.pathname)) {
-  highlightDashboardElements();
-} else if (window.location.pathname.includes("/dashboard/ticket/") || window.location.pathname.includes("/dashboard/submit-ticket/")) {
-  // Special case for the support dashboard
-  highlightDashboardElements();
-  const body = document.body;
-  body.style.overflowX = "hidden";
-  body.style.overflowY = "scroll";
-}
-
-
-// dashboard menu
+highlightDashboardElements();
 
 // show number that enter in field of charge wallet to persian letter
 let letter_price = document.getElementById("letter_price");
@@ -95,75 +82,78 @@ $("#id_service_type").change(function () {
 
 // check and submit discount code in new order dashboard
 let discount_btn = document.getElementById("dashbord_check_discount")
-discount_btn.addEventListener("click", (event) => {
-  event.preventDefault()
-  let discount_code = document.getElementById("id_discount").value
-  let service_selection = document.getElementById("id_service");
-  let quantity = document.getElementById("id_quantity");
-  let discount_info_box = document.getElementById("discount-info-text");
-  url = "/orders/dashboard-discount/"
-  if (discount_code.trim() === "") {
-    discount_info_box.classList.add("errorlist")
-    discount_info_box.innerHTML = `<li>لطفا کد تخفیف را وارد کنید</li>`
-  }
-  else if (service_selection.value == '') {
-    discount_info_box.classList.add("errorlist")
-    discount_info_box.innerHTML = `<li>لطفا ابتدا سرویس  مورد نظر را انتخاب کنید<li>`
-  }
-  else if (quantity.value.trim() === "") {
-    discount_info_box.classList.add('errorlist')
-    discount_info_box.innerHTML = "تعداد مورد نظر را وارد کنید"
-  }
-  else {
-    $.ajax({
-      url: url,
-      method: "POST",
-      data: {
-        discount_code: discount_code,
-        service_id: service_selection.value,
-        order_quantity: quantity.value
-      },
-      headers: {
-        "X-CSRFToken": csrf_token,
-      },
-      success: function (data) {
-        if (data.code_available) {
-          if (data.service_match) {
-            discount_btn.classList = 'btn btn-success mt-2'
-            discount_btn.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7.75 11.9999L10.58 14.8299L16.25 9.16992" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            کد صحیح
-            `
-            
-            document.getElementById("withoutDiscount").classList = "d-none"
-            document.getElementById("withDiscount").classList = "d-block"
-            document.getElementById('product_amount').innerHTML = data.product_amount
-            document.getElementById('payable_amount').innerHTML = data.payable_amount
-            document.getElementById('user_benefit').innerHTML = data.user_benefit
-            document.getElementById('id_service_type').setAttribute('readonly', '');
-            document.getElementById('id_service').setAttribute('readonly', '');
-            document.getElementById('id_link').setAttribute('readonly', '');
-            quantity.setAttribute('readonly', '');
-            discount_info_box.classList.add("d-none");
-            document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
+if (discount_btn) {
+  discount_btn.addEventListener("click", (event) => {
+    event.preventDefault()
+    let discount_code = document.getElementById("id_discount").value
+    let service_selection = document.getElementById("id_service");
+    let quantity = document.getElementById("id_quantity");
+    let discount_info_box = document.getElementById("discount-info-text");
+    url = "/orders/dashboard-discount/"
+    if (discount_code.trim() === "") {
+      discount_info_box.classList.add("errorlist")
+      discount_info_box.innerHTML = `<li>لطفا کد تخفیف را وارد کنید</li>`
+    }
+    else if (service_selection.value == '') {
+      discount_info_box.classList.add("errorlist")
+      discount_info_box.innerHTML = `<li>لطفا ابتدا سرویس  مورد نظر را انتخاب کنید<li>`
+    }
+    else if (quantity.value.trim() === "") {
+      discount_info_box.classList.add('errorlist')
+      discount_info_box.innerHTML = "تعداد مورد نظر را وارد کنید"
+    }
+    else {
+      $.ajax({
+        url: url,
+        method: "POST",
+        data: {
+          discount_code: discount_code,
+          service_id: service_selection.value,
+          order_quantity: quantity.value
+        },
+        headers: {
+          "X-CSRFToken": csrf_token,
+        },
+        success: function (data) {
+          if (data.code_available) {
+            if (data.service_match) {
+              discount_btn.classList = 'btn btn-success mt-2'
+              discount_btn.innerHTML = `
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.75 11.9999L10.58 14.8299L16.25 9.16992" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              کد صحیح
+              `
+
+              document.getElementById("withoutDiscount").classList = "d-none"
+              document.getElementById("withDiscount").classList = "d-block"
+              document.getElementById('product_amount').innerHTML = data.product_amount
+              document.getElementById('payable_amount').innerHTML = data.payable_amount
+              document.getElementById('user_benefit').innerHTML = data.user_benefit
+              document.getElementById('id_service_type').setAttribute('readonly', '');
+              document.getElementById('id_service').setAttribute('readonly', '');
+              document.getElementById('id_link').setAttribute('readonly', '');
+              quantity.setAttribute('readonly', '');
+              discount_info_box.classList.add("d-none");
+              document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
+            }
+            else {
+              discount_info_box.classList.add("errorlist")
+              let service_name = $("#id_service option:selected").text()
+              discount_info_box.innerHTML = `کد تخفیف <span>${discount_code}</span> مربوط به سرویس <span>${service_name}</span> نیست`
+            }
           }
           else {
             discount_info_box.classList.add("errorlist")
-            let service_name = $("#id_service option:selected").text()
-            discount_info_box.innerHTML = `کد تخفیف <span>${discount_code}</span> مربوط به سرویس <span>${service_name}</span> نیست`
+            discount_info_box.innerHTML = `کد وارد شده صحیح نیست`
           }
         }
-        else {
-          discount_info_box.classList.add("errorlist")
-          discount_info_box.innerHTML = `کد وارد شده صحیح نیست`
-        }
-      }
-    })
-  }
-})
+      })
+    }
+  })
+}
+
 
 
 // function for show description of choice service
@@ -352,11 +342,3 @@ if (complete_order_payment) {
     });
   });
 }
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   var quantity_field = document.getElementById('id_quantity');
-//   quantity_field.addEventListener('focus', function() {
-//     document.getElementById("id_discount").value = ""
-//   });
-// });

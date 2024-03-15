@@ -4,7 +4,7 @@ from orders.forms import OrderForm, TemplateNewOrderForm
 from common.instagram.insta_info import InstagramAccInfo
 from transactions.models import Transactions as Trans
 from django.views.decorators.csrf import csrf_exempt
-from orders.tasks import send_submit_order_sms_task
+# from orders.tasks import send_submit_order_sms_task
 from django.core.paginator import PageNotAnInteger
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
@@ -20,14 +20,13 @@ from django.contrib import messages
 from accounts.models import User
 from django.urls import reverse
 from django.views import View
+from notification.models import Notification, NotificationCategory
 import logging
 import json
 
 
 otp_manager = OTPManager()
 logger = logging.getLogger(__name__)
-
-
 
 
 @csrf_exempt
@@ -262,7 +261,16 @@ def finish_payment(request, payment_method=None, trans_type=None):
             else:
                 price = order.online_paid_amount
             transaction_detail = _("Online payment of the order fee")
-        send_submit_order_sms_task.delay(user.phone_number, order.order_code)
+        # send_submit_order_sms_task.delay(user.phone_number, order.order_code)
+        category_id = 6
+        category_instance = NotificationCategory.objects.get(id=category_id)
+        notice = Notification.objects.create(
+            user=request.user,
+            category=category_instance,
+            title="ثبت سفارش",
+            detail=f'<small class="text-muted">سفارش شما ثبت شد</small> \n <small class="text-muted">کد سفارش : </small><code class="fw-bold" style="font-size:20px;color:#596979">{order.order_code}</code>',
+            is_active=True
+        )
         Trans.objects.create(
             user=user,
             type=trans_type,
