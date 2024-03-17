@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, QueuedOrder, Discount
+from .models import Order, QueuedOrder
 from django.urls import reverse
 from django.utils.html import format_html
 from jalali_date import datetime2jalali
@@ -136,18 +136,3 @@ class QueuedOrderAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     @admin.display(description="تاریخ ایجاد", ordering="created_at")
     def get_created_jalali(self, obj):
         return datetime2jalali(obj.created_at).strftime("%Y/%m/%d - %H:%M")
-
-
-@admin.register(Discount)
-class DiscountAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ["name", "code", "service",
-                    "value", "is_active", "get_start_date_jalali", "get_end_date_jalali"]
-    autocomplete_fields = ["users"]
-
-    @admin.display(description="زمان شروع", ordering="start_date")
-    def get_start_date_jalali(self, obj):
-        return datetime2jalali(obj.start_date).strftime("%Y/%m/%d")
-
-    @admin.display(description="زمان پایان", ordering="end_date")
-    def get_end_date_jalali(self, obj):
-        return datetime2jalali(obj.end_date).strftime("%Y/%m/%d")

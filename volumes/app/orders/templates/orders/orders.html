@@ -84,14 +84,14 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content rounded-4">
                                 <div class="modal-header border-0">
+                                    <span><img src="{% static 'icons/Info.svg' %}" alt="">
+                                        جزییات سفارش
+                                    </span>
                                     <a type="button" class="text-start" data-bs-dismiss="modal" aria-label="Close">
-                                        <img src="{% static 'icons/close-circle.svg' %}"
-                                            alt="بستن منوی اصلی ورود به صفحات">
+                                        <img src="{% static 'icons/close-circle.svg' %}" alt="بستن منوی اصلی ورود به صفحات">
                                     </a>
                                 </div>
                                 <div class="modal-body pt-0">
-                                    <h1 class="modal-title fs-3" id="orderDetailsLabel">جزییات سفارش</h1>
-                                    <hr>
                                     <div class="text-start">
                                         <p>{% trans "Service" %}: {{ order.service }}</p>
                                         <p>{% trans "Created At" %}: {{ order.created_at|to_jalali:'%Y/%m/%d - %H:%M' }}

@@ -7,14 +7,12 @@ from django.utils.translation import gettext as _
 class OrderForm(forms.ModelForm):
     use_wallet = forms.BooleanField(
         required=False, initial=False, label='use wallet', widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": "Use Wallet"}))
-    discount = forms.CharField(required=False, label='discount', widget=forms.TextInput(
-        attrs={"class": "form-control text-left", "dir": "ltr", "autocomplete": "off", "placeholder":"Discount", "style": "font-family:VazirCodeHack"}))
 
     class Meta:
         model = Order
         ordering = ["priority"]
         fields = ["service_type", "service", "link",
-                  "quantity", "discount", "use_wallet"]
+                  "quantity", "use_wallet"]
         widgets = {
             "service_type": forms.Select(attrs={"class": "form-select"}),
             "service": forms.Select(attrs={"class": "form-select"}),
@@ -101,12 +99,10 @@ class TemplateNewOrderForm(forms.ModelForm):
         error_messages={'required': _("Please read and check the rules before placing an order")},required=True, initial=False, label='accept the rules', widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-2",}))
     use_wallet = forms.BooleanField(
         required=False, initial=False, label='use wallet', widget=forms.CheckboxInput(attrs={"class": "form-check-input", "placeholder": "Use Wallet"}))
-    discount = forms.CharField(required=False, label='discount', widget=forms.TextInput(
-        attrs={"class": "form-control text-left", "dir": "ltr", "autocomplete": "off", "placeholder":"Discount", "style": "font-family:VazirCodeHack"}))
 
     class Meta:
         model = Order
-        fields = ["link", "discount", "use_wallet", 'acceptـtheـrules']
+        fields = ["link", "use_wallet", 'acceptـtheـrules']
         widgets = {
             "link": forms.TextInput(
                 attrs={

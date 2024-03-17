@@ -76,19 +76,6 @@
                         <div class="form-text" id="basic-addon4">بعد از اطمینان از عمومی بودن، پیج لینک را کپی کنید و در
                             فرم بالا قرار دهید </div>
                         {% endif %}
-                        <!-- enter dicount code if exist -->
-                        <div class="input-group">
-                            <div class="form-floating mt-2">
-                                {{ order_form.discount }}
-                                <label for="id_discount">{% trans 'Discount' %}:</label>
-                                {{ order_form.discount.errors }}
-                            </div>
-                            <button class="btn btn-warning mt-2" type="button" id="buypage_check_discount">
-                                بررسی کد تخفیف
-                            </button>
-                        </div>
-                        <div class="form-text" id="discount_desc"></div>
-                        <ul id="discount-info-text"></ul>
                         <!-- <div class="d-flex align-items-center gap-2">
                             <div class="col-md-8">
                                 <div class="alert alert-warning text-center mt-2 mt-0" role="alert"
@@ -134,7 +121,7 @@
                             </div>
                         </div>
                         <div class="row px-3 mt-3">
-                            <span class="d-block" id="withoutDiscount">
+                            <span>
                                 <div class="row pb-2">
                                     <div class="col">
                                         <span class="fs-5 fw-bold">قابل پرداخت:&nbsp;</span>
@@ -142,39 +129,6 @@
                                     <div class="col text-end">
                                         <span id="total_price" class="fs-5 fw-bold">{{pkg.amount|intcomma}}</span>&nbsp;
                                         <span class="fs-5 fw-bold">
-                                            {% trans "Toman" %}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span class="d-none" id="withDiscount">
-                                <div class="row pb-2">
-                                    <div class="col">
-                                        <span class="fs-6 fw-bold">قیمت محصول:&nbsp;</span>
-                                    </div>
-                                    <div class="col text-end">
-                                        <span class="fs-6 fw-bold" id="product_amount">--</span>&nbsp;
-                                        <span class="fs-6 fw-bold">{% trans "Toman" %}</span>
-                                    </div>
-                                </div>
-                                <div class="row pb-2">
-                                    <div class="col">
-                                        <span class="fs-6 fw-bold">مبلغ قابل پرداخت:&nbsp;</span>
-                                    </div>
-                                    <div class="col text-end">
-                                        <span class="fs-6 fw-bold" id="payable_amount">--</span>&nbsp;
-                                        <span class="fs-6 fw-bold">{% trans "Toman" %}</span>
-                                    </div>
-                                </div>
-                                <div class="row pb-2">
-                                    <div class="col">
-                                        <span class="text-danger fw-bold fs-5">
-                                            سود شما از خرید:&nbsp;
-                                        </span>
-                                    </div>
-                                    <div class="col text-end">
-                                        <span class="text-danger fw-bold fs-5" id="user_benefit">--</span>&nbsp;
-                                        <span class="text-danger fw-bold fs-5">
                                             {% trans "Toman" %}
                                         </span>
                                     </div>
@@ -583,60 +537,6 @@
             }
         })
     }
-
-    let discount_btn = document.getElementById("buypage_check_discount")
-    discount_btn.addEventListener("click", (event) => {
-        event.preventDefault()
-        let discount_code = document.getElementById("id_discount").value
-        let service_selection = document.getElementById("id_service");
-        let discount_desc = document.getElementById("discount_desc");
-        let discount_info_box = document.getElementById("discount-info-text");
-        let pkg_id = $("[name=pkg_id]").val();
-        url = "/orders/buypage-discount/"
-        $.ajax({
-            url: url,
-            method: "POST",
-            data: {
-                discount_code: discount_code,
-                service_id: service_selection.value,
-                pkg_id: pkg_id
-            },
-            headers: {
-                "X-CSRFToken": csrf_token,
-            },
-            success: function (data) {
-                if (data.code_available) {
-                    if (data.service_match) {
-                        discount_btn.classList = 'btn btn-success mt-2'
-                        discount_btn.innerHTML = `
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M7.75 11.9999L10.58 14.8299L16.25 9.16992" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                کد صحیح
-                                                `
-                        document.getElementById("withoutDiscount").classList = "d-none"
-                        document.getElementById("withDiscount").classList = "d-block"
-                        document.getElementById('product_amount').innerHTML = data.product_amount
-                        document.getElementById('payable_amount').innerHTML = data.payable_amount
-                        document.getElementById('user_benefit').innerHTML = data.user_benefit
-                        document.getElementById('id_link').setAttribute('readonly', '');
-                        discount_info_box.classList.add("d-none");
-                        document.getElementById('discount_desc').innerHTML = "زمانی که کد تخفیف فعال شود،‌ تغییر فرم ممکن نیست. برای تغییر فرم لطفا صفحه را رفرش کنید"
-                    }
-                    else {
-                        discount_info_box.classList.add("errorlist")
-                        let service_name = document.getElementById("service_name").value
-                        discount_info_box.innerHTML = `کد تخفیف <span>${discount_code}</span> مربوط به سرویس <span>${service_name}</span> نیست`
-                    }
-                }
-                else {
-                    discount_info_box.classList.add("errorlist")
-                    discount_info_box.innerHTML = `کد وارد شده صحیح نیست`
-                }
-            }
-        })
-    })
 </script>
 
 {% endblock content %}

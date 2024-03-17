@@ -108,17 +108,6 @@
                 <span class="input-group-text" id="minimum_quantity">--</span>
             </div>
             {{ order_form.quantity.errors }}
-            <!-- enter dicount code if exist -->
-            <div class="input-group">
-                <div class="form-floating mt-2">
-                    {{ order_form.discount }}
-                    <label for="id_discount">{% trans 'Discount' %}:</label>
-                    {{ order_form.discount.errors }}
-                </div>
-                <button class="btn btn-warning mt-2" type="button" id="dashbord_check_discount">بررسی کد تخفیف</button>
-            </div>
-            <div class="form-text" id="discount_desc"></div>
-            <ul id="discount-info-text"></ul>
             <!-- show quantity of order and final payable amount in number and farsi -->
         </div>
         <div class="col-lg-5 col-12 mt-2 mt-lg-0">
@@ -137,44 +126,13 @@
                     </div>
                 </span>
                 <hr>
-                <span class="d-block" id="withoutDiscount">
+                <span>
                     <div class="row pb-2">
                         <div class="col">
                             <small>قابل پرداخت:&nbsp;</small>
                         </div>
                         <div class="col text-end">
                             <small id="total_price">--</small>&nbsp;<small>
-                                {% trans "Toman" %}
-                            </small>
-                        </div>
-                    </div>
-                </span>
-                <span class="d-none" id="withDiscount">
-                    <div class="row pb-2">
-                        <div class="col">
-                            <small>قیمت محصول:&nbsp;</small>
-                        </div>
-                        <div class="col text-end">
-                            <small id="product_amount">--</small>&nbsp;<small>{% trans "Toman" %}</small>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <small>مبلغ قابل پرداخت:&nbsp;</small>
-                        </div>
-                        <div class="col text-end">
-                            <small id="payable_amount">--</small>&nbsp;<small>{% trans "Toman" %}</small>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <small class="text-danger fw-bold" style="font-size: 16px !important;">سود شما از
-                                خرید:&nbsp;</small>
-                        </div>
-                        <div class="col text-end">
-                            <small id="user_benefit" class="text-danger fw-bold"
-                                style="font-size: 16px !important;">--</small>&nbsp;<small
-                                class="text-danger fw-bold" style="font-size: 16px !important;">
                                 {% trans "Toman" %}
                             </small>
                         </div>

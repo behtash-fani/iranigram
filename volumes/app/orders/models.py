@@ -88,24 +88,3 @@ class QueuedOrder(models.Model):
     class Meta:
         verbose_name = _('Queued Order')
         verbose_name_plural = _('Queued Orders')
-
-
-class Discount(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
-    service = models.ForeignKey(
-        Service, on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name=_('Service'))
-    code = models.CharField(max_length=20, blank=True, null=True, verbose_name=_("Code"))
-    value = models.IntegerField(verbose_name=_("Value"))
-    users = models.ManyToManyField(User, blank=True, related_name='users')
-    start_date = models.DateTimeField(
-        blank=True, null=True, verbose_name=_("Start Date"))
-    end_date = models.DateTimeField(
-        blank=True, null=True, verbose_name=_("End Date"))
-    is_active = models.BooleanField(default=True, verbose_name=_("Is Active"))
-
-    def __str__(self):
-        return f"{self.name}"
-    
-    class Meta:
-        verbose_name = _('Discount')
-        verbose_name_plural = _('Discounts')
