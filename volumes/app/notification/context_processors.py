@@ -11,10 +11,10 @@ def unread_notification_count(request):
 
         # Count unread notifications for different categories
         categories_counts = {
-            'discount': Notification.objects.filter(Q(category_id=5) & unread_filter & active_filter).count(),
+            'discount': Notification.objects.filter(Q(category_id=4) & unread_filter & active_filter).count(),
             'orders': Notification.objects.filter(Q(user=user) & unread_filter & active_filter).count(),
-            'services': Notification.objects.filter((Q(category_id=3) | Q(category_id=4)) & unread_filter & active_filter).count(),
-            'general': Notification.objects.filter(Q(category_id=2) & unread_filter & active_filter).count(),
+            'services': Notification.objects.filter((Q(category_id=2) | Q(category_id=3)) & unread_filter & active_filter).count(),
+            'general': Notification.objects.filter(Q(category_id=1) & unread_filter & active_filter).count(),
         }
 
         # Calculate total unread count

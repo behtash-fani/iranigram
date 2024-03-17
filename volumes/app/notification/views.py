@@ -11,26 +11,22 @@ class DiscountNotificationView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return super().get_queryset().filter(category__id=5, is_active=True)
+        return super().get_queryset().filter(category__id=4, is_active=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        notices_discount = Notification.objects.filter(category__id=5, is_active=True).order_by("-created_at")
-        notice_count = notices_discount.count()
+        notices_discount = Notification.objects.filter(category__id=4, is_active=True).order_by("-created_at")
+        paginator_discount = Paginator(notices_discount, self.paginate_by)
+        page_number = self.request.GET.get('page')
 
-        if notice_count < 10:
-            context["notices_discount"] = notices_discount
-        else:
-            paginator_discount = Paginator(notices_discount, self.paginate_by)
-            page = self.request.GET.get("page")
-            try:
-                notices_discount = paginator_discount.page(page)
-            except PageNotAnInteger:
-                notices_discount = paginator_discount.page(1)
-            except EmptyPage:
-                notices_discount = paginator_discount.page(paginator_discount.num_pages)
-            context["notices_discount"] = notices_discount
+        try:
+            notices_discount = paginator_discount.page(page_number)
+        except PageNotAnInteger:
+            notices_discount = paginator_discount.page(1)
+        except EmptyPage:
+            notices_discount = paginator_discount.page(paginator_discount.num_pages)
 
+        context["notices_orders"] = notices_discount
         return context
 
 
@@ -47,8 +43,8 @@ class OrdersNotificationView(ListView):
         context = super().get_context_data(**kwargs)
         notices_orders = Notification.objects.filter(
             user=self.request.user, is_active=True).order_by("-created_at")
-        user = self.request.user
-        context['notices_orders_count'] = Notification.objects.filter(Q(user=user) & ~Q(readers=user) & Q(is_active=True)).count()
+        # user = self.request.user
+        # context['notices_orders_count'] = Notification.objects.filter(Q(user=user) & ~Q(readers=user) & Q(is_active=True)).count()
         paginator_orders = Paginator(notices_orders, self.paginate_by)
         page_number = self.request.GET.get('page')
 
@@ -70,12 +66,12 @@ class ServicesNotificationView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return super().get_queryset().filter((Q(category__id=3) | Q(category__id=4)) & Q(is_active=True))
+        return super().get_queryset().filter((Q(category__id=2) | Q(category__id=3)) & Q(is_active=True))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         notices_services = Notification.objects.filter(
-            (Q(category__id=3) | Q(category__id=4)) & Q(is_active=True)).order_by("-created_at")
+            (Q(category__id=2) | Q(category__id=3)) & Q(is_active=True)).order_by("-created_at")
         paginator_services = Paginator(notices_services, self.paginate_by)
         page_number = self.request.GET.get('page')
 
@@ -98,11 +94,11 @@ class GeneralNotificationView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return super().get_queryset().filter(category__id=2, is_active=True)
+        return super().get_queryset().filter(category__id=1, is_active=True)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        notices_general = Notification.objects.filter(category__id=2, is_active=True).order_by("-created_at")
+        notices_general = Notification.objects.filter(category__id=1, is_active=True).order_by("-created_at")
         paginator_general = Paginator(notices_general, self.paginate_by)
         page_number = self.request.GET.get('page')
 

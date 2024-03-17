@@ -262,9 +262,9 @@ def finish_payment(request, payment_method=None, trans_type=None):
                 price = order.online_paid_amount
             transaction_detail = _("Online payment of the order fee")
         # send_submit_order_sms_task.delay(user.phone_number, order.order_code)
-        category_id = 6
+        category_id = 5
         category_instance = NotificationCategory.objects.get(id=category_id)
-        notice = Notification.objects.create(
+        Notification.objects.create(
             user=request.user,
             category=category_instance,
             title="ثبت سفارش",
