@@ -1,28 +1,26 @@
+from notification.models import Notification, NotificationCategory
 from accounts.forms import LoginWithOTPForm, VerifyCodeForm
 from accounts.mixins import BlockCheckLoginRequiredMixin
 from orders.forms import OrderForm, TemplateNewOrderForm
 from common.instagram.insta_info import InstagramAccInfo
 from transactions.models import Transactions as Trans
 from django.views.decorators.csrf import csrf_exempt
-# from orders.tasks import send_submit_order_sms_task
 from django.core.paginator import PageNotAnInteger
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
 from django.core.paginator import EmptyPage
 from django.core.paginator import Paginator
 from django.views.generic import ListView
-from orders.models import Order
 from common.otp_manager import OTPManager
 from django.contrib.auth import login
 from django.http import JsonResponse
-from service.models import Packages, Service
+from service.models import Packages
 from django.contrib import messages
 from accounts.models import User
 from django.urls import reverse
+from orders.models import Order
 from django.views import View
-from notification.models import Notification, NotificationCategory
 import logging
-import json
 
 
 otp_manager = OTPManager()
