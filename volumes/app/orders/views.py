@@ -72,8 +72,8 @@ class CustomerMixin:
                 order_item.wallet_paid_amount = user.balance
                 order_item.online_paid_amount = online_amount
                 order_item.save()
-                if online_amount < 500:
-                    online_amount = 500
+                # if online_amount < 1000:
+                #     online_amount = 1000
                 request.session["use_wallet_status"] = cd["use_wallet"]
                 request.session["amount_payable"] = online_amount
                 return redirect("payment_request")
@@ -121,11 +121,16 @@ class TemplateNewOrder(CustomerMixin, View):
         order_form = self.form_class
         otp_form = self.otp_form_class()
         verify_otp_form = self.verify_otp_form_class()
+        low_price = bool
+        if int(pkg.amount) < 1000:
+            low_price = True
         context = {
             "order_form": order_form,
             'otp_form': otp_form,
             'verify_otp_form': verify_otp_form,
-            "pkg": pkg
+            "pkg": pkg,
+            'low_price': low_price
+
         }
         return render(request, self.template_name, context)
 
@@ -168,13 +173,8 @@ def finish_payment(request, payment_method=None, trans_type=None):
         if payment_method == "wallet":
             price = order.wallet_paid_amount
             transaction_detail = _("Deduct the amount for placing the order")
-        else:
-            if order.online_paid_amount <= 500:
-                price = 500
-            else:
-                price = order.online_paid_amount
-            transaction_detail = _("Online payment of the order fee")
-        # send_submit_order_sms_task.delay(user.phone_number, order.order_code)
+        price = order.online_paid_amount
+        transaction_detail = _("Online payment of the order fee")
         category_id = 5
         category_instance = NotificationCategory.objects.get(id=category_id)
         Notification.objects.create(

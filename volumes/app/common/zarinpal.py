@@ -6,10 +6,14 @@ from orders.views import finish_payment
 from django.contrib import messages
 from django.conf import settings
 from orders.models import Order
+from decouple import config
 import requests
+import logging
 import json
 
-def payment_request(request):
+logger = logging.getLogger(__name__)
+
+def zarinpal_payment_request(request):
     phone = request.session["phone_number"]
     amount_payable = request.session["amount_payable"]
     CallbackURL = f"{settings.SITE_URL}/payment-verify/"
@@ -29,7 +33,6 @@ def payment_request(request):
         )
         if "meta" in req.json():
             if req.json()["meta"]["code"] == 404:
-                request.session["status"] = False
                 messages.error(
                     request,
                     _(
@@ -37,6 +40,7 @@ def payment_request(request):
                     ),
                     "danger",
                 )
+                request.session["status"] = False
                 return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         if req.status_code == 200:
             authority = req.json()["Authority"]
@@ -54,11 +58,12 @@ def payment_request(request):
         request.session["status"] = False
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     except Exception as e:
+        logger.error(e)
         request.session["status"] = False
         return redirect("callback_gateway")
 
 
-def payment_verify(request):
+def zarinpal_payment_verify(request):
     authority = request.GET.get("Authority")
     online_paid_amount = request.session.get("amount_payable")
     payment_purpose = request.session.get("payment_purpose")
@@ -82,16 +87,28 @@ def payment_verify(request):
             request.session["status"] = True
             user = request.user
             if payment_purpose == "pay_order_online":
-                if "use_wallet_status" in request.session and request.session["use_wallet_status"]:
+                if online_paid_amount < 1000:
+                    online_paid_amount = 1000
                     order_id = request.session["order_id"]
                     order = Order.objects.get(id=order_id)
-                    user.balance = (online_paid_amount+user.balance) - order.amount
+                    additional_amount = online_paid_amount - order.amount
+                    user.balance += additional_amount
                     user.save()
+                    Trans.objects.create(user=user,
+                                        type="add_fund",
+                                        price=additional_amount,
+                                        balance=user.balance,
+                                        payment_type="online",
+                                        details="مبلغ اضافه پرداخت شده",
+                                        order_code="--",
+                                        payment_gateway=_('Vandar'),
+                                        ip=request.META.get('REMOTE_ADDR'))
                 finish_payment(
                     request,
                     payment_method="online",
                     trans_type="payment_for_order"
                 )
+                request.session["status"] = True
                 return redirect("callback_gateway")
             elif payment_purpose == "add_fund_wallet":
                 user.balance += online_paid_amount
@@ -102,8 +119,10 @@ def payment_verify(request):
                                             balance=user.balance,
                                             payment_type="online",
                                             details=_('Increase wallet credit'),
+                                            order_code="--",
                                             payment_gateway=_('Zarinpal'),
                                             ip=request.META.get('REMOTE_ADDR'))
+                request.session["status"] = True
                 return redirect('callback_gateway')
             else:
                 context = {"payment_purpose": "error"}

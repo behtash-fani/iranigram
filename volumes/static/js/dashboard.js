@@ -189,6 +189,9 @@ if (id_quantity) {
     let min = parseInt(event.target.min);
     if (!isNaN(product_amount)) {
       if (!isNaN(quantity)) {
+        if (parseInt(product_amount * quantity) < 1000){
+          document.getElementById("amount-warning").classList = "d-block text-danger-emphasis pt-2"
+        }
         if (parseInt(event.target.value) > max) {
           event.target.value = max;
           total_price.innerHTML = "";
