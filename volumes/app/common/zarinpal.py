@@ -87,7 +87,7 @@ def zarinpal_payment_verify(request):
             request.session["status"] = True
             user = request.user
             if payment_purpose == "pay_order_online":
-                if online_paid_amount < 1000:
+                if int(online_paid_amount) < 1000:
                     online_paid_amount = 1000
                     order_id = request.session["order_id"]
                     order = Order.objects.get(id=order_id)
