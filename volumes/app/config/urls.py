@@ -58,7 +58,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 
-print(urlpatterns)
+
 setting = Setting.objects.get(id=1)
 if setting.active_payment_gateway == 'zarinpal':
     urlpatterns += path('payment-request/', zarinpal_payment_request, name='payment_request'),
