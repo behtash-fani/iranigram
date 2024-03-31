@@ -49,7 +49,6 @@ class HomeView(View):
                 enable=True
             ).order_by('priority')
             view_packages[tag] = packages
-        posts = Post.objects.all()[0:4]
         comments = Comment.objects.filter(
             page_id="home", status="approved").order_by('-created_at')
 
@@ -61,7 +60,6 @@ class HomeView(View):
             'flw_packages': flw_packages,
             'like_packages': like_packages,
             'view_packages': view_packages,
-            'posts': posts,
             'comments': comments,
             'page_id': 'home'
         }
