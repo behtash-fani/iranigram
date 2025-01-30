@@ -1,4 +1,4 @@
-Sitemap: https://iranigram.com/sitemap.xml
+Sitemap: https://smmpanel.com/sitemap.xml
 
 User-agent: *
 Disallow: /igadmini/
